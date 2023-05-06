@@ -11,7 +11,7 @@ const listDoctor = [
   { id: 4, doctor: "Thuy", avatar: avatarDoctor, spec: "" },
   { id: 5, doctor: "Dat Ho", avatar: avatarDoctor, spec: "" }
 ];
-const CreatePortalDoctor = ({ visible, onClose, handleClose, changeDoctorList, spec }) => {
+const CreatePortalDoctor = ({ visible, onClose, handleClose, changeDoctorList, spec,doctor }) => {
   const [doctorList, setDoctorList] = useState(listDoctor)
   const [doctorListSearch, setDoctorListSearch] = useState()
 
@@ -67,6 +67,7 @@ const CreatePortalDoctor = ({ visible, onClose, handleClose, changeDoctorList, s
             ></div>
             <div className="bg-white z-50 p-[2rem_3rem] shadow-md content absolute rounded-lg max-w-[70rem] w-full">
               <PopupDoctor
+              doctor={doctor}
                 handleSearchInputChange={handleSearchInputChange}
                 changeDoctorList={changeDoctorList}
                 listData={doctorList}

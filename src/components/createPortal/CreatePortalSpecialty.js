@@ -10,7 +10,7 @@ const list = [
   { id: 4, specialty: "Endocrinology" },
   { id: 5, specialty: "Cardiology" },
 ];
-const CreatePortalSpecialty = ({ visible, onClose, handleClose, changeSpecList }) => {
+const CreatePortalSpecialty = ({ visible, onClose, handleClose, changeSpecList, spec }) => {
   const [specList, setSpecList] = useState(list)
   const handleSearchInputChange = (event) => {
     let searchInput = event.target.value;
@@ -40,6 +40,7 @@ const CreatePortalSpecialty = ({ visible, onClose, handleClose, changeSpecList }
             ></div>
             <div className="bg-white z-50 p-[2rem_3rem] shadow-md content absolute rounded-lg max-w-[70rem] w-full">
               <PopupSpec
+              spec={spec}
                 handleSearchInputChange={handleSearchInputChange}
                 changeSpecList={changeSpecList}
                 listData={specList}

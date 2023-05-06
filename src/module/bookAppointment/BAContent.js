@@ -353,6 +353,7 @@ const BAContent = () => {
           handleClose={() => setShowSysptom(false)}
         ></CreatePortalSysptom>
         <CreatePortalSpecialty
+          spec={spec}
           changeSpecList={changeSpecList}
           open={showSpec}
           onClose={() => setShowSpec(false)}
@@ -360,6 +361,7 @@ const BAContent = () => {
           handleClose={() => setShowSpec(false)}
         ></CreatePortalSpecialty>
         <CreatePortalDoctor
+          doctor={doctor}
           spec={spec}
           changeDoctorList={changeDoctorList}
           open={showDoctor}
@@ -477,7 +479,7 @@ const BAContent = () => {
                 onClick={() => setShowSysptom(true)}
               ></SelectCardSymtom>
               <SelectCardSpec
-              spec = {spec}
+                spec={spec}
                 onClick={() => setShowSpec(true)}
                 styleIcon="text-[#855FCE] bg-[#855FCE]"
                 icon={<IconSpecialty />}
@@ -486,7 +488,7 @@ const BAContent = () => {
               ></SelectCardSpec>
 
               <SelectCardDoctor
-              doctor={doctor}
+                doctor={doctor}
                 onClick={() => setShowDoctor(true)}
                 styleIcon="text-[#2F80ED] bg-[#2F80ED]"
                 icon={<IconDoctor />}
@@ -500,12 +502,14 @@ const BAContent = () => {
               <div className="grid grid-cols-3 gap-[4rem]">
                 {
                   (symtomArr.length <= 0) ? <></> :
-                    <Booking icon={<IconSysptomvl />} value={symtomArr}></Booking>
+                    <Booking icon={<IconSysptomvl />} value={symtomArr} ></Booking>
 
                 }
                 {
                   (spec.length <= 0) ? <></> :
-                    <Booking icon={<IconPolyclinicvl />} value={spec}></Booking>
+                    <>
+                      <Booking icon={<IconPolyclinicvl />} value={spec}></Booking> ,
+                    </>
                 }
                 {
                   (doctor.length <= 0) ?

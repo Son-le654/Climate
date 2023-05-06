@@ -32,7 +32,6 @@ const PopupSymptom = ({ header, describe, handleClose, listData, handleSearchInp
         <div className="overflow-auto gap-[0.8rem] max-h-[40rem] mt-[2.4rem]">
           {listData?.length > 0 &&
             listData.map((item) => {
-
               return (
                 (symtomArr.includes(item.symtom)) == true ?
                   <div
@@ -43,7 +42,6 @@ const PopupSymptom = ({ header, describe, handleClose, listData, handleSearchInp
                   >
                     {item.symtom}
                   </div>
-
                   :
                   <div
                     onClick={() => changeSymtomList(item)}
@@ -53,8 +51,6 @@ const PopupSymptom = ({ header, describe, handleClose, listData, handleSearchInp
                   >
                     {item.symtom}
                   </div>
-
-
               );
             }
             )}
