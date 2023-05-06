@@ -108,6 +108,8 @@ const BAContent = () => {
     console.log(event.target.checked);
   };
 
+  const [numberOfSym, setNumberOfSym] = useState(0);
+
   const [fullName, setFullName] = useState([
     {
       fname: ''
@@ -135,7 +137,6 @@ const BAContent = () => {
   const [showPlace, setShowPlace] = useState(false);
   const [showMore, setShowMore] = useState(true);
 
-  const [placeArr, setPlaceArr] = useState([]);
   const [symtomArr, setSymtomArr] = useState([]);
   const [spec, setSpec] = useState("");
   const [doctor, setDoctor] = useState("");
@@ -239,9 +240,20 @@ const BAContent = () => {
   const addSymtomItem = (item) => {
     setSymtomArr([...symtomArr, item.symtom]);
 
+
+    // setShowSysptom(false);
+    // setShowSpec(true)
+  }
+
+  const nextSpec = () => {
+
     setShowSysptom(false);
     setShowSpec(true)
   }
+
+  useEffect(() => {
+    setNumberOfSym(symtomArr.length)
+  }, [symtomArr])
 
   const deleteSymtomItem = (index) => {
     const newItems = [...symtomArr];
@@ -330,6 +342,16 @@ const BAContent = () => {
           visible={showPlace}
           handleClose={() => setShowPlace(false)}
         ></CreatePortalPlace>
+        <CreatePortalSysptom
+          symtomArr={symtomArr}
+          nextSpec={nextSpec}
+          numberOfSym={numberOfSym}
+          changeSymtomList={changeSymtomList}
+          open={showSysptom}
+          onClose={() => setShowSysptom(false)}
+          visible={showSysptom}
+          handleClose={() => setShowSysptom(false)}
+        ></CreatePortalSysptom>
         <CreatePortalSpecialty
           changeSpecList={changeSpecList}
           open={showSpec}
@@ -337,13 +359,6 @@ const BAContent = () => {
           visible={showSpec}
           handleClose={() => setShowSpec(false)}
         ></CreatePortalSpecialty>
-        <CreatePortalSysptom
-          changeSymtomList={changeSymtomList}
-          open={showSysptom}
-          onClose={() => setShowSysptom(false)}
-          visible={showSysptom}
-          handleClose={() => setShowSysptom(false)}
-        ></CreatePortalSysptom>
         <CreatePortalDoctor
           spec={spec}
           changeDoctorList={changeDoctorList}
@@ -454,6 +469,7 @@ const BAContent = () => {
             <div className="flex items-center gap-[59px] justify-between">
 
               <SelectCardSymtom
+                numberOfSym={numberOfSym}
                 styleIcon="text-[#27AE60] bg-[#27AE60]"
                 icon={<IconSysptom />}
                 title="Sysptom"
@@ -461,6 +477,7 @@ const BAContent = () => {
                 onClick={() => setShowSysptom(true)}
               ></SelectCardSymtom>
               <SelectCardSpec
+              spec = {spec}
                 onClick={() => setShowSpec(true)}
                 styleIcon="text-[#855FCE] bg-[#855FCE]"
                 icon={<IconSpecialty />}
@@ -469,6 +486,7 @@ const BAContent = () => {
               ></SelectCardSpec>
 
               <SelectCardDoctor
+              doctor={doctor}
                 onClick={() => setShowDoctor(true)}
                 styleIcon="text-[#2F80ED] bg-[#2F80ED]"
                 icon={<IconDoctor />}

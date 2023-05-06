@@ -2,7 +2,7 @@ import React from "react";
 import ButtonIcon from "../../../components/button/ButtonIcon";
 import IconRight from "../../../icon/IconRight";
 
-const SelectCardDoctor = ({ icon, title, describe, onClick, styleIcon }) => {
+const SelectCardDoctor = ({ icon, title, describe, onClick, styleIcon, doctor }) => {
   return (
     <div className="p-[32px] rounded-[24px] shadow-lg flex-1">
       <div
@@ -23,7 +23,11 @@ const SelectCardDoctor = ({ icon, title, describe, onClick, styleIcon }) => {
         className="mt-[2.4rem] w-full justify-center"
         iconRight={<IconRight />}
       >
-        Select
+        {doctor.length > 0 ?
+          <>Selected</>
+          :
+          <>Select</>
+        }
       </ButtonIcon>
     </div>
   );

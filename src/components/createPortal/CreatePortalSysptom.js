@@ -9,9 +9,13 @@ const list = [
   { id: 3, symtom: "Sneeze" },
   { id: 4, symtom: "Stomachache" },
   { id: 5, symtom: "Dizziness" },
+  { id: 5, symtom: "Chest Pain" },
+  { id: 5, symtom: "Difficulty Breathing" },
 ];
-const CreatePortalSysptom = ({ visible, onClose, handleClose, changeSymtomList }) => {
+const CreatePortalSysptom = ({ visible, onClose, handleClose, changeSymtomList, numberOfSym, nextSpec, symtomArr }) => {
   const [symptomList, setSymtomList] = useState(list)
+
+
 
   const handleSearchInputChange = (event) => {
     let searchInput = event.target.value;
@@ -41,7 +45,10 @@ const CreatePortalSysptom = ({ visible, onClose, handleClose, changeSymtomList }
             ></div>
             <div className="bg-white z-50 p-[2rem_3rem] shadow-md content absolute rounded-lg max-w-[70rem] w-full">
               <PopupSymptom
-              handleSearchInputChange={handleSearchInputChange}
+              symtomArr={symtomArr}
+                nextSpec={nextSpec}
+                numberOfSym={numberOfSym}
+                handleSearchInputChange={handleSearchInputChange}
                 changeSymtomList={changeSymtomList}
                 listData={symptomList}
                 handleClose={onClose}
