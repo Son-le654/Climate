@@ -507,9 +507,7 @@ const BAContent = () => {
                 }
                 {
                   (spec.length <= 0) ? <></> :
-                    <>
-                      <Booking icon={<IconPolyclinicvl />} value={spec}></Booking> ,
-                    </>
+                    <Booking icon={<IconPolyclinicvl />} value={spec}></Booking>
                 }
                 {
                   (doctor.length <= 0) ?
