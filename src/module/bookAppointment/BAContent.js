@@ -316,6 +316,7 @@ const BAContent = () => {
   }
 
   const bookAppointment = () => {
+    
     registers.name = fullName.fname;
     registers.phone = phone.pnum;
     registers.birthday = birthday.bday;
@@ -328,6 +329,20 @@ const BAContent = () => {
     registers.bookDate = value;
     registers.bookTime = hour;
     registers.description = description.ds;
+
+    const currentDate = new Date();
+
+    if(registers.name == undefined || registers.phone ==undefined || registers.birthday == undefined || registers.gender == "" ||
+      registers.bookPlace == "" || registers.bookTime =="" || registers.symtom.length <=0 || registers.spec == "" || registers.doctor ==""
+      ){
+        alert("Please fill all field");
+        return;
+      }
+
+      if(currentDate > registers.bookDate){
+        alert("book date must be later than today");
+        return;
+      }
 
     console.log(registers);
   }
@@ -502,8 +517,11 @@ const BAContent = () => {
               <div className="grid grid-cols-3 gap-[4rem]">
                 {
                   (symtomArr.length <= 0) ? <></> :
-                    <Booking icon={<IconSysptomvl />} value={symtomArr} ></Booking>
-
+                  
+                    (symtomArr.length > 2) ?
+                      <Booking icon={<IconSysptomvl />} value={symtomArr[0] + "; " + symtomArr[1] + ";" + "......"}></Booking>
+                      :
+                      <Booking icon={<IconSysptomvl />} value={symtomArr}></Booking>
                 }
                 {
                   (spec.length <= 0) ? <></> :

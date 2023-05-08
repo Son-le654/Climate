@@ -4,13 +4,13 @@ import { CSSTransition } from "react-transition-group";
 import Popup from "../propup/Popup";
 import PopupSymptom from "../propup/PopupSymptom";
 const list = [
-  { id: 1, symtom: "Cough" },
+  { id: 1, symtom: "Cough " },
   { id: 2, symtom: "Headache " },
-  { id: 3, symtom: "Sneeze" },
-  { id: 4, symtom: "Stomachache" },
-  { id: 5, symtom: "Dizziness" },
-  { id: 5, symtom: "Chest Pain" },
-  { id: 5, symtom: "Difficulty Breathing" },
+  { id: 3, symtom: "Sneeze " },
+  { id: 4, symtom: "Stomachache " },
+  { id: 5, symtom: "Dizziness " },
+  { id: 5, symtom: "Chest Pain " },
+  { id: 5, symtom: "Difficulty Breathing " },
 ];
 const CreatePortalSysptom = ({ visible, onClose, handleClose, changeSymtomList, numberOfSym, nextSpec, symtomArr }) => {
   const [symptomList, setSymtomList] = useState(list)
