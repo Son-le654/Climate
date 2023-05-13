@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import Input from "../../components/input/Input";
 import DateTimePicker from "react-datetime-picker";
+import Input from "../../components/input/Input";
+import InputBirthDay from "../../components/input/InputBirthDay";
 // import { useForm } from "react-hook-form";
 // import { yupResolver } from "@hookform/resolvers/yup";
 // import * as yup from "yup";
 
-const RegisterStep1 = ({ control }) => {
+const RegisterStep1 = ({ control, handleChangeName }) => {
   const [value, onChange] = useState(new Date());
   return (
     <div className="p-[9rem_154px] gap-[76px] flex">
@@ -22,19 +23,18 @@ const RegisterStep1 = ({ control }) => {
           control={control}
           name="last"
         ></Input>
-        <div className="date_picker">
-          <DateTimePicker
-            clearIcon={null}
-            format="dd/MM/yyyy"
-            onChange={onChange}
-            value={value}
-          />
-        </div>
+        <InputBirthDay
+        // handleChangeName={handleChangeName}
+         placeholder="BirthDate *"
+         type="date"
+         control={control}
+         name="bdate">
+        </InputBirthDay>
       </div>
       <div className="flex flex-col flex-1 gap-[32px]">
         <Input
-          placeholder="Your Email or mobile phone *"
-          type="text"
+          placeholder="Your Email*"
+          type="email"
           control={control}
           name="email"
         ></Input>
@@ -46,9 +46,9 @@ const RegisterStep1 = ({ control }) => {
         ></Input>
         <Input
           placeholder="Social Security Number *"
-          type="text"
+          type="number"
           control={control}
-          name="ocialsecurity"
+          name="socialsecurity"
         ></Input>
       </div>
     </div>

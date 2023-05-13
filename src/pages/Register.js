@@ -8,6 +8,8 @@ import ArrowRight from "../icon/ArrowRight";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const RegisterStep = [
   { id: 1, title: "Your Profile", step: <RegisterStep1 /> },
@@ -16,7 +18,7 @@ const RegisterStep = [
 const schame = yup.object({
   first: yup.string().required("Vui lòng nhập first name"),
   last: yup.string().required("Vui lòng nhập last name"),
-  ocialsecurity: yup.string().required("Vui lòng nhập ocial security number"),
+  socialsecurity: yup.string().required("Vui lòng nhập ocial security number"),
   email: yup.string().required("Vui lòng nhập email của bạn "),
   // .min(10, "không được nhập dưới 10 ký tự")
   // .max(32, "Không nhập quá 32 ký tự")
@@ -35,6 +37,21 @@ const schame = yup.object({
   // ),
 });
 const Register = () => {
+
+
+  // const [data, setData] = useState([])
+
+  // useEffect(() => { 
+  //   const fetchData = async () => {
+  //     const result = await axios(
+  //       'https://fakestoreapi.com/users'
+  //     );
+  //     setData(result.data);
+  //   };
+  //   fetchData();
+  // }, []);
+  // console.log(data);
+
   const {
     handleSubmit,
     control,
@@ -45,27 +62,40 @@ const Register = () => {
       first: "",
       last: "",
       password: "",
-      ocialsecurity: "",
+      socialsecurity: "",
       email: "",
+      bdate: ""
     },
     resolver: yupResolver(schame),
   });
-  console.log("errors: ", errors);
+  // console.log("errors: ", errors);
   const { step, setStep } = useStep();
 
-  const handleRegister = (values) => {
+  const handleRegister = async (values) => {
     if (step === 0) {
       setStep(step + 1);
     }
     if (step === 1) {
       //handle register
+      console.log(values);
+
+      const currentDate = new Date();
+      const birthdate = new Date(Date.parse(values.bdate));
+      if (currentDate <= birthdate) {
+        alert("Birthdate must be lower or equal than today");
+        return;
+      }
+
+      const response = await axios.post('/api/signup', { values });
+      console.log(response);
+
     }
   };
   return (
     <LayoutSign
       header="Create New Account"
       childrenStyle="max-w-[1200px]"
-      // nextStep={<NextStep />}
+    // nextStep={<NextStep />}
     >
       <form autoComplete="off" onSubmit={handleSubmit(handleRegister)}>
         <div className="overflow-hidden bg-white rounded-3xl">
@@ -74,24 +104,21 @@ const Register = () => {
               RegisterStep.map((item, index) => {
                 return (
                   <div
-                    className={`flex flex-1 first:rounded-[0px_48px_48px_0px] last:rounded-[48px_0px_0px_48px]  items-center  justify-center gap-4 rounded-full p-[21px] ${
-                      index === step
-                        ? "bg-bgRegister text-textColor"
-                        : "text-white opacity-20"
-                    }`}
+                    className={`flex flex-1 first:rounded-[0px_48px_48px_0px] last:rounded-[48px_0px_0px_48px]  items-center  justify-center gap-4 rounded-full p-[21px] ${index === step
+                      ? "bg-bgRegister text-textColor"
+                      : "text-white opacity-20"
+                      }`}
                     key={item.id}
                   >
                     <span
-                      className={`text-[20px]  w-[42px] rounded-full flex items-center justify-center h-[42px] ${
-                        index === step ? "bg-white" : "bg-textColor text-white"
-                      }`}
+                      className={`text-[20px]  w-[42px] rounded-full flex items-center justify-center h-[42px] ${index === step ? "bg-white" : "bg-textColor text-white"
+                        }`}
                     >
                       {item.id}
                     </span>
                     <span
-                      className={`text-2xl ${
-                        index === step ? null : "text-textColor"
-                      }`}
+                      className={`text-2xl ${index === step ? null : "text-textColor"
+                        }`}
                     >
                       {item.title}
                     </span>

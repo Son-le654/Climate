@@ -255,7 +255,12 @@ const BAContent = () => {
     setNumberOfSym(symtomArr.length)
   }, [symtomArr])
 
-  const deleteSymtomItem = (index) => {
+  const deleteSymtomItem = (sym) => {
+    // console.log(symtomArr);
+    // console.log(sym);
+    const index = symtomArr.findIndex((item) => item === sym.symtom);
+
+    // console.log(index);
     const newItems = [...symtomArr];
     newItems.splice(index, 1);
     setSymtomArr(newItems);
@@ -316,7 +321,7 @@ const BAContent = () => {
   }
 
   const bookAppointment = () => {
-    
+
     registers.name = fullName.fname;
     registers.phone = phone.pnum;
     registers.birthday = birthday.bday;
@@ -332,18 +337,17 @@ const BAContent = () => {
 
     const currentDate = new Date();
 
-    if(registers.name == undefined || registers.phone ==undefined || registers.birthday == undefined || registers.gender == "" ||
-      registers.bookPlace == "" || registers.bookTime =="" || registers.symtom.length <=0 || registers.spec == "" || registers.doctor ==""
-      ){
-        alert("Please fill all field");
-        return;
-      }
+    if (registers.name === undefined || registers.phone === undefined || registers.birthday === undefined || registers.gender === "" ||
+      registers.bookPlace === "" || registers.bookTime === "" || registers.symtom.length <= 0 || registers.spec === "" || registers.doctor === ""
+    ) {
+      alert("Please fill all field");
+      return;
+    }
 
-      if(currentDate > registers.bookDate){
-        alert("book date must be later than today");
-        return;
-      }
-
+    if (currentDate > registers.bookDate) {
+      alert("book date must be later than today");
+      return;
+    }
     console.log(registers);
   }
 
@@ -368,6 +372,7 @@ const BAContent = () => {
           handleClose={() => setShowSysptom(false)}
         ></CreatePortalSysptom>
         <CreatePortalSpecialty
+          symtomArr={symtomArr}
           spec={spec}
           changeSpecList={changeSpecList}
           open={showSpec}
@@ -517,7 +522,7 @@ const BAContent = () => {
               <div className="grid grid-cols-3 gap-[4rem]">
                 {
                   (symtomArr.length <= 0) ? <></> :
-                  
+
                     (symtomArr.length > 2) ?
                       <Booking icon={<IconSysptomvl />} value={symtomArr[0] + "; " + symtomArr[1] + ";" + "......"}></Booking>
                       :

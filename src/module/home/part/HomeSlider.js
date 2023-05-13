@@ -1,12 +1,13 @@
 import React from "react";
 import Slider from "react-slick";
+import sliderimg from "../../../Images/Group 9547.png";
 import {
   ArrowNextSlider,
   ArrowPrevSlider,
 } from "../../../components/ArrowSlider/ArrowSlider";
 const arrSlider = [
   {
-    url: "https://png.pngtree.com/thumb_back/fw800/back_pic/03/69/56/2357b5179649523.jpg",
+    url: sliderimg,
   },
   {
     url: "https://png.pngtree.com/thumb_back/fw800/background/20191207/pngtree-white-christmas-background-with-3d-white-balls-glass-spheres-round-shapes-image_323487.jpg",

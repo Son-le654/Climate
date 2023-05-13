@@ -2,7 +2,7 @@ import IconClose from "../../icon/IconClose";
 import IconSearch from "../../icon/IconSearch";
 
 const PopupPlace = ({ header, describe, handleClose, listData, changePlaceList, handleSearchInputChange }) => {
-  console.log("listData: ", listData);
+  // console.log("listData: ", listData);
   return (
     <div className="p-[3.2rem_7.4rem] rounded-[1.6rem] bg-white">
       <div className="flex items-center justify-between w-full">

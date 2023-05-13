@@ -4,7 +4,6 @@ import Button from "../button/Button";
 
 const PopupSymptom = ({ header, describe, handleClose, listData, handleSearchInputChange
   , changeSymtomList, numberOfSym, nextSpec, symtomArr }) => {
-  console.log("symtomarr: ", symtomArr.includes("Sneeze"));
   return (
     <div className="p-[3.2rem_7.4rem] rounded-[1.6rem] bg-white">
       <div className="flex items-center justify-between w-full">

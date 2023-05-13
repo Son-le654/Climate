@@ -1,13 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import LayoutSign from "../layout/LayoutSign";
 import Input from "../components/input/Input";
 import Button from "../components/button/Button";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../components/Logo/Logo";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+import InputUsername from "../components/input/InputUsername";
+import InputPassword from "../components/input/InputPassword";
+
 const LoginPage = () => {
   const navigate = useNavigate();
   const { control } = useForm();
+  const [data, setData] = useState([])
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+
+  // useEffect(() => { 
+  //   const fetchData = async () => {
+  //     const result = await axios(
+  //       'https://fakestoreapi.com/users'
+  //     );
+  //     setData(result.data);
+  //   };
+  //   fetchData();
+  // }, []);
+  // console.log(data);
+
+  const handleChangeUsername = (event) => {
+    const userinput = event.target.value;
+    // console.log(userinput);
+    setUsername(event.target.value);
+  }
+  const handleChangePassword = (event) => {
+    setPassword(event.target.value);
+    // console.log(password);
+  }
+
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const response = await axios.post('/api/login', { username, password });
+    console.log(response);
+  }
+
   return (
     <LayoutSign
       header="Login"
@@ -18,20 +55,24 @@ const LoginPage = () => {
           <Logo></Logo>
           <span className="text-[9px] text-gray2">Clinic Management</span>
         </div>
-        <form autoComplete="off" className="mt-9">
-          <Input
+        <form autoComplete="off" className="mt-9" onSubmit={handleSubmit}>
+          <InputUsername
+            handleChangeUsername={handleChangeUsername}
             type="text"
             placeholder="Username or Email"
             control={control}
             name="email"
-          ></Input>
-          <Input
+            username={username}
+          ></InputUsername>
+          <InputPassword
+          handleChangePassword={handleChangePassword}
+          password={password}
             name="password"
             type="password"
             className="mt-8"
             placeholder="Password"
             control={control}
-          ></Input>
+          ></InputPassword>
           <div className="flex justify-between mt-[10px]">
             <div className="flex items-center gap-1 text-textColor">
               <input
@@ -47,9 +88,10 @@ const LoginPage = () => {
             </div>
           </div>
           <Button
-            onClick={() => {
-              navigate("/");
-            }}
+            // onClick={() => {
+            //   navigate("/");
+            // }}
+
             className="mt-8"
             type="submit"
           >

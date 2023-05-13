@@ -5,13 +5,13 @@ import avatarDoctor from "../../Images/avatar.png";
 import PopupDoctor from "../propup/PopupDoctor";
 
 const listDoctor = [
-  { id: 1, doctor: "Nguyen Hung", avatar: avatarDoctor, spec: "General suraery" },
-  { id: 2, doctor: "NC Phong ", avatar: avatarDoctor, spec: "General suraery" },
-  { id: 3, doctor: "The Son", avatar: avatarDoctor, spec: "Dematology" },
-  { id: 4, doctor: "Thuy", avatar: avatarDoctor, spec: "" },
-  { id: 5, doctor: "Dat Ho", avatar: avatarDoctor, spec: "" }
+  { id: 1, doctor: "Nguyen Hung", avatar: avatarDoctor, spec: "General suraery, Dematology" },
+  { id: 2, doctor: "NC Phong ", avatar: avatarDoctor, spec: "General suraery, Dermatology" },
+  { id: 3, doctor: "The Son", avatar: avatarDoctor, spec: "Otorhinolaryngology, Internal Medicine,Musculoskeletal" },
+  { id: 4, doctor: "Thuy", avatar: avatarDoctor, spec: "Eyes specialist" },
+  { id: 5, doctor: "Dat Ho", avatar: avatarDoctor, spec: "Neurology" }
 ];
-const CreatePortalDoctor = ({ visible, onClose, handleClose, changeDoctorList, spec,doctor }) => {
+const CreatePortalDoctor = ({ visible, onClose, handleClose, changeDoctorList, spec, doctor }) => {
   const [doctorList, setDoctorList] = useState(listDoctor)
   const [doctorListSearch, setDoctorListSearch] = useState()
 
@@ -67,7 +67,7 @@ const CreatePortalDoctor = ({ visible, onClose, handleClose, changeDoctorList, s
             ></div>
             <div className="bg-white z-50 p-[2rem_3rem] shadow-md content absolute rounded-lg max-w-[70rem] w-full">
               <PopupDoctor
-              doctor={doctor}
+                doctor={doctor}
                 handleSearchInputChange={handleSearchInputChange}
                 changeDoctorList={changeDoctorList}
                 listData={doctorList}
