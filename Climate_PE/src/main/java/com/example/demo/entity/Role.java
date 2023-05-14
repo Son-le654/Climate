@@ -62,7 +62,9 @@ public class Role  implements Serializable{
 		this.name = name;
 		this.doctors = doctors;
 	}
-
+	 public Role() {
+	        // constructor mặc định không có tham số
+	    }
 	
 
     

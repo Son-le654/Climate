@@ -33,17 +33,18 @@ public class DoctorController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    @PostMapping(path = "/login", consumes = {MediaType.APPLICATION_JSON_VALUE,"application/json"})
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest,@PathVariable("config") final String config,final String configuration,
-            @RequestPart(value = "file") final MultipartFile aFile) {
+    @PostMapping(path = "/login", consumes = {"multipart/form-data"})
+    public ResponseEntity<?> login(@RequestParam("email") String email,
+                                    @RequestParam("password") String password) {
+
         try {
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+                    new UsernamePasswordAuthenticationToken(email, password));
         } catch (BadCredentialsException e) {
             throw new BadCredentialsException("Incorrect email or password.");
         }
 
-        final UserDetails userDetails = doctorService.loadUserByUsername(loginRequest.getEmail());
+        final UserDetails userDetails = doctorService.loadUserByUsername(email);
         final String token = jwtTokenUtil.generateToken(userDetails);
         return ResponseEntity.ok(new JwtResponse(token));
     }

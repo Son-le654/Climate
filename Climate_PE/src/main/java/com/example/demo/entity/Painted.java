@@ -94,5 +94,8 @@ public class Painted  implements Serializable{
 		this.birthdate = birthdate;
 		this.registrationDate = registrationDate;
 	}
+	public Painted() {
+        // constructor mặc định không có tham số
+    }
     
 }

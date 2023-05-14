@@ -23,8 +23,6 @@ public class DoctorService implements UserDetailsService {
     @Autowired
     private DoctorRepository doctorRepository;
 
-    @Autowired
-    private RoleRepository roleRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -38,17 +36,5 @@ public class DoctorService implements UserDetailsService {
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Role role) {
         return Collections.singleton(new SimpleGrantedAuthority(role.getName()));
-    }
-
-    public Doctor save(Doctor doctor) {
-    	Role role = roleRepository.findByName("ROLE_USER");
-        doctor.setRole(role);
-        return doctorRepository.save(doctor);
-    }
-    public Doctor getDoctorByEmail(String email) {
-        return doctorRepository.findByEmail(email);
-    }
-    public Optional<Doctor> getDoctorByID(int id) {
-        return doctorRepository.findById(id);
     }
 }

@@ -204,7 +204,9 @@ public class Doctor implements Serializable {
 		this.commandFlags = commandFlags;
 		this.role = role;
 	}
-
+	 public Doctor() {
+	        // constructor mặc định không có tham số
+	    }
 	
 
     

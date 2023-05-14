@@ -9,12 +9,13 @@ import axios from "axios";
 import InputUsername from "../components/input/InputUsername";
 import InputPassword from "../components/input/InputPassword";
 
-const LoginPage = () => {
+const LoginPage = () =>
+{
   const navigate = useNavigate();
   const { control } = useForm();
-  const [data, setData] = useState([])
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [ data, setData ] = useState( [] )
+  const [ email, setUsername ] = useState( '' );
+  const [ password, setPassword ] = useState( '' );
 
 
   // useEffect(() => { 
@@ -28,21 +29,24 @@ const LoginPage = () => {
   // }, []);
   // console.log(data);
 
-  const handleChangeUsername = (event) => {
+  const handleChangeUsername = ( event ) =>
+  {
     const userinput = event.target.value;
     // console.log(userinput);
-    setUsername(event.target.value);
+    setUsername( event.target.value );
   }
-  const handleChangePassword = (event) => {
-    setPassword(event.target.value);
+  const handleChangePassword = ( event ) =>
+  {
+    setPassword( event.target.value );
     // console.log(password);
   }
 
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async ( event ) =>
+  {
     event.preventDefault();
-    const response = await axios.post('/api/login', { username, password });
-    console.log(response);
+    const response = await axios.post( 'http://localhost:8080/api/login', { email, password } );
+    console.log( response );
   }
 
   return (
@@ -55,23 +59,23 @@ const LoginPage = () => {
           <Logo></Logo>
           <span className="text-[9px] text-gray2">Clinic Management</span>
         </div>
-        <form autoComplete="off" className="mt-9" onSubmit={handleSubmit}>
+        <form autoComplete="off" className="mt-9" onSubmit={ handleSubmit }>
           <InputUsername
-            handleChangeUsername={handleChangeUsername}
+            handleChangeUsername={ handleChangeUsername }
             type="text"
             placeholder="Username or Email"
-            control={control}
+            control={ control }
             name="email"
-            username={username}
+            email={ email }
           ></InputUsername>
           <InputPassword
-          handleChangePassword={handleChangePassword}
-          password={password}
+            handleChangePassword={ handleChangePassword }
+            password={ password }
             name="password"
             type="password"
             className="mt-8"
             placeholder="Password"
-            control={control}
+            control={ control }
           ></InputPassword>
           <div className="flex justify-between mt-[10px]">
             <div className="flex items-center gap-1 text-textColor">

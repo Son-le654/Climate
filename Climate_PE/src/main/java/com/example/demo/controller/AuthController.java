@@ -31,8 +31,6 @@ public class AuthController {
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
-    @Autowired
-    private DoctorService doctorService;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
@@ -47,11 +45,6 @@ public class AuthController {
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
     }
 
-   @GetMapping("/doctors/{id}")
-    public ResponseEntity<?> getDoctorById(@PathVariable("id") int id) {
-        Optional<Doctor> doctor = doctorService.getDoctorByID(id);
-        return ResponseEntity.ok(doctor);
-    }
 
 //    // Other APIs ...
 }
