@@ -8,8 +8,6 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import InputUsername from "../components/input/InputUsername";
 import InputPassword from "../components/input/InputPassword";
-import { urlLogin } from "../url/urlTest";
-import { contextType } from "react-datetime";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -40,18 +38,11 @@ const LoginPage = () => {
     // console.log(password);
   }
 
-//doc1@gmail.com - 123
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = (await axios.post(`http://localhost:8080/api/login`, {
-      "email": "doc1@gmail.com",
-      "password": "123"
-    }));
+    const response = await axios.post('/api/login', { username, password });
     console.log(response);
-    if (response.data.token.length > 0) {
-      console.log("true");
-      navigate("/book_appointment")
-    }
   }
 
   return (

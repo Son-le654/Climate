@@ -7,7 +7,7 @@ const InputInfo = ({ name, type, icon, placeholder, handleChangeName }) => {
       <input
       onChange={handleChangeName}
         placeholder={placeholder || "Content"}
-        className="text-black1 placeholder:text-black1 font-semibold text-[2rem]"
+        className="text-black1 placeholder:text-black1 text-[2rem]"
         type={type || "text"}
         name={name}
       />
