@@ -445,7 +445,7 @@ const BAContent = () => {
                 </div>
               </div>
               <div className="flex items-center gap-[0.8rem]">
-                <input
+                {/* <input
                   onChange={handleCheckboxForeign}
                   id="foreigner"
                   className="w-[1.6rem] h-[1.6rem]"
@@ -455,7 +455,7 @@ const BAContent = () => {
                 />
                 <label htmlFor="foreigner" className="font-semibold">
                   Book for a foreigner
-                </label>
+                </label> */}
               </div>
             </div>
           </div>

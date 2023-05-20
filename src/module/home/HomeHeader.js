@@ -17,17 +17,22 @@ const HomeNav = [
   },
   {
     id: 3,
-    to: "/book_appointment",
+    to: "/Function",
     title: "Function",
   },
   {
     id: 4,
-    to: "/book_appointment",
+    to: "/About",
     title: "About",
   },
 ];
-const HomeHeader = () => {
+const HomeHeader = ({ storedName }) => {
   const navigate = useNavigate();
+  const handleLogout = () => {
+    //log out here
+    localStorage.removeItem("token");
+    navigate("/login-user")
+  }
   return (
     <header className="max-w-[1156px] gap-[46px] mx-auto flex items-center pt-[45px]">
       <div>
@@ -49,17 +54,36 @@ const HomeHeader = () => {
                   </li>
                 );
               })}
+            <>
+              {(storedName !== null) ?
+                <li>
+                  <NavLink to={"/book_appointment"}>Book Appointment</NavLink>
+                </li>
+                :
+                <></>
+              }
+            </>
           </ul>
         </nav>
         <div className="flex items-center gap-8">
-          <Button
-            onClick={() => {
-              navigate("/login");
-            }}
-            className="!p-[10px_40px] rounded-lg text-[18px]"
-          >
-            Login
-          </Button>
+          {(storedName !== null) ?
+            <Button
+              onClick={handleLogout}
+              className="!p-[10px_40px] rounded-lg text-[18px]"
+            >
+              Logout
+            </Button>
+            :
+            <Button
+              onClick={() => {
+                navigate("/login");
+              }}
+              className="!p-[10px_40px] rounded-lg text-[18px]"
+            >
+              Login
+            </Button>
+          }
+
           <div className="flex gap-2">
             <div className="w-[50px] h-[35px]">
               <img src={EnsignVN} alt="" />

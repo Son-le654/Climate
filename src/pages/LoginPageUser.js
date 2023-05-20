@@ -11,7 +11,7 @@ import InputPassword from "../components/input/InputPassword";
 import { urlLogin } from "../url/urlTest";
 import { contextType } from "react-datetime";
 
-const LoginPage = () => {
+const LoginPageUser = () => {
   const navigate = useNavigate();
   const { control } = useForm();
   const [data, setData] = useState([])
@@ -52,7 +52,7 @@ const LoginPage = () => {
       const tokenn = response.data.token;
       console.log("true");
       localStorage.setItem("token", response.data.token)
-      navigate("/",
+      navigate("/book_appointment",
         { state: {tokenn} })
     }
   }
@@ -98,7 +98,6 @@ const LoginPage = () => {
                 Forgot Password?
               </Link>
             </div>
-            
           </div>
           <Button
             // onClick={() => {
@@ -112,8 +111,8 @@ const LoginPage = () => {
           </Button>
         </form>
         <div className="mt-[32px] flex items-center justify-center gap-1 ">
-          <Link to="/login-user" className="text-textColor">
-            For user!
+          <Link to="/login" className="text-textColor">
+            For doctor!
           </Link>
         </div>
         <div className="mt-[32px] flex items-center justify-center gap-1 ">
@@ -127,4 +126,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default LoginPageUser;

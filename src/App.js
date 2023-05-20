@@ -5,7 +5,28 @@ import HomePage from "./pages/HomePage";
 import HomeContent from "./module/home/HomeContent";
 import BookAppointmentPage from "./pages/BookAppointmentPage";
 import BAContent from "./module/bookAppointment/BAContent";
+import LoginPageUser from "./pages/LoginPageUser";
+import { useEffect } from "react";
+import jwtDecode from "jwt-decode";
 function App() {
+    const storedName = localStorage.getItem("token");
+  console.log("in app.js");
+    useEffect(() => {
+      if (storedName !== null) {
+        try {
+          const decoded = jwtDecode(storedName);
+          const expiredAt = decoded.exp;
+          // console.log(Date.now()/ 1000);
+          // console.log(expiredAt);
+          if (expiredAt < Date.now() / 1000) {
+            // console.log('true');
+            localStorage.removeItem("token");
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }, [])
   return (
     <Routes>
       <Route element={<HomePage />}>
@@ -19,6 +40,7 @@ function App() {
       </Route>
       <Route path="/register" element={<Register />}></Route>
       <Route path="/login" element={<LoginPage />}></Route>
+      <Route path="/login-user" element={<LoginPageUser />}></Route>
     </Routes>
   );
 }
