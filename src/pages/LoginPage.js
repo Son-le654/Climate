@@ -18,7 +18,12 @@ const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-
+useEffect(() => {
+    const storedName = localStorage.getItem("token");
+    if(storedName !== null){
+      navigate("/")
+    }
+  },[])
   // useEffect(() => { 
   //   const fetchData = async () => {
   //     const result = await axios(
