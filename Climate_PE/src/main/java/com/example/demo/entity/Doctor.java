@@ -17,56 +17,61 @@ import javax.persistence.Table;
 @Table(name = "doctor")
 public class Doctor implements Serializable {
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "DOCTOR_ID")
-    private int id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "DOCTOR_ID")
+	private int id;
 
-    @Column(name = "EMAIL")
-    private String email;
+	@Column(name = "EMAIL")
+	private String email;
 
-    @Column(name = "PASSWORD")
-    private String password;
+	@Column(name = "PASSWORD")
+	private String password;
 
-    @Column(name = "Name")
-    private String name;
+	@Column(name = "NAME")
+	private String name;
 
-    @Column(name = "BIRTHDATE")
-    private LocalDate birthdate;
+	@Column(name = "BIRTHDATE")
+	private LocalDate birthdate;
 
-    @Column(name = "GENDER")
-    private String gender;
+	@Column(name = "GENDER")
+	private String gender;
 
-    @Column(name = "PHONE")
-    private String phone;
+	@Column(name = "PHONE")
+	private String phone;
 
-    @Column(name = "YEAR_OF_EXP")
-    private Integer yearOfExp;
+	@Column(name = "YEAR_OF_EXP")
+	private Integer yearOfExp;
 
-    @Column(name = "EDUCATION")
-    private String education;
+	@Column(name = "EDUCATION")
+	private String education;
 
-    @Column(name = "SCHEDULE")
-    private String schedule;
+	@Column(name = "SCHEDULE")
+	private String schedule;
 
-    @Column(name = "FREE_TIME")
-    private String freeTime;
+	@Column(name = "FREE_TIME")
+	private String freeTime;
 
-    @Column(name = "Status")
-    private Boolean status;
+	@Column(name = "STATUS")
+	private Boolean status;
 
-    @Column(name = "COMMAND_FLAGS")
-    private Boolean commandFlags;
+	@Column(name = "COMMAND_FLAGS")
+	private Boolean commandFlags;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ROLE_ID")
-    private Role role;
+	@ManyToOne
+	@JoinColumn(name = "ROLE_ID")
+	private Role role;
 
+	@ManyToOne
+	@JoinColumn(name = "SPEC_ID")
+	private Specialty specialty;
+
+/////////////////////////////////
 	public int getId() {
 		return id;
 	}
@@ -174,20 +179,26 @@ public class Doctor implements Serializable {
 	public void setCommandFlags(Boolean commandFlags) {
 		this.commandFlags = commandFlags;
 	}
-	
+
 	public Role getRole() {
 		return role;
 	}
 
-	
 	public void setRole(Role role) {
 		this.role = role;
 	}
 
-	public Doctor(int id, String email, String password, String name,
-			LocalDate birthdate, String gender, String phone, Integer yearOfExp,
-			String education, String schedule, String freeTime, Boolean status,
-			Boolean commandFlags, Role role) {
+	public Specialty getSpecialty() {
+		return specialty;
+	}
+
+	public void setSpecialty(Specialty specialty) {
+		this.specialty = specialty;
+	}
+
+	public Doctor(int id, String email, String password, String name, LocalDate birthdate, String gender, String phone,
+			Integer yearOfExp, String education, String schedule, String freeTime, Boolean status, Boolean commandFlags,
+			Role role) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -204,10 +215,29 @@ public class Doctor implements Serializable {
 		this.commandFlags = commandFlags;
 		this.role = role;
 	}
-	 public Doctor() {
-	        // constructor mặc định không có tham số
-	    }
-	
 
-    
+	public Doctor(String email, String password, String name, LocalDate birthdate, String gender, String phone,
+			Integer yearOfExp, String education, String schedule, String freeTime, Boolean status, Boolean commandFlags,
+			Role role, Specialty specialty) {
+		super();
+		this.email = email;
+		this.password = password;
+		this.name = name;
+		this.birthdate = birthdate;
+		this.gender = gender;
+		this.phone = phone;
+		this.yearOfExp = yearOfExp;
+		this.education = education;
+		this.schedule = schedule;
+		this.freeTime = freeTime;
+		this.status = status;
+		this.commandFlags = commandFlags;
+		this.role = role;
+		this.specialty = specialty;
+	}
+
+	public Doctor() {
+		// constructor mặc định không có tham số
+	}
+
 }
