@@ -76,7 +76,7 @@ const HomeHeader = ({ storedName }) => {
             :
             <Button
               onClick={() => {
-                navigate("/login");
+                navigate("/login-user");
               }}
               className="!p-[10px_40px] rounded-lg text-[18px]"
             >

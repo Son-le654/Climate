@@ -77,7 +77,7 @@ const Register = () => {
     }
     if (step === 1) {
       //handle register
-      console.log(values);
+      // console.log(values.first);
 
       const currentDate = new Date();
       const birthdate = new Date(Date.parse(values.bdate));
@@ -86,8 +86,26 @@ const Register = () => {
         return;
       }
 
-      const response = await axios.post('/api/signup', { values });
+      const partient = ({
+        PAINTED_ID: values.socialsecurity,
+        Name: values.first + " " + values.last,
+        Email: values.email,
+        PASSWORD: values.password,
+        BIRTHDATE: values.bdate
+      })
+      console.log(partient);
+      const response = await axios.post(`http://localhost:8080/patient/register`, {
+        'id': values.socialsecurity,
+        'name': values.first + " " + values.last,
+        'email': values.email,
+        'password': values.password,
+        'birthdate': values.bdate.replace(/-/g, '/')
+      });
       console.log(response);
+
+      if (response.data === "register success") {
+        alert("Enter OTP")
+      }
 
     }
   };

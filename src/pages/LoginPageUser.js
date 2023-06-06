@@ -18,17 +18,12 @@ const LoginPageUser = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-
-  // useEffect(() => { 
-  //   const fetchData = async () => {
-  //     const result = await axios(
-  //       'https://fakestoreapi.com/users'
-  //     );
-  //     setData(result.data);
-  //   };
-  //   fetchData();
-  // }, []);
-  // console.log(data);
+  useEffect(() => {
+    const storedName = localStorage.getItem("token");
+    if (storedName !== null) {
+      navigate("/")
+    }
+  }, [])
 
   const handleChangeUsername = (event) => {
     const userinput = event.target.value;
@@ -43,18 +38,32 @@ const LoginPageUser = () => {
   //doc1@gmail.com - 123
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = (await axios.post(`http://localhost:8080/api/login`, {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValidEmail = emailRegex.test(username);
+
+    if (!isValidEmail) {
+      // do something
+      alert("Incorrect Email format")
+      return;
+    } 
+    const response = (await axios.post(`http://localhost:8080/patient/login`, {
       "email": username,
       "password": password
     }));
     console.log(response);
+
+    if (response.data.token === undefined) {
+      alert("Incorrect email or password.")
+    }
+    
     if (response.data.token.length > 0) {
       const tokenn = response.data.token;
       console.log("true");
       localStorage.setItem("token", response.data.token)
-      navigate("/book_appointment",
-        { state: {tokenn} })
+      navigate("/",
+      { state: { tokenn } })
     }
+    
   }
 
   return (

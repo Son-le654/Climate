@@ -41,9 +41,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/api/v1/login", "/api/login").permitAll()
-				.antMatchers("/api/v1/doctors/**").authenticated().and().csrf().disable().formLogin().disable()
-				.httpBasic().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		http
+			.authorizeRequests()
+			.antMatchers("/api/v1/login", "/api/login")
+			.permitAll()
+			.antMatchers("/api/v1/doctors/**")
+			.authenticated()
+			.and()
+			.csrf()
+			.disable()
+			.formLogin()
+			.disable()
+			.httpBasic()
+			.disable()
+			.sessionManagement()
+			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+			.and()
+			.cors();
 	}
 
 	@Bean
