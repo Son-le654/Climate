@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "patient")
-public class Patient implements Serializable {
+public class Patient {
 
 	/**
 	 * 
@@ -53,17 +53,9 @@ public class Patient implements Serializable {
 	@Column(name = "ROLE")
 	private String role;
 
-	@OneToMany(mappedBy = "patient")
-	private List<Appointment> appointments;
 
 	/////////////////////////////////
-	public List<Appointment> getAppointments() {
-		return appointments;
-	}
-
-	public void setAppointments(List<Appointment> appointments) {
-		this.appointments = appointments;
-	}
+	
 
 	public void setRole(String role) {
 		this.role = role;

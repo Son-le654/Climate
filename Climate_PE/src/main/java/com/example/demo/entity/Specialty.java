@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "specialty")
-public class Specialty  {
+public class Specialty {
 
 	/**
 	 * 
@@ -32,12 +32,6 @@ public class Specialty  {
 
 	@Column(name = "COMMAND_FLAG", columnDefinition = "DEFAULT '0'")
 	private int commandflag;
-
-	@OneToMany(mappedBy = "specialty", fetch = FetchType.EAGER)
-	private List<Symtom> symtoms;
-
-	@OneToMany(mappedBy = "specialty", fetch = FetchType.EAGER)
-	private List<Doctor> doctors;
 
 //////////////////////////////
 
@@ -73,20 +67,5 @@ public class Specialty  {
 		this.commandflag = commandflag;
 	}
 
-	public List<Symtom> getSymtoms() {
-		return symtoms;
-	}
-
-	public void setSymtoms(List<Symtom> symtoms) {
-		this.symtoms = symtoms;
-	}
-
-	public List<Doctor> getDoctors() {
-		return doctors;
-	}
-
-	public void setDoctors(List<Doctor> doctors) {
-		this.doctors = doctors;
-	}
 
 }

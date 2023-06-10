@@ -1,7 +1,5 @@
 package com.example.demo.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "symtom")
-public class Symtom{
+public class Symtom {
 
 	/**
 	 * 
@@ -23,16 +21,16 @@ public class Symtom{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "SYMTOM_ID")
 	private int id;
-	
-	@Column(name="SYMTOM_NAME", nullable = false)
+
+	@Column(name = "SYMTOM_NAME", nullable = false)
 	private String name;
-	
-	@Column(name="SYMTOM_DESCRIPTION")
+
+	@Column(name = "SYMTOM_DESCRIPTION")
 	private String description;
-	
-	@Column(name="COMMAND_FLAG",columnDefinition="DEFAULT '0'")
+
+	@Column(name = "COMMAND_FLAG", columnDefinition = "DEFAULT '0'")
 	private int commandflag;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "SPEC_ID")
 	private Specialty specialty;
@@ -76,6 +74,5 @@ public class Symtom{
 	public void setSpecialty(Specialty specialty) {
 		this.specialty = specialty;
 	}
-	
-	
+
 }

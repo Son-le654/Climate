@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "appointment")
-public class Appointment implements Serializable {
+public class Appointment  {
 
 	/**
 	 * 
@@ -25,7 +25,7 @@ public class Appointment implements Serializable {
 	@Column(name = "APPOINTMENT_ID")
 	private int id;
 
-	@Column(name = "NOTE",nullable=false)
+	@Column(name = "NOTE")
 	private String note;
 
 //	@Column(name = "FOREIGN",columnDefinition = "BIT DEFAULT FALSE", nullable = false)
@@ -38,7 +38,7 @@ public class Appointment implements Serializable {
 	private String examdate;
 
 	@Column(name = "SPECIATLY",nullable=false)
-	private int speciatly;
+	private String speciatly;
 
 	@Column(name = "DOCTORNAME",nullable=false)
 	private String doctorname;
@@ -57,7 +57,7 @@ public class Appointment implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Appointment( String note, String examtime, String examdate, int speciatly,
+	public Appointment( String note, String examtime, String examdate, String speciatly,
 			String doctorname, Patient patient, String[] symtom, int commandflag) {
 		super();
 		this.note = note;
@@ -111,11 +111,11 @@ public class Appointment implements Serializable {
 		this.examdate = examdate;
 	}
 
-	public int getSpeciatly() {
+	public String getSpeciatly() {
 		return speciatly;
 	}
 
-	public void setSpeciatly(int speciatly) {
+	public void setSpeciatly(String speciatly) {
 		this.speciatly = speciatly;
 	}
 
