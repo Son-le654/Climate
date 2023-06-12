@@ -9,49 +9,43 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "specialty")
-public class Specialty {
-
-	/**
-	 * 
-	 */
+@Table(name = "location")
+public class Location {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "SPEC_ID")
+	@Column(name = "LOCATION_ID")
 	private int id;
 
-	@Column(name = "SPEC_NAME", nullable = false)
+	@Column(name = "NAME")
 	private String name;
 
-	@Column(name = "SPEC_DESCRIPTION")
+	@Column(name = "DESCRIPTION")
 	private String description;
 
 	@Column(name = "COMMAND_FLAG")
 	private int commandFlag;
 
-	@OneToOne(mappedBy = "specialty")
-	private InternalAccount internal;
+	@OneToOne(mappedBy = "workingPlace")
+	private InternalAccount account;
 
-//////////////////////////////
-
-	public Specialty() {
+	public Location() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Specialty(String name, String description) {
+	public Location(String name, String description, int commandFlag) {
 		super();
 		this.name = name;
 		this.description = description;
 		this.commandFlag = 1;
 	}
 
-	public InternalAccount getInternal() {
-		return internal;
-	}
-
-	public void setInternal(InternalAccount internal) {
-		this.internal = internal;
+	public Location(String name, String description, int commandFlag, InternalAccount account) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.commandFlag = 1;
+		this.account = account;
 	}
 
 	public int getId() {

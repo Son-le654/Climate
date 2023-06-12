@@ -11,28 +11,27 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entity.Doctor;
+import com.example.demo.entity.InternalAccount;
 import com.example.demo.entity.Role;
-import com.example.demo.repository.DoctorRepository;
+import com.example.demo.repository.InternalRepository;
 
 @Service
-public class DoctorService implements UserDetailsService {
+public class InternalService implements UserDetailsService {
 
 	@Autowired
-	private DoctorRepository doctorRepository;
+	private InternalRepository internalRepository;
 
 	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Role role) {
 		return Collections.singleton(new SimpleGrantedAuthority(role.getName()));
 	}
 
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-		Doctor doctor = doctorRepository.findByEmail(username);
-		if (doctor == null) {
+		InternalAccount internal = internalRepository.findByEmail(username);
+		if (internal == null) {
 			throw new UsernameNotFoundException("Invalid email or password.");
 		}
-		return new org.springframework.security.core.userdetails.User(doctor.getEmail(), doctor.getPassword(),
-				mapRolesToAuthorities(doctor.getRole()));
+		return new org.springframework.security.core.userdetails.User(internal.getEmail(), internal.getPassword(),
+				mapRolesToAuthorities(internal.getRole()));
 
 	}
 }

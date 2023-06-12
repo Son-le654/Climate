@@ -6,9 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entity.Appointment;
 import com.example.demo.entity.Specialty;
-import com.example.demo.repository.AppointmentRepository;
 import com.example.demo.repository.SpeciatlyRepository;
 
 @Service

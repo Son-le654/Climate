@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.entity.LoginRequest;
-import com.example.demo.entity.RegisterRequest;
+import com.example.demo.DTO.LoginRequest;
+import com.example.demo.DTO.RegisterRequest;
 import com.example.demo.mailHelper.MailDetail;
 import com.example.demo.mailHelper.MailService;
 import com.example.demo.mailHelper.OTP;
@@ -54,6 +54,7 @@ public class PatientController {
 	@PostMapping(value = "/login")
 	public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
 		System.out.println("url: " + loginRequest.getEmail() + loginRequest.getPassword());
+		System.out.println("patient");
 		String email = loginRequest.getEmail();
 		String password = loginRequest.getPassword();
 		try {

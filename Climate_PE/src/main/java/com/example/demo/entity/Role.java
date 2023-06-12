@@ -10,27 +10,31 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "role")
-public class Role  implements Serializable{
+public class Role implements Serializable {
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ROLE_ID")
-    private int id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ROLE_ID")
+	private int id;
 
-    @Column(name = "NAME")
-    private String name;
+	@Column(name = "NAME")
+	private String name;
 
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
-    private List<Doctor> doctors;
+	@Column(name = "COMMAND_FLAG")
+	private int commandFlag;
+
+	@OneToOne(mappedBy = "role", fetch = FetchType.LAZY)
+	private InternalAccount inaccounts;
 
 	public int getId() {
 		return id;
@@ -48,24 +52,30 @@ public class Role  implements Serializable{
 		this.name = name;
 	}
 
-	public List<Doctor> getDoctors() {
-		return doctors;
+	public int getCommandFlag() {
+		return commandFlag;
 	}
 
-	public void setDoctors(List<Doctor> doctors) {
-		this.doctors = doctors;
+	public InternalAccount getInaccounts() {
+		return inaccounts;
 	}
 
-	public Role(int id, String name, List<Doctor> doctors) {
+	public void setInaccounts(InternalAccount inaccounts) {
+		this.inaccounts = inaccounts;
+	}
+
+	public void setCommandFlag(int commandFlag) {
+		this.commandFlag = commandFlag;
+	}
+
+	public Role() {
+		// constructor mặc định không có tham số
+	}
+
+	public Role(String name, int commandFlag) {
 		super();
-		this.id = id;
 		this.name = name;
-		this.doctors = doctors;
+		this.commandFlag = 1;
 	}
-	 public Role() {
-	        // constructor mặc định không có tham số
-	    }
-	
 
-    
 }

@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.entity.Doctor;
-import com.example.demo.entity.LoginRequest;
-import com.example.demo.service.DoctorService;
+import com.example.demo.DTO.LoginRequest;
+import com.example.demo.entity.InternalAccount;
+import com.example.demo.service.InternalService;
 import com.example.demo.service.JwtAuthenticationResponse;
 import com.example.demo.service.JwtTokenProvider;
 

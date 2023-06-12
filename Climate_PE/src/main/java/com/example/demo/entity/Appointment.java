@@ -1,7 +1,6 @@
 package com.example.demo.entity;
 
-import java.io.Serializable;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,11 +8,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "appointment")
-public class Appointment  {
+public class Appointment {
 
 	/**
 	 * 
@@ -28,47 +28,47 @@ public class Appointment  {
 	@Column(name = "NOTE")
 	private String note;
 
-//	@Column(name = "FOREIGN",columnDefinition = "BIT DEFAULT FALSE", nullable = false)
-//	private boolean foreign;
+	@Column(name = "EXAM_TIME", nullable = false)
+	private String examTime;
 
-	@Column(name = "EXAMTIME", nullable = false)
-	private String examtime;
+	@Column(name = "EXAM_DATE", nullable = false)
+	private String examDate;
 
-	@Column(name = "EXAMDATE", nullable = false)
-	private String examdate;
-
-	@Column(name = "SPECIATLY",nullable=false)
+	@Column(name = "SPECIATLY", nullable = false)
 	private String speciatly;
 
-	@Column(name = "DOCTORNAME",nullable=false)
-	private String doctorname;
+	@Column(name = "DOCTOR_NAME", nullable = false)
+	private String doctorName;
 
 	@ManyToOne
-	@JoinColumn(name="PATIENT_ID")
+	@JoinColumn(name = "PATIENT_ID")
 	private Patient patient;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "schedule_id", referencedColumnName = "schedule_id")
+	private Schedule schedule;
 
-	@Column(name = "SYMTOM")
-	private String[] symtom;
+	@Column(name = "SYMPTOM")
+	private String symptom;
 
 	@Column(name = "COMMAND_FLAG")
-	private int commandflag;
+	private int commandFlag;
 
 	public Appointment() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Appointment( String note, String examtime, String examdate, String speciatly,
-			String doctorname, Patient patient, String[] symtom, int commandflag) {
+	public Appointment(String note, String examTime, String examDate, String speciatly, String doctorName,
+			Patient patient, String symptom) {
 		super();
 		this.note = note;
-//		this.foreign = foreign;
-		this.examtime = examtime;
-		this.examdate = examdate;
+		this.examTime = examTime;
+		this.examDate = examDate;
 		this.speciatly = speciatly;
-		this.doctorname = doctorname;
+		this.doctorName = doctorName;
 		this.patient = patient;
-		this.symtom = symtom;
-		this.commandflag = commandflag;
+		this.symptom = symptom;
+		this.commandFlag = 0;
 	}
 
 	public int getId() {
@@ -87,28 +87,20 @@ public class Appointment  {
 		this.note = note;
 	}
 
-//	public boolean isForeign() {
-//		return foreign;
-//	}
-//
-//	public void setForeign(boolean foreign) {
-//		this.foreign = foreign;
-//	}
-
-	public String getExamtime() {
-		return examtime;
+	public String getExamTime() {
+		return examTime;
 	}
 
-	public void setExamtime(String examtime) {
-		this.examtime = examtime;
+	public void setExamTime(String examTime) {
+		this.examTime = examTime;
 	}
 
-	public String getExamdate() {
-		return examdate;
+	public String getExamDate() {
+		return examDate;
 	}
 
-	public void setExamdate(String examdate) {
-		this.examdate = examdate;
+	public void setExamDate(String examDate) {
+		this.examDate = examDate;
 	}
 
 	public String getSpeciatly() {
@@ -119,12 +111,12 @@ public class Appointment  {
 		this.speciatly = speciatly;
 	}
 
-	public String getDoctorname() {
-		return doctorname;
+	public String getDoctorName() {
+		return doctorName;
 	}
 
-	public void setDoctorname(String doctorname) {
-		this.doctorname = doctorname;
+	public void setDoctorName(String doctorName) {
+		this.doctorName = doctorName;
 	}
 
 	public Patient getPatient() {
@@ -135,22 +127,20 @@ public class Appointment  {
 		this.patient = patient;
 	}
 
-	public String[] getSymtom() {
-		return symtom;
+	public String getSymptom() {
+		return symptom;
 	}
 
-	public void setSymtom(String[] symtom) {
-		this.symtom = symtom;
+	public void setSymptom(String symptom) {
+		this.symptom = symptom;
 	}
 
-	public int getCommandflag() {
-		return commandflag;
+	public int getCommandFlag() {
+		return commandFlag;
 	}
 
-	public void setCommandflag(int commandflag) {
-		this.commandflag = commandflag;
+	public void setCommandFlag(int commandFlag) {
+		this.commandFlag = commandFlag;
 	}
-
-	
 
 }

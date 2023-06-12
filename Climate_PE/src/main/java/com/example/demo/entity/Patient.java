@@ -2,17 +2,15 @@ package com.example.demo.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "patient")
-public class Patient {
+public class Patient implements Serializable{
 
 	/**
 	 * 
@@ -39,7 +37,7 @@ public class Patient {
 	private String phone;
 
 	@Column(name = "BIRTHDATE")
-	private LocalDate birthdate;
+	private LocalDate birthDate;
 
 	@Column(name = "REGISTRATION_DATE")
 	private LocalDate registrationDate;
@@ -97,12 +95,12 @@ public class Patient {
 		this.phone = phone;
 	}
 
-	public LocalDate getBirthdate() {
-		return birthdate;
+	public LocalDate getBirthDate() {
+		return birthDate;
 	}
 
-	public void setBirthdate(LocalDate birthdate) {
-		this.birthdate = birthdate;
+	public void setBirthDate(LocalDate birthDate) {
+		this.birthDate = birthDate;
 	}
 
 	public LocalDate getRegistrationDate() {
@@ -150,7 +148,7 @@ public class Patient {
 	}
 
 	public Patient(String id, String name, String email, String password, String address, String phone,
-			LocalDate birthdate) {
+			LocalDate birthDate) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -158,20 +156,20 @@ public class Patient {
 		this.password = password;
 		this.address = address;
 		this.phone = phone;
-		this.birthdate = birthdate;
+		this.birthDate = birthDate;
 		this.registrationDate = LocalDate.now();
 		this.status = 1;
 		this.commandFlag = 0;
 		this.role = "USER";
 	}
 
-	public Patient(String id, String name, String email, String password, LocalDate birthdate) {
+	public Patient(String id, String name, String email, String password, LocalDate birthDate) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
-		this.birthdate = birthdate;
+		this.birthDate = birthDate;
 		this.registrationDate = LocalDate.now();
 		this.status = 1;
 		this.commandFlag = 0;

@@ -28,12 +28,24 @@ public class Symtom {
 	@Column(name = "SYMTOM_DESCRIPTION")
 	private String description;
 
-	@Column(name = "COMMAND_FLAG", columnDefinition = "DEFAULT '0'")
-	private int commandflag;
+	@Column(name = "COMMAND_FLAG")
+	private int commandFlag;
 
 	@ManyToOne
 	@JoinColumn(name = "SPEC_ID")
 	private Specialty specialty;
+
+	public Symtom() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Symtom(String name, String description, Specialty specialty) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.commandFlag = 1;
+		this.specialty = specialty;
+	}
 
 	public int getId() {
 		return id;
@@ -59,12 +71,12 @@ public class Symtom {
 		this.description = description;
 	}
 
-	public int getCommandflag() {
-		return commandflag;
+	public int getCommandFlag() {
+		return commandFlag;
 	}
 
-	public void setCommandflag(int commandflag) {
-		this.commandflag = commandflag;
+	public void setCommandFlag(int commandFlag) {
+		this.commandFlag = commandFlag;
 	}
 
 	public Specialty getSpecialty() {
