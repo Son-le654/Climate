@@ -4,7 +4,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import javax.mail.MessagingException;
@@ -23,37 +22,39 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.entity.LoginRequest;
+import com.example.demo.DTO.LoginRequest;
+import com.example.demo.DTO.RegisterRequest;
 import com.example.demo.mailHelper.MailDetail;
 import com.example.demo.mailHelper.MailService;
 import com.example.demo.mailHelper.OTP;
-import com.example.demo.service.DoctorService;
 import com.example.demo.service.JwtResponse;
 import com.example.demo.service.JwtTokenUtil;
+import com.example.demo.service.PatientService;
 
 import net.bytebuddy.utility.RandomString;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/patient")
 @CrossOrigin("http://localhost:3000/")
-public class DoctorController {
-	@Autowired
-	private AuthenticationManager authenticationManager;
-
-	@Autowired
-	private DoctorService doctorService;
-
-	@Autowired
-	private JwtTokenUtil jwtTokenUtil;
-
+public class PatientController {
 	@Autowired
 	private MailService mailService;
 
 	private static List<OTP> otps = new ArrayList<OTP>();
 
+	@Autowired
+	private PatientService service;
+
+	@Autowired
+	private AuthenticationManager authenticationManager;
+
+	@Autowired
+	private JwtTokenUtil jwtTokenUtil;
+
 	@PostMapping(value = "/login")
 	public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
 		System.out.println("url: " + loginRequest.getEmail() + loginRequest.getPassword());
+		System.out.println("patient");
 		String email = loginRequest.getEmail();
 		String password = loginRequest.getPassword();
 		try {
@@ -61,9 +62,26 @@ public class DoctorController {
 		} catch (BadCredentialsException e) {
 			return ResponseEntity.ok("Incorrect email or password.");
 		}
-		final UserDetails userDetails = doctorService.loadUserByUsername(email);
+		final UserDetails userDetails = service.loadUserByUsername(email);
 		final String token = jwtTokenUtil.generateToken(userDetails);
 		return ResponseEntity.ok(new JwtResponse(token));
+	}
+
+	@PostMapping(value = "/register")
+	public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+		System.out.println("url: " + request.getEmail() + request.getPassword());
+
+		service.register(request);
+		try {
+			String OTP = generateOneTimePassword(request.getEmail());
+			MailDetail m = new MailDetail(request.getEmail(), "OTP",
+					"The OTP is : " + OTP + ". This OTP will be expired after 2 minutes");
+			mailService.sendMail(m);
+		} catch (UnsupportedEncodingException | MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ResponseEntity.ok("register success");
 	}
 
 	/**
@@ -99,9 +117,9 @@ public class DoctorController {
 			System.out.println(otp.getEmail());
 		}
 		if (!exp) {
-			final UserDetails userDetails = doctorService.loadUserByUsername(email);
-			final String token = jwtTokenUtil.generateToken(userDetails);
-			return token;
+			// otp right
+			service.otpVerify(email);
+			return "verify success";
 		} else {
 			return "OTP expired!!";
 		}

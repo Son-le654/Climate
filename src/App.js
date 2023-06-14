@@ -16,10 +16,7 @@ function App() {
         try {
           const decoded = jwtDecode(storedName);
           const expiredAt = decoded.exp;
-          // console.log(Date.now()/ 1000);
-          // console.log(expiredAt);
           if (expiredAt < Date.now() / 1000) {
-            // console.log('true');
             localStorage.removeItem("token");
           }
         } catch (error) {

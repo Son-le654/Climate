@@ -19,18 +19,25 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.example.demo.service.DoctorService;
+import com.example.demo.service.InternalService;
+import com.example.demo.service.PatientService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private DoctorService doctorService;
+	private InternalService doctorService;
+	@Autowired
+	private PatientService patientService;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		// check in internal account
 		auth.userDetailsService(doctorService).passwordEncoder(new BCryptPasswordEncoder());
+		;
+		//check in patient table
+		auth.userDetailsService(patientService).passwordEncoder(new BCryptPasswordEncoder());
 		;
 	}
 
@@ -41,9 +48,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/api/v1/login", "/api/login").permitAll()
-				.antMatchers("/api/v1/doctors/**").authenticated().and().csrf().disable().formLogin().disable()
-				.httpBasic().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		http
+			.authorizeRequests()
+			.antMatchers("/api/v1/login", "/api/login")
+			.permitAll()
+			.antMatchers("/api/v1/doctors/**")
+			.authenticated()
+			.and()
+			.csrf()
+			.disable()
+			.formLogin()
+			.disable()
+			.httpBasic()
+			.disable()
+			.sessionManagement()
+			.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 
 	@Bean

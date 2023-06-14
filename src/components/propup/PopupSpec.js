@@ -29,14 +29,14 @@ const PopupSpec = ({ header, describe, handleClose, listData, changeSpecList, ha
           {listData?.length > 0 &&
             listData.map((item) => {
               return (
-                (spec.includes(item.specialty)) == true ?
+                (spec.includes(item.name)) == true ?
                   <div
                     onClick={() => changeSpecList(item)}
                     key={item.id}
                     className="shadow-md text-success font-semibold text-[2rem] p-[2.7rem_4.7rem] rounded-[1.6rem] cursor-pointer"
                     style={{ border: "1px solid green", marginBottom: "1rem" }}
                   >
-                    {item.specialty}
+                    {item.name}
                   </div>
                   :
                   <div
@@ -45,7 +45,7 @@ const PopupSpec = ({ header, describe, handleClose, listData, changeSpecList, ha
                     className="shadow-md font-semibold text-[2rem] p-[2.7rem_4.7rem] rounded-[1.6rem] cursor-pointer"
                     style={{ marginBottom: "1rem" }}
                   >
-                    {item.specialty}
+                    {item.name}
                   </div>
               );
             })}
