@@ -2,15 +2,19 @@ package com.example.demo.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "patient")
-public class Patient implements Serializable{
+public class Patient implements Serializable {
 
 	/**
 	 * 
@@ -51,12 +55,34 @@ public class Patient implements Serializable{
 	@Column(name = "ROLE")
 	private String role;
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "patient")
+	private List<MedicalRecord> medicalRecords;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "patient")
+	private List<Appointment> appointments;
 
 	/////////////////////////////////
-	
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public List<MedicalRecord> getMedicalRecords() {
+		return medicalRecords;
+	}
+
+	public void setMedicalRecords(List<MedicalRecord> medicalRecords) {
+		this.medicalRecords = medicalRecords;
+	}
+
+	public List<Appointment> getAppointments() {
+		return appointments;
+	}
+
+	public void setAppointments(List<Appointment> appointments) {
+		this.appointments = appointments;
 	}
 
 	public String getId() {

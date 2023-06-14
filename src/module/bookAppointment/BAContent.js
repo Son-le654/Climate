@@ -241,7 +241,7 @@ const BAContent = () => {
 
   //////////////////////////////////// symtom
   const addSymtomItem = (item) => {
-    setSymtomArr([...symtomArr, item.symtom]);
+    setSymtomArr([...symtomArr, item]);
 
 
     // setShowSysptom(false);
@@ -261,7 +261,7 @@ const BAContent = () => {
   const deleteSymtomItem = (sym) => {
     // console.log(symtomArr);
     // console.log(sym);
-    const index = symtomArr.findIndex((item) => item === sym.symtom);
+    const index = symtomArr.findIndex((item) => item.id === sym.id);
 
     // console.log(index);
     const newItems = [...symtomArr];
@@ -272,7 +272,7 @@ const BAContent = () => {
   };
 
   const changeSymtomList = (item) => {
-    if (symtomArr.includes(item.symtom)) {
+    if (symtomArr.includes(item)) {
       deleteSymtomItem(item)
     } else {
       addSymtomItem(item)
@@ -281,7 +281,7 @@ const BAContent = () => {
 
   //////////////////////////////////// spec
   const addSpecItem = (item) => {
-    setSpec(item.specialty)
+    setSpec(item.name)
     setShowSpec(false);
     setShowDoctor(true)
   }
@@ -292,7 +292,7 @@ const BAContent = () => {
   };
 
   const changeSpecList = (item) => {
-    if (spec.includes(item.specialty)) {
+    if (spec.includes(item.name)) {
       deleteSpecItem()
     } else {
       addSpecItem(item)

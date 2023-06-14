@@ -13,34 +13,35 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.DTO.AppointmentDTO;
-import com.example.demo.entity.Appointment;
-import com.example.demo.service.AppointmentService;
+import com.example.demo.entity.Location;
+import com.example.demo.entity.Role;
+import com.example.demo.service.LocationService;
+
 
 @RestController
-@RequestMapping("/appointment")
+@RequestMapping("/location")
 @CrossOrigin("http://localhost:3000/")
-public class AppointmentController {
+public class LocationController {
 
 	@Autowired
-	private AppointmentService appointmentService;
+	private LocationService service;
 
 	@PostMapping("/save")
-	public String Save(@RequestBody AppointmentDTO appointmentDTO) {
-		appointmentService.save(appointmentDTO);
+	public String Save(@RequestBody Location location) {
+		service.save(location);
 		return "success";
 	}
 
 	@GetMapping("/list")
-	public List<Appointment> getAll() {
-		return appointmentService.findAll();
+	public List<Location> getAll() {
+		return service.findAll();
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Appointment> getAppointmentById(@PathVariable(value = "id") Integer id) {
-		Optional<Appointment> appointment = appointmentService.findById(id);
-		if (appointment.isPresent()) {
-			return ResponseEntity.ok().body(appointment.get());
+	public ResponseEntity<Location> getAppointmentById(@PathVariable(value = "id") Integer id) {
+		Optional<Location> location = service.findById(id);
+		if (location.isPresent()) {
+			return ResponseEntity.ok().body(location.get());
 		} else {
 			return ResponseEntity.notFound().build();
 		}

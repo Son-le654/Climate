@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -58,15 +59,15 @@ public class InternalAccount {
 	@Column(name = "COMMAND_FLAG")
 	private int commandFlag;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "LOCATION", referencedColumnName = "LOCATION_ID")
 	private Location workingPlace;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "ROLE", referencedColumnName = "ROLE_ID")
 	private Role role;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "SPECIATLY", referencedColumnName = "SPEC_ID")
 	private Specialty specialty;
 

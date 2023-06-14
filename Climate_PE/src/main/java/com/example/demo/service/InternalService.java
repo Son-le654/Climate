@@ -2,6 +2,8 @@ package com.example.demo.service;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.InternalAccount;
 import com.example.demo.entity.Role;
+import com.example.demo.entity.Symptom;
 import com.example.demo.repository.InternalRepository;
 
 @Service
@@ -32,6 +35,21 @@ public class InternalService implements UserDetailsService {
 		}
 		return new org.springframework.security.core.userdetails.User(internal.getEmail(), internal.getPassword(),
 				mapRolesToAuthorities(internal.getRole()));
+	}
+	
+	public List<InternalAccount> findAllDoctor() {
+		return internalRepository.findAllDoctor();
+	}
+	
+	public InternalAccount save(InternalAccount account) {
+		return internalRepository.save(account);
+	}
 
+	public List<InternalAccount> findAll() {
+		return internalRepository.findAll();
+	}
+
+	public Optional<InternalAccount> findById(Integer id) {
+		return internalRepository.findById(id);
 	}
 }

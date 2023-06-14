@@ -1,12 +1,17 @@
 package com.example.demo.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "specialty")
@@ -30,8 +35,13 @@ public class Specialty {
 	@Column(name = "COMMAND_FLAG")
 	private int commandFlag;
 
-	@OneToOne(mappedBy = "specialty")
-	private InternalAccount internal;
+	@JsonIgnore
+	@OneToMany(mappedBy = "specialty")
+	private List<InternalAccount> internal;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "specialty")
+	List<Symptom> symptoms;
 
 //////////////////////////////
 
@@ -46,16 +56,24 @@ public class Specialty {
 		this.commandFlag = 1;
 	}
 
-	public InternalAccount getInternal() {
+	public List<InternalAccount> getInternal() {
 		return internal;
 	}
 
-	public void setInternal(InternalAccount internal) {
+	public void setInternal(List<InternalAccount> internal) {
 		this.internal = internal;
 	}
 
 	public int getId() {
 		return id;
+	}
+
+	public List<Symptom> getSymptoms() {
+		return symptoms;
+	}
+
+	public void setSymptoms(List<Symptom> symptoms) {
+		this.symptoms = symptoms;
 	}
 
 	public void setId(int id) {

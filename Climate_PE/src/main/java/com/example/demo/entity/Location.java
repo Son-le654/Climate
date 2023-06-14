@@ -1,12 +1,16 @@
 package com.example.demo.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "location")
@@ -25,9 +29,10 @@ public class Location {
 
 	@Column(name = "COMMAND_FLAG")
 	private int commandFlag;
-
-	@OneToOne(mappedBy = "workingPlace")
-	private InternalAccount account;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "workingPlace")
+	private List<InternalAccount> account;
 
 	public Location() {
 		// TODO Auto-generated constructor stub
@@ -38,14 +43,6 @@ public class Location {
 		this.name = name;
 		this.description = description;
 		this.commandFlag = 1;
-	}
-
-	public Location(String name, String description, int commandFlag, InternalAccount account) {
-		super();
-		this.name = name;
-		this.description = description;
-		this.commandFlag = 1;
-		this.account = account;
 	}
 
 	public int getId() {
@@ -78,6 +75,14 @@ public class Location {
 
 	public void setCommandFlag(int commandFlag) {
 		this.commandFlag = commandFlag;
+	}
+
+	public List<InternalAccount> getAccount() {
+		return account;
+	}
+
+	public void setAccount(List<InternalAccount> account) {
+		this.account = account;
 	}
 
 }

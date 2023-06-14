@@ -13,34 +13,34 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.DTO.AppointmentDTO;
-import com.example.demo.entity.Appointment;
-import com.example.demo.service.AppointmentService;
+import com.example.demo.entity.Symptom;
+import com.example.demo.service.SymptomService;
+
 
 @RestController
-@RequestMapping("/appointment")
+@RequestMapping("/symptom")
 @CrossOrigin("http://localhost:3000/")
-public class AppointmentController {
+public class SymptomController {
 
 	@Autowired
-	private AppointmentService appointmentService;
+	private SymptomService service;
 
 	@PostMapping("/save")
-	public String Save(@RequestBody AppointmentDTO appointmentDTO) {
-		appointmentService.save(appointmentDTO);
+	public String Save(@RequestBody Symptom symtom) {
+		service.save(symtom);
 		return "success";
 	}
 
 	@GetMapping("/list")
-	public List<Appointment> getAll() {
-		return appointmentService.findAll();
+	public List<Symptom> getAll() {
+		return service.findAll();
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Appointment> getAppointmentById(@PathVariable(value = "id") Integer id) {
-		Optional<Appointment> appointment = appointmentService.findById(id);
-		if (appointment.isPresent()) {
-			return ResponseEntity.ok().body(appointment.get());
+	public ResponseEntity<Symptom> getAppointmentById(@PathVariable(value = "id") Integer id) {
+		Optional<Symptom> symtom = service.findById(id);
+		if (symtom.isPresent()) {
+			return ResponseEntity.ok().body(symtom.get());
 		} else {
 			return ResponseEntity.notFound().build();
 		}

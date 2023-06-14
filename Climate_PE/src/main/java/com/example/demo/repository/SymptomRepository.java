@@ -6,11 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.entity.Symtom;
+import com.example.demo.entity.Symptom;
 
 @Repository
-public interface SymtomRepository extends JpaRepository<Symtom, Integer>{
+public interface SymptomRepository extends JpaRepository<Symptom, Integer>{
 	
-	@Query("select c from Symtom c")
-	List<Symtom> findSymtom();
+	@Query("select c from Symptom c")
+	List<Symptom> findSymtom();
 }

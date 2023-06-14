@@ -10,8 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "symtom")
-public class Symtom {
+@Table(name = "symptom")
+public class Symptom {
 
 	/**
 	 * 
@@ -19,13 +19,13 @@ public class Symtom {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "SYMTOM_ID")
+	@Column(name = "SYMPTOM_ID")
 	private int id;
 
-	@Column(name = "SYMTOM_NAME", nullable = false)
+	@Column(name = "SYMPTOM_NAME", nullable = false)
 	private String name;
 
-	@Column(name = "SYMTOM_DESCRIPTION")
+	@Column(name = "SYMPTOM_DESCRIPTION")
 	private String description;
 
 	@Column(name = "COMMAND_FLAG")
@@ -35,11 +35,11 @@ public class Symtom {
 	@JoinColumn(name = "SPEC_ID")
 	private Specialty specialty;
 
-	public Symtom() {
+	public Symptom() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Symtom(String name, String description, Specialty specialty) {
+	public Symptom(String name, String description, Specialty specialty) {
 		super();
 		this.name = name;
 		this.description = description;

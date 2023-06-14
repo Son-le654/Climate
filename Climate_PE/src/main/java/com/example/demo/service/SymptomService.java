@@ -6,24 +6,24 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entity.Symtom;
-import com.example.demo.repository.SymtomRepository;
+import com.example.demo.entity.Symptom;
+import com.example.demo.repository.SymptomRepository;
 
 @Service
-public class SymtomService {
+public class SymptomService {
 
 	@Autowired
-	private SymtomRepository repository;
+	private SymptomRepository repository;
 
-	public Symtom save(Symtom symtom) {
+	public Symptom save(Symptom symtom) {
 		return repository.save(symtom);
 	}
 
-	public List<Symtom> findAll() {
+	public List<Symptom> findAll() {
 		return repository.findSymtom();
 	}
 
-	public Optional<Symtom> findById(Integer id) {
+	public Optional<Symptom> findById(Integer id) {
 		return repository.findById(id);
 	}
 }

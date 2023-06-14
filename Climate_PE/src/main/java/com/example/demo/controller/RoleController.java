@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,33 +13,34 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.entity.Symtom;
-import com.example.demo.service.SymtomService;
+import com.example.demo.entity.Role;
+import com.example.demo.service.RoleService;
 
 
 @RestController
-@RequestMapping("/symtom")
-public class SymtomController {
+@RequestMapping("/role")
+@CrossOrigin("http://localhost:3000/")
+public class RoleController {
 
 	@Autowired
-	private SymtomService service;
+	private RoleService service;
 
 	@PostMapping("/save")
-	public String Save(@RequestBody Symtom symtom) {
-		service.save(symtom);
+	public String Save(@RequestBody Role role) {
+		service.save(role);
 		return "success";
 	}
 
 	@GetMapping("/list")
-	public List<Symtom> getAll() {
+	public List<Role> getAll() {
 		return service.findAll();
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Symtom> getAppointmentById(@PathVariable(value = "id") Integer id) {
-		Optional<Symtom> symtom = service.findById(id);
-		if (symtom.isPresent()) {
-			return ResponseEntity.ok().body(symtom.get());
+	public ResponseEntity<Role> getAppointmentById(@PathVariable(value = "id") Integer id) {
+		Optional<Role> role= service.findById(id);
+		if (role.isPresent()) {
+			return ResponseEntity.ok().body(role.get());
 		} else {
 			return ResponseEntity.notFound().build();
 		}

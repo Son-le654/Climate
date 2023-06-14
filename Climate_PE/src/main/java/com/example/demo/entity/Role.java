@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "role")
 public class Role implements Serializable {
@@ -33,8 +35,9 @@ public class Role implements Serializable {
 	@Column(name = "COMMAND_FLAG")
 	private int commandFlag;
 
-	@OneToOne(mappedBy = "role", fetch = FetchType.LAZY)
-	private InternalAccount inaccounts;
+	@JsonIgnore
+	@OneToMany(mappedBy = "role")
+	private List<InternalAccount> inaccounts;
 
 	public int getId() {
 		return id;
@@ -56,11 +59,11 @@ public class Role implements Serializable {
 		return commandFlag;
 	}
 
-	public InternalAccount getInaccounts() {
+	public List<InternalAccount> getInaccounts() {
 		return inaccounts;
 	}
 
-	public void setInaccounts(InternalAccount inaccounts) {
+	public void setInaccounts(List<InternalAccount> inaccounts) {
 		this.inaccounts = inaccounts;
 	}
 
