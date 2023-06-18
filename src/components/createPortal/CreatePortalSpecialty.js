@@ -21,6 +21,7 @@ const CreatePortalSpecialty = ({ visible, onClose, handleClose, changeSpecList, 
   const [specList, setSpecList] = useState([]);
   const [List, setList] = useState([]);
   const [specListSearch, setSpecListSearch] = useState([]);
+  const [selectedSpec, setSelectedSpec] = useState();
 
   useEffect(() =>{
     const specs = async () => {
@@ -46,13 +47,13 @@ const CreatePortalSpecialty = ({ visible, onClose, handleClose, changeSpecList, 
       symtomArr.map((item) => {
         console.log(item);
         List.map((item1) => {
-          // if (item1.id.includes(item.specialty.id.trim())) {
-          //   if (newArr.includes(item1.name) !== true) {
-          //     newArr.push(item1.name);
-          //   setSpecList(prevItems => [...prevItems, item1]);
-          //   setSpecListSearch(prevItems => [...prevItems, item1]);
-          //   }
-          // }
+          if (item1.id === item.specialty.id) {
+            if (newArr.includes(item1.name) !== true) {
+              newArr.push(item1.name);
+            setSpecList(prevItems => [...prevItems, item1]);
+            setSpecListSearch(prevItems => [...prevItems, item1]);
+            }
+          }
         })
       });
     } else {

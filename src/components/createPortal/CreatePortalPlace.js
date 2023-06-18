@@ -1,25 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { CSSTransition } from "react-transition-group";
 import Popup from "../propup/Popup";
 import PopupPlace from "../propup/PopupPlace";
-const list = [
-  { id: 1, place: "Da Nang" },
-  { id: 2, place: "Hue " },
-  { id: 3, place: "Quang Nam" },
-  { id: 4, place: "Quang Tri" },
-];
+import axios from "axios";
+// const list = [
+//   { id: 1, place: "Da Nang" },
+//   { id: 2, place: "Hue " },
+//   { id: 3, place: "Quang Nam" },
+//   { id: 4, place: "Quang Tri" },
+// ];
 const CreatePortalPlace = ({ visible, onClose, handleClose, changePlaceList }) => {
-  const [placeList, setPlaceList] = useState(list)
+  const [placeList, setPlaceList] = useState()
+
+  useEffect(() => {
+    const places = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/location/list");
+        setPlaceList(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    places();
+  }, []);
 
   const handleSearchInputChange = (event) => {
-    let searchInput = event.target.value;
+    // let searchInput = event.target.value;
 
-    const filteredList = list.filter((item) =>
-      item.place.toLowerCase().includes(searchInput.toLowerCase())
-    );
+    // const filteredList = placeList.filter((item) =>
+    //   item.place.toLowerCase().includes(searchInput.toLowerCase())
+    // );
 
-    setPlaceList(filteredList);
+    // setPlaceList(filteredList);
   };
 
   return (

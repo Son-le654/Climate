@@ -35,7 +35,7 @@ const PopupPlace = ({ header, describe, handleClose, listData, changePlaceList, 
                   className="shadow-md font-semibold text-[2rem] p-[2.7rem_4.7rem] rounded-[1.6rem] cursor-pointer"
 
                 >
-                  {item.place}
+                  {<p>{item.name} - {item.description}</p>}
                 </div>
               );
             })}

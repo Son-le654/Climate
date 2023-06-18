@@ -3,6 +3,7 @@ import IconSearch from "../../icon/IconSearch";
 
 const PopupSpec = ({ header, describe, handleClose, listData, changeSpecList, handleSearchInputChange, spec }) => {
   // console.log("listData: ", listData);
+  // console.log(spec);
   return (
     <div className="p-[3.2rem_7.4rem] rounded-[1.6rem] bg-white">
       <div className="flex items-center justify-between w-full">
@@ -29,7 +30,7 @@ const PopupSpec = ({ header, describe, handleClose, listData, changeSpecList, ha
           {listData?.length > 0 &&
             listData.map((item) => {
               return (
-                (spec.includes(item.name)) == true ?
+                (spec === item) == true ?
                   <div
                     onClick={() => changeSpecList(item)}
                     key={item.id}

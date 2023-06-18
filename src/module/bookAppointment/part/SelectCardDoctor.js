@@ -23,7 +23,7 @@ const SelectCardDoctor = ({ icon, title, describe, onClick, styleIcon, doctor })
         className="mt-[2.4rem] w-full justify-center"
         iconRight={<IconRight />}
       >
-        {doctor.length > 0 ?
+        {doctor ?
           <>Selected</>
           :
           <>Select</>

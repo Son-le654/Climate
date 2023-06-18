@@ -23,7 +23,7 @@ const SelectCardSpec = ({ icon, title, describe, onClick, styleIcon, spec }) => 
         className="mt-[2.4rem] w-full justify-center"
         iconRight={<IconRight />}
       >
-        {spec.length > 0 ?
+        {spec ?
           <>Selected</>
           :
           <>Select</>

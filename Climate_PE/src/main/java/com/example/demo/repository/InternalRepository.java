@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.example.demo.entity.InternalAccount;
 
@@ -17,4 +18,7 @@ public interface InternalRepository extends JpaRepository<InternalAccount, Integ
     
     @Query("select i from InternalAccount i where i.role.name = 'DOCTOR'")
     List<InternalAccount> findAllDoctor();
+    
+    @Query("select i from InternalAccount i where i.role.name = 'DOCTOR' and i.workingPlace.id = :location")
+    List<InternalAccount> findAllDoctorByLocation( @Param(value="location") int id);
 }

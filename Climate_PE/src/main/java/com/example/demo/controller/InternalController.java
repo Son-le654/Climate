@@ -77,4 +77,9 @@ public class InternalController {
 	public List<InternalAccount> listAccDoctor(){
 		return internalService.findAllDoctor();
 	}
+
+	@GetMapping("/list_lo/{location}")
+	public List<InternalAccount> getAllByLocation(@PathVariable int location) {
+		return internalService.findAllDoctorWithLocation(location);
+	}
 }

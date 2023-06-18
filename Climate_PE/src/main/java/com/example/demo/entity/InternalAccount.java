@@ -56,6 +56,9 @@ public class InternalAccount {
 	@Column(name = "EDUCATION")
 	private String education;
 
+	@Column(name = "AVATAR")
+	private String avatar;
+
 	@Column(name = "COMMAND_FLAG")
 	private int commandFlag;
 
@@ -71,7 +74,7 @@ public class InternalAccount {
 	@JoinColumn(name = "SPECIATLY", referencedColumnName = "SPEC_ID")
 	private Specialty specialty;
 
-	@OneToMany( mappedBy="inaccounts")
+	@OneToMany(mappedBy = "inaccounts")
 	private List<Schedule> schedule;
 
 /////////////////////////////////
@@ -97,6 +100,14 @@ public class InternalAccount {
 		this.workingPlace = workingPlace;
 		this.role = role;
 		this.specialty = specialty;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 
 	public String getEducation() {

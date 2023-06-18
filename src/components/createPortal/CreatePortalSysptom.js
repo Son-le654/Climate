@@ -46,7 +46,6 @@ const CreatePortalSysptom = ({ visible, onClose, handleClose, changeSymtomList, 
   const [symptomList, setSymtomList] = useState([]);
   const [List, setList] = useState([]);
 
-
   useEffect(() =>{
     const symptoms = async () => {
       try{
@@ -58,22 +57,22 @@ const CreatePortalSysptom = ({ visible, onClose, handleClose, changeSymtomList, 
       }
     }
     symptoms();
+
+    console.log(symptomList);
   }, [])
-  
-  console.log(symptomList);
 
   const handleSearchInputChange = (event) => {
-    let searchInput = event.target.value;
+    // let searchInput = event.target.value;
 
-    const filteredList = symptomList.filter((item) =>
-      item.name.toLowerCase().includes(searchInput.toLowerCase())
-    );
+    // const filteredList = symptomList.filter((item) =>
+    //   item.name.toLowerCase().includes(searchInput.toLowerCase())
+    // );
 
-    if (searchInput === "") {
-      setSymtomList(List);
-    }else {
-      setSymtomList(filteredList)
-    }
+    // if (searchInput === "") {
+    //   setSymtomList(List);
+    // }else {
+    //   setSymtomList(filteredList)
+    // }
 
   };
   return (
