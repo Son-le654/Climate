@@ -16,6 +16,7 @@ import FAQ from "./pages/FaqPage"
 function App() {
   const storedName = localStorage.getItem("token");
   console.log("in app.js");
+<<<<<<< HEAD
   useEffect(() => {
     if (storedName !== null) {
       try {
@@ -26,6 +27,18 @@ function App() {
         if (expiredAt < Date.now() / 1000) {
           // console.log('true');
           localStorage.removeItem("token");
+=======
+    useEffect(() => {
+      if (storedName !== null) {
+        try {
+          const decoded = jwtDecode(storedName);
+          const expiredAt = decoded.exp;
+          if (expiredAt < Date.now() / 1000) {
+            localStorage.removeItem("token");
+          }
+        } catch (error) {
+          console.log(error);
+>>>>>>> remotes/origin/Main-Target
         }
       } catch (error) {
         console.log(error);

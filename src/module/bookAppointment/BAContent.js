@@ -25,6 +25,8 @@ import CreatePortalPlace from "../../components/createPortal/CreatePortalPlace";
 import SelectCardSymtom from "./part/SelectCardSymtom";
 import SelectCardSpec from "./part/SelectCardSpec";
 import SelectCardDoctor from "./part/SelectCardDoctor";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const hoursList = [
   {
@@ -95,6 +97,7 @@ const hoursList = [
 ];
 
 const BAContent = () => {
+  const navigate = useNavigate();
   const [value, onChange] = useState(new Date());
   const [selectedCheckbox, setSelectedCheckbox] = useState("");
   const [selectedForeign, setSelectedForeign] = useState(false);
@@ -153,7 +156,7 @@ const BAContent = () => {
     bookPlace: "",
     symtom: "",
     spec: "",
-    doctor: "",
+    doctorName: "",
     bookDate: "",
     bookTime: "",
     description: ""
@@ -238,7 +241,7 @@ const BAContent = () => {
 
   //////////////////////////////////// symtom
   const addSymtomItem = (item) => {
-    setSymtomArr([...symtomArr, item.symtom]);
+    setSymtomArr([...symtomArr, item]);
 
 
     // setShowSysptom(false);
@@ -258,7 +261,7 @@ const BAContent = () => {
   const deleteSymtomItem = (sym) => {
     // console.log(symtomArr);
     // console.log(sym);
-    const index = symtomArr.findIndex((item) => item === sym.symtom);
+    const index = symtomArr.findIndex((item) => item.id === sym.id);
 
     // console.log(index);
     const newItems = [...symtomArr];
@@ -269,7 +272,7 @@ const BAContent = () => {
   };
 
   const changeSymtomList = (item) => {
-    if (symtomArr.includes(item.symtom)) {
+    if (symtomArr.includes(item)) {
       deleteSymtomItem(item)
     } else {
       addSymtomItem(item)
@@ -278,7 +281,7 @@ const BAContent = () => {
 
   //////////////////////////////////// spec
   const addSpecItem = (item) => {
-    setSpec(item.specialty)
+    setSpec(item.name)
     setShowSpec(false);
     setShowDoctor(true)
   }
@@ -289,7 +292,7 @@ const BAContent = () => {
   };
 
   const changeSpecList = (item) => {
-    if (spec.includes(item.specialty)) {
+    if (spec.includes(item.name)) {
       deleteSpecItem()
     } else {
       addSpecItem(item)
@@ -320,17 +323,17 @@ const BAContent = () => {
     setHour(h);
   }
 
-  const bookAppointment = () => {
+  const bookAppointment = async () => {
 
     registers.name = fullName.fname;
     registers.phone = phone.pnum;
     registers.birthday = birthday.bday;
     registers.gender = selectedCheckbox;
-    registers.foreign = selectedForeign;
+    // registers.foreign = selectedForeign;
     registers.bookPlace = place;
     registers.symtom = symtomArr;
     registers.spec = spec;
-    registers.doctor = doctor;
+    registers.doctorName = doctor;
     registers.bookDate = value;
     registers.bookTime = hour;
     registers.description = description.ds;
@@ -349,6 +352,12 @@ const BAContent = () => {
       return;
     }
     console.log(registers);
+    const response = (await axios.post(`http://localhost:8080/appointment/save`, registers));
+    console.log(response);
+
+    if(response.data === "success"){
+      navigate("/")
+    }
   }
 
   return (

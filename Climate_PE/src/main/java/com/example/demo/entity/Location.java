@@ -1,43 +1,49 @@
 package com.example.demo.entity;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "role")
-public class Role implements Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+@Table(name = "location")
+public class Location {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ROLE_ID")
+	@Column(name = "LOCATION_ID")
 	private int id;
 
 	@Column(name = "NAME")
 	private String name;
 
+	@Column(name = "DESCRIPTION")
+	private String description;
+
 	@Column(name = "COMMAND_FLAG")
 	private int commandFlag;
-
+	
 	@JsonIgnore
-	@OneToMany(mappedBy = "role")
-	private List<InternalAccount> inaccounts;
+	@OneToMany(mappedBy = "workingPlace")
+	private List<InternalAccount> account;
+
+	public Location() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Location(String name, String description, int commandFlag) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.commandFlag = 1;
+	}
 
 	public int getId() {
 		return id;
@@ -55,30 +61,28 @@ public class Role implements Serializable {
 		this.name = name;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public int getCommandFlag() {
 		return commandFlag;
-	}
-
-	public List<InternalAccount> getInaccounts() {
-		return inaccounts;
-	}
-
-	public void setInaccounts(List<InternalAccount> inaccounts) {
-		this.inaccounts = inaccounts;
 	}
 
 	public void setCommandFlag(int commandFlag) {
 		this.commandFlag = commandFlag;
 	}
 
-	public Role() {
-		// constructor mặc định không có tham số
+	public List<InternalAccount> getAccount() {
+		return account;
 	}
 
-	public Role(String name, int commandFlag) {
-		super();
-		this.name = name;
-		this.commandFlag = 1;
+	public void setAccount(List<InternalAccount> account) {
+		this.account = account;
 	}
 
 }
