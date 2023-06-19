@@ -24,23 +24,27 @@ public class AppointmentService {
 	@Autowired
 	private PatientRepository patientRepository;
 
-	public Appointment save(AppointmentDTO appointmentDTO) {
+	public String save(AppointmentDTO appointmentDTO) {
 		Appointment app = null;
 		Patient p = patientRepository.findByName(appointmentDTO.getName());
-		String symptoms = Arrays.toString(appointmentDTO.getSymtom()).replace("[", "").replace("]", "");
+//		String symptoms = Arrays.toString(appointmentDTO.getSymtom()).replace("[", "").replace("]", "");
 
 		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 		LocalDateTime dateTime = LocalDateTime.parse(appointmentDTO.getBookDate(), inputFormatter);
 		DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 		String outputDateString = dateTime.format(outputFormatter);
 
-		System.out.println(p.getName());
-		if (!p.equals(null)) {
+		if (p != null) {
+//			System.out.println(p.getName());
 			app = new Appointment(appointmentDTO.getDescription(), appointmentDTO.getBookTime(), outputDateString,
-					appointmentDTO.getSpec(), appointmentDTO.getDoctorName(), p, symptoms);
+					appointmentDTO.getSpec(), appointmentDTO.getDoctorName(), p, appointmentDTO.getSymtom());
+			repository.save(app);
+			return "success";
+		} else {
+
+			return ("cannot find patient");
 		}
 
-		return repository.save(app);
 	}
 
 	public List<Appointment> findAll() {

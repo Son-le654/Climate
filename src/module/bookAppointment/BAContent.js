@@ -27,6 +27,7 @@ import SelectCardSpec from "./part/SelectCardSpec";
 import SelectCardDoctor from "./part/SelectCardDoctor";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { bool } from "prop-types";
 
 const hoursList = [
   {
@@ -98,7 +99,7 @@ const hoursList = [
 
 const BAContent = () => {
   const navigate = useNavigate();
-  const [value, onChange] = useState(new Date());
+  const [value, onChange] = useState();
   const [selectedCheckbox, setSelectedCheckbox] = useState("");
 
   const handleCheckboxChange = (event) => {
@@ -140,14 +141,47 @@ const BAContent = () => {
   const [doctor, setDoctor] = useState();
   const [place, setPlace] = useState();
   const [hour, setHour] = useState("");
-  const [test, setTest] = useState([]);
+  const [scheOfDoc, setScheOfDoc] = useState([]);
+
+  const schArr = [];
+
+  useEffect(() => {
+    if (value !== undefined && doctor) {
+      // // console.log(value);
+      // console.log("change 2");
+      console.log(value);
+      const formattedDate = value.toISOString().slice(0, 10).replace(/-/g, "/");
+      // console.log(formattedDate);
+      // console.log(doctor.id);
+      const sche = async () => {
+        try {
+          const response = await axios.get(
+            `http://localhost:8080/schedule/list_date/${doctor.id}?date=${formattedDate}`
+          );
+          console.log(response.data);
+          setScheOfDoc(response.data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      sche();
+      // hoursList.map((item) => {
+      //   const time = item.from + " - " + item.to;
+      //   console.log(time);
+      //   console.log(scheOfDoc);
+      //   // console.log(scheOfDoc.examTime);
+      //   // console.log(time == scheOfDoc.examTime);
+      // })
+    }
+    // Your code here
+  }, [doctor, value]);
 
   var registers = {
     name: "",
     phone: "",
     birthday: "",
     gender: "",
-    foreign: "",
+    // foreign: "",
     bookPlace: "",
     symtom: "",
     spec: "",
@@ -293,17 +327,18 @@ const BAContent = () => {
   };
   //////////////////////////////////// doctor
   const addDoctorItem = (item) => {
-    setDoctor(item.doctor);
+    console.log(item);
+    setDoctor(item);
     setShowDoctor(false);
   };
 
   const deleteDoctorItem = () => {
-    setDoctor("");
+    setDoctor();
     setShowDoctor(false);
   };
 
   const changeDoctorList = (item) => {
-    if (doctor.includes(item.doctor)) {
+    if (doctor === item) {
       deleteDoctorItem();
     } else {
       addDoctorItem(item);
@@ -322,10 +357,10 @@ const BAContent = () => {
     registers.birthday = birthday.bday;
     registers.gender = selectedCheckbox;
     // registers.foreign = selectedForeign;
-    registers.bookPlace = place;
-    registers.symtom = symtomArr;
-    registers.spec = spec;
-    registers.doctorName = doctor;
+    registers.bookPlace = place.name + " - " + place.description;
+    registers.symtom = symtomArr.map((item) => `${item.name}`).join(", ");
+    registers.spec = spec.name;
+    registers.doctorName = doctor.name;
     registers.bookDate = value;
     registers.bookTime = hour;
     registers.description = description.ds;
@@ -339,7 +374,7 @@ const BAContent = () => {
       registers.gender === "" ||
       registers.bookPlace === "" ||
       registers.bookTime === "" ||
-      registers.symtom.length <= 0 ||
+      registers.symtom === "" ||
       registers.spec === "" ||
       registers.doctor === ""
     ) {
@@ -357,7 +392,9 @@ const BAContent = () => {
       registers
     );
     console.log(response);
-
+    if (response.data === "cannot find patient") {
+      window.alert("Cannot find patient");
+    }
     if (response.data === "success") {
       navigate("/");
     }
@@ -393,6 +430,7 @@ const BAContent = () => {
           handleClose={() => setShowSpec(false)}
         ></CreatePortalSpecialty>
         <CreatePortalDoctor
+          place={place}
           doctor={doctor}
           spec={spec}
           changeDoctorList={changeDoctorList}
@@ -487,7 +525,13 @@ const BAContent = () => {
                 <IconClinic />
               </span>
               <span className="text-gradient font-bold text-[1.8rem]">
-                {!place ? <> choose place</> : <>{place}</>}
+                {!place ? (
+                  <> choose place</>
+                ) : (
+                  <>
+                    {place.description} - {place.name}
+                  </>
+                )}
               </span>
             </div>
             <span>
@@ -557,15 +601,18 @@ const BAContent = () => {
                     value={spec.name}
                   ></Booking>
                 )}
-                {doctor.length <= 0 ? (
+                {!doctor ? (
                   <></>
                 ) : (
-                  <Booking icon={<IconDoctorvl />} value={doctor}></Booking>
+                  <Booking
+                    icon={<IconDoctorvl />}
+                    value={doctor.name}
+                  ></Booking>
                 )}
               </div>
               <div className="mt-[2.4rem] text-[1.8rem] gap-[10.4rem] flex justify-end font-bold">
                 <span className="text-gradient">Estimated examination fee</span>
-                {symtomArr.length <= 0 || spec !== null || doctor <= 0 ? (
+                {symtomArr.length <= 0 || spec !== null || doctor !== null ? (
                   <>0đ</>
                 ) : (
                   <span className="text-warning">300.000đ</span>
@@ -587,23 +634,57 @@ const BAContent = () => {
             <Header number={4}>Select a time</Header>
             <div className="p-[3.8rem_4.3rem] shadow-lg flex flex-wrap gap-x-[1rem] gap-y-[0.17rem] rounded-[24px] mt-[3.8rem]">
               {hoursList.length > 0 &&
-                hoursList.map((item) => {
-                  return (
-                    <div
-                      onClick={() => addHour(item)}
-                      style={{ width: "22rem" }}
-                      className={`p-[1.4rem_1.6rem] cursor-pointer border rounded-[0.8rem] border-textColor2 
-                      ${
-                        hour.includes(item.from + " - " + item.to)
-                          ? "bg-gradient-to-tr from-gradientLeft to-gradientRight text-white"
-                          : ""
-                      }`}
-                      key={item.id}
-                    >
-                      <span>{item.from}</span> - <span>{item.to}</span>
-                    </div>
-                  );
-                })}
+                hoursList.map((item) =>
+                  scheOfDoc.length > 0 ? (
+                    <>
+                      {scheOfDoc.map((item1) =>
+                        item1.examTime == item.from + " - " + item.to ? (
+                          <>
+                            <div
+                              style={{ width: "22rem", color: "red" }}
+                              className={`p-[1.4rem_1.6rem] cursor-pointer border rounded-[0.8rem] border-textColor2 `}
+                              key={item.id}
+                            >
+                              <span>{item.from}</span> - <span>{item.to}</span>
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <div
+                              onClick={() => addHour(item)}
+                              style={{ width: "22rem" }}
+                              className={`p-[1.4rem_1.6rem] cursor-pointer border rounded-[0.8rem] border-textColor2 
+                    ${
+                      hour.includes(item.from + " - " + item.to)
+                        ? "bg-gradient-to-tr from-gradientLeft to-gradientRight text-white"
+                        : ""
+                    }`}
+                              key={item.id}
+                            >
+                              <span>{item.from}</span> - <span>{item.to}</span>
+                            </div>
+                          </>
+                        )
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <div
+                        onClick={() => addHour(item)}
+                        style={{ width: "22rem" }}
+                        className={`p-[1.4rem_1.6rem] cursor-pointer border rounded-[0.8rem] border-textColor2 
+                    ${
+                      hour.includes(item.from + " - " + item.to)
+                        ? "bg-gradient-to-tr from-gradientLeft to-gradientRight text-white"
+                        : ""
+                    }`}
+                        key={item.id}
+                      >
+                        <span>{item.from}</span> - <span>{item.to}</span>
+                      </div>
+                    </>
+                  )
+                )}
             </div>
           </div>
         </div>

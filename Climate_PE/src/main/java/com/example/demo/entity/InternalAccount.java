@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "internal_account")
 public class InternalAccount {
@@ -74,6 +76,7 @@ public class InternalAccount {
 	@JoinColumn(name = "SPECIATLY", referencedColumnName = "SPEC_ID")
 	private Specialty specialty;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "inaccounts")
 	private List<Schedule> schedule;
 

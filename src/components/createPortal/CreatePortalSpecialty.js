@@ -17,57 +17,68 @@ import axios from "axios";
 //   { id: 10, specialty: "Dermatology", symtom: "skin rash, itchy skin" },
 //   { id: 11, specialty: "Obstetrics and Gynecology", symtom: "pregnant ,irregular menstruation, erectile dysfunction, lower abdomen pain" },
 // ];
-const CreatePortalSpecialty = ({ visible, onClose, handleClose, changeSpecList, spec, symtomArr }) => {
+const CreatePortalSpecialty = ({
+  visible,
+  onClose,
+  handleClose,
+  changeSpecList,
+  spec,
+  symtomArr,
+}) => {
   const [specList, setSpecList] = useState([]);
-  const [List, setList] = useState([]);
+  const [listOrigin, setListOrigin] = useState([]);
   const [specListSearch, setSpecListSearch] = useState([]);
   const [selectedSpec, setSelectedSpec] = useState();
 
-  useEffect(() =>{
+  useEffect(() => {
     const specs = async () => {
-      try{
+      try {
         const response = await axios.get("http://localhost:8080/spec/list");
         setSpecList(response.data);
-        setList(response.data);
-      } catch (error){
+        setListOrigin(response.data);
+      } catch (error) {
         console.log(error);
       }
-    }
+    };
     specs();
-  }, [])
+  }, []);
 
   useEffect(() => {
     setSpecList([]);
     setSpecListSearch([]);
-  }, [symtomArr])
+  }, [symtomArr]);
 
   useEffect(() => {
     const newArr = [];
     if (symtomArr.length > 0) {
       symtomArr.map((item) => {
         console.log(item);
-        List.map((item1) => {
+        listOrigin.map((item1) => {
           if (item1.id === item.specialty.id) {
             if (newArr.includes(item1.name) !== true) {
               newArr.push(item1.name);
-            setSpecList(prevItems => [...prevItems, item1]);
-            setSpecListSearch(prevItems => [...prevItems, item1]);
+              setSpecList((prevItems) => [...prevItems, item1]);
+              setSpecListSearch((prevItems) => [...prevItems, item1]);
             }
           }
-        })
+        });
       });
     } else {
-      setSpecList(List)
-      setSpecListSearch(List)
+      setSpecList(listOrigin);
+      setSpecListSearch(listOrigin);
     }
-  }, [symtomArr])
+  }, [symtomArr]);
 
   const handleSearchInputChange = (event) => {
     let searchInput = event.target.value;
-    const filteredList = specListSearch.filter((item) =>
-      item.name.toLowerCase().includes(searchInput.toLowerCase())
-    );
-    setSpecList(filteredList);
+    if (searchInput === "") {
+      setSpecList(listOrigin);
+    } else {
+      const filteredList = specListSearch.filter((item) =>
+        item.name.toLowerCase().includes(searchInput.toLowerCase())
+      );
+      setSpecList(filteredList);
+    }
   };
   return (
     <CSSTransition
@@ -79,8 +90,9 @@ const CreatePortalSpecialty = ({ visible, onClose, handleClose, changeSpecList, 
       {(state) =>
         createPortal(
           <div
-            className={`fixed inset-0 z-50 flex items-center justify-center p-5  ${visible ? "" : "opacity-0 invisible"
-              }`}
+            className={`fixed inset-0 z-50 flex items-center justify-center p-5  ${
+              visible ? "" : "opacity-0 invisible"
+            }`}
           >
             <div
               className="absolute inset-0 bg-black1 bg-opacity-40 overlay"

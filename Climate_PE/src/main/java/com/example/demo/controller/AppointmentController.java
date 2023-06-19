@@ -27,8 +27,13 @@ public class AppointmentController {
 
 	@PostMapping("/save")
 	public String Save(@RequestBody AppointmentDTO appointmentDTO) {
-		appointmentService.save(appointmentDTO);
-		return "success";
+//		System.out.println(appointmentDTO.getSymtom());
+		String result = appointmentService.save(appointmentDTO);
+		if (result.equals("success")) {
+			return "success";
+		} else {
+			return "fail";
+		}
 	}
 
 	@GetMapping("/list")

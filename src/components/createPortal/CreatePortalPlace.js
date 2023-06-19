@@ -10,14 +10,21 @@ import axios from "axios";
 //   { id: 3, place: "Quang Nam" },
 //   { id: 4, place: "Quang Tri" },
 // ];
-const CreatePortalPlace = ({ visible, onClose, handleClose, changePlaceList }) => {
-  const [placeList, setPlaceList] = useState()
+const CreatePortalPlace = ({
+  visible,
+  onClose,
+  handleClose,
+  changePlaceList,
+}) => {
+  const [placeList, setPlaceList] = useState();
+  const [listOrigin, setListOrigin] = useState();
 
   useEffect(() => {
     const places = async () => {
       try {
         const response = await axios.get("http://localhost:8080/location/list");
         setPlaceList(response.data);
+        setListOrigin(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -26,13 +33,17 @@ const CreatePortalPlace = ({ visible, onClose, handleClose, changePlaceList }) =
   }, []);
 
   const handleSearchInputChange = (event) => {
-    // let searchInput = event.target.value;
+    let searchInput = event.target.value;
 
-    // const filteredList = placeList.filter((item) =>
-    //   item.place.toLowerCase().includes(searchInput.toLowerCase())
-    // );
+    if (searchInput === "") {
+      setPlaceList(listOrigin);
+    } else {
+      const filteredList = placeList.filter((item) =>
+        item.name.toLowerCase().includes(searchInput.toLowerCase())
+      );
 
-    // setPlaceList(filteredList);
+      setPlaceList(filteredList);
+    }
   };
 
   return (
@@ -45,8 +56,9 @@ const CreatePortalPlace = ({ visible, onClose, handleClose, changePlaceList }) =
       {(state) =>
         createPortal(
           <div
-            className={`fixed inset-0 z-50 flex items-center justify-center p-5  ${visible ? "" : "opacity-0 invisible"
-              }`}
+            className={`fixed inset-0 z-50 flex items-center justify-center p-5  ${
+              visible ? "" : "opacity-0 invisible"
+            }`}
           >
             <div
               className="absolute inset-0 bg-black1 bg-opacity-40 overlay"

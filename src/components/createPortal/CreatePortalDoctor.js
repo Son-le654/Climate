@@ -20,6 +20,7 @@ const CreatePortalDoctor = ({
   changeDoctorList,
   spec,
   doctor,
+  place,
 }) => {
   const [doctorList, setDoctorList] = useState([]);
   const [listOrigin, setListOrigin] = useState([]);
@@ -35,15 +36,18 @@ const CreatePortalDoctor = ({
   useEffect(() => {
     const doctos = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/list");
+        const response = await axios.get(
+          `http://localhost:8080/api/list_lo/${place.id}`
+        );
         setDoctorList(response.data);
         setListOrigin(response.data);
+        console.log(response.data);
       } catch (error) {
         console.log(error);
       }
     };
     doctos();
-  }, []);
+  }, [place]);
 
   useEffect(() => {
     console.log(spec);
@@ -75,11 +79,15 @@ const CreatePortalDoctor = ({
 
   const handleSearchInputChange = (event) => {
     let searchInput = event.target.value;
-    const filteredList = doctorListSearch.filter((item) =>
-      item.doctor.toLowerCase().includes(searchInput.toLowerCase())
-    );
+    if (searchInput === "") {
+      setDoctorList(listOrigin);
+    } else {
+      const filteredList = doctorListSearch.filter((item) =>
+        item.name.toLowerCase().includes(searchInput.toLowerCase())
+      );
 
-    setDoctorList(filteredList);
+      setDoctorList(filteredList);
+    }
   };
 
   return (

@@ -42,38 +42,43 @@ import axios from "axios";
 //   { id: 35, symtom: "Lower Abdomen Pain " },
 //   { id: 36, symtom: "General Examination " },
 // ];
-const CreatePortalSysptom = ({ visible, onClose, handleClose, changeSymtomList, numberOfSym, nextSpec, symtomArr }) => {
+const CreatePortalSysptom = ({
+  visible,
+  onClose,
+  handleClose,
+  changeSymtomList,
+  numberOfSym,
+  nextSpec,
+  symtomArr,
+}) => {
   const [symptomList, setSymtomList] = useState([]);
-  const [List, setList] = useState([]);
+  const [listOrigin, setListOrigin] = useState([]);
 
-  useEffect(() =>{
+  useEffect(() => {
     const symptoms = async () => {
-      try{
+      try {
         const response = await axios.get("http://localhost:8080/symptom/list");
         setSymtomList(response.data);
-        setList(response.data);
-      } catch (error){
+        setListOrigin(response.data);
+      } catch (error) {
         console.log(error);
       }
-    }
+    };
     symptoms();
 
     console.log(symptomList);
-  }, [])
+  }, []);
 
   const handleSearchInputChange = (event) => {
-    // let searchInput = event.target.value;
-
-    // const filteredList = symptomList.filter((item) =>
-    //   item.name.toLowerCase().includes(searchInput.toLowerCase())
-    // );
-
-    // if (searchInput === "") {
-    //   setSymtomList(List);
-    // }else {
-    //   setSymtomList(filteredList)
-    // }
-
+    let searchInput = event.target.value;
+    if (searchInput === "") {
+      setSymtomList(listOrigin);
+    } else {
+      const filteredList = symptomList.filter((item) =>
+        item.name.toLowerCase().includes(searchInput.toLowerCase())
+      );
+      setSymtomList(filteredList);
+    }
   };
   return (
     <CSSTransition
@@ -85,8 +90,9 @@ const CreatePortalSysptom = ({ visible, onClose, handleClose, changeSymtomList, 
       {(state) =>
         createPortal(
           <div
-            className={`fixed inset-0 z-50 flex items-center justify-center p-5  ${visible ? "" : "opacity-0 invisible"
-              }`}
+            className={`fixed inset-0 z-50 flex items-center justify-center p-5  ${
+              visible ? "" : "opacity-0 invisible"
+            }`}
           >
             <div
               className="absolute inset-0 bg-black1 bg-opacity-40 overlay"
@@ -94,7 +100,7 @@ const CreatePortalSysptom = ({ visible, onClose, handleClose, changeSymtomList, 
             ></div>
             <div className="bg-white z-50 p-[2rem_3rem] shadow-md content absolute rounded-lg max-w-[70rem] w-full">
               <PopupSymptom
-              symtomArr={symtomArr}
+                symtomArr={symtomArr}
                 nextSpec={nextSpec}
                 numberOfSym={numberOfSym}
                 handleSearchInputChange={handleSearchInputChange}
