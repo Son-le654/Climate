@@ -11,7 +11,7 @@ function AccountMenu({ children, items = [] }) {
     }
     return (
         <Tippy
-            interactive={false}
+            interactive
             placement="bottom-end"
             render={(attrs) => (
                 <div className="w-[200px]" tabIndex={-1} {...attrs}>
