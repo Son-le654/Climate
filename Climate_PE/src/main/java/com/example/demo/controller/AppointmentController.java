@@ -27,12 +27,22 @@ public class AppointmentController {
 
 	@PostMapping("/save")
 	public String Save(@RequestBody AppointmentDTO appointmentDTO) {
-//		System.out.println(appointmentDTO.getSymtom());
+		System.out.println(appointmentDTO.getBookDate());
+
+		// validate
+		if (appointmentDTO.getName() == "" || appointmentDTO.getPhone() == "" || appointmentDTO.getBirthday() == ""
+				|| appointmentDTO.getGender() == "" || appointmentDTO.getBookPlace() == ""
+				|| appointmentDTO.getSymtom() == "" || appointmentDTO.getSpec() == ""
+				|| appointmentDTO.getDoctorName() == "" || appointmentDTO.getBookDate() == ""
+				|| appointmentDTO.getBookTime() == "") {
+			return "Invalid data, please fill all data";
+		}
+
 		String result = appointmentService.save(appointmentDTO);
 		if (result.equals("success")) {
 			return "success";
 		} else {
-			return "fail";
+			return result;
 		}
 	}
 

@@ -18,7 +18,6 @@ import com.example.demo.entity.Symptom;
 import com.example.demo.service.SpeciatlyService;
 import com.example.demo.service.SymptomService;
 
-
 @RestController
 @RequestMapping("/spec")
 @CrossOrigin("http://localhost:3000/")
@@ -40,7 +39,7 @@ public class SpeciatlyController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Specialty> getSpecById(@PathVariable(value = "id") Integer id) {
-		Optional<Specialty> specialty= service.findById(id);
+		Optional<Specialty> specialty = service.findById(id);
 		if (specialty.isPresent()) {
 			return ResponseEntity.ok().body(specialty.get());
 		} else {

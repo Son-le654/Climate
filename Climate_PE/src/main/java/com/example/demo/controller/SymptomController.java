@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.entity.Symptom;
 import com.example.demo.service.SymptomService;
 
-
 @RestController
 @RequestMapping("/symptom")
 @CrossOrigin("http://localhost:3000/")
