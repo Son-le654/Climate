@@ -3,17 +3,28 @@ import { createPortal } from "react-dom";
 import { CSSTransition } from "react-transition-group";
 import avatarDoctor from "../../Images/avatar.png";
 import PopupDoctor from "../propup/PopupDoctor";
+import axios from "axios";
+import { isEqual } from "lodash";
 
-const listDoctor = [
-  { id: 1, doctor: "Nguyen Hung", avatar: avatarDoctor, spec: "General suraery, Dematology" },
-  { id: 2, doctor: "NC Phong ", avatar: avatarDoctor, spec: "General suraery, Dermatology" },
-  { id: 3, doctor: "The Son", avatar: avatarDoctor, spec: "Otorhinolaryngology, Internal Medicine,Musculoskeletal" },
-  { id: 4, doctor: "Thuy", avatar: avatarDoctor, spec: "Eyes specialist" },
-  { id: 5, doctor: "Dat Ho", avatar: avatarDoctor, spec: "Neurology" }
-];
-const CreatePortalDoctor = ({ visible, onClose, handleClose, changeDoctorList, spec, doctor }) => {
-  const [doctorList, setDoctorList] = useState(listDoctor)
-  const [doctorListSearch, setDoctorListSearch] = useState()
+// const listDoctor = [
+//   { id: 1, doctor: "Nguyen Hung", avatar: avatarDoctor, spec: "General suraery, Dematology" },
+//   { id: 2, doctor: "NC Phong ", avatar: avatarDoctor, spec: "General suraery, Dermatology" },
+//   { id: 3, doctor: "The Son", avatar: avatarDoctor, spec: "Otorhinolaryngology, Internal Medicine,Musculoskeletal" },
+//   { id: 4, doctor: "Thuy", avatar: avatarDoctor, spec: "Eyes specialist" },
+//   { id: 5, doctor: "Dat Ho", avatar: avatarDoctor, spec: "Neurology" }
+// ];
+const CreatePortalDoctor = ({
+  visible,
+  onClose,
+  handleClose,
+  changeDoctorList,
+  spec,
+  doctor,
+  place,
+}) => {
+  const [doctorList, setDoctorList] = useState([]);
+  const [listOrigin, setListOrigin] = useState([]);
+  const [doctorListSearch, setDoctorListSearch] = useState();
 
   // if (spec !== "") {
   //   console.log(spec);
@@ -22,30 +33,61 @@ const CreatePortalDoctor = ({ visible, onClose, handleClose, changeDoctorList, s
   //   );
   //   console.log(filteredList);
 
-  // }
   useEffect(() => {
-    if (spec !== "") {
-      console.log(spec);
-      const filteredList = listDoctor.filter((item) =>
-        item.spec.toLowerCase().includes(spec.toLowerCase().trim())
-      );
-      console.log(filteredList);
-      setDoctorList(filteredList)
-      setDoctorListSearch(filteredList)
-    } else {
-      setDoctorList(listDoctor)
-      setDoctorListSearch(listDoctor)
-    }
-  }, [spec])
+    const doctos = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8080/api/list_lo/${place.id}`
+        );
+        setDoctorList(response.data);
+        setListOrigin(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    doctos();
+  }, [place]);
 
+  useEffect(() => {
+    console.log(spec);
+    setDoctorList([]);
+    setDoctorListSearch([]);
+  }, [spec]);
+
+  useEffect(() => {
+    setDoctorList(listOrigin);
+    setDoctorListSearch(listOrigin);
+    if (spec !== undefined) {
+      // console.log(spec);
+      // console.log(doctorList);
+      const filteredItems = doctorList.filter((item) => {
+        return (
+          item.role.id === 1 &&
+          null !== item.specialty &&
+          spec.id == item.specialty.id
+        );
+      });
+      console.log(filteredItems);
+      setDoctorList(filteredItems);
+      setDoctorListSearch(filteredItems);
+    } else {
+      setDoctorList(listOrigin);
+      setDoctorListSearch(listOrigin);
+    }
+  }, [spec]);
 
   const handleSearchInputChange = (event) => {
     let searchInput = event.target.value;
-    const filteredList = doctorListSearch.filter((item) =>
-      item.doctor.toLowerCase().includes(searchInput.toLowerCase())
-    );
+    if (searchInput === "") {
+      setDoctorList(listOrigin);
+    } else {
+      const filteredList = doctorListSearch.filter((item) =>
+        item.name.toLowerCase().includes(searchInput.toLowerCase())
+      );
 
-    setDoctorList(filteredList);
+      setDoctorList(filteredList);
+    }
   };
 
   return (
@@ -58,8 +100,9 @@ const CreatePortalDoctor = ({ visible, onClose, handleClose, changeDoctorList, s
       {(state) =>
         createPortal(
           <div
-            className={`fixed inset-0 z-50 flex items-center justify-center p-5  ${visible ? "" : "opacity-0 invisible"
-              }`}
+            className={`fixed inset-0 z-50 flex items-center justify-center p-5  ${
+              visible ? "" : "opacity-0 invisible"
+            }`}
           >
             <div
               className="absolute inset-0 bg-black1 bg-opacity-40 overlay"

@@ -5,20 +5,20 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.scheduling.config.ScheduledTaskHolder;
 
 import com.example.demo.entity.InternalAccount;
+import com.example.demo.entity.Schedule;
 
-public interface InternalRepository extends JpaRepository<InternalAccount, Integer> {
-    InternalAccount findByEmail(String email);
-    
+public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
+
 //	@Query("select p FROM Appointment p where p.patient.id = :patient_id p.doctorName = :doctorName and "
 //	+ "p.examDate = :examDate and p.examTime = :examTime")
 //InternalAccount findOne (@Param("patient_id") String patient_id,@Param("doctorName") String doctorName,
 //	@Param("examDate") String examDate,@Param("examTime") String examTime);
-    
-    @Query("select i from InternalAccount i where i.role.name = 'DOCTOR'")
-    List<InternalAccount> findAllDoctor();
-    
-    @Query("select i from InternalAccount i where i.role.name = 'DOCTOR' and i.workingPlace.id = :location")
-    List<InternalAccount> findAllDoctorByLocation( @Param(value="location") int id);
+
+	List<Schedule> findAll();
+
+	@Query("select i from Schedule i where i.inaccounts.id = :id and i.examDate = :examDate")
+	List<Schedule> findAllByInIdAndDate(@Param(value = "id") int id, @Param(value = "examDate") String examDate);
 }

@@ -40,6 +40,9 @@ public class InternalService implements UserDetailsService {
 	public List<InternalAccount> findAllDoctor() {
 		return internalRepository.findAllDoctor();
 	}
+	public List<InternalAccount> findAllDoctorWithLocation(int id) {
+		return internalRepository.findAllDoctorByLocation(id);
+	}
 	
 	public InternalAccount save(InternalAccount account) {
 		return internalRepository.save(account);

@@ -39,7 +39,7 @@ public class SpeciatlyController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Specialty> getAppointmentById(@PathVariable(value = "id") Integer id) {
+	public ResponseEntity<Specialty> getSpecById(@PathVariable(value = "id") Integer id) {
 		Optional<Specialty> specialty= service.findById(id);
 		if (specialty.isPresent()) {
 			return ResponseEntity.ok().body(specialty.get());

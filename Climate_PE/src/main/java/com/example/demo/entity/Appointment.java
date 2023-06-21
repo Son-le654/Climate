@@ -1,5 +1,8 @@
 package com.example.demo.entity;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "appointment")
@@ -40,12 +45,15 @@ public class Appointment {
 	@Column(name = "DOCTOR_NAME", nullable = false)
 	private String doctorName;
 
+	@Column(name = "REGISTER_TIME")
+	private String registerTime;
+
 	@ManyToOne
 	@JoinColumn(name = "PATIENT_ID")
 	private Patient patient;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "schedule_id", referencedColumnName = "schedule_id")
+
+	@JsonIgnore
+	@OneToOne(mappedBy = "appointment")
 	private Schedule schedule;
 
 	@Column(name = "SYMPTOM")
@@ -68,7 +76,31 @@ public class Appointment {
 		this.doctorName = doctorName;
 		this.patient = patient;
 		this.symptom = symptom;
+		this.registerTime = timeNow();
 		this.commandFlag = 0;
+	}
+
+	public String timeNow() {
+		LocalDateTime currentDateTime = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+		String formattedDateTime = currentDateTime.format(formatter);
+		return formattedDateTime;
+	}
+
+	public String getRegisterTime() {
+		return registerTime;
+	}
+
+	public void setRegisterTime(String registerTime) {
+		this.registerTime = registerTime;
+	}
+
+	public Schedule getSchedule() {
+		return schedule;
+	}
+
+	public void setSchedule(Schedule schedule) {
+		this.schedule = schedule;
 	}
 
 	public int getId() {

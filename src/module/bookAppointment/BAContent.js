@@ -27,6 +27,7 @@ import SelectCardSpec from "./part/SelectCardSpec";
 import SelectCardDoctor from "./part/SelectCardDoctor";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { bool } from "prop-types";
 
 const hoursList = [
   {
@@ -93,46 +94,41 @@ const hoursList = [
     id: 13,
     from: "04h30PM",
     to: "05h00PM",
-  }
+  },
 ];
 
 const BAContent = () => {
   const navigate = useNavigate();
-  const [value, onChange] = useState(new Date());
+  const [value, onChange] = useState();
   const [selectedCheckbox, setSelectedCheckbox] = useState("");
-  const [selectedForeign, setSelectedForeign] = useState(false);
 
   const handleCheckboxChange = (event) => {
     setSelectedCheckbox(event.target.value);
     console.log(event.target.value);
-  };
-  const handleCheckboxForeign = (event) => {
-    setSelectedForeign(event.target.checked);
-    console.log(event.target.checked);
   };
 
   const [numberOfSym, setNumberOfSym] = useState(0);
 
   const [fullName, setFullName] = useState([
     {
-      fname: ''
-    }
-  ])
+      fname: "",
+    },
+  ]);
   const [phone, setPhone] = useState([
     {
-      pnum: ''
-    }
-  ])
+      pnum: "",
+    },
+  ]);
   const [birthday, setBirthDay] = useState([
     {
-      bday: ''
-    }
-  ])
+      bday: "",
+    },
+  ]);
   const [description, setDescription] = useState([
     {
-      ds: ''
-    }
-  ])
+      ds: "",
+    },
+  ]);
 
   const [showSpec, setShowSpec] = useState(false);
   const [showSysptom, setShowSysptom] = useState(false);
@@ -141,25 +137,58 @@ const BAContent = () => {
   const [showMore, setShowMore] = useState(true);
 
   const [symtomArr, setSymtomArr] = useState([]);
-  const [spec, setSpec] = useState("");
-  const [doctor, setDoctor] = useState("");
-  const [place, setPlace] = useState("");
+  const [spec, setSpec] = useState();
+  const [doctor, setDoctor] = useState();
+  const [place, setPlace] = useState();
   const [hour, setHour] = useState("");
+  const [scheOfDoc, setScheOfDoc] = useState([]);
 
+  const schArr = [];
+
+  useEffect(() => {
+    if (value !== undefined && doctor) {
+      // // console.log(value);
+      // console.log("change 2");
+      console.log(value);
+      const formattedDate = value.toISOString().slice(0, 10).replace(/-/g, "/");
+      // console.log(formattedDate);
+      // console.log(doctor.id);
+      const sche = async () => {
+        try {
+          const response = await axios.get(
+            `http://localhost:8080/schedule/list_date/${doctor.id}?date=${formattedDate}`
+          );
+          console.log(response.data);
+          setScheOfDoc(response.data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      sche();
+      // hoursList.map((item) => {
+      //   const time = item.from + " - " + item.to;
+      //   console.log(time);
+      //   console.log(scheOfDoc);
+      //   // console.log(scheOfDoc.examTime);
+      //   // console.log(time == scheOfDoc.examTime);
+      // })
+    }
+    // Your code here
+  }, [doctor, value]);
 
   var registers = {
     name: "",
     phone: "",
     birthday: "",
     gender: "",
-    foreign: "",
+    // foreign: "",
     bookPlace: "",
     symtom: "",
     spec: "",
     doctorName: "",
     bookDate: "",
     bookTime: "",
-    description: ""
+    description: "",
   };
 
   /////////////////////input
@@ -171,99 +200,93 @@ const BAContent = () => {
 
     if (name === "fname") {
       const newName = {
-        ...fullName, [name]: value
-      }
+        ...fullName,
+        [name]: value,
+      };
       console.log("set name");
-      setFullName(newName)
+      setFullName(newName);
     }
 
     if (name === "pnum") {
       const newPhone = {
-        ...phone, [name]: value
-      }
+        ...phone,
+        [name]: value,
+      };
       console.log("set phone");
-      setPhone(newPhone)
+      setPhone(newPhone);
     }
 
     if (name === "bday") {
       const newBday = {
-        ...birthday, [name]: value
-      }
+        ...birthday,
+        [name]: value,
+      };
       console.log("set birth day");
-      setBirthDay(newBday)
+      setBirthDay(newBday);
     }
 
     if (name === "ds") {
       const newDs = {
-        ...description, [name]: value
-      }
+        ...description,
+        [name]: value,
+      };
       console.log("set description");
-      setDescription(newDs)
+      setDescription(newDs);
     }
-
-  }
+  };
 
   //////////////////////////////////// place
   useEffect(() => {
     // setShowMore(!showMore)
-    if (place.length > 0) {
-      setShowMore(true)
+    if (place) {
+      setShowMore(true);
     } else {
-      setShowMore(false)
+      setShowMore(false);
     }
-
   }, [place]);
 
   const addPlaceItem = (item) => {
-    // setPlaceArr([...placeArr, item.place]);
-    setPlace(item.place)
-
+    setPlace(item);
 
     setShowPlace(false);
-  }
+  };
 
   const deletePlaceItem = () => {
-    // const newItems = [...placeArr];
-    // newItems.splice(index, 1);
-    // setPlaceArr(newItems);
-    setPlace("")
+    setPlace();
 
     setShowPlace(false);
   };
 
   const changePlaceList = (item) => {
-    if (place.includes(item.place)) {
-      deletePlaceItem()
+    if (place === item) {
+      deletePlaceItem();
     } else {
-      addPlaceItem(item)
+      addPlaceItem(item);
     }
-  }
+  };
 
   //////////////////////////////////// symtom
   const addSymtomItem = (item) => {
-    setSymtomArr([...symtomArr, item]);
-
+    const newArr = [...symtomArr, item];
+    console.log(newArr);
+    setSymtomArr(newArr);
 
     // setShowSysptom(false);
     // setShowSpec(true)
-  }
+  };
 
   const nextSpec = () => {
-
     setShowSysptom(false);
-    setShowSpec(true)
-  }
+    setShowSpec(true);
+  };
 
   useEffect(() => {
-    setNumberOfSym(symtomArr.length)
-  }, [symtomArr])
+    setNumberOfSym(symtomArr.length);
+  }, [symtomArr]);
 
   const deleteSymtomItem = (sym) => {
-    // console.log(symtomArr);
-    // console.log(sym);
-    const index = symtomArr.findIndex((item) => item.id === sym.id);
+    const index = symtomArr.findIndex((item) => item.name === sym.name);
 
-    // console.log(index);
     const newItems = [...symtomArr];
     newItems.splice(index, 1);
     setSymtomArr(newItems);
@@ -273,75 +296,87 @@ const BAContent = () => {
 
   const changeSymtomList = (item) => {
     if (symtomArr.includes(item)) {
-      deleteSymtomItem(item)
+      deleteSymtomItem(item);
     } else {
-      addSymtomItem(item)
+      addSymtomItem(item);
     }
-  }
+    // console.log(item);
+    // addSymtomItem(item)
+  };
 
   //////////////////////////////////// spec
   const addSpecItem = (item) => {
-    setSpec(item.name)
+    setSpec(item);
+    // console.log(item);
+    // console.log(spec);
     setShowSpec(false);
-    setShowDoctor(true)
-  }
+    setShowDoctor(true);
+  };
 
   const deleteSpecItem = () => {
-    setSpec("")
+    setSpec();
     setShowSpec(false);
   };
 
   const changeSpecList = (item) => {
-    if (spec.includes(item.name)) {
-      deleteSpecItem()
+    if (spec === item) {
+      deleteSpecItem();
     } else {
-      addSpecItem(item)
+      addSpecItem(item);
     }
-  }
+  };
   //////////////////////////////////// doctor
   const addDoctorItem = (item) => {
-    setDoctor(item.doctor)
-    setShowDoctor(false)
-  }
+    console.log(item);
+    setDoctor(item);
+    setShowDoctor(false);
+  };
 
   const deleteDoctorItem = () => {
-    setDoctor("")
-    setShowDoctor(false)
+    setDoctor();
+    setShowDoctor(false);
   };
 
   const changeDoctorList = (item) => {
-    if (doctor.includes(item.doctor)) {
-      deleteDoctorItem()
+    if (doctor === item) {
+      deleteDoctorItem();
     } else {
-      addDoctorItem(item)
+      addDoctorItem(item);
     }
-  }
+  };
 
   const addHour = (item) => {
     let h = item.from + " - " + item.to;
     console.log(h);
     setHour(h);
-  }
+  };
 
   const bookAppointment = async () => {
-
     registers.name = fullName.fname;
     registers.phone = phone.pnum;
     registers.birthday = birthday.bday;
     registers.gender = selectedCheckbox;
     // registers.foreign = selectedForeign;
-    registers.bookPlace = place;
-    registers.symtom = symtomArr;
-    registers.spec = spec;
-    registers.doctorName = doctor;
+    registers.bookPlace = place.name + " - " + place.description;
+    registers.symtom = symtomArr.map((item) => `${item.name}`).join(", ");
+    registers.spec = spec.name;
+    registers.doctorName = doctor.name;
     registers.bookDate = value;
     registers.bookTime = hour;
     registers.description = description.ds;
 
     const currentDate = new Date();
 
-    if (registers.name === undefined || registers.phone === undefined || registers.birthday === undefined || registers.gender === "" ||
-      registers.bookPlace === "" || registers.bookTime === "" || registers.symtom.length <= 0 || registers.spec === "" || registers.doctor === ""
+    if (
+      registers.name === undefined ||
+      registers.phone === undefined ||
+      registers.birthday === undefined ||
+      registers.gender === "" ||
+      registers.bookPlace === "" ||
+      registers.bookTime === "" ||
+      registers.symtom === "" ||
+      registers.spec === "" ||
+      registers.doctor === ""
     ) {
       alert("Please fill all field");
       return;
@@ -352,13 +387,18 @@ const BAContent = () => {
       return;
     }
     console.log(registers);
-    const response = (await axios.post(`http://localhost:8080/appointment/save`, registers));
+    const response = await axios.post(
+      `http://localhost:8080/appointment/save`,
+      registers
+    );
     console.log(response);
-
-    if(response.data === "success"){
-      navigate("/")
+    if (response.data === "cannot find patient") {
+      window.alert("Cannot find patient");
     }
-  }
+    if (response.data === "success") {
+      navigate("/");
+    }
+  };
 
   return (
     <>
@@ -390,6 +430,7 @@ const BAContent = () => {
           handleClose={() => setShowSpec(false)}
         ></CreatePortalSpecialty>
         <CreatePortalDoctor
+          place={place}
           doctor={doctor}
           spec={spec}
           changeDoctorList={changeDoctorList}
@@ -403,7 +444,12 @@ const BAContent = () => {
           <Header number={1}>Booking person information</Header>
           <div className="mt-[4.4rem]">
             <div className="grid grid-cols-2 gap-x-[12.2rem] gap-y-[3rem]">
-              <InputInfo handleChangeName={handleChangeName} icon={<IconPen />} name={"fname"} placeholder="Your name"></InputInfo>
+              <InputInfo
+                handleChangeName={handleChangeName}
+                icon={<IconPen />}
+                name={"fname"}
+                placeholder="Your name"
+              ></InputInfo>
               <InputInfo
                 handleChangeName={handleChangeName}
                 name={"pnum"}
@@ -478,13 +524,14 @@ const BAContent = () => {
               <span className="text-black1">
                 <IconClinic />
               </span>
-              <span className="text-gradient font-bold text-[1.8rem]" >
-                {
-                  (place.length <= 0) ?
-                    <> choose place</>
-                    :
-                    <>{place}</>
-                }
+              <span className="text-gradient font-bold text-[1.8rem]">
+                {!place ? (
+                  <> choose place</>
+                ) : (
+                  <>
+                    {place.description} - {place.name}
+                  </>
+                )}
               </span>
             </div>
             <span>
@@ -492,13 +539,12 @@ const BAContent = () => {
             </span>
           </div>
         </div>
-        {showMore ?
+        {showMore ? (
           <>
             <h4 className="text-[1.8rem] my-[3.2rem]">
               Preferred method booking <span className="text-error">*</span>
             </h4>
             <div className="flex items-center gap-[59px] justify-between">
-
               <SelectCardSymtom
                 numberOfSym={numberOfSym}
                 styleIcon="text-[#27AE60] bg-[#27AE60]"
@@ -526,43 +572,57 @@ const BAContent = () => {
               ></SelectCardDoctor>
             </div>
 
-            <div className="mt-[3.2rem] shadow-md p-[3.6rem_2.6rem] rounded-[3.2rem]" >
-
+            <div className="mt-[3.2rem] shadow-md p-[3.6rem_2.6rem] rounded-[3.2rem]">
               <div className="grid grid-cols-3 gap-[4rem]">
-                {
-                  (symtomArr.length <= 0) ? <></> :
-
-                    (symtomArr.length > 2) ?
-                      <Booking icon={<IconSysptomvl />} value={symtomArr[0] + "; " + symtomArr[1] + ";" + "......"}></Booking>
-                      :
-                      <Booking icon={<IconSysptomvl />} value={symtomArr}></Booking>
-                }
-                {
-                  (spec.length <= 0) ? <></> :
-                    <Booking icon={<IconPolyclinicvl />} value={spec}></Booking>
-                }
-                {
-                  (doctor.length <= 0) ?
-                    <></>
-                    :
-                    <Booking
-                      icon={<IconDoctorvl />}
-                      value={doctor}
-                    ></Booking>
-                }
+                {symtomArr.length <= 0 ? (
+                  <></>
+                ) : symtomArr.length > 2 ? (
+                  <Booking
+                    icon={<IconSysptomvl />}
+                    value={
+                      symtomArr[0].name +
+                      "; " +
+                      symtomArr[1].name +
+                      ";" +
+                      "......"
+                    }
+                  ></Booking>
+                ) : (
+                  <Booking
+                    icon={<IconSysptomvl />}
+                    value={symtomArr[0].name}
+                  ></Booking>
+                )}
+                {spec == undefined ? (
+                  <></>
+                ) : (
+                  <Booking
+                    icon={<IconPolyclinicvl />}
+                    value={spec.name}
+                  ></Booking>
+                )}
+                {!doctor ? (
+                  <></>
+                ) : (
+                  <Booking
+                    icon={<IconDoctorvl />}
+                    value={doctor.name}
+                  ></Booking>
+                )}
               </div>
               <div className="mt-[2.4rem] text-[1.8rem] gap-[10.4rem] flex justify-end font-bold">
                 <span className="text-gradient">Estimated examination fee</span>
-                {
-                  (symtomArr.length <= 0 || spec.length <= 0 || doctor <= 0) ? <>0đ</> :
-                    <span className="text-warning">300.000đ</span>
-                }
+                {symtomArr.length <= 0 || spec !== null || doctor !== null ? (
+                  <>0đ</>
+                ) : (
+                  <span className="text-warning">300.000đ</span>
+                )}
               </div>
-
             </div>
-          </> :
+          </>
+        ) : (
           <></>
-        }
+        )}
         <div className="mt-[6.4rem] gap-[80px] flex justify-between">
           <div className="flex-1">
             <Header number={3}>Select a date</Header>
@@ -574,24 +634,57 @@ const BAContent = () => {
             <Header number={4}>Select a time</Header>
             <div className="p-[3.8rem_4.3rem] shadow-lg flex flex-wrap gap-x-[1rem] gap-y-[0.17rem] rounded-[24px] mt-[3.8rem]">
               {hoursList.length > 0 &&
-                hoursList.map((item) => {
-                  return (
-                    <div
-                      onClick={() => addHour(item)}
-                      style={{ width: "22rem" }}
-                      className=
-                      {`p-[1.4rem_1.6rem] cursor-pointer border rounded-[0.8rem] border-textColor2 
-                      ${hour.includes(item.from + " - " + item.to)
-                          ? "bg-gradient-to-tr from-gradientLeft to-gradientRight text-white"
-                          : ""
-                        }`
-                      }
-                      key={item.id}
-                    >
-                      <span>{item.from}</span> - <span>{item.to}</span>
-                    </div>
-                  );
-                })}
+                hoursList.map((item) =>
+                  scheOfDoc.length > 0 ? (
+                    <>
+                      {scheOfDoc.map((item1) =>
+                        item1.examTime == item.from + " - " + item.to ? (
+                          <>
+                            <div
+                              style={{ width: "22rem", color: "red" }}
+                              className={`p-[1.4rem_1.6rem] cursor-pointer border rounded-[0.8rem] border-textColor2 `}
+                              key={item.id}
+                            >
+                              <span>{item.from}</span> - <span>{item.to}</span>
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <div
+                              onClick={() => addHour(item)}
+                              style={{ width: "22rem" }}
+                              className={`p-[1.4rem_1.6rem] cursor-pointer border rounded-[0.8rem] border-textColor2 
+                    ${
+                      hour.includes(item.from + " - " + item.to)
+                        ? "bg-gradient-to-tr from-gradientLeft to-gradientRight text-white"
+                        : ""
+                    }`}
+                              key={item.id}
+                            >
+                              <span>{item.from}</span> - <span>{item.to}</span>
+                            </div>
+                          </>
+                        )
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <div
+                        onClick={() => addHour(item)}
+                        style={{ width: "22rem" }}
+                        className={`p-[1.4rem_1.6rem] cursor-pointer border rounded-[0.8rem] border-textColor2 
+                    ${
+                      hour.includes(item.from + " - " + item.to)
+                        ? "bg-gradient-to-tr from-gradientLeft to-gradientRight text-white"
+                        : ""
+                    }`}
+                        key={item.id}
+                      >
+                        <span>{item.from}</span> - <span>{item.to}</span>
+                      </div>
+                    </>
+                  )
+                )}
             </div>
           </div>
         </div>

@@ -30,7 +30,7 @@ const PopupDoctor = ({ header, describe, handleClose, listData, changeDoctorList
           {listData.length > 0 &&
             listData.map((item) => {
               return (
-                (doctor.includes(item.doctor)) == true ?
+                (doctor ===item) ?
                   <div
                     onClick={() => changeDoctorList(item)}
                     key={item.id}
@@ -42,7 +42,7 @@ const PopupDoctor = ({ header, describe, handleClose, listData, changeDoctorList
                         <img src={item.avatar} alt="" />
                       </div>
                       <span className="font-semibold text-[2rem]">
-                        {item.doctor}
+                        {item.name}
                       </span>
                     </div>
                     <Link className="text-gradient">info</Link>
@@ -59,7 +59,7 @@ const PopupDoctor = ({ header, describe, handleClose, listData, changeDoctorList
                         <img src={item.avatar} alt="" />
                       </div>
                       <span className="font-semibold text-[2rem]">
-                        {item.doctor}
+                        {item.name}
                       </span>
                     </div>
                     <Link className="text-gradient">info</Link>
