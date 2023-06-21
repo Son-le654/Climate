@@ -8,10 +8,10 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.entity.Appointment;
 
 @Repository
-public interface AppointmentRepository extends JpaRepository<Appointment, Integer>{
+public interface AppointmentRepository extends JpaRepository<Appointment, Integer> {
 
-//	@Query("select p FROM Appointment p where p.patient.id = :patient_id p.doctorName = :doctorName and "
-//			+ "p.examDate = :examDate and p.examTime = :examTime")
-//	Appointment findOne (@Param("patient_id") String patient_id,@Param("doctorName") String doctorName,
-//			@Param("examDate") String examDate,@Param("examTime") String examTime);
+	@Query("select p FROM Appointment p where p.patient.id = :patient_id and p.doctorName = :doctorName and "
+			+ "p.examDate = :examDate and p.examTime = :examTime")
+	Appointment findOne(@Param("patient_id") String patient_id, @Param("doctorName") String doctorName,
+			@Param("examDate") String examDate, @Param("examTime") String examTime);
 }

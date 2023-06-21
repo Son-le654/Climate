@@ -2,7 +2,6 @@ package com.example.demo.service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,8 +11,10 @@ import org.springframework.stereotype.Service;
 import com.example.demo.DTO.AppointmentDTO;
 import com.example.demo.entity.Appointment;
 import com.example.demo.entity.Patient;
+import com.example.demo.entity.Schedule;
 import com.example.demo.repository.AppointmentRepository;
 import com.example.demo.repository.PatientRepository;
+import com.example.demo.repository.ScheduleRepository;
 
 @Service
 public class AppointmentService {
@@ -24,26 +25,44 @@ public class AppointmentService {
 	@Autowired
 	private PatientRepository patientRepository;
 
+	@Autowired
+	private ScheduleRepository scheduleRepository;
+
 	public String save(AppointmentDTO appointmentDTO) {
 		Appointment app = null;
-		Patient p = patientRepository.findByName(appointmentDTO.getName());
-//		String symptoms = Arrays.toString(appointmentDTO.getSymtom()).replace("[", "").replace("]", "");
-
+		Appointment appSearch = null;
+		Patient p = null;
+		Schedule s = null;
 		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 		LocalDateTime dateTime = LocalDateTime.parse(appointmentDTO.getBookDate(), inputFormatter);
 		DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 		String outputDateString = dateTime.format(outputFormatter);
 
-		if (p != null) {
-//			System.out.println(p.getName());
-			app = new Appointment(appointmentDTO.getDescription(), appointmentDTO.getBookTime(), outputDateString,
-					appointmentDTO.getSpec(), appointmentDTO.getDoctorName(), p, appointmentDTO.getSymtom());
-			repository.save(app);
-			return "success";
-		} else {
-
+		// check patient
+		p = patientRepository.findByName(appointmentDTO.getName());
+		if (p == null) {
 			return ("cannot find patient");
 		}
+
+		// check appointment
+		appSearch = repository.findOne(p.getId(), appointmentDTO.getDoctorName(), outputDateString,
+				appointmentDTO.getBookTime());
+		if (appSearch != null) {
+			return "You already book appointment at this time";
+		}
+
+		// check schedule
+		s = scheduleRepository.findByInNameAndDateTime(appointmentDTO.getDoctorName(), outputDateString,
+				appointmentDTO.getBookTime());
+		System.out.println(s);
+		if (s != null) {
+			return "This doctor is busy at this time";
+		}
+
+		app = new Appointment(appointmentDTO.getDescription(), appointmentDTO.getBookTime(), outputDateString,
+				appointmentDTO.getSpec(), appointmentDTO.getDoctorName(), p, appointmentDTO.getSymtom());
+		repository.save(app);
+		return "success";
 
 	}
 

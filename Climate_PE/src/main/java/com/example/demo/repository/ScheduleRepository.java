@@ -21,4 +21,9 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
 
 	@Query("select i from Schedule i where i.inaccounts.id = :id and i.examDate = :examDate")
 	List<Schedule> findAllByInIdAndDate(@Param(value = "id") int id, @Param(value = "examDate") String examDate);
+
+	@Query("select i from Schedule i where i.inaccounts.name = :name and i.examDate = :examDate and i.examTime = :examTime")
+	Schedule findByInNameAndDateTime(@Param(value = "name") String name, @Param(value = "examDate") String examDate,
+			@Param(value = "examTime") String examTime);
+
 }
