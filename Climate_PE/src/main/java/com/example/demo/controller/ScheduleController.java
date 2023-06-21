@@ -40,7 +40,7 @@ public class ScheduleController {
 	}
 
 	@GetMapping("/list_date/{id}")
-	public List<Schedule> getAppointmentById(@PathVariable("id") int id,
+	public List<Schedule> getScheduleById(@PathVariable("id") int id,
 			@RequestParam("date") @DateTimeFormat(pattern = "yyyy/MM/dd") String date) {
 		System.out.println("- " + id);
 		System.out.println("- " + date);

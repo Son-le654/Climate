@@ -37,7 +37,7 @@ public class RoleController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Role> getAppointmentById(@PathVariable(value = "id") Integer id) {
+	public ResponseEntity<Role> getRoleById(@PathVariable(value = "id") Integer id) {
 		Optional<Role> role= service.findById(id);
 		if (role.isPresent()) {
 			return ResponseEntity.ok().body(role.get());

@@ -37,7 +37,7 @@ public class SymptomController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Symptom> getAppointmentById(@PathVariable(value = "id") Integer id) {
+	public ResponseEntity<Symptom> getSymptomById(@PathVariable(value = "id") Integer id) {
 		Optional<Symptom> symtom = service.findById(id);
 		if (symtom.isPresent()) {
 			return ResponseEntity.ok().body(symtom.get());

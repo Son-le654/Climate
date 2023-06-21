@@ -64,7 +64,7 @@ public class InternalController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<InternalAccount> getAppointmentById(@PathVariable(value = "id") Integer id) {
+	public ResponseEntity<InternalAccount> getInternalById(@PathVariable(value = "id") Integer id) {
 		Optional<InternalAccount> acc = internalService.findById(id);
 		if (acc.isPresent()) {
 			return ResponseEntity.ok().body(acc.get());
