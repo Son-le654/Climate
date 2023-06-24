@@ -13,6 +13,8 @@ import Appointments from "./pages/AppointmentsPage"
 import AppointmentConfirmation from "./pages/AppointmentConfirmationPage"
 import About from "./pages/About"
 import FAQ from "./pages/FaqPage"
+import SampleDateSort from "./SampleDateSort";
+import axios from "axios";
 function App() {
   const storedName = localStorage.getItem("token");
   console.log("in app.js");
@@ -49,6 +51,8 @@ function App() {
       <Route path="/appointmentConfirmation" element={<AppointmentConfirmation />}></Route>
       <Route path="/about" element={<About />}></Route>
       <Route path="/faq" element={<FAQ />}></Route>
+      <Route path="/test" element={<SampleDateSort />}></Route>
+      
     </Routes>
   );
 }

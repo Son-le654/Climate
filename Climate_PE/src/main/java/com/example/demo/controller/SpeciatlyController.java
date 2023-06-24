@@ -27,7 +27,7 @@ public class SpeciatlyController {
 	private SpeciatlyService service;
 
 	@PostMapping("/save")
-	public String Save(@RequestBody Specialty specialty) {
+	public String save(@RequestBody Specialty specialty) {
 		service.save(specialty);
 		return "success";
 	}

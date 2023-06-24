@@ -26,7 +26,7 @@ public class AppointmentController {
 	private AppointmentService appointmentService;
 
 	@PostMapping("/save")
-	public String Save(@RequestBody AppointmentDTO appointmentDTO) {
+	public String save(@RequestBody AppointmentDTO appointmentDTO) {
 		System.out.println(appointmentDTO.getBookDate());
 
 		// validate
@@ -49,6 +49,10 @@ public class AppointmentController {
 	@GetMapping("/list")
 	public List<Appointment> getAll() {
 		return appointmentService.findAll();
+	}
+	@GetMapping("/listIncome")
+	public List<Appointment> getAllIncome() {
+		return appointmentService.findAllNotApprove();
 	}
 
 	@GetMapping("/{id}")
