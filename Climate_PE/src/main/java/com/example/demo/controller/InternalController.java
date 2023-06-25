@@ -38,7 +38,7 @@ public class InternalController {
 	private JwtTokenUtil jwtTokenUtil;
 
 	@PostMapping(value = "/login")
-	public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+	public ResponseEntity<?> DoLogin(@RequestBody LoginRequest loginRequest) {
 		System.out.println("url: " + loginRequest.getEmail() + loginRequest.getPassword());
 		String email = loginRequest.getEmail();
 		String password = loginRequest.getPassword();
