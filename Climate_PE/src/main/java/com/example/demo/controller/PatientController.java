@@ -71,17 +71,29 @@ public class PatientController {
 	public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
 		System.out.println("url: " + request.getEmail() + request.getPassword());
 
-		service.register(request);
-		try {
-			String OTP = generateOneTimePassword(request.getEmail());
-			MailDetail m = new MailDetail(request.getEmail(), "OTP",
-					"The OTP is : " + OTP + ". This OTP will be expired after 2 minutes");
-			mailService.sendMail(m);
-		} catch (UnsupportedEncodingException | MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		String result = service.register(request);
+		if (result.equals("success")) {
+			try {
+				String OTP = generateOneTimePassword(request.getEmail());
+				MailDetail m = new MailDetail(request.getEmail(), "OTP",
+						"The OTP is : " + OTP + ". This OTP will be expired after 2 minutes");
+				mailService.sendMail(m);
+			} catch (UnsupportedEncodingException | MessagingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		return ResponseEntity.ok("register success");
+		return ResponseEntity.ok(result);
+
+	}
+	@PostMapping(value = "/update")
+	public ResponseEntity<?> update(@RequestBody RegisterRequest request) {
+		
+		String result = service.update(request);
+	
+		
+		return ResponseEntity.ok(result);
+		
 	}
 
 	/**
