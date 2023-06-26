@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.DTO.ApiResponse;
 import com.example.demo.DTO.LoginRequest;
 import com.example.demo.entity.InternalAccount;
 import com.example.demo.entity.Symptom;
@@ -82,4 +85,17 @@ public class InternalController {
 	public List<InternalAccount> getAllByLocation(@PathVariable int location) {
 		return internalService.findAllDoctorWithLocation(location);
 	}
+	
+	@GetMapping("/internal-accounts/search")
+    public ResponseEntity<?> searchInternalAccounts(
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "specialty", required = false) String specialty) {
+        Optional<List<InternalAccount>> accounts = internalService.searchInternalAccounts(name, specialty);
+        if (accounts.isPresent() && !accounts.get().isEmpty()) {
+			return ResponseEntity.ok(accounts);
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND)
+					.body(new ApiResponse("No doctor information found"));
+		}
+    }
 }
