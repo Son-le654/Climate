@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import InputUsername from "../components/input/InputUsername";
 import InputPassword from "../components/input/InputPassword";
-import { urlLogin } from "../url/urlTest";
+import { url, urlLogin } from "../url/urlTest";
 import { contextType } from "react-datetime";
 
 const LoginPageUser = () => {
@@ -46,7 +46,7 @@ const LoginPageUser = () => {
       alert("Incorrect Email format")
       return;
     } 
-    const response = (await axios.post(`http://localhost:8080/patient/login`, {
+    const response = (await axios.post(url + `patient/login`, {
       "email": username,
       "password": password
     }));

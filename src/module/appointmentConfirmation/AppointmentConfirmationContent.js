@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react"
 
 
@@ -22,6 +23,19 @@ function AppointmentConfirmationContent() {
         specialty: 'Nutrition',
 
     }])
+    
+    const confirm = async () => {
+    // const response = await axios.post(
+    //     `http://localhost:8080/appointment/save`,
+    //     registers
+    //   );
+    //   console.log(response);
+    //   if (response.data === "cannot find patient") {
+    //     window.alert("Cannot find patient");
+    //   }
+    //   if (response.data === "success") {
+    //   }
+    }
 
     return (
         <div>

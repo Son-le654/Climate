@@ -1,1 +1,1 @@
-export const urlLogin = "http://localhost:8080/api/login";
+export const url = "http://localhost:8080/";

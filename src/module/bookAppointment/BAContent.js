@@ -28,6 +28,7 @@ import SelectCardDoctor from "./part/SelectCardDoctor";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { bool } from "prop-types";
+import { url } from "../../url/urlTest";
 
 const hoursList = [
   {
@@ -156,7 +157,7 @@ const BAContent = () => {
       const sche = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:8080/schedule/list_date/${doctor.id}?date=${formattedDate}`
+            url + `schedule/list_date/${doctor.id}?date=${formattedDate}`
           );
           console.log(response.data);
           setScheOfDoc(response.data);
@@ -387,17 +388,8 @@ const BAContent = () => {
       return;
     }
     console.log(registers);
-    const response = await axios.post(
-      `http://localhost:8080/appointment/save`,
-      registers
-    );
-    console.log(response);
-    if (response.data === "cannot find patient") {
-      window.alert("Cannot find patient");
-    }
-    if (response.data === "success") {
-      navigate("/");
-    }
+    navigate("/appointmentConfirmation", {state: {registers}});
+
   };
 
   return (
