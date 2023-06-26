@@ -53,7 +53,7 @@ public class InternalController {
 	}
 	
 	@PostMapping("/save")
-	public String Save(@RequestBody InternalAccount account) {
+	public String save(@RequestBody InternalAccount account) {
 		internalService.save(account);
 		return "success";
 	}

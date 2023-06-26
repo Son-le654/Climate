@@ -25,7 +25,7 @@ public class SymptomController {
 	private SymptomService service;
 
 	@PostMapping("/save")
-	public String Save(@RequestBody Symptom symtom) {
+	public String save(@RequestBody Symptom symtom) {
 		service.save(symtom);
 		return "success";
 	}

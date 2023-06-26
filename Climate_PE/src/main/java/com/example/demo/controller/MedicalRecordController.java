@@ -27,7 +27,7 @@ public class MedicalRecordController {
 	private MedicalRecordService service;
 
 	@PostMapping("/save")
-	public String Save(@RequestBody MedicalRecord medicalRecord) {
+	public String save(@RequestBody MedicalRecord medicalRecord) {
 		service.save(medicalRecord);
 		return "success";
 	}

@@ -69,6 +69,10 @@ public class AppointmentService {
 	public List<Appointment> findAll() {
 		return repository.findAll();
 	}
+	
+	public List<Appointment> findAllNotApprove() {
+		return repository.getAllIncome();
+	}
 
 	public Optional<Appointment> findById(Integer id) {
 		return repository.findById(id);
