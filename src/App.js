@@ -15,6 +15,9 @@ import About from "./pages/About";
 import FAQ from "./pages/FaqPage";
 import SampleDateSort from "./SampleDateSort";
 import axios from "axios";
+import BAContentGuest from "./module/bookAppointment/BAContentGuest";
+import BookAppointmentPageGuest from "./pages/BookAppointmentPageGuest";
+import AppointmentConfirmationPageGuest from "./pages/AppointmentConfirmationPageGuest";
 function App() {
   const storedName = localStorage.getItem("token");
   console.log("in app.js");
@@ -43,6 +46,14 @@ function App() {
           element={<BAContent></BAContent>}
         ></Route>
       </Route>
+
+      <Route element={<BookAppointmentPageGuest />}>
+        <Route
+          path="/book_appointment_guest"
+          element={<BAContentGuest></BAContentGuest>}
+        ></Route>
+      </Route>
+      
       <Route path="/register" element={<Register />}></Route>
       <Route path="/login" element={<LoginPage />}></Route>
       <Route path="/login-user" element={<LoginPageUser />}></Route>
@@ -51,6 +62,10 @@ function App() {
       <Route
         path="/appointmentConfirmation"
         element={<AppointmentConfirmation />}
+      ></Route>
+      <Route
+        path="/appointmentConfirmationGuest"
+        element={<AppointmentConfirmationPageGuest />}
       ></Route>
       <Route path="/about" element={<About />}></Route>
       <Route path="/faq" element={<FAQ />}></Route>

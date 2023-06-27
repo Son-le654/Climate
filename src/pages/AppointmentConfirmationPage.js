@@ -26,8 +26,8 @@ const AppointmentConfirmationPage = () => {
   }, []);
 
   const location = useLocation();
-  const { appointment } = location.state || {};
-  console.log(location);
+  const appointment = location.state.registers || {};
+  console.log(appointment);
   if (appointment == {}) {
     navigate("/book_appointment");
   }

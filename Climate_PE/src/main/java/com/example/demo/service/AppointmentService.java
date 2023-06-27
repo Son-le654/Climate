@@ -39,7 +39,7 @@ public class AppointmentService {
 		String outputDateString = dateTime.format(outputFormatter);
 
 		// check patient
-		p = patientRepository.findByName(appointmentDTO.getName());
+		p = patientRepository.findByIDAndName(appointmentDTO.getIdC(), appointmentDTO.getName());
 		if (p == null) {
 			return ("cannot find patient");
 		}
@@ -60,7 +60,32 @@ public class AppointmentService {
 		}
 
 		app = new Appointment(appointmentDTO.getDescription(), appointmentDTO.getBookTime(), outputDateString,
-				appointmentDTO.getSpec(), appointmentDTO.getDoctorName(), p, appointmentDTO.getSymtom());
+				appointmentDTO.getSpec(), appointmentDTO.getDoctorName(), appointmentDTO.getName(), p,
+				appointmentDTO.getSymtom());
+		repository.save(app);
+		return "success";
+
+	}
+
+	public String saveGuest(AppointmentDTO appointmentDTO) {
+		Appointment app = null;
+		Schedule s = null;
+		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+		LocalDateTime dateTime = LocalDateTime.parse(appointmentDTO.getBookDate(), inputFormatter);
+		DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+		String outputDateString = dateTime.format(outputFormatter);
+
+		// check schedule
+		s = scheduleRepository.findByInNameAndDateTime(appointmentDTO.getDoctorName(), outputDateString,
+				appointmentDTO.getBookTime());
+		System.out.println(s);
+		if (s != null) {
+			return "This doctor is busy at this time";
+		}
+
+		app = new Appointment(appointmentDTO.getDescription(), appointmentDTO.getBookTime(),
+				outputDateString, appointmentDTO.getSpec(), appointmentDTO.getDoctorName(),
+				appointmentDTO.getName(), appointmentDTO.getSymtom());
 		repository.save(app);
 		return "success";
 
@@ -69,7 +94,7 @@ public class AppointmentService {
 	public List<Appointment> findAll() {
 		return repository.findAll();
 	}
-	
+
 	public List<Appointment> findAllNotApprove() {
 		return repository.getAllIncome();
 	}
