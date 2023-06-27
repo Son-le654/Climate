@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
@@ -35,8 +37,10 @@ public class AppointmentService {
 		Schedule s = null;
 		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 		LocalDateTime dateTime = LocalDateTime.parse(appointmentDTO.getBookDate(), inputFormatter);
+		ZoneId utcZone = ZoneId.of("UTC");
+		ZonedDateTime zonedDateTime = ZonedDateTime.of(dateTime, utcZone);
 		DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-		String outputDateString = dateTime.format(outputFormatter);
+		String outputDateString = zonedDateTime.format(outputFormatter);
 
 		// check patient
 		p = patientRepository.findByIDAndName(appointmentDTO.getIdC(), appointmentDTO.getName());
@@ -72,9 +76,11 @@ public class AppointmentService {
 		Schedule s = null;
 		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 		LocalDateTime dateTime = LocalDateTime.parse(appointmentDTO.getBookDate(), inputFormatter);
+		ZoneId utcZone = ZoneId.of("UTC");
+		ZonedDateTime zonedDateTime = ZonedDateTime.of(dateTime, utcZone);
 		DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-		String outputDateString = dateTime.format(outputFormatter);
-
+		String outputDateString = zonedDateTime.format(outputFormatter);
+		System.out.println("out put date: " + outputDateString);
 		// check schedule
 		s = scheduleRepository.findByInNameAndDateTime(appointmentDTO.getDoctorName(), outputDateString,
 				appointmentDTO.getBookTime());
@@ -83,9 +89,9 @@ public class AppointmentService {
 			return "This doctor is busy at this time";
 		}
 
-		app = new Appointment(appointmentDTO.getDescription(), appointmentDTO.getBookTime(),
-				outputDateString, appointmentDTO.getSpec(), appointmentDTO.getDoctorName(),
-				appointmentDTO.getName(), appointmentDTO.getSymtom());
+		app = new Appointment(appointmentDTO.getDescription(), appointmentDTO.getBookTime(), outputDateString,
+				appointmentDTO.getSpec(), appointmentDTO.getDoctorName(), appointmentDTO.getName(),
+				appointmentDTO.getSymtom());
 		repository.save(app);
 		return "success";
 

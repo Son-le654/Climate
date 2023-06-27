@@ -73,14 +73,7 @@ const HomeHeaderServiceGuest = () => {
               })}
           </ul>
         </nav>
-        <AccountMenu
-        >
-          <div className=" relative flex h-[35px] !p-[5px_40px] bg-[#e2edff] rounded-2xl  " style={{ color: '#3f84f6', borderRadius: '20px' }} >
-            <img className=" absolute rounded-full w-[24px] h-[24px] top-[6px] left-[4px]" src={EnsignAnh}></img>
-            <div className="font-bold">nguyendinhphong</div>
-            <div className="absolute top-[3px] left-[83%]"><IoMdArrowDropdown style={{ fontSize: '30px' }} /></div>
-          </div>
-        </AccountMenu>
+        
       </div>
     </header>
   );
