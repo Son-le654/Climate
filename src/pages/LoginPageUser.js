@@ -8,8 +8,8 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import InputUsername from "../components/input/InputUsername";
 import InputPassword from "../components/input/InputPassword";
-import { urlLogin } from "../url/urlTest";
 import { contextType } from "react-datetime";
+import { localPort } from "../components/url/link";
 
 const LoginPageUser = () => {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ const LoginPageUser = () => {
   useEffect(() => {
     const storedName = localStorage.getItem("token");
     if (storedName !== null) {
-      navigate("/")
+      navigate("/service")
     }
   }, [])
 
@@ -46,7 +46,7 @@ const LoginPageUser = () => {
       alert("Incorrect Email format")
       return;
     } 
-    const response = (await axios.post(`http://localhost:8080/patient/login`, {
+    const response = (await axios.post(localPort + `patient/login`, {
       "email": username,
       "password": password
     }));

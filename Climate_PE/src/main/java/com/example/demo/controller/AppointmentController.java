@@ -27,8 +27,28 @@ public class AppointmentController {
 
 	@PostMapping("/save")
 	public String save(@RequestBody AppointmentDTO appointmentDTO) {
-		System.out.println(appointmentDTO.getBookDate());
+		System.out.println(appointmentDTO.getIdC());
 
+		// validate
+		if (appointmentDTO.getName() == "" || appointmentDTO.getPhone() == "" || appointmentDTO.getBirthday() == ""
+				|| appointmentDTO.getGender() == "" || appointmentDTO.getBookPlace() == ""
+				|| appointmentDTO.getSymtom() == "" || appointmentDTO.getSpec() == ""
+				|| appointmentDTO.getDoctorName() == "" || appointmentDTO.getBookDate() == ""
+				|| appointmentDTO.getBookTime() == "" || appointmentDTO.getIdC() == "") {
+			return "Invalid data, please fill all data";
+		}
+
+		String result = appointmentService.save(appointmentDTO);
+		if (result.equals("success")) {
+			return "success";
+		} else {
+			return result;
+		}
+	}
+	
+	@PostMapping("/saveguest")
+	public String saveGuest(@RequestBody AppointmentDTO appointmentDTO) {
+		
 		// validate
 		if (appointmentDTO.getName() == "" || appointmentDTO.getPhone() == "" || appointmentDTO.getBirthday() == ""
 				|| appointmentDTO.getGender() == "" || appointmentDTO.getBookPlace() == ""
@@ -37,8 +57,8 @@ public class AppointmentController {
 				|| appointmentDTO.getBookTime() == "") {
 			return "Invalid data, please fill all data";
 		}
-
-		String result = appointmentService.save(appointmentDTO);
+		
+		String result = appointmentService.saveGuest(appointmentDTO);
 		if (result.equals("success")) {
 			return "success";
 		} else {

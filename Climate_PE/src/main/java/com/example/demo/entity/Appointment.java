@@ -45,6 +45,9 @@ public class Appointment {
 	@Column(name = "DOCTOR_NAME", nullable = false)
 	private String doctorName;
 
+	@Column(name = "PATIENT_NAME", nullable = false)
+	private String patientName;
+
 	@Column(name = "REGISTER_TIME")
 	private String registerTime;
 
@@ -66,18 +69,35 @@ public class Appointment {
 		// TODO Auto-generated constructor stub
 	}
 
+	//for user
 	public Appointment(String note, String examTime, String examDate, String speciatly, String doctorName,
-			Patient patient, String symptom) {
+			String patientName, Patient patient, String symptom) {
 		super();
 		this.note = note;
 		this.examTime = examTime;
 		this.examDate = examDate;
 		this.speciatly = speciatly;
 		this.doctorName = doctorName;
+		this.patientName = patientName;
 		this.patient = patient;
 		this.symptom = symptom;
 		this.registerTime = timeNow();
 		this.commandFlag = 0;
+	}
+
+	//for guest
+	public Appointment(String note, String examTime, String examDate, String speciatly, String doctorName,
+			String patientName, String symptom) {
+		super();
+		this.note = note;
+		this.examTime = examTime;
+		this.examDate = examDate;
+		this.speciatly = speciatly;
+		this.doctorName = doctorName;
+		this.patientName = patientName;
+		this.registerTime = timeNow();
+		this.symptom = symptom;
+		this.commandFlag = 3;
 	}
 
 	public String timeNow() {

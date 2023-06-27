@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { localPort } from "../../components/url/link";
 
-function AppointmentConfirmationContent({ appointment }) {
+function AppointmentConfirmationContentGuest({ appointment }) {
   const tabButtons1 = "Return to previous";
   const tabButtons2 = "Appointment confirmation";
 
@@ -31,15 +31,12 @@ function AppointmentConfirmationContent({ appointment }) {
   const confirm = async () => {
     console.log(appointment);
     const response = await axios.post(
-      localPort + `appointment/save`,
+      localPort + `appointment/saveguest`,
       appointment
     );
     console.log(response);
-    if (response.data === "cannot find patient") {
-      window.alert("Cannot find patient");
-    }
     if (response.data === "success") {
-        navigate("/appointments");
+        navigate("/");
     }
   };
 
@@ -55,7 +52,7 @@ function AppointmentConfirmationContent({ appointment }) {
   const formattedDate = localDate.toISOString().slice(0, 10).replace(/-/g, "/");
 
   const goBack = () => {
-    navigate("/book_appointment");
+    navigate("/book_appointment_guest");
   };
 
   return (
@@ -84,10 +81,6 @@ function AppointmentConfirmationContent({ appointment }) {
                 <div className="pt-3 flex">
                   <span className="w-[35%]">Date of Birth</span>
                   <span className="w-[65%]">{appointment.birthday}</span>
-                </div>
-                <div className="pt-3 flex">
-                  <span className="w-[35%]">ID Card</span>
-                  <span className="w-[65%]">{appointment.idC}</span>
                 </div>
                 <div className="pt-3 flex">
                   <span className="w-[35%]">Gender</span>
@@ -170,4 +163,4 @@ function AppointmentConfirmationContent({ appointment }) {
     </div>
   );
 }
-export default AppointmentConfirmationContent;
+export default AppointmentConfirmationContentGuest;

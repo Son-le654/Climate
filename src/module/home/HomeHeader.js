@@ -16,11 +16,6 @@ const HomeNav = [
     title: "FAQ",
   },
   {
-    id: 3,
-    to: "/Function",
-    title: "Function",
-  },
-  {
     id: 4,
     to: "/About",
     title: "About",
@@ -60,7 +55,9 @@ const HomeHeader = ({ storedName }) => {
                   <NavLink to={"/book_appointment"}>Book Appointment</NavLink>
                 </li>
                 :
-                <></>
+                <><li>
+                <NavLink to={"/book_appointment_guest"}>Book Appointment</NavLink>
+              </li></>
               }
             </>
           </ul>
