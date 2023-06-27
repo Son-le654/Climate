@@ -8,13 +8,16 @@ import BAContent from "./module/bookAppointment/BAContent";
 import LoginPageUser from "./pages/LoginPageUser";
 import { useEffect } from "react";
 import jwtDecode from "jwt-decode";
-import Service from "./pages/ServicePage"
-import Appointments from "./pages/AppointmentsPage"
-import AppointmentConfirmation from "./pages/AppointmentConfirmationPage"
-import About from "./pages/About"
-import FAQ from "./pages/FaqPage"
+import Service from "./pages/ServicePage";
+import Appointments from "./pages/AppointmentsPage";
+import AppointmentConfirmation from "./pages/AppointmentConfirmationPage";
+import About from "./pages/About";
+import FAQ from "./pages/FaqPage";
 import SampleDateSort from "./SampleDateSort";
 import axios from "axios";
+import BAContentGuest from "./module/bookAppointment/BAContentGuest";
+import BookAppointmentPageGuest from "./pages/BookAppointmentPageGuest";
+import AppointmentConfirmationPageGuest from "./pages/AppointmentConfirmationPageGuest";
 function App() {
   const storedName = localStorage.getItem("token");
   console.log("in app.js");
@@ -31,7 +34,7 @@ function App() {
         console.log(error);
       }
     }
-  }, [])
+  }, []);
   return (
     <Routes>
       <Route element={<HomePage />}>
@@ -43,16 +46,30 @@ function App() {
           element={<BAContent></BAContent>}
         ></Route>
       </Route>
+
+      <Route element={<BookAppointmentPageGuest />}>
+        <Route
+          path="/book_appointment_guest"
+          element={<BAContentGuest></BAContentGuest>}
+        ></Route>
+      </Route>
+      
       <Route path="/register" element={<Register />}></Route>
       <Route path="/login" element={<LoginPage />}></Route>
       <Route path="/login-user" element={<LoginPageUser />}></Route>
       <Route path="/service" element={<Service />}></Route>
       <Route path="/appointments" element={<Appointments />}></Route>
-      <Route path="/appointmentConfirmation" element={<AppointmentConfirmation />}></Route>
+      <Route
+        path="/appointmentConfirmation"
+        element={<AppointmentConfirmation />}
+      ></Route>
+      <Route
+        path="/appointmentConfirmationGuest"
+        element={<AppointmentConfirmationPageGuest />}
+      ></Route>
       <Route path="/about" element={<About />}></Route>
       <Route path="/faq" element={<FAQ />}></Route>
       <Route path="/test" element={<SampleDateSort />}></Route>
-      
     </Routes>
   );
 }
