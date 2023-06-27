@@ -8,6 +8,9 @@ import BAContent from "./module/bookAppointment/BAContent";
 import LoginPageUser from "./pages/LoginPageUser";
 import { useEffect } from "react";
 import jwtDecode from "jwt-decode";
+
+import DoctorInformation from "./pages/DoctorInformation"
+import VerifyRegister from "./pages/VerifyRegister"
 import Service from "./pages/ServicePage";
 import Appointments from "./pages/AppointmentsPage";
 import AppointmentConfirmation from "./pages/AppointmentConfirmationPage";
@@ -18,6 +21,7 @@ import axios from "axios";
 import BAContentGuest from "./module/bookAppointment/BAContentGuest";
 import BookAppointmentPageGuest from "./pages/BookAppointmentPageGuest";
 import AppointmentConfirmationPageGuest from "./pages/AppointmentConfirmationPageGuest";
+
 function App() {
   const storedName = localStorage.getItem("token");
   console.log("in app.js");
@@ -53,7 +57,7 @@ function App() {
           element={<BAContentGuest></BAContentGuest>}
         ></Route>
       </Route>
-      
+
       <Route path="/register" element={<Register />}></Route>
       <Route path="/login" element={<LoginPage />}></Route>
       <Route path="/login-user" element={<LoginPageUser />}></Route>
@@ -69,8 +73,10 @@ function App() {
       ></Route>
       <Route path="/about" element={<About />}></Route>
       <Route path="/faq" element={<FAQ />}></Route>
+      <Route path="/doctorinformation" element={<DoctorInformation />}></Route>
+      <Route path="/verifyregister" element={<VerifyRegister />}></Route>
       <Route path="/test" element={<SampleDateSort />}></Route>
-    </Routes>
+    </Routes >
   );
 }
 

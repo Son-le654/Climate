@@ -13,20 +13,20 @@ const ServicePage = () => {
     const navigate = useNavigate();
     const storedName = localStorage.getItem("token");
     useEffect(() => {
-    if (storedName == null) {
-      navigate("/login-user")
-    } else {
-      try {
-        const decoded = jwtDecode(storedName);
-        const role = decoded.roles[0].authority
-        // if (role !== 'USER') {
-        //   navigate("/")
-        // }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  }, [])
+        if (storedName == null) {
+            navigate("/login-user")
+        } else {
+            try {
+                const decoded = jwtDecode(storedName);
+                const role = decoded.roles[0].authority
+                // if (role !== 'USER') {
+                //   navigate("/")
+                // }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }, [])
     return (
         <>
             <div className="bg-white">

@@ -1,4 +1,4 @@
-
+import { NavLink } from "react-router-dom";
 import React, { useRef } from "react";
 import Slider from "react-slick";
 import { FaQq, FaHospital } from "react-icons/fa"
@@ -95,7 +95,7 @@ export default function FaqList() {
                                             {data.title}
                                         </span>
                                         <span className=" text-lg text-gradientLeft cursor-pointer">
-                                            Read more
+                                            <NavLink to={"/doctorinformation"}>   Read more</NavLink>
                                         </span>
                                     </div>
                                     <div className="absolute top-8 right-8">
@@ -130,7 +130,7 @@ export default function FaqList() {
                                             {data.title}
                                         </span>
                                         <span className=" text-lg text-gradientLeft cursor-pointer">
-                                            Read more
+                                            <NavLink to={"/doctorinformation"}>   Read more</NavLink>
                                         </span>
                                     </div>
                                     <div className="absolute top-8 right-8">
