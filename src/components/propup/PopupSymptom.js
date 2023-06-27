@@ -32,7 +32,7 @@ const PopupSymptom = ({ header, describe, handleClose, listData, handleSearchInp
           {listData?.length > 0 &&
             listData.map((item) => {
               return (
-                (symtomArr.includes(item.name)) == true ?
+                (symtomArr.includes(item)) == true ?
                   <div
                     onClick={() => changeSymtomList(item)}
                     key={item.id}

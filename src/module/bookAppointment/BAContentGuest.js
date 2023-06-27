@@ -100,7 +100,8 @@ const hoursList = [
   },
 ];
 
-const BAContent = () => {
+const BAContentGuest = () => {
+  console.log("guest");
   const navigate = useNavigate();
   const [value, onChange] = useState();
   const [selectedCheckbox, setSelectedCheckbox] = useState("");
@@ -181,21 +182,12 @@ const BAContent = () => {
         }
       };
       sche();
-      // hoursList.map((item) => {
-      //   const time = item.from + " - " + item.to;
-      //   console.log(time);
-      //   console.log(scheOfDoc);
-      //   // console.log(scheOfDoc.examTime);
-      //   // console.log(time == scheOfDoc.examTime);
-      // })
     }
-    // Your code here
   }, [doctor, value]);
 
   var registers = {
     name: "",
     phone: "",
-    idC: "",
     birthday: "",
     gender: "",
     bookPlace: "",
@@ -379,10 +371,8 @@ const BAContent = () => {
   const bookAppointment = async () => {
     registers.name = fullName.fname;
     registers.phone = phone.pnum;
-    registers.idC = idCard.idC;
     registers.birthday = birthday.bday;
     registers.gender = selectedCheckbox;
-    // registers.foreign = selectedForeign;
     registers.bookPlace = place.name + " - " + place.description;
     registers.symtom = symtomArr.map((item) => `${item.name}`).join(", ");
     registers.spec = spec.name;
@@ -396,7 +386,6 @@ const BAContent = () => {
     if (
       registers.name === undefined ||
       registers.phone === undefined ||
-      registers.idC === undefined ||
       registers.birthday === undefined ||
       registers.gender === "" ||
       registers.bookPlace === "" ||
@@ -414,11 +403,11 @@ const BAContent = () => {
       return;
     }
     console.log(registers);
-    navigate("/appointmentConfirmation", { state: { registers } });
+    navigate("/appointmentConfirmationGuest", { state: { registers } });
   };
 
   return (
-    <> 
+    <>
       <div className="max-w-[1156px] mx-auto mt-[8rem]">
         <CreatePortalPlace
           changePlaceList={changePlaceList}
@@ -466,13 +455,6 @@ const BAContent = () => {
                 icon={<IconPen />}
                 name={"fname"}
                 placeholder="Your name"
-              ></InputInfo>
-              <InputInfo
-                handleChangeName={handleChangeName}
-                name={"idC"}
-                type={"number"}
-                icon={<IconSearch />}
-                placeholder="Your ID card"
               ></InputInfo>
               <InputInfo
                 handleChangeName={handleChangeName}
@@ -753,4 +735,4 @@ const BAContent = () => {
   );
 };
 
-export default BAContent;
+export default BAContentGuest;

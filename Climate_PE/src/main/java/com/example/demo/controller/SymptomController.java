@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.entity.Symptom;
 import com.example.demo.service.SymptomService;
 
-
 @RestController
 @RequestMapping("/symptom")
 @CrossOrigin("http://localhost:3000/")
@@ -26,7 +25,7 @@ public class SymptomController {
 	private SymptomService service;
 
 	@PostMapping("/save")
-	public String Save(@RequestBody Symptom symtom) {
+	public String save(@RequestBody Symptom symtom) {
 		service.save(symtom);
 		return "success";
 	}
@@ -37,7 +36,7 @@ public class SymptomController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Symptom> getAppointmentById(@PathVariable(value = "id") Integer id) {
+	public ResponseEntity<Symptom> getSymptomById(@PathVariable(value = "id") Integer id) {
 		Optional<Symptom> symtom = service.findById(id);
 		if (symtom.isPresent()) {
 			return ResponseEntity.ok().body(symtom.get());

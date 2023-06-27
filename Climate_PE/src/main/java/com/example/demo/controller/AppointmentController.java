@@ -26,14 +26,53 @@ public class AppointmentController {
 	private AppointmentService appointmentService;
 
 	@PostMapping("/save")
-	public String Save(@RequestBody AppointmentDTO appointmentDTO) {
-		appointmentService.save(appointmentDTO);
-		return "success";
+	public String save(@RequestBody AppointmentDTO appointmentDTO) {
+		System.out.println(appointmentDTO.getIdC());
+
+		// validate
+		if (appointmentDTO.getName() == "" || appointmentDTO.getPhone() == "" || appointmentDTO.getBirthday() == ""
+				|| appointmentDTO.getGender() == "" || appointmentDTO.getBookPlace() == ""
+				|| appointmentDTO.getSymtom() == "" || appointmentDTO.getSpec() == ""
+				|| appointmentDTO.getDoctorName() == "" || appointmentDTO.getBookDate() == ""
+				|| appointmentDTO.getBookTime() == "" || appointmentDTO.getIdC() == "") {
+			return "Invalid data, please fill all data";
+		}
+
+		String result = appointmentService.save(appointmentDTO);
+		if (result.equals("success")) {
+			return "success";
+		} else {
+			return result;
+		}
+	}
+	
+	@PostMapping("/saveguest")
+	public String saveGuest(@RequestBody AppointmentDTO appointmentDTO) {
+		
+		// validate
+		if (appointmentDTO.getName() == "" || appointmentDTO.getPhone() == "" || appointmentDTO.getBirthday() == ""
+				|| appointmentDTO.getGender() == "" || appointmentDTO.getBookPlace() == ""
+				|| appointmentDTO.getSymtom() == "" || appointmentDTO.getSpec() == ""
+				|| appointmentDTO.getDoctorName() == "" || appointmentDTO.getBookDate() == ""
+				|| appointmentDTO.getBookTime() == "") {
+			return "Invalid data, please fill all data";
+		}
+		
+		String result = appointmentService.saveGuest(appointmentDTO);
+		if (result.equals("success")) {
+			return "success";
+		} else {
+			return result;
+		}
 	}
 
 	@GetMapping("/list")
 	public List<Appointment> getAll() {
 		return appointmentService.findAll();
+	}
+	@GetMapping("/listIncome")
+	public List<Appointment> getAllIncome() {
+		return appointmentService.findAllNotApprove();
 	}
 
 	@GetMapping("/{id}")

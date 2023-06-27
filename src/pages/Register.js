@@ -10,6 +10,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { localPort } from "../components/url/link";
 
 const RegisterStep = [
   { id: 1, title: "Your Profile", step: <RegisterStep1 /> },
@@ -94,7 +95,7 @@ const Register = () => {
         BIRTHDATE: values.bdate
       })
       console.log(partient);
-      const response = await axios.post(`http://localhost:8080/patient/register`, {
+      const response = await axios.post( localPort + `patient/register`, {
         'id': values.socialsecurity,
         'name': values.first + " " + values.last,
         'email': values.email,

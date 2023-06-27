@@ -27,7 +27,7 @@ public class LocationController {
 	private LocationService service;
 
 	@PostMapping("/save")
-	public String Save(@RequestBody Location location) {
+	public String save(@RequestBody Location location) {
 		service.save(location);
 		return "success";
 	}

@@ -6,37 +6,25 @@ import Button from "../../components/button/Button";
 const bookappointment = [
   {
     id: 1,
-    to: "/dashboard",
-    title: "Dashboard",
+    to: "/",
+    title: "Home",
   },
   {
     id: 2,
-    to: "/myappointments",
-    title: "My Appointments",
+    to: "/about",
+    title: "About",
   },
   {
     id: 3,
-    to: "/book_appointment",
-    title: "Book Appointment",
-  },
-  {
-    id: 3,
-    to: "/book_appointment_guest",
-    title: "Book Appointment for guest",
+    to: "/faq",
+    title: "FAQ",
   },
 ];
-const BookAppHeader = ({ storedName }) => {
+const BookAppHeaderGuest = () => {
   // console.log('====================================');
   // console.log(myData);
   // console.log('====================================');
   const navigate = useNavigate();
-
-  const handleLogout = () => {
-    //log out here
-    localStorage.removeItem("token");
-    navigate("/login-user")
-  }
-
   return (
 
     <div className="max-w-[1156px] gap-[46px] mx-auto flex items-center pt-[45px]">
@@ -66,17 +54,9 @@ const BookAppHeader = ({ storedName }) => {
       </nav>
       <div className="flex items-center gap-8" style={{marginLeft: "36rem"}}>
 
-      <Button
-        onClick={handleLogout}
-        className="!p-[10px_40px] rounded-lg text-[18px]"
-      >
-        Logout
-      </Button>
-
-
     </div>
     </div >
   );
 };
 
-export default BookAppHeader;
+export default BookAppHeaderGuest;

@@ -18,7 +18,6 @@ import com.example.demo.entity.Symptom;
 import com.example.demo.service.SpeciatlyService;
 import com.example.demo.service.SymptomService;
 
-
 @RestController
 @RequestMapping("/spec")
 @CrossOrigin("http://localhost:3000/")
@@ -28,7 +27,7 @@ public class SpeciatlyController {
 	private SpeciatlyService service;
 
 	@PostMapping("/save")
-	public String Save(@RequestBody Specialty specialty) {
+	public String save(@RequestBody Specialty specialty) {
 		service.save(specialty);
 		return "success";
 	}
@@ -39,8 +38,8 @@ public class SpeciatlyController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Specialty> getAppointmentById(@PathVariable(value = "id") Integer id) {
-		Optional<Specialty> specialty= service.findById(id);
+	public ResponseEntity<Specialty> getSpecById(@PathVariable(value = "id") Integer id) {
+		Optional<Specialty> specialty = service.findById(id);
 		if (specialty.isPresent()) {
 			return ResponseEntity.ok().body(specialty.get());
 		} else {
