@@ -34,7 +34,6 @@ const LoginPageUser = () => {
     setPassword(event.target.value);
     // console.log(password);
   }
-
   //doc1@gmail.com - 123
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -45,7 +44,7 @@ const LoginPageUser = () => {
       // do something
       alert("Incorrect Email format")
       return;
-    } 
+    }
     const response = (await axios.post(`http://localhost:8080/patient/login`, {
       "email": username,
       "password": password
@@ -55,15 +54,15 @@ const LoginPageUser = () => {
     if (response.data.token === undefined) {
       alert("Incorrect email or password.")
     }
-    
+
     if (response.data.token.length > 0) {
       const tokenn = response.data.token;
       console.log("true");
       localStorage.setItem("token", response.data.token)
       navigate("/",
-      { state: { tokenn } })
+        { state: { tokenn } })
     }
-    
+
   }
 
   return (
@@ -75,6 +74,20 @@ const LoginPageUser = () => {
         <div className="flex flex-col items-center justify-center">
           <Logo></Logo>
           <span className="text-[9px] text-gray2">Clinic Management</span>
+        </div>
+        <div className="flex w-[100%] justify-center mt-[10px]">
+          <div className=" flex items-center justify-center gap-1 w-[45%] h-[70px] rounded-2xl mr-[10%] border-[#d8d7da] border-[1px]">
+            <Link to="/login-user" className="  text-textColor flex items-center">
+              <input className="w-[20px] h-[20px]" type="radio" checked />
+              <p className="text-[20px] ml-[10px]">For user!</p>
+            </Link>
+          </div>
+          <div className=" flex items-center justify-center gap-1 w-[45%] h-[70px] rounded-2xl border-[#d8d7da] border-[1px]">
+            <Link to="/login" className="  text-[#a2a7af] flex items-center">
+              <input className="w-[20px] h-[20px]" type="radio" />
+              <p className="text-[20px] ml-[10px]">For doctor!</p>
+            </Link>
+          </div>
         </div>
         <form autoComplete="off" className="mt-9" onSubmit={handleSubmit}>
           <InputUsername
@@ -119,11 +132,6 @@ const LoginPageUser = () => {
             Login
           </Button>
         </form>
-        <div className="mt-[32px] flex items-center justify-center gap-1 ">
-          <Link to="/login" className="text-textColor">
-            For doctor!
-          </Link>
-        </div>
         <div className="mt-[32px] flex items-center justify-center gap-1 ">
           <span className="text-gray2">New User?</span>
           <Link to="/register" className="text-textColor">

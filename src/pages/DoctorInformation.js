@@ -10,8 +10,11 @@ function DoctorInformation() {
             <div className="bg-white">
                 <HomeHeaderService></HomeHeaderService>
             </div>
-            <div>
+            <div className="bg-white">
                 <DoctorInformationContent />
+            </div>
+            <div>
+                <Footer></Footer>
             </div>
         </div>
     )
