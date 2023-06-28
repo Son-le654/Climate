@@ -72,7 +72,7 @@ public class PatientController {
 		System.out.println("url: " + request.getEmail() + request.getPassword());
 
 		String result = service.register(request);
-		if (result.equals("success")) {
+		if (result.equals("Create success")) {
 			try {
 				String OTP = generateOneTimePassword(request.getEmail());
 				MailDetail m = new MailDetail(request.getEmail(), "OTP",
@@ -86,14 +86,44 @@ public class PatientController {
 		return ResponseEntity.ok(result);
 
 	}
+
 	@PostMapping(value = "/update")
 	public ResponseEntity<?> update(@RequestBody RegisterRequest request) {
-		
+
 		String result = service.update(request);
-	
-		
+
 		return ResponseEntity.ok(result);
-		
+
+	}
+
+	@GetMapping("/resend")
+	public String resendOTP(@RequestParam("email") String email) {
+
+		// remove old otp
+		if (!otps.isEmpty()) {
+			for (OTP otp : otps) {
+				if (otp.getEmail().equals(email)) {
+					otps.remove(otp);
+				}
+			}
+		}
+
+		// resend new otp
+		try {
+			String OTP = generateOneTimePassword(email);
+			MailDetail m = new MailDetail(email, "OTP",
+					"The OTP is : " + OTP + ". This OTP will be expired after 2 minutes");
+			mailService.sendMail(m);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "success";
+
 	}
 
 	/**

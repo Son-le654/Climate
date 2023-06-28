@@ -3,15 +3,18 @@ import { useEffect, useState } from "react";
 import { localPort } from "../../components/url/link";
 import { useNavigate } from "react-router";
 
-function VerifyRegisterContent({ mail }) {
+function VerifyRegisterContentForNotEmail() {
+  const [email, setEmail] = useState([
+    {
+      Vmail: "",
+    },
+  ]);
   const [otp, setOtp] = useState([
     {
       Votp: "",
     },
   ]);
-
   const navigate = useNavigate();
-
   const [disabled, setDisabled] = useState(true);
   const [remainingTime, setRemainingTime] = useState(60);
 
@@ -29,13 +32,17 @@ function VerifyRegisterContent({ mail }) {
   }, [remainingTime, disabled]);
 
   const handleClick = async () => {
-    setDisabled(true);
-    alert("Please check email to receive OTP");
-    // TODO: send email
-    const response = await axios.get(
-      localPort + `patient/resend?email=${mail}`
-    );
-    console.log(response);
+    if (email.Vmail != undefined) {
+      setDisabled(true);
+      alert("Please check email to receive OTP");
+      // TODO: send email
+      const response = await axios.get(
+        localPort + `patient/resend?email=${email.Vmail}`
+      );
+      console.log(response);
+    } else {
+      alert("Please fill Email to send OTP");
+    }
   };
 
   const handleChangeName = (event) => {
@@ -54,9 +61,9 @@ function VerifyRegisterContent({ mail }) {
     }
   };
   const verifyAcc = async () => {
-    if (otp.Votp != undefined) {
+    if (otp.Votp != undefined && email.Vmail != undefined) {
       const response = await axios.get(
-        localPort + `patient/checkotp?otp=${otp.Votp}&email=${mail}`
+        localPort + `patient/checkotp?otp=${otp.Votp}&email=${email.Vmail}`
       );
       console.log(response);
       if (response.data == "verify success") {
@@ -76,14 +83,24 @@ function VerifyRegisterContent({ mail }) {
         <div className="pt-[5%] pl-[8%] pr-[7%]">
           <div className="w-[100%] h-[80px]">
             <h1 className="text-[30px] font-bold w-[75%]">
-              Enter the confirmation code from the email message
+              Enter the confirmation code from the text message
             </h1>
           </div>
           <div className="mt-[20px] w-[100%]">
             <span className="text-grayborder2">
               Let us know if this email belongs to you. Enter the code in the
-              email sent to
+              SMS sent to
             </span>
+          </div>
+          <div className="mt-[20px] h-[50px] w-[70%]">
+            <input
+              style={{ padding: "5px" }}
+              type="email"
+              onChange={handleChangeName}
+              name="Vmail"
+              placeholder="Email"
+              className="border-[1px] border-grayborder2 w-[100%] h-[50px] rounded-2xl"
+            />
           </div>
           <div className="mt-[20px] h-[50px] w-[40%]">
             <input
@@ -123,4 +140,4 @@ function VerifyRegisterContent({ mail }) {
     </div>
   );
 }
-export default VerifyRegisterContent;
+export default VerifyRegisterContentForNotEmail;

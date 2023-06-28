@@ -69,7 +69,7 @@ const HomeHeaderService = () => {
               })}
           </ul>
         </nav>
-        <AccountMenu
+        {/* <AccountMenu
           items={MENU_ITEMS}
         >
           <div className=" relative flex h-[35px] !p-[5px_40px] bg-[#e2edff] rounded-2xl  " style={{ color: '#3f84f6', borderRadius: '20px' }} >
@@ -77,7 +77,7 @@ const HomeHeaderService = () => {
             <div className="font-bold">nguyendinhphong</div>
             <div className="absolute top-[3px] left-[83%]"><IoMdArrowDropdown style={{ fontSize: '30px' }} /></div>
           </div>
-        </AccountMenu>
+        </AccountMenu> */}
       </div>
     </header>
   );

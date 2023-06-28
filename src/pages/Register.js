@@ -52,6 +52,7 @@ const Register = () => {
   //   fetchData();
   // }, []);
   // console.log(data);
+  const navigate = useNavigate();
 
   const {
     handleSubmit,
@@ -95,6 +96,7 @@ const Register = () => {
         BIRTHDATE: values.bdate
       })
       console.log(partient);
+      const mail = partient.Email;
       const response = await axios.post( localPort + `patient/register`, {
         'id': values.socialsecurity,
         'name': values.first + " " + values.last,
@@ -103,9 +105,10 @@ const Register = () => {
         'birthdate': values.bdate.replace(/-/g, '/')
       });
       console.log(response);
+      alert(response.data);
 
-      if (response.data === "register success") {
-        alert("Enter OTP")
+      if (response.data === "Create success") {
+        navigate("/verifyregister",  { state: { mail } });
       }
 
     }
