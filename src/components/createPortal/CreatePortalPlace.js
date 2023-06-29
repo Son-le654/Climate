@@ -22,7 +22,7 @@ const CreatePortalPlace = ({
   useEffect(() => {
     const places = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/location/list");
+        const response = await axios.get("http://103.68.85.120/location/list");
         setPlaceList(response.data);
         setListOrigin(response.data);
       } catch (error) {

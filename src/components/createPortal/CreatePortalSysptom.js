@@ -57,7 +57,7 @@ const CreatePortalSysptom = ({
   useEffect(() => {
     const symptoms = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/symptom/list");
+        const response = await axios.get("http://103.68.85.120/symptom/list");
         setSymtomList(response.data);
         setListOrigin(response.data);
       } catch (error) {

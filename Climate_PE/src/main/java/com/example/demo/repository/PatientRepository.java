@@ -12,13 +12,13 @@ public interface PatientRepository extends JpaRepository<Patient, Integer>{
 
 	Patient findByEmail(String email);
 	
-	@Query("select p FROM Patient p where p.name = :name")
+	@Query("select p FROM Patient p where LOWER(p.name) = LOWER(:name)")
 	Patient findByName (@Param("name") String name);
 
 	@Query("select p FROM Patient p where p.id = :id")
 	Patient findByID (@Param("id") String id);
 	
-	@Query("select p FROM Patient p where p.id = :id and p.name = :name")
+	@Query("select p FROM Patient p where p.id = :id and LOWER(p.name) = LOWER(:name)")
 	Patient findByIDAndName (@Param("id") String id, @Param("name") String name);
 
 }

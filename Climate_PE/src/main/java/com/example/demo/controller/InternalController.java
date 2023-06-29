@@ -29,7 +29,7 @@ import com.example.demo.service.JwtTokenUtil;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin("http://localhost:3000/")
+@CrossOrigin(origins = {"http://clinicmates.io.vn/", "http://localhost:3000/"})
 public class InternalController {
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -90,6 +90,7 @@ public class InternalController {
     public ResponseEntity<?> searchInternalAccounts(
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "specialty", required = false) String specialty) {
+		String role = "DOCTOR"; 
         Optional<List<InternalAccount>> accounts = internalService.searchInternalAccounts(name, specialty);
         if (accounts.isPresent() && !accounts.get().isEmpty()) {
 			return ResponseEntity.ok(accounts);

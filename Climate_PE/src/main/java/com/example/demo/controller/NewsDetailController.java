@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/news")
-@CrossOrigin("http://localhost:3000/")
+@CrossOrigin(origins = {"http://clinicmates.io.vn/", "http://localhost:3000/"})
 public class NewsDetailController {
 	private final NewsDetailService newsDetailService;
 

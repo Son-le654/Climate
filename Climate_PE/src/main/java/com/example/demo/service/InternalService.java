@@ -64,7 +64,7 @@ public class InternalService implements UserDetailsService {
         } else if (specialty != null) {
             return internalRepository.findBySpecialty(specialty);
         } else {
-            return Optional.of(internalRepository.findAll());
+            return Optional.of(internalRepository.findAllDoctor());
         }
     }
 }

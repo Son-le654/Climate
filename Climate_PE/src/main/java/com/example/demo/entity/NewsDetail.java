@@ -38,6 +38,8 @@ public class NewsDetail {
     @Column(name = "SPECIATLY")
     private String specialty;
 
+    @Column(name = "CREATEBY")
+    private String creatby;
     // Constructors, getters, and setters
 
     public NewsDetail() {
@@ -107,7 +109,22 @@ public class NewsDetail {
 	public void setDislike(int dislike) {
 		this.dislike = dislike;
 	}
-    
 
+	public String getSpecialty() {
+		return specialty;
+	}
+
+	public void setSpecialty(String specialty) {
+		this.specialty = specialty;
+	}
+
+	public String getCreatby() {
+		return creatby;
+	}
+
+	public void setCreatby(String creatby) {
+		this.creatby = creatby;
+	}
+    
     
 }

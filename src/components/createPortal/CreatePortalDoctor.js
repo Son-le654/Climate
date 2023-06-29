@@ -37,7 +37,7 @@ const CreatePortalDoctor = ({
     const doctos = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/list_lo/${place.id}`
+          `http://103.68.85.120/api/list_lo/${place.id}`
         );
         setDoctorList(response.data);
         setListOrigin(response.data);
@@ -63,7 +63,7 @@ const CreatePortalDoctor = ({
       // console.log(doctorList);
       const filteredItems = doctorList.filter((item) => {
         return (
-          item.role.id === 1 &&
+          item.role.id === 3 &&
           null !== item.specialty &&
           spec.id == item.specialty.id
         );

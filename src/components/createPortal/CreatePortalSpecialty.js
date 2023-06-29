@@ -33,7 +33,7 @@ const CreatePortalSpecialty = ({
   useEffect(() => {
     const specs = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/spec/list");
+        const response = await axios.get("http://103.68.85.120/spec/list");
         setSpecList(response.data);
         setListOrigin(response.data);
       } catch (error) {

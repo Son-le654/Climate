@@ -19,7 +19,7 @@ import com.example.demo.service.RoleService;
 
 @RestController
 @RequestMapping("/role")
-@CrossOrigin("http://localhost:3000/")
+@CrossOrigin(origins = {"http://clinicmates.io.vn/", "http://localhost:3000/"})
 public class RoleController {
 
 	@Autowired
