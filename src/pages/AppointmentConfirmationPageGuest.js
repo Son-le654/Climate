@@ -7,7 +7,6 @@ import jwtDecode from "jwt-decode";
 
 const AppointmentConfirmationPageGuest = () => {
   const navigate = useNavigate();
-
   const location = useLocation();
   const appointment = location.state.registers || {};
   console.log(appointment);

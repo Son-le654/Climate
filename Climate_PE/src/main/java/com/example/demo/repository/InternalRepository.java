@@ -30,7 +30,7 @@ public interface InternalRepository extends JpaRepository<InternalAccount, Integ
 	@Query("SELECT ia FROM InternalAccount ia JOIN ia.specialty s WHERE ia.name LIKE %:name%")
 	Optional<List<InternalAccount>> findByName(@Param(value = "name") String name);
 
-	@Query("SELECT ia FROM InternalAccount ia JOIN ia.specialty s WHERE s.name LIKE %:specialty%")
+	@Query("SELECT ia FROM InternalAccount ia WHERE ia.specialty.name LIKE %:specialty%")
 	Optional<List<InternalAccount>> findBySpecialty(@Param(value = "specialty") String specialty);
 
 }

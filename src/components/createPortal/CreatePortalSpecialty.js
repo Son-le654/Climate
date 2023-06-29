@@ -4,6 +4,7 @@ import { CSSTransition } from "react-transition-group";
 import Popup from "../propup/Popup";
 import PopupSpec from "../propup/PopupSpec";
 import axios from "axios";
+import { publicPort } from "../url/link";
 // const list = [
 //   { id: 1, specialty: "Dental", symtom: "toothache, halitosis" },
 //   { id: 2, specialty: "General suraery", symtom: "cough, sneeze, runny nose, fever, general examination" },
@@ -33,7 +34,7 @@ const CreatePortalSpecialty = ({
   useEffect(() => {
     const specs = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/spec/list");
+        const response = await axios.get(publicPort + "spec/list");
         setSpecList(response.data);
         setListOrigin(response.data);
       } catch (error) {

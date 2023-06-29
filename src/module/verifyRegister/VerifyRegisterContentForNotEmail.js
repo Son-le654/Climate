@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { localPort } from "../../components/url/link";
+import { localPort, publicPort } from "../../components/url/link";
 import { useNavigate } from "react-router";
 
 function VerifyRegisterContentForNotEmail() {
@@ -37,7 +37,7 @@ function VerifyRegisterContentForNotEmail() {
       alert("Please check email to receive OTP");
       // TODO: send email
       const response = await axios.get(
-        localPort + `patient/resend?email=${email.Vmail}`
+        publicPort + `patient/resend?email=${email.Vmail}`
       );
       console.log(response);
     } else {

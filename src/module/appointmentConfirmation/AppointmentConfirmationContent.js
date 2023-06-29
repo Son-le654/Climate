@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { localPort } from "../../components/url/link";
+import { localPort, publicPort } from "../../components/url/link";
 
 function AppointmentConfirmationContent({ appointment }) {
   const tabButtons1 = "Return to previous";
@@ -31,7 +31,7 @@ function AppointmentConfirmationContent({ appointment }) {
   const confirm = async () => {
     console.log(appointment);
     const response = await axios.post(
-      localPort + `appointment/save`,
+      publicPort + `appointment/save`,
       appointment
     );
     console.log(response);

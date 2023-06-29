@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { localPort } from "../../components/url/link";
+import { localPort, publicPort } from "../../components/url/link";
 import { useNavigate } from "react-router";
 
 function VerifyRegisterContent({ mail }) {
@@ -33,7 +33,7 @@ function VerifyRegisterContent({ mail }) {
     alert("Please check email to receive OTP");
     // TODO: send email
     const response = await axios.get(
-      localPort + `patient/resend?email=${mail}`
+      publicPort + `patient/resend?email=${mail}`
     );
     console.log(response);
   };
@@ -56,7 +56,7 @@ function VerifyRegisterContent({ mail }) {
   const verifyAcc = async () => {
     if (otp.Votp != undefined) {
       const response = await axios.get(
-        localPort + `patient/checkotp?otp=${otp.Votp}&email=${mail}`
+        publicPort + `patient/checkotp?otp=${otp.Votp}&email=${mail}`
       );
       console.log(response);
       if (response.data == "verify success") {

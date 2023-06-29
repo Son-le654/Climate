@@ -4,6 +4,7 @@ import { CSSTransition } from "react-transition-group";
 import Popup from "../propup/Popup";
 import PopupPlace from "../propup/PopupPlace";
 import axios from "axios";
+import { publicPort } from "../url/link";
 // const list = [
 //   { id: 1, place: "Da Nang" },
 //   { id: 2, place: "Hue " },
@@ -22,7 +23,7 @@ const CreatePortalPlace = ({
   useEffect(() => {
     const places = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/location/list");
+        const response = await axios.get(publicPort + "location/list");
         setPlaceList(response.data);
         setListOrigin(response.data);
       } catch (error) {
