@@ -22,7 +22,7 @@ import com.example.demo.service.ScheduleService;
 
 @RestController
 @RequestMapping("/schedule")
-@CrossOrigin("http://localhost:3000/")
+@CrossOrigin(origins = {"http://clinicmates.io.vn/", "http://localhost:3000/"})
 public class ScheduleController {
 
 	@Autowired

@@ -35,7 +35,7 @@ import net.bytebuddy.utility.RandomString;
 
 @RestController
 @RequestMapping("/patient")
-@CrossOrigin("http://localhost:3000/")
+@CrossOrigin(origins = {"http://clinicmates.io.vn/", "http://localhost:3000/"})
 public class PatientController {
 	@Autowired
 	private MailService mailService;

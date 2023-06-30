@@ -24,7 +24,7 @@ import com.example.demo.service.JwtTokenProvider;
 
 @RestController
 @RequestMapping("/api/v1")
-@CrossOrigin(origins = "http://localhost:3000/")
+@CrossOrigin(origins = {"http://clinicmates.io.vn/", "http://localhost:3000/"})
 public class AuthController {
 
     @Autowired

@@ -20,7 +20,7 @@ import com.example.demo.service.SymptomService;
 
 @RestController
 @RequestMapping("/spec")
-@CrossOrigin("http://localhost:3000/")
+@CrossOrigin(origins = {"http://clinicmates.io.vn/", "http://localhost:3000/"})
 public class SpeciatlyController {
 
 	@Autowired
