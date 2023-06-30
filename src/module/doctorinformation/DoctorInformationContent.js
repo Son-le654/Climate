@@ -15,7 +15,7 @@ function DoctorInformationContent() {
   const [type, setType] = useState(tabButtons[0]);
   const [showComponentC, setShowComponentC] = useState(true);
   const [showComponentD, setShowComponentD] = useState(false);
-  const [doct, setDoct] = useState([]);
+  const [doct, setDoct] = useState({});
   const id = 1;
   console.log("doc info");
 
@@ -31,7 +31,7 @@ function DoctorInformationContent() {
       }
     };
     doc();
-  }, []);
+  },[]);
 
   const handleClick = (data) => {
     setType(data);

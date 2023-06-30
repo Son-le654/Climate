@@ -46,8 +46,8 @@ function Specialtiess({ doct }) {
             className=" text-[13px] justify-around w-[100%] ml-2 font-light p-[10px]"
             style={{ lineHeight: "35px" }}
           >
-            {doct.specialty.name}
-            <hr className="w-[100%] text-[rgb(212,212,212)]" />
+            {doct !== undefined ? <>{doct.name}</> : <></>}
+            {/* <hr className="w-[100%] text-[rgb(212,212,212)]" /> */}
           </div>
         }
       </div>

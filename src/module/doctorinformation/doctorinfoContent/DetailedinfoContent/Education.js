@@ -45,7 +45,7 @@ function Education({doct}) {
                 {
                         <div className=" text-[14px] justify-around w-[100%] ml-2 font-light p-[10px]" style={{ lineHeight: "40px" }}>
                             {doct.education}
-                            <hr className="w-[100%] text-[rgb(212,212,212)]" />
+                            {/* <hr className="w-[100%] text-[rgb(212,212,212)]" /> */}
                             
                         </div>
                     }

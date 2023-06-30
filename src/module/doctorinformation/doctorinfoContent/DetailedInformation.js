@@ -25,6 +25,9 @@ function DetailedInformation({ doct }) {
   const [isExpanded, setExpanded] = useState(true);
   // const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded });
   const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded });
+
+  console.log("doc info", doct);
+
   function handleOnClick() {
     setIsicon(!isIcon);
     setExpanded(!isExpanded);
@@ -81,22 +84,22 @@ function DetailedInformation({ doct }) {
         </div>
         <div className="w-[30%] mr-[5%] ml-[5%] ">
           <div className="mb-[20px]">
-            <Position doct={doct} />
-          </div>
+              <Position doct={doct.role} />
+            </div>
           <div className="mb-[20px]">
-            <WorkPlace doct={doct} />
-          </div>
+              <WorkPlace doct={doct.workingPlace} />
+            </div>
           <div className="mb-[20px]">
-            <Experience doct={doct} />
-          </div>
+              <Experience doct={doct} />
+            </div>
         </div>
         <div className="w-[30%]">
           <div className="mb-[20px]">
-            <Specialtiess doct={doct} />
-          </div>
+              <Specialtiess doct={doct.specialty} />
+            </div>
           <div className="mb-[20px]">
-            <Education doct={doct} />
-          </div>
+              <Education doct={doct} />
+            </div>
         </div>
       </div>
     </div>

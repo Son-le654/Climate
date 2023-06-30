@@ -41,7 +41,11 @@ function WorkPlace({ doct }) {
           className=" text-[13px] justify-around w-[100%] ml-2 font-light p-[10px]"
           style={{ lineHeight: "35px" }}
         >
-          {doct.workingPlace.name + " - " + doct.workingPlace.description || ""}
+          {doct !== undefined ? (
+            <>{doct.name + " - " + doct.description}</>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </div>

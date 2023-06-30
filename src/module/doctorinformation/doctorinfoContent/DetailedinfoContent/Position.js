@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useCollapse } from "react-collapsed";
 import { BsFillInfoCircleFill } from "react-icons/bs";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
+import { localPort } from "../../../../components/url/link";
+import axios from "axios";
 
 const Listdata = [
   {
@@ -14,11 +16,35 @@ function Position({ doct }) {
   const [isExpanded, setExpanded] = useState(true);
   // const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded });
   const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded });
+  //   const [role, setRole] = useState("");
+  //   useEffect(() => {
+  //     setRole(doct.name)
+  //   },[])
+
+  //   const [doct, setDoct] = useState({});
+  //   const id = 1;
+  //   console.log("doc info");
+
+  //   useEffect(() => {
+  //     console.log("Enter useEffect");
+  //     const doc = async () => {
+  //       try {
+  //         const response = await axios.get(localPort + "api/1");
+  //         setRole(response.data);
+  //         console.log(response.data);
+  //       } catch (error) {
+  //         console.log(error);
+  //       }
+  //     };
+  //     doc();
+  //   },[]);
+
   console.log(doct);
   function handleOnClick() {
     setIsicon(!isIcon);
     setExpanded(!isExpanded);
   }
+
   return (
     <div className="w-[100%] rounded-3xl bg-white shadow-lg">
       <div className="w-[100%] flex">
@@ -45,8 +71,7 @@ function Position({ doct }) {
           className=" text-[13px] justify-around w-[100%] ml-2 font-light p-[10px]"
           style={{ lineHeight: "35px" }}
         >
-          {/* {doct.role.name} */}
-          
+          {doct !== undefined ? <>{doct.name}</> : <></>}
         </div>
       </div>
     </div>
