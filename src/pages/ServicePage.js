@@ -19,9 +19,9 @@ const ServicePage = () => {
             try {
                 const decoded = jwtDecode(storedName);
                 const role = decoded.roles[0].authority
-                // if (role !== 'USER') {
-                //   navigate("/")
-                // }
+                if (role !== 'USER') {
+                  navigate("/")
+                }
             } catch (error) {
                 console.log(error);
             }

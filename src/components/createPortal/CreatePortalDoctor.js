@@ -5,6 +5,7 @@ import avatarDoctor from "../../Images/avatar.png";
 import PopupDoctor from "../propup/PopupDoctor";
 import axios from "axios";
 import { isEqual } from "lodash";
+import { publicPort } from "../url/link";
 
 // const listDoctor = [
 //   { id: 1, doctor: "Nguyen Hung", avatar: avatarDoctor, spec: "General suraery, Dematology" },
@@ -37,7 +38,7 @@ const CreatePortalDoctor = ({
     const doctos = async () => {
       try {
         const response = await axios.get(
-          `http://103.68.85.120/api/list_lo/${place.id}`
+          publicPort + `api/list_lo/${place.id}`
         );
         setDoctorList(response.data);
         setListOrigin(response.data);

@@ -10,7 +10,7 @@ const Listdata = [
         name2: ' Cardiology Specialist Certification from the Ministry of Health, Argentina',
     },
 ]
-function Education() {
+function Education({doct}) {
     const [isIcon, setIsicon] = useState(false)
     const [isExpanded, setExpanded] = useState(true)
     // const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded });
@@ -42,17 +42,13 @@ function Education() {
             </div>
             <hr className="w-[90%] ml-5 text-[rgb(212,212,212)]" />
             <div {...getCollapseProps()}>
-                {Listdata.map((data) => (
-                    <div key={data.id}>
+                {
                         <div className=" text-[14px] justify-around w-[100%] ml-2 font-light p-[10px]" style={{ lineHeight: "40px" }}>
-                            {data.name}
-                            <hr className="w-[100%] text-[rgb(212,212,212)]" />
-                            {data.name1}
-                            <hr className="w-[100%] text-[rgb(212,212,212)]" />
-                            {data.name2}
+                            {doct.education}
+                            {/* <hr className="w-[100%] text-[rgb(212,212,212)]" /> */}
+                            
                         </div>
-                    </div>
-                ))}
+                    }
             </div>
         </div >
     )

@@ -4,6 +4,7 @@ import { CSSTransition } from "react-transition-group";
 import Popup from "../propup/Popup";
 import PopupSymptom from "../propup/PopupSymptom";
 import axios from "axios";
+import { publicPort } from "../url/link";
 // const list = [
 //   { id: 1, symtom: "Toothache " },
 //   { id: 2, symtom: "Halitosis " },
@@ -57,7 +58,7 @@ const CreatePortalSysptom = ({
   useEffect(() => {
     const symptoms = async () => {
       try {
-        const response = await axios.get("http://103.68.85.120/symptom/list");
+        const response = await axios.get(publicPort + "symptom/list");
         setSymtomList(response.data);
         setListOrigin(response.data);
       } catch (error) {

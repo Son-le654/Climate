@@ -10,7 +10,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { localPort } from "../components/url/link";
+import { localPort, publicPort } from "../components/url/link";
 
 const RegisterStep = [
   { id: 1, title: "Your Profile", step: <RegisterStep1 /> },
@@ -52,6 +52,7 @@ const Register = () => {
   //   fetchData();
   // }, []);
   // console.log(data);
+  const navigate = useNavigate();
 
   const {
     handleSubmit,
@@ -95,7 +96,8 @@ const Register = () => {
         BIRTHDATE: values.bdate
       })
       console.log(partient);
-      const response = await axios.post( localPort + `patient/register`, {
+      const mail = partient.Email;
+      const response = await axios.post( publicPort + `patient/register`, {
         'id': values.socialsecurity,
         'name': values.first + " " + values.last,
         'email': values.email,
@@ -103,9 +105,10 @@ const Register = () => {
         'birthdate': values.bdate.replace(/-/g, '/')
       });
       console.log(response);
+      alert(response.data);
 
-      if (response.data === "register success") {
-        alert("Enter OTP")
+      if (response.data === "Create success") {
+        navigate("/verifyregister",  { state: { mail } });
       }
 
     }

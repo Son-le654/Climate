@@ -30,7 +30,7 @@ import { useNavigate } from "react-router-dom";
 import { bool, number } from "prop-types";
 import IconSearch from "../../icon/IconSearch";
 import IconRight from "../../icon/IconRight";
-import { localPort } from "../../components/url/link";
+import { localPort, publicPort } from "../../components/url/link";
 
 const hoursList = [
   {
@@ -172,7 +172,7 @@ const BAContent = () => {
       const sche = async () => {
         try {
           const response = await axios.get(
-            localPort + `schedule/list_date/${doctor.id}?date=${formattedDate}`
+            publicPort + `schedule/list_date/${doctor.id}?date=${formattedDate}`
           );
           console.log(response.data);
           setScheOfDoc(response.data);
