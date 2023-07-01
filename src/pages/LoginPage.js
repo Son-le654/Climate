@@ -9,7 +9,7 @@ import axios from "axios";
 import InputUsername from "../components/input/InputUsername";
 import InputPassword from "../components/input/InputPassword";
 import { contextType } from "react-datetime";
-import { localPort } from "../components/url/link";
+import { localPort, publicPort } from "../components/url/link";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ const LoginPage = () => {
       alert("Incorrect Email format")
       return;
     }
-    const response = (await axios.post(localPort + `api/login`, {
+    const response = (await axios.post(publicPort + `api/login`, {
       "email": username,
       "password": password
     }));

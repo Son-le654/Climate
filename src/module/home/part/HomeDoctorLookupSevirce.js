@@ -72,14 +72,17 @@ const HomeDoctorLookupService = () => {
 
   const handleFind = async () => {
     console.log(doctorName + inputValue);
-    // if (inputValue.trim() === "") {
-    //   navigate("/faq");
-    // }
     const response = await axios.get(
       publicPort +
         `api/internal-accounts/search/?name=${doctorName}&specialty=${inputValue}`
     );
     console.log(response.data);
+
+    var docList = response.data;
+
+    if (response.data !== "No doctor information found") {
+      navigate("/faq", { state: { docList } });
+    }
   };
 
   useEffect(() => {

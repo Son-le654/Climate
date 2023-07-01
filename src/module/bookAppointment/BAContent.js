@@ -26,7 +26,7 @@ import SelectCardSymtom from "./part/SelectCardSymtom";
 import SelectCardSpec from "./part/SelectCardSpec";
 import SelectCardDoctor from "./part/SelectCardDoctor";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { bool, number } from "prop-types";
 import IconSearch from "../../icon/IconSearch";
 import IconRight from "../../icon/IconRight";
@@ -104,6 +104,20 @@ const BAContent = () => {
   const navigate = useNavigate();
   const [value, onChange] = useState();
   const [selectedCheckbox, setSelectedCheckbox] = useState("");
+  const location = useLocation();
+  const [doct, setDoct] = useState();
+
+  useEffect(() => {
+    console.log(" doctor" + location.state);
+    const docId = location?.state?.item;
+    console.log(docId);
+    if (docId) {
+      console.log(docId.workingPlace);
+      changePlaceList(docId.workingPlace);
+      changeSpecList(docId.specialty);
+      changeDoctorList(docId);
+    }
+  }, []);
 
   const handleCheckboxChange = (event) => {
     setSelectedCheckbox(event.target.value);
@@ -160,9 +174,7 @@ const BAContent = () => {
       const offsetMinutes = value.getTimezoneOffset();
 
       // Convert the original date to your local time zone
-      const localDate = new Date(
-        value.getTime() - offsetMinutes * 60 * 1000
-      );
+      const localDate = new Date(value.getTime() - offsetMinutes * 60 * 1000);
 
       // Format the local date as a string with the desired format
       const formattedDate = localDate
@@ -384,7 +396,9 @@ const BAContent = () => {
     registers.gender = selectedCheckbox;
     // registers.foreign = selectedForeign;
     registers.bookPlace = place.name + " - " + place.description;
-    registers.symtom = symtomArr.map((item) => `${item.name}`).join(", ");
+    if (symtomArr != undefined) {
+      registers.symtom = symtomArr.map((item) => `${item.name}`).join(", ");
+    }
     registers.spec = spec.name;
     registers.doctorName = doctor.name;
     registers.bookDate = value;
@@ -401,7 +415,6 @@ const BAContent = () => {
       registers.gender === "" ||
       registers.bookPlace === "" ||
       registers.bookTime === "" ||
-      registers.symtom === "" ||
       registers.spec === "" ||
       registers.doctor === ""
     ) {
@@ -418,7 +431,7 @@ const BAContent = () => {
   };
 
   return (
-    <> 
+    <>
       <div className="max-w-[1156px] mx-auto mt-[8rem]">
         <CreatePortalPlace
           changePlaceList={changePlaceList}
@@ -542,7 +555,7 @@ const BAContent = () => {
         <Header number={2} className="mt-[6.4rem]">
           Appointment information
         </Header>
-       
+
         <div className="mt-[4.4rem]" onClick={() => setShowPlace(true)}>
           <div className="flex items-center justify-between border border-grayborder p-[1.9rem_2.4rem] rounded-[1.6rem]">
             <div className="flex items-center gap-[1.6rem]">

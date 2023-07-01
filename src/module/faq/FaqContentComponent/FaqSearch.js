@@ -1,4 +1,4 @@
-import { FaMapMarkerAlt, FaSortDown } from 'react-icons/fa';
+import { FaBuilding, FaMapMarkerAlt, FaSortDown, FaUserMd } from 'react-icons/fa';
 
 const datas = [
     {
@@ -7,13 +7,13 @@ const datas = [
         iconDown: <FaSortDown />
     },
     {
-        icon: <FaMapMarkerAlt />,
-        title: 'Province/City',
+        icon: <FaBuilding />,
+        title: 'Specialty',
         iconDown: <FaSortDown />
     },
     {
-        icon: <FaMapMarkerAlt />,
-        title: 'Province/City',
+        icon: <FaUserMd />,
+        title: 'Profession',
         iconDown: <FaSortDown />
     },
 ]
