@@ -55,6 +55,9 @@ public class InternalService implements UserDetailsService {
 	public Optional<InternalAccount> findById(Integer id) {
 		return internalRepository.findById(id);
 	}
+	public Optional<List<InternalAccount>> findDoctorBySpecialty(String specialty) {
+		return internalRepository.findBySpecialty(specialty);
+	}
 	
     public Optional<List<InternalAccount>> searchInternalAccounts(String name, String specialty) {
         if (name != null && specialty != null) {
