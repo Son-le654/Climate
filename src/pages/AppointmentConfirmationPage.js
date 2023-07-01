@@ -41,7 +41,7 @@ const AppointmentConfirmationPage = () => {
         <h1>Appointment Confirmation</h1>
       </div>
       <div style={{ padding: "3% 12%" }}>
-        <AppointmentConfirmationContent appointment = {appointment}></AppointmentConfirmationContent>
+        <AppointmentConfirmationContent appointment={appointment}></AppointmentConfirmationContent>
       </div>
       <div>
         <Footer></Footer>
