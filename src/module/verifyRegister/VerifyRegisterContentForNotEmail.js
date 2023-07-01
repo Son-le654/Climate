@@ -31,12 +31,13 @@ function VerifyRegisterContentForNotEmail() {
     return () => clearTimeout(timer);
   }, [remainingTime, disabled]);
 
-  const handleClick = async () => {
+  const handleClick = () => {
+    console.log(email.Vmail);
     if (email.Vmail != undefined) {
       setDisabled(true);
       alert("Please check email to receive OTP");
       // TODO: send email
-      const response = await axios.get(
+      const response = axios.get(
         publicPort + `patient/resend?email=${email.Vmail}`
       );
       console.log(response);
@@ -51,6 +52,14 @@ function VerifyRegisterContentForNotEmail() {
     console.log(name);
     console.log(value);
 
+    if (name === "Vmail") {
+      const newEmail = {
+        ...email,
+        [name]: value,
+      };
+      console.log("set email");
+      setEmail(newEmail);
+    }
     if (name === "Votp") {
       const newOtp = {
         ...otp,
