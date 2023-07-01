@@ -72,10 +72,10 @@ const LatestNewService = () => {
                   </span>
                   <div className="flex items-center gap-[2px]">
                     <div className="w-[50px] h-[50px] rounded-full overflow-hidden">
-                      <img src={""} alt="avatar" />
+                      <img src={item.avatar} alt="avatar" />
                     </div>
                     <span className="font-medium text-black2 text-[20px] ml-[10px]">
-                      {item.fullname}
+                    {item.creatby}
                     </span>
                   </div>
                 </div>

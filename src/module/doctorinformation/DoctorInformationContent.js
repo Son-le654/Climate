@@ -11,19 +11,20 @@ import { useEffect } from "react";
 
 const tabButtons = ["DETAILED INFORMATION", "ASSESSMENT"];
 
-function DoctorInformationContent() {
+function DoctorInformationContent({ docId }) {
   const [type, setType] = useState(tabButtons[0]);
   const [showComponentC, setShowComponentC] = useState(true);
   const [showComponentD, setShowComponentD] = useState(false);
   const [doct, setDoct] = useState({});
-  const id = 1;
-  console.log("doc info");
+  console.log("doc info conteint: " + docId);
+  const response = axios.get(publicPort + `api/1`);
+  console.log(response.data);
 
   useEffect(() => {
-    console.log("Enter useEffect");
+    console.log("Enter useEffect with id: " + docId);
     const doc = async () => {
       try {
-        const response = await axios.get(localPort + "api/1");
+        const response = await axios.get(publicPort + `api/${docId}`);
         setDoct(response.data);
         console.log(response.data);
       } catch (error) {
@@ -31,7 +32,7 @@ function DoctorInformationContent() {
       }
     };
     doc();
-  },[]);
+  }, [docId]);
 
   const handleClick = (data) => {
     setType(data);
@@ -62,9 +63,7 @@ function DoctorInformationContent() {
           <span className="font-bold mt-[6px]">Cardiac Catheterization</span>
         </div>
         <div className="absolute top-[40%] left-[20%] ">
-          <h1 className="text-gradientLeft text-4xl font-bold">
-            {doct.name}
-          </h1>
+          <h1 className="text-gradientLeft text-4xl font-bold">{doct.name}</h1>
         </div>
         <div className="flex absolute top-[70%] left-[50%] w-[80%]">
           <div className="flex mt-[15px] w-[48%]">
@@ -95,8 +94,8 @@ function DoctorInformationContent() {
         </div>
       </div>
       <div>
-        <DoctorInfoDetailedInformation doct={doct}/>
-        {/* {showComponentD && <DoctorInfoAssessment />} */}
+        {showComponentC && <DoctorInfoDetailedInformation doct={doct} />}
+        {showComponentD && <DoctorInfoAssessment />}
       </div>
     </div>
   );

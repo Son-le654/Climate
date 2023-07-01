@@ -162,9 +162,7 @@ const BAContentGuest = () => {
       const offsetMinutes = value.getTimezoneOffset();
 
       // Convert the original date to your local time zone
-      const localDate = new Date(
-        value.getTime() - offsetMinutes * 60 * 1000
-      );
+      const localDate = new Date(value.getTime() - offsetMinutes * 60 * 1000);
 
       // Format the local date as a string with the desired format
       const formattedDate = localDate
@@ -374,8 +372,10 @@ const BAContentGuest = () => {
     registers.phone = phone.pnum;
     registers.birthday = birthday.bday;
     registers.gender = selectedCheckbox;
-    registers.bookPlace = place.name + " - " + place.description;
-    registers.symtom = symtomArr.map((item) => `${item.name}`).join(", ");
+    registers.bookPlace = place.name + " - " + place.description || "";
+    if (symtomArr != undefined) {
+      registers.symtom = symtomArr.map((item) => `${item.name}`).join(", ");
+    }
     registers.spec = spec.name;
     registers.doctorName = doctor.name;
     registers.bookDate = value;
@@ -391,7 +391,6 @@ const BAContentGuest = () => {
       registers.gender === "" ||
       registers.bookPlace === "" ||
       registers.bookTime === "" ||
-      registers.symtom === "" ||
       registers.spec === "" ||
       registers.doctor === ""
     ) {
@@ -525,7 +524,7 @@ const BAContentGuest = () => {
         <Header number={2} className="mt-[6.4rem]">
           Appointment information
         </Header>
-       
+
         <div className="mt-[4.4rem]" onClick={() => setShowPlace(true)}>
           <div className="flex items-center justify-between border border-grayborder p-[1.9rem_2.4rem] rounded-[1.6rem]">
             <div className="flex items-center gap-[1.6rem]">

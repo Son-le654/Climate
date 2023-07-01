@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { localPort, publicPort } from "../../components/url/link";
 
@@ -36,20 +36,30 @@ function AppointmentConfirmationContentGuest({ appointment }) {
     );
     console.log(response);
     if (response.data === "success") {
-        navigate("/");
+      navigate("/");
     }
   };
 
-  // Get the offset between UTC and your local time zone in minutes
-  const offsetMinutes = appointment.bookDate.getTimezoneOffset();
+  const [formattedDate, setFormatDate] = useState();
+  useEffect(() => {
+    if (appointment != undefined) {
+      // Get the offset between UTC and your local time zone in minutes
+      const offsetMinutes = appointment.bookDate.getTimezoneOffset();
 
-  // Convert the original date to your local time zone
-  const localDate = new Date(
-    appointment.bookDate.getTime() - offsetMinutes * 60 * 1000
-  );
+      // Convert the original date to your local time zone
+      const localDate = new Date(
+        appointment.bookDate.getTime() - offsetMinutes * 60 * 1000
+      );
 
-  // Format the local date as a string with the desired format
-  const formattedDate = localDate.toISOString().slice(0, 10).replace(/-/g, "/");
+      // Format the local date as a string with the desired format
+      const formattedDate = localDate
+        .toISOString()
+        .slice(0, 10)
+        .replace(/-/g, "/");
+
+      setFormatDate(formattedDate);
+    }
+  }, [appointment]);
 
   const goBack = () => {
     navigate("/book_appointment_guest");
@@ -76,27 +86,39 @@ function AppointmentConfirmationContentGuest({ appointment }) {
                 </h1>
                 <div className="pt-8 flex">
                   <span className="w-[35%]">Customer</span>
-                  <span className="w-[65%]">{appointment.name}</span>
+                  <span className="w-[65%]">
+                    {appointment != undefined ? appointment.name : ""}
+                  </span>
                 </div>
                 <div className="pt-3 flex">
                   <span className="w-[35%]">Date of Birth</span>
-                  <span className="w-[65%]">{appointment.birthday}</span>
+                  <span className="w-[65%]">
+                    {appointment != undefined ? appointment.birthday : ""}
+                  </span>
                 </div>
                 <div className="pt-3 flex">
                   <span className="w-[35%]">Gender</span>
-                  <span className="w-[65%]">{appointment.gender}</span>
+                  <span className="w-[65%]">
+                    {appointment != undefined ? appointment.gender : ""}
+                  </span>
                 </div>
                 <div className="pt-3 flex">
                   <span className="w-[35%]">Phone Number</span>
-                  <span>{appointment.phone}</span>
+                  <span>
+                    {appointment != undefined ? appointment.phone : ""}
+                  </span>
                 </div>
                 <div className="pt-3 flex">
                   <span className="w-[35%]">Symptom</span>
-                  <span className="w-[65%]">{appointment.symtom}</span>
+                  <span className="w-[65%]">
+                    {appointment != undefined ? appointment.symtom : ""}
+                  </span>
                 </div>
                 <div className="pt-3 flex">
                   <span className="w-[35%]">Description</span>
-                  <span className="w-[65%]">{appointment.description}</span>
+                  <span className="w-[65%]">
+                    {appointment != undefined ? appointment.description : ""}
+                  </span>
                 </div>
               </div>
               <div className="pt-6">
@@ -105,23 +127,33 @@ function AppointmentConfirmationContentGuest({ appointment }) {
                 </h1>
                 <div className="pt-6 flex">
                   <span className="w-[35%]">Doctor</span>
-                  <span className="w-[65%]">{appointment.doctorName}</span>
+                  <span className="w-[65%]">
+                    {appointment != undefined ? appointment.doctorName : ""}
+                  </span>
                 </div>
                 <div className="pt-3 flex">
                   <span className="w-[35%]">Specialty</span>
-                  <span className="">{appointment.spec}</span>
+                  <span className="">
+                    {appointment != undefined ? appointment.spec : ""}
+                  </span>
                 </div>
                 <div className="pt-3 flex">
                   <span className="w-[35%]">Examination Date</span>
-                  <span className="">{formattedDate}</span>
+                  <span className="">
+                    {appointment != undefined ? formattedDate : ""}
+                  </span>
                 </div>
                 <div className="pt-3 flex">
                   <span className="w-[35%]">Examination Time</span>
-                  <span className="">{appointment.bookTime}</span>
+                  <span className="">
+                    {appointment != undefined ? appointment.bookTime : ""}
+                  </span>
                 </div>
                 <div className="pt-3 flex">
                   <span className="w-[35%]">Location</span>
-                  <span className="">{appointment.bookPlace}</span>
+                  <span className="">
+                    {appointment != undefined ? appointment.bookPlace : ""}
+                  </span>
                 </div>
               </div>
             </div>

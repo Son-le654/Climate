@@ -9,12 +9,12 @@ const AppointmentsPage = () => {
             <div className="bg-white">
                 <HomeHeaderService></HomeHeaderService>
             </div>
-            <div className="pt-[80px] pl-[190px] text-7xl font-bold py-[20px]">
+            <div className="pt-[80px] pl-[190px] text-7xl font-bold py-[20px] bg-white">
                 <h1>
                     Appointments
                 </h1>
             </div>
-            <div style={{ padding: "5% 12%" }}>
+            <div className="bg-white" style={{ padding: "5% 12%" }}>
                 <AppointmentsContent></AppointmentsContent>
             </div>
             <div>

@@ -9,8 +9,8 @@ import LoginPageUser from "./pages/LoginPageUser";
 import { useEffect } from "react";
 import jwtDecode from "jwt-decode";
 
-import DoctorInformation from "./pages/DoctorInformation"
-import VerifyRegister from "./pages/VerifyRegister"
+import DoctorInformation from "./pages/DoctorInformation";
+import VerifyRegister from "./pages/VerifyRegister";
 import Service from "./pages/ServicePage";
 import Appointments from "./pages/AppointmentsPage";
 import AppointmentConfirmation from "./pages/AppointmentConfirmationPage";
@@ -76,7 +76,7 @@ function App() {
       <Route path="/doctorinformation" element={<DoctorInformation />}></Route>
       <Route path="/verifyregister" element={<VerifyRegister />}></Route>
       <Route path="/test" element={<SampleDateSort />}></Route>
-    </Routes >
+    </Routes>
   );
 }
 

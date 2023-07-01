@@ -19,7 +19,7 @@ import com.example.demo.service.AppointmentService;
 
 @RestController
 @RequestMapping("/appointment")
-@CrossOrigin(origins = {"http://clinicmates.io.vn/", "http://localhost:3000/"})
+@CrossOrigin(origins = { "http://clinicmates.io.vn/", "http://localhost:3000/" })
 public class AppointmentController {
 
 	@Autowired
@@ -32,9 +32,9 @@ public class AppointmentController {
 		// validate
 		if (appointmentDTO.getName() == "" || appointmentDTO.getPhone() == "" || appointmentDTO.getBirthday() == ""
 				|| appointmentDTO.getGender() == "" || appointmentDTO.getBookPlace() == ""
-				|| appointmentDTO.getSymtom() == "" || appointmentDTO.getSpec() == ""
-				|| appointmentDTO.getDoctorName() == "" || appointmentDTO.getBookDate() == ""
-				|| appointmentDTO.getBookTime() == "" || appointmentDTO.getIdC() == "") {
+				|| appointmentDTO.getSpec() == "" || appointmentDTO.getDoctorName() == ""
+				|| appointmentDTO.getBookDate() == "" || appointmentDTO.getBookTime() == ""
+				|| appointmentDTO.getIdC() == "") {
 			return "Invalid data, please fill all data";
 		}
 
@@ -45,19 +45,18 @@ public class AppointmentController {
 			return result;
 		}
 	}
-	
+
 	@PostMapping("/saveguest")
 	public String saveGuest(@RequestBody AppointmentDTO appointmentDTO) {
-		
+
 		// validate
 		if (appointmentDTO.getName() == "" || appointmentDTO.getPhone() == "" || appointmentDTO.getBirthday() == ""
 				|| appointmentDTO.getGender() == "" || appointmentDTO.getBookPlace() == ""
-				|| appointmentDTO.getSymtom() == "" || appointmentDTO.getSpec() == ""
-				|| appointmentDTO.getDoctorName() == "" || appointmentDTO.getBookDate() == ""
-				|| appointmentDTO.getBookTime() == "") {
+				|| appointmentDTO.getSpec() == "" || appointmentDTO.getDoctorName() == ""
+				|| appointmentDTO.getBookDate() == "" || appointmentDTO.getBookTime() == "") {
 			return "Invalid data, please fill all data";
 		}
-		
+
 		String result = appointmentService.saveGuest(appointmentDTO);
 		if (result.equals("success")) {
 			return "success";
@@ -70,6 +69,7 @@ public class AppointmentController {
 	public List<Appointment> getAll() {
 		return appointmentService.findAll();
 	}
+
 	@GetMapping("/listIncome")
 	public List<Appointment> getAllIncome() {
 		return appointmentService.findAllNotApprove();

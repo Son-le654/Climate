@@ -2,17 +2,23 @@ import HomeHeaderServiceGuest from "../module/home/HomeHeaderServiceGuest";
 import AppointmentConfirmationContentGuest from "../module/appointmentConfirmation/AppointmentConfirmationContentGuest";
 import Footer from "../module/home/Footer";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
 
 const AppointmentConfirmationPageGuest = () => {
   const navigate = useNavigate();
+  const [appointment, setAppointment] = useState();
+
   const location = useLocation();
-  const appointment = location.state.registers || {};
-  console.log(appointment);
-  if (appointment == {}) {
-    navigate("/book_appointment_guest");
-  }
+  useEffect(() => {
+    const appointment = location?.state?.registers;
+    console.log(appointment);
+    if (appointment == undefined) {
+      navigate("/book_appointment_guest");
+    } else {
+      setAppointment(appointment);
+    }
+  }, []);
 
   return (
     <div className="bg-white">
@@ -23,7 +29,9 @@ const AppointmentConfirmationPageGuest = () => {
         <h1>Appointment Confirmation</h1>
       </div>
       <div style={{ padding: "3% 12%" }}>
-        <AppointmentConfirmationContentGuest appointment = {appointment}></AppointmentConfirmationContentGuest>
+        <AppointmentConfirmationContentGuest
+          appointment={appointment}
+        ></AppointmentConfirmationContentGuest>
       </div>
       <div>
         <Footer></Footer>
