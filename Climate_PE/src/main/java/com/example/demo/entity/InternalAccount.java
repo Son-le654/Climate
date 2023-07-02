@@ -63,6 +63,9 @@ public class InternalAccount {
 
 	@Column(name = "COMMAND_FLAG")
 	private int commandFlag;
+	
+	@Column(name = "INTRODUCT")
+	private String introduct;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "LOCATION", referencedColumnName = "LOCATION_ID")
@@ -236,5 +239,12 @@ public class InternalAccount {
 	public void setSpecialty(Specialty specialty) {
 		this.specialty = specialty;
 	}
-
+	
+	public String getIntroduct() {
+		return introduct;
+	}
+	
+	public void setIntroduct(String introduct) {
+		this.introduct = introduct;
+	}
 }

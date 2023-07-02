@@ -4,12 +4,14 @@ import java.util.List;
 
 import com.example.demo.entity.InternalAccount;
 public class InternalAccountDTO {
+	private String nameSepcial;
     private int count;
     private List<InternalAccount> doctorList;
     
-    public InternalAccountDTO(int count, List<InternalAccount> doctorList) {
+    public InternalAccountDTO(String nameSepcial, int count, List<InternalAccount> doctorList) {
         this.count = count;
         this.doctorList = doctorList;
+        this.nameSepcial = nameSepcial;
     }
     
     public int getCount() {
@@ -27,4 +29,10 @@ public class InternalAccountDTO {
     public void setDoctorList(List<InternalAccount> doctorList) {
         this.doctorList = doctorList;
     }
+    public String getNameSepcial() {
+		return nameSepcial;
+	}
+    public void setNameSepcial(String nameSepcial) {
+		this.nameSepcial = nameSepcial;
+	}
 }
