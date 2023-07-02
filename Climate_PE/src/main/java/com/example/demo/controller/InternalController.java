@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +24,12 @@ import com.example.demo.DTO.ApiResponse;
 import com.example.demo.DTO.InternalAccountDTO;
 import com.example.demo.DTO.LoginRequest;
 import com.example.demo.entity.InternalAccount;
+import com.example.demo.entity.Specialty;
 import com.example.demo.entity.Symptom;
 import com.example.demo.service.InternalService;
 import com.example.demo.service.JwtResponse;
 import com.example.demo.service.JwtTokenUtil;
+import com.example.demo.service.SpeciatlyService;
 
 @RestController
 @RequestMapping("/api")
@@ -37,6 +40,9 @@ public class InternalController {
 
 	@Autowired
 	private InternalService internalService;
+
+	@Autowired
+	private SpeciatlyService speciatlyService;
 
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
@@ -83,16 +89,18 @@ public class InternalController {
 	}
 
 	@GetMapping(value = "/doctors/specialty")
-	public Optional<InternalAccountDTO> listAccDoctorwithSpecialty(
-	        @RequestParam(value = "specialty", required = false) String specialty) {
-	    Optional<List<InternalAccount>> doctors = internalService.findDoctorBySpecialty(specialty);
-	    if (doctors.isPresent()) {
-	        List<InternalAccount> doctorList = doctors.get();
-	        int count = doctorList.size();
-	        InternalAccountDTO response = new InternalAccountDTO(count, doctorList);
-	        return Optional.of(response);
-	    }
-	    return Optional.empty();
+	public List<InternalAccountDTO> listAccDoctorwithSpecialty() {
+		List<InternalAccountDTO> responseList = new ArrayList<>();
+		List<Specialty> specials = speciatlyService.findAll();
+		for (Specialty special : specials) {
+			Optional<List<InternalAccount>> doctors = internalService.findDoctorBySpecialty(special.getName());
+			List<InternalAccount> doctorList = doctors.get();
+			int count = doctorList.size();
+			InternalAccountDTO response = new InternalAccountDTO(special.getName(), count, doctorList);
+			responseList.add(response);
+
+		}
+		return responseList;
 	}
 
 	@GetMapping("/list_lo/{location}")
