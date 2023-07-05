@@ -97,7 +97,7 @@ public class Appointment {
 		this.patientName = patientName;
 		this.registerTime = timeNow();
 		this.symptom = symptom;
-		this.commandFlag = 3;
+		this.commandFlag = 0;
 	}
 
 	public String timeNow() {
