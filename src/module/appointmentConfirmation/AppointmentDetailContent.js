@@ -158,12 +158,12 @@ function AppointmentDetailContent({ appointment }) {
                   {appointment != undefined ? appointment.examTime : ""}
                 </span>
               </div>
-              {/* <div className="pt-3 flex">
+              <div className="pt-3 flex">
                 <span className="w-[35%]">Location</span>
                 <span className="">
                   {appointment != undefined ? appointment.bookPlace : ""}
                 </span>
-              </div> */}
+              </div>
             </div>
           </div>
         </div>
