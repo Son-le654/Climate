@@ -18,7 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.DTO.AppointmentDTO;
 import com.example.demo.entity.Appointment;
+import com.example.demo.entity.InternalAccount;
+import com.example.demo.entity.Schedule;
 import com.example.demo.service.AppointmentService;
+import com.example.demo.service.InternalService;
+import com.example.demo.service.ScheduleService;
 
 @RestController
 @RequestMapping("/appointment")
@@ -27,6 +31,12 @@ public class AppointmentController {
 
 	@Autowired
 	private AppointmentService appointmentService;
+	
+	@Autowired
+	private ScheduleService scheduleService;
+	
+	@Autowired
+	private InternalService internalService;
 
 	@PostMapping("/save")
 	public String save(@RequestBody AppointmentDTO appointmentDTO) {
@@ -108,13 +118,22 @@ public class AppointmentController {
 					appointment.setCommandFlag(2);
 				} else if (command.equalsIgnoreCase("approve")) {
 					appointment.setCommandFlag(1);
+					Schedule schedule = new Schedule();
+				    schedule.setExamDate(appointment.getExamDate());
+				    schedule.setExamTime(appointment.getExamTime());
+				    schedule.setReleaseTime(appointment.timeNow());
+				    schedule.setCommandFlag(appointment.getCommandFlag());
+				    schedule.setAppointment(appointment);
+				    InternalAccount inter = internalService.findByName(appointment.getDoctorName(),appointment.getBookPlace());
+				    schedule.setInaccounts(inter);
+				    scheduleService.saveSchedule(schedule);
 				} else {
 					return ResponseEntity.badRequest().body("Invalid command.");
 				}
 
 				// Save the updated appointment
 				appointmentService.saveAppointment(appointment);
-
+				
 				return ResponseEntity.ok("CommandFlag updated successfully.");
 			} else {
 				return ResponseEntity.notFound().build();

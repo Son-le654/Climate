@@ -47,4 +47,8 @@ public class ScheduleService {
 	public Optional<Schedule> findById(Integer id) {
 		return repository.findById(id);
 	}
+	public Schedule saveSchedule(Schedule schedule) {
+		return repository.save(schedule);
+		
+	}
 }
