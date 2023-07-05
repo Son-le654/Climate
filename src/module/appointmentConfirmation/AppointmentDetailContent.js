@@ -13,33 +13,33 @@ function AppointmentDetailContent({ appointment }) {
 
   const Approve = async () => {
     console.log(appointment);
-    console.log("Approve");
-    // const response = await axios.post(
-    //   publicPort + `appointment/save`,
-    //   appointment
-    // );
-    // console.log(response);
-    // if (response.data === "cannot find patient") {
-    //   window.alert("Cannot find patient");
-    // }
-    // if (response.data === "success") {
-    //   navigate("/appointments");
-    // }
+    const response = await axios.put(
+      publicPort +
+        `appointment/commandFlag?appointmentId=${appointment.id}&command=approve`
+    );
+    console.log(response);
+    if (
+      response.data === "CommandFlag updated successfully."
+    ) {
+      navigate("/appointments");
+    } else {
+      alert(response.data);
+    }
   };
   const Cancel = async () => {
     console.log(appointment);
-    console.log("Cancel");
-    // const response = await axios.post(
-    //   publicPort + `appointment/save`,
-    //   appointment
-    // );
-    // console.log(response);
-    // if (response.data === "cannot find patient") {
-    //   window.alert("Cannot find patient");
-    // }
-    // if (response.data === "success") {
-    //   navigate("/appointments");
-    // }
+    const response = await axios.put(
+      publicPort +
+        `appointment/commandFlag?appointmentId=${appointment.id}&command=cancel`
+    );
+    console.log(response);
+    if (
+      response.data === "CommandFlag updated successfully."
+    ) {
+      navigate("/appointments");
+    } else {
+      alert(response.data);
+    }
   };
 
   const goBack = () => {

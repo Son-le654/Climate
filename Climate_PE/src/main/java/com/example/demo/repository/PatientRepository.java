@@ -10,7 +10,8 @@ import com.example.demo.entity.Patient;
 @Repository
 public interface PatientRepository extends JpaRepository<Patient, Integer>{
 
-	Patient findByEmail(String email);
+	@Query("select p FROM Patient p where LOWER(p.email) = LOWER(:email)")
+	Patient findByEmail(@Param("email") String email);
 	
 	@Query("select p FROM Patient p where LOWER(p.name) = LOWER(:name)")
 	Patient findByName (@Param("name") String name);

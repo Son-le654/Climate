@@ -116,7 +116,7 @@ const LoginPageUser = () => {
               <label htmlFor="">Remember me</label>
             </div>
             <div>
-              <Link to="" className="text-gradientLeft">
+              <Link to="/registerenteremail" className="text-gradientLeft">
                 Forgot Password?
               </Link>
             </div>

@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.DTO.LoginRequest;
 import com.example.demo.DTO.RegisterRequest;
+import com.example.demo.entity.Patient;
 import com.example.demo.mailHelper.MailDetail;
 import com.example.demo.mailHelper.MailService;
 import com.example.demo.mailHelper.OTP;
@@ -35,7 +37,7 @@ import net.bytebuddy.utility.RandomString;
 
 @RestController
 @RequestMapping("/patient")
-@CrossOrigin(origins = {"http://clinicmates.io.vn/", "http://localhost:3000/"})
+@CrossOrigin(origins = { "http://clinicmates.io.vn/", "http://localhost:3000/" })
 public class PatientController {
 	@Autowired
 	private MailService mailService;
@@ -98,7 +100,7 @@ public class PatientController {
 
 	@GetMapping("/resend")
 	public String resendOTP(@RequestParam("email") String email) {
-
+		System.out.println("email in resend: " + email);
 		// remove old otp
 		if (!otps.isEmpty()) {
 			for (OTP otp : otps) {
@@ -124,6 +126,23 @@ public class PatientController {
 
 		return "success";
 
+	}
+
+	@GetMapping("/forgot")
+	public String forgotPass(@RequestParam("email") String email) {
+		System.out.println(email);
+		Patient p = null;
+		p = service.findByEmail(email);
+		if (p == null) {
+			return "Not found patient with this email";
+		} else {
+			String result = resendOTP(email);
+			if (result.equals("success")) {
+				return "Send OTP success";
+			} else {
+				return "Send OTP fail";
+			}
+		}
 	}
 
 	/**
@@ -164,6 +183,48 @@ public class PatientController {
 			return "verify success";
 		} else {
 			return "OTP expired!!";
+		}
+	}
+
+	@GetMapping("/checkotpforgot")
+	public String checkOTPForgot(@RequestParam("otp") String EnteredOtp, @RequestParam("email") String email) {
+		OTP o1 = null;
+		for (OTP otp : otps) {
+			if (otp.getEmail().equals(email) && otp.getContent().equals(EnteredOtp)) {
+				o1 = otp;
+			}
+		}
+
+		if (null == o1) {
+			return "Fail to check otp";
+		}
+
+		boolean exp = checkTimeOTP(o1.getExpiredTime());
+		System.out.println("before remove");
+		for (OTP otp : otps) {
+			System.out.println(otp.getEmail());
+		}
+		otps.remove(o1);
+
+		System.out.println("after remove");
+		for (OTP otp : otps) {
+			System.out.println(otp.getEmail());
+		}
+		if (!exp) {
+			// otp right
+			return "verify success";
+		} else {
+			return "OTP expired!!";
+		}
+	}
+
+	@PutMapping("/updatepassword")
+	public String updateNewPass(@RequestParam("email") String email, @RequestParam("newpass") String newPass) {
+		String result = service.updatePassword(email, newPass);
+		if (result.equals("Update success")) {
+			return "Update success";
+		} else {
+			return result;
 		}
 	}
 
