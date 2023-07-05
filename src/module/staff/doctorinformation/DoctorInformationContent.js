@@ -1,12 +1,12 @@
-import Background from "../../Images/Rectangle1135.png";
+import Background from "../../../Images/Rectangle1135.png";
 import React, { useState } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { FaHouseUser } from "react-icons/fa";
-import Avatar from "../../Images/ava1134.png";
+import Avatar from "../../../Images/ava1134.png";
 import DoctorInfoDetailedInformation from "./doctorinfoContent/DetailedInformation";
 import DoctorInfoAssessment from "./doctorinfoContent/Assessment";
 import axios from "axios";
-import { localPort, publicPort } from "../../components/url/link";
+import { localPort, publicPort } from "../../../components/url/link";
 import { useEffect } from "react";
 
 const tabButtons = ["DETAILED INFORMATION", "ASSESSMENT"];
@@ -45,7 +45,7 @@ function DoctorInformationContent({ docId }) {
       <div className="w-[77%] h-[220px] ml-[170px] mt-[80px] relative">
         <img src={Background} alt="Background" className="rounded-3xl" />
         <img
-          src={doct.avatar}
+          src={doct.Avatar}
           alt="Avatar"
           className="rounded-3xl h-[170px] w-[15%] absolute top-[12%] left-[2%]"
         />
