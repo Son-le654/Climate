@@ -82,7 +82,7 @@ public class InternalController {
 			return ResponseEntity.notFound().build();
 		}
 	}
-
+	
 	@GetMapping(value = "/doctors")
 	public List<InternalAccount> listAccDoctor() {
 		return internalService.findAllDoctor();
