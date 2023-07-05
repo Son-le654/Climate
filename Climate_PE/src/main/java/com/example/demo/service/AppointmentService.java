@@ -114,4 +114,9 @@ public class AppointmentService {
 	public List<Appointment> findByPaintedId(String paintedId) {
 		return repository.findByPaintedId(paintedId);
 	}
+
+	public void saveAppointment(Appointment appointment) {
+		repository.save(appointment);
+		
+	}
 }
