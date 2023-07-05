@@ -26,6 +26,7 @@ function RegisterEnterEmail() {
     navigate("/login");
   };
   const nextSendOTP = () => {
+    console.log("next");
     if (email == "" || email == undefined) {
       alert("Please enter email");
     } else {
@@ -78,7 +79,10 @@ function RegisterEnterEmail() {
             </span>
           </div>
           <div className="flex h-[40px] w-[17%] items-center bg-white justify-center rounded-[50px] ">
-            <span className="w-[25%] text-3xl text-gradientLeft flex justify-end">
+            <span
+              className="w-[25%] text-3xl text-gradientLeft flex justify-end"
+              onClick={nextSendOTP}
+            >
               Next
             </span>
             <span className="w-[10%]">

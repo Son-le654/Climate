@@ -81,6 +81,19 @@ public class PatientService implements UserDetailsService {
 		return "Update success";
 	}
 
+	public String updatePassword(String email, String password) {
+		Patient p = null;
+		if (checkEmailExists(email) == null) {
+			return "Patient not exists";
+		}
+		p = checkEmailExists(email);
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String hashedPassword = passwordEncoder.encode(password);
+		p.setPassword(hashedPassword);
+		repository.save(p);
+		return "Update success";
+	}
+
 	public String otpVerify(String email) {
 
 		Patient painted = checkEmailExists(email);
@@ -90,6 +103,10 @@ public class PatientService implements UserDetailsService {
 		painted.setStatus(0);
 		repository.save(painted);
 		return "success";
+	}
+
+	public Patient findByEmail(String email) {
+		return checkEmailExists(email);
 	}
 
 //	public String updatePatient(String email) {
