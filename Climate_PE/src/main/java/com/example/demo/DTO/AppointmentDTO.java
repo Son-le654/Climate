@@ -14,31 +14,16 @@ public class AppointmentDTO {
 	private String bookDate;
 	private String bookTime;
 	private String description;
+	private String paitent_name;
+	private String register_time;
 
 	public AppointmentDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	// for guest
-	public AppointmentDTO(String name, String phone, String birthday, String gender, String bookPlace, String symtom,
-			String spec, String doctorName, String bookDate, String bookTime, String description) {
-		super();
-		this.name = name;
-		this.phone = phone;
-		this.birthday = birthday;
-		this.gender = gender;
-		this.bookPlace = bookPlace;
-		this.symtom = symtom;
-		this.spec = spec;
-		this.doctorName = doctorName;
-		this.bookDate = bookDate;
-		this.bookTime = bookTime;
-		this.description = description;
-	}
-
 //for user
 	public AppointmentDTO(String name, String phone, String idC, String birthday, String gender, String bookPlace,
-			String symtom, String spec, String doctorName, String bookDate, String bookTime, String description) {
+			String symtom, String spec, String doctorName, String bookDate, String bookTime, String description, String paitent_name, String register_time) {
 		super();
 		this.name = name;
 		this.phone = phone;
@@ -52,6 +37,8 @@ public class AppointmentDTO {
 		this.bookDate = bookDate;
 		this.bookTime = bookTime;
 		this.description = description;
+		this.paitent_name = paitent_name;
+		this.register_time = register_time;
 	}
 
 	public String getName() {
@@ -150,4 +137,19 @@ public class AppointmentDTO {
 		this.idC = idC;
 	}
 
+	public void setPaitent_name(String paitent_name) {
+		this.paitent_name = paitent_name;
+	}
+
+	public void setRegister_time(String register_time) {
+		this.register_time = register_time;
+	}
+
+	public String getPaitent_name() {
+		return paitent_name;
+	}
+
+	public String getRegister_time() {
+		return register_time;
+	}
 }

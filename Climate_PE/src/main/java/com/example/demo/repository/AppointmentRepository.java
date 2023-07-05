@@ -19,4 +19,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Intege
 
 	@Query("select p from Appointment p where p.commandFlag = '0'")
 	List<Appointment> getAllIncome();
+	
+	@Query("SELECT a FROM Appointment a WHERE a.patient.id = :patient_id")
+	List<Appointment> findByPaintedId(@Param("patient_id") String paintedId);
 }

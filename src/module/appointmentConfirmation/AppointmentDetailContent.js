@@ -11,40 +11,39 @@ function AppointmentDetailContent({ appointment }) {
   const [type, setType] = useState("Appointment confirmation");
   const navigate = useNavigate();
 
-  const [datas, setDatas] = useState([
-    {
-      id: 1,
-      form: "Specialty examination at the hospital",
-      customer: "Nguyễn Quang Hưng",
-      date: "10/06/1975",
-      email: "hung@gmail.com",
-      gender: "Male",
-      phone: "0931936165",
-      reason:
-        "Lorem ipsum dolor sit amet consectetur. Cursus mauris vitae posuere id lacus. Ipsum elementum mi at mauris dui. Consequat suspendisse sit vitae nunc sed nec adipiscing.",
-      doctor: "Dr. Phan Nguyen Thanh Binh",
-      examinationtime: "08:00, 12/06/2023",
-      location: "Clinicmate Da Nang",
-      specialty: "Nutrition",
-    },
-  ]);
-  console.log(appointment);
-  const confirm = async () => {
+  const Approve = async () => {
     console.log(appointment);
-    const response = await axios.post(
-      publicPort + `appointment/save`,
-      appointment
-    );
-    console.log(response);
-    if (response.data === "cannot find patient") {
-      window.alert("Cannot find patient");
-    }
-    if (response.data === "success") {
-      navigate("/appointments");
-    }
+    console.log("Approve");
+    // const response = await axios.post(
+    //   publicPort + `appointment/save`,
+    //   appointment
+    // );
+    // console.log(response);
+    // if (response.data === "cannot find patient") {
+    //   window.alert("Cannot find patient");
+    // }
+    // if (response.data === "success") {
+    //   navigate("/appointments");
+    // }
   };
+  const Cancel = async () => {
+    console.log(appointment);
+    console.log("Cancel");
+    // const response = await axios.post(
+    //   publicPort + `appointment/save`,
+    //   appointment
+    // );
+    // console.log(response);
+    // if (response.data === "cannot find patient") {
+    //   window.alert("Cannot find patient");
+    // }
+    // if (response.data === "success") {
+    //   navigate("/appointments");
+    // }
+  };
+
   const goBack = () => {
-    navigate("/book_appointment");
+    navigate("/appointments");
   };
 
   return (
@@ -57,7 +56,27 @@ function AppointmentDetailContent({ appointment }) {
               <div className="pt-8 flex">
                 <span className="w-[35%]">Status of Appointment</span>
                 <span className="w-[65%]">
-                  {appointment != undefined ? appointment.commandFlag : ""}
+                  {appointment != undefined &&
+                  appointment.commandFlag == "0" ? (
+                    <p
+                      className={`w-[10%] h-[30px] rounded-2xl ml-[14%] pt-[3px] text-white ${"bg-warning"}`}
+                    >
+                      Pending
+                    </p>
+                  ) : appointment != undefined &&
+                    appointment.commandFlag == "1" ? (
+                    <p
+                      className={`w-[12%] h-[30px] rounded-2xl ml-[14%] pt-[3px] text-white ${"bg-success"}`}
+                    >
+                      Approved
+                    </p>
+                  ) : (
+                    <p
+                      className={`w-[11%] h-[30px] rounded-2xl ml-[14%] pt-[3px] text-white ${"bg-error"}`}
+                    >
+                      Canceled
+                    </p>
+                  )}
                 </span>
               </div>
             </div>
@@ -139,12 +158,12 @@ function AppointmentDetailContent({ appointment }) {
                   {appointment != undefined ? appointment.examTime : ""}
                 </span>
               </div>
-              <div className="pt-3 flex">
+              {/* <div className="pt-3 flex">
                 <span className="w-[35%]">Location</span>
                 <span className="">
                   {appointment != undefined ? appointment.bookPlace : ""}
                 </span>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -168,18 +187,18 @@ function AppointmentDetailContent({ appointment }) {
           >
             {tabButtons1}
           </button>
-          {appointment.commandFlag == "0" ? (
+          {appointment != undefined && appointment.commandFlag == "0" ? (
             <>
               <button
                 className=" rounded-2xl h-[50px] pl-[30px] pr-[30px] w-[30%] mr-[35px] bg-error"
                 style={{ color: "white" }}
-                onClick={() => confirm()}
+                onClick={() => Cancel()}
               >
                 Cancel the appointment
               </button>
               <button
                 className=" rounded-2xl h-[50px] pl-[30px] pr-[30px] w-[30%] mr-[35px] bg-success"
-                onClick={() => confirm()}
+                onClick={() => Approve()}
                 style={{ color: "white" }}
               >
                 Approve the appointment

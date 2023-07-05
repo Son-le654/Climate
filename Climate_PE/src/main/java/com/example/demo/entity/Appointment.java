@@ -51,6 +51,18 @@ public class Appointment {
 	@Column(name = "REGISTER_TIME")
 	private String registerTime;
 
+	@Column(name = "PHONE", nullable = false)
+	private String phone;
+
+	@Column(name = "ID_C", nullable = true)
+	private String idC;
+
+	@Column(name = "BIRTHDAY", nullable = false)
+	private String birthday;
+
+	@Column(name = "GENDER", nullable = false)
+	private String gender;
+
 	@ManyToOne
 	@JoinColumn(name = "PATIENT_ID")
 	private Patient patient;
@@ -69,9 +81,10 @@ public class Appointment {
 		// TODO Auto-generated constructor stub
 	}
 
-	//for user
+	// for user
 	public Appointment(String note, String examTime, String examDate, String speciatly, String doctorName,
-			String patientName, Patient patient, String symptom) {
+			String patientName, Patient patient, String symptom, String phone, String idC, String birthday,
+			String gender) {
 		super();
 		this.note = note;
 		this.examTime = examTime;
@@ -83,11 +96,15 @@ public class Appointment {
 		this.symptom = symptom;
 		this.registerTime = timeNow();
 		this.commandFlag = 0;
+		this.phone = phone;
+		this.idC = idC;
+		this.birthday = birthday;
+		this.gender = gender;
 	}
 
-	//for guest
+	// for guest
 	public Appointment(String note, String examTime, String examDate, String speciatly, String doctorName,
-			String patientName, String symptom) {
+			String patientName, String symptom, String phone, String idC, String birthday, String gender) {
 		super();
 		this.note = note;
 		this.examTime = examTime;
@@ -98,6 +115,10 @@ public class Appointment {
 		this.registerTime = timeNow();
 		this.symptom = symptom;
 		this.commandFlag = 0;
+		this.phone = phone;
+		this.idC = idC;
+		this.birthday = birthday;
+		this.gender = gender;
 	}
 
 	public String timeNow() {
@@ -193,6 +214,50 @@ public class Appointment {
 
 	public void setCommandFlag(int commandFlag) {
 		this.commandFlag = commandFlag;
+	}
+
+	public String getPatientName() {
+		return patientName;
+	}
+
+	public void setPatientName(String patientName) {
+		this.patientName = patientName;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getIdC() {
+		return idC;
+	}
+
+	public void setIdC(String idC) {
+		this.idC = idC;
+	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 }

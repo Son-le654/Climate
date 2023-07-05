@@ -65,7 +65,7 @@ public class AppointmentService {
 
 		app = new Appointment(appointmentDTO.getDescription(), appointmentDTO.getBookTime(), outputDateString,
 				appointmentDTO.getSpec(), appointmentDTO.getDoctorName(), appointmentDTO.getName(), p,
-				appointmentDTO.getSymtom());
+				appointmentDTO.getSymtom(),appointmentDTO.getPhone(),appointmentDTO.getIdC(),appointmentDTO.getBirthday(),appointmentDTO.getGender());
 		repository.save(app);
 		return "success";
 
@@ -91,7 +91,7 @@ public class AppointmentService {
 
 		app = new Appointment(appointmentDTO.getDescription(), appointmentDTO.getBookTime(), outputDateString,
 				appointmentDTO.getSpec(), appointmentDTO.getDoctorName(), appointmentDTO.getName(),
-				appointmentDTO.getSymtom());
+				appointmentDTO.getSymtom(),appointmentDTO.getPhone(),appointmentDTO.getIdC(),appointmentDTO.getBirthday(),appointmentDTO.getGender());
 		repository.save(app);
 		return "success";
 
@@ -107,5 +107,9 @@ public class AppointmentService {
 
 	public Optional<Appointment> findById(Integer id) {
 		return repository.findById(id);
+	}
+	
+	public List<Appointment> findByPaintedId(String paintedId) {
+	    return repository.findByPaintedId(paintedId);
 	}
 }

@@ -10,49 +10,53 @@ import javax.validation.constraints.Min;
 
 @Entity
 public class NewsDetail {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long id;
 
-    @Column(name = "CONTENT", length = 90)
-    private String content;
+	@Column(name = "CONTENT", length = 90)
+	private String content;
 
-    @Column(name = "DESCRIPTION", length = 250)
-    private String description;
+	@Column(name = "TITLE", length = 90)
+	private String title;
 
-    @Column(name = "IMAGE")
-    private String image;
+	@Column(name = "DESCRIPTION")
+	private String description;
 
-    @Min(value = 0, message = "Rate must be at least 0")
-    @Max(value = 5, message = "Rate must be at most 5")
-    @Column(name = "RATE")
-    private int rate;
+	@Column(name = "IMAGE")
+	private String image;
 
-    @Column(name = "LIKE_COUNT")
-    private int like;
+	@Min(value = 0, message = "Rate must be at least 0")
+	@Max(value = 5, message = "Rate must be at most 5")
+	@Column(name = "RATE")
+	private int rate;
 
-    @Column(name = "DISLIKE_COUNT")
-    private int dislike;
-    
-    @Column(name = "SPECIATLY")
-    private String specialty;
+	@Column(name = "LIKE_COUNT")
+	private int like;
 
-    @Column(name = "CREATEBY")
-    private String creatby;
-    // Constructors, getters, and setters
+	@Column(name = "DISLIKE_COUNT")
+	private int dislike;
 
-    public NewsDetail() {
-    }
+	@Column(name = "SPECIATLY")
+	private String specialty;
 
-    public NewsDetail(String content, String description, String image, int rate, int like, int dislike) {
-        this.content = content;
-        this.description = description;
-        this.image = image;
-        setRate(rate);  // Call the setter to validate the rate value
-        this.like = like;
-        this.dislike = dislike;
-    }
+	@Column(name = "CREATEBY")
+	private String creatby;
+	// Constructors, getters, and setters
+
+	public NewsDetail() {
+	}
+
+	public NewsDetail(String content, String title, String description, String image, int rate, int like, int dislike) {
+		this.content = content;
+		this.title = title;
+		this.description = description;
+		this.image = image;
+		setRate(rate); // Call the setter to validate the rate value
+		this.like = like;
+		this.dislike = dislike;
+	}
 
 	public Long getId() {
 		return id;
@@ -68,6 +72,14 @@ public class NewsDetail {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getDescription() {
@@ -125,6 +137,5 @@ public class NewsDetail {
 	public void setCreatby(String creatby) {
 		this.creatby = creatby;
 	}
-    
-    
+
 }
