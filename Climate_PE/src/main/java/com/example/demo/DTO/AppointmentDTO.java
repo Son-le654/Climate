@@ -21,25 +21,6 @@ public class AppointmentDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	// for guest
-	public AppointmentDTO(String name, String phone, String birthday, String gender, String bookPlace, String symtom,
-			String spec, String doctorName, String bookDate, String bookTime, String description, String paitent_name, String register_time) {
-	    super();
-		this.name = name;
-		this.phone = phone;
-		this.birthday = birthday;
-		this.gender = gender;
-		this.bookPlace = bookPlace;
-		this.symtom = symtom;
-		this.spec = spec;
-		this.doctorName = doctorName;
-		this.bookDate = bookDate;
-		this.bookTime = bookTime;
-		this.description = description;
-		this.paitent_name = paitent_name;
-		this.register_time = register_time;
-	}
-
 //for user
 	public AppointmentDTO(String name, String phone, String idC, String birthday, String gender, String bookPlace,
 			String symtom, String spec, String doctorName, String bookDate, String bookTime, String description, String paitent_name, String register_time) {
