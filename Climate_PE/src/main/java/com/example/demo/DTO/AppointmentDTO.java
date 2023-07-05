@@ -152,4 +152,5 @@ public class AppointmentDTO {
 	public String getRegister_time() {
 		return register_time;
 	}
+	
 }

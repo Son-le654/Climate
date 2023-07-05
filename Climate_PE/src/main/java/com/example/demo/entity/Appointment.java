@@ -63,6 +63,9 @@ public class Appointment {
 	@Column(name = "GENDER", nullable = false)
 	private String gender;
 
+	@Column(name = "BOOK_PLACE", nullable = false)
+	private String bookPlace;
+
 	@ManyToOne
 	@JoinColumn(name = "PATIENT_ID")
 	private Patient patient;
@@ -84,7 +87,7 @@ public class Appointment {
 	// for user
 	public Appointment(String note, String examTime, String examDate, String speciatly, String doctorName,
 			String patientName, Patient patient, String symptom, String phone, String idC, String birthday,
-			String gender) {
+			String gender, String bookPlace) {
 		super();
 		this.note = note;
 		this.examTime = examTime;
@@ -100,11 +103,13 @@ public class Appointment {
 		this.idC = idC;
 		this.birthday = birthday;
 		this.gender = gender;
+		this.bookPlace = bookPlace;
 	}
 
 	// for guest
 	public Appointment(String note, String examTime, String examDate, String speciatly, String doctorName,
-			String patientName, String symptom, String phone, String idC, String birthday, String gender) {
+			String patientName, String symptom, String phone, String idC, String birthday, String gender,
+			String bookPlace) {
 		super();
 		this.note = note;
 		this.examTime = examTime;
@@ -119,6 +124,15 @@ public class Appointment {
 		this.idC = idC;
 		this.birthday = birthday;
 		this.gender = gender;
+		this.bookPlace = bookPlace;
+	}
+
+	public String getBookPlace() {
+		return bookPlace;
+	}
+
+	public void setBookPlace(String bookPlace) {
+		this.bookPlace = bookPlace;
 	}
 
 	public String timeNow() {

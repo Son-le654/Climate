@@ -1,12 +1,12 @@
-import HomeHeaderService from "../module/home/HomeHeaderService";
-import DoctorInformationContent from "../module/doctorinformation/DoctorInformationContent";
-import Footer from "../module/home/Footer";
+import HomeHeaderService from "../../module/home/HomeHeaderService";
+import DoctorInformationContentstaff from "../../module/staff/doctorinformation/DoctorInformationContent";
+import Footer from "../../module/home/Footer";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { localPort, publicPort } from "../components/url/link";
+import { localPort, publicPort } from "../../components/url/link";
 import { useLocation, useNavigate } from "react-router";
 
-function DoctorInformation() {
+function DoctorInformationStaff() {
   const navigate = useNavigate();
   const location = useLocation();
   const [doctId, setDoctId] = useState();
@@ -26,7 +26,7 @@ function DoctorInformation() {
         <HomeHeaderService></HomeHeaderService>
       </div>
       <div className="bg-white">
-        <DoctorInformationContent docId={doctId} />
+        <DoctorInformationContentstaff docId={doctId} />
       </div>
       <div>
         <Footer></Footer>
@@ -34,4 +34,4 @@ function DoctorInformation() {
     </div>
   );
 }
-export default DoctorInformation;
+export default DoctorInformationStaff;

@@ -8,7 +8,6 @@ import BAContent from "./module/bookAppointment/BAContent";
 import LoginPageUser from "./pages/LoginPageUser";
 import { useEffect } from "react";
 import jwtDecode from "jwt-decode";
-
 import DoctorInformation from "./pages/DoctorInformation";
 import VerifyRegister from "./pages/VerifyRegister";
 import Service from "./pages/ServicePage";
@@ -21,6 +20,12 @@ import axios from "axios";
 import BAContentGuest from "./module/bookAppointment/BAContentGuest";
 import BookAppointmentPageGuest from "./pages/BookAppointmentPageGuest";
 import AppointmentConfirmationPageGuest from "./pages/AppointmentConfirmationPageGuest";
+import DoctorInformationStaff from "../src/pages/staff/DoctorInformationStaff";
+import RegisterEnterEmail from "../src/pages/forgotpassword/RegisterEnterEmail";
+import RegisterLoginPassword from "../src/pages/forgotpassword/RegisterLoginPassword";
+import VerifyRegisterForgot from "../src/pages/forgotpassword/VerifyRegisterForgot";
+import ChooseNewPassword from "../src/pages/forgotpassword/ChooseNewPassword";
+
 import AppointmentDetailsPageForNurse from "./pages/AppointmentDetailsPageForNurse";
 
 function App() {
@@ -81,6 +86,15 @@ function App() {
       <Route path="/doctorinformation" element={<DoctorInformation />}></Route>
       <Route path="/verifyregister" element={<VerifyRegister />}></Route>
       <Route path="/test" element={<SampleDateSort />}></Route>
+      {/* staff */}
+      <Route path="/informationdoctorstaff" element={<DoctorInformationStaff />}></Route>
+      {/* Forgot password */}
+      <Route path="/registerenteremail" element={<RegisterEnterEmail />}></Route>
+      <Route path="/registerloginpassword" element={<RegisterLoginPassword />}></Route>
+      <Route path="/verifyregisterforgot" element={<VerifyRegisterForgot />}></Route>
+      <Route path="/choosenewpassword" element={<ChooseNewPassword />}></Route>
+
+
     </Routes>
   );
 }
