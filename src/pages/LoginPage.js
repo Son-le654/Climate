@@ -86,7 +86,7 @@ const LoginPage = () => {
           <div className=" flex items-center justify-center gap-1 w-[45%] h-[70px] rounded-2xl border-[#d8d7da] border-[1px]">
             <Link to="/login" className="   text-textColor    flex items-center">
               <input className="w-[20px] h-[20px]" type="radio" checked />
-              <p className="text-[20px] ml-[10px]">For doctor!</p>
+              <p className="text-[20px] ml-[10px]">For staff!</p>
             </Link>
           </div>
         </div>

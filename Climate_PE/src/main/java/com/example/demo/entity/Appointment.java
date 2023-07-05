@@ -54,7 +54,7 @@ public class Appointment {
 	@Column(name = "PHONE", nullable = false)
 	private String phone;
 
-	@Column(name = "ID_C", nullable = false)
+	@Column(name = "ID_C", nullable = true)
 	private String idC;
 
 	@Column(name = "BIRTHDAY", nullable = false)

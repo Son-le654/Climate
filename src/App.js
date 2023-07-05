@@ -21,6 +21,7 @@ import axios from "axios";
 import BAContentGuest from "./module/bookAppointment/BAContentGuest";
 import BookAppointmentPageGuest from "./pages/BookAppointmentPageGuest";
 import AppointmentConfirmationPageGuest from "./pages/AppointmentConfirmationPageGuest";
+import AppointmentDetailsPageForNurse from "./pages/AppointmentDetailsPageForNurse";
 
 function App() {
   const storedName = localStorage.getItem("token");
@@ -66,6 +67,10 @@ function App() {
       <Route
         path="/appointmentConfirmation"
         element={<AppointmentConfirmation />}
+      ></Route>
+      <Route
+        path="/appointmentdetailsfornurse"
+        element={<AppointmentDetailsPageForNurse />}
       ></Route>
       <Route
         path="/appointmentConfirmationGuest"
