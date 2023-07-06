@@ -55,9 +55,6 @@ public class Patient implements Serializable {
 	@Column(name = "ROLE")
 	private String role;
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "patient")
-	private List<MedicalRecord> medicalRecords;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "patient")
@@ -69,13 +66,6 @@ public class Patient implements Serializable {
 		this.role = role;
 	}
 
-	public List<MedicalRecord> getMedicalRecords() {
-		return medicalRecords;
-	}
-
-	public void setMedicalRecords(List<MedicalRecord> medicalRecords) {
-		this.medicalRecords = medicalRecords;
-	}
 
 	public List<Appointment> getAppointments() {
 		return appointments;
