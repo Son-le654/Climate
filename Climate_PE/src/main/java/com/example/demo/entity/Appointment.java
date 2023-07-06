@@ -80,6 +80,10 @@ public class Appointment {
 	@Column(name = "COMMAND_FLAG")
 	private int commandFlag;
 
+	@JsonIgnore
+	@OneToOne(mappedBy = "appointment")
+	private MedicalRecord medicalRecord;
+
 	public Appointment() {
 		// TODO Auto-generated constructor stub
 	}
@@ -125,6 +129,14 @@ public class Appointment {
 		this.birthday = birthday;
 		this.gender = gender;
 		this.bookPlace = bookPlace;
+	}
+
+	public MedicalRecord getMedicalRecord() {
+		return medicalRecord;
+	}
+
+	public void setMedicalRecord(MedicalRecord medicalRecord) {
+		this.medicalRecord = medicalRecord;
 	}
 
 	public String getBookPlace() {
