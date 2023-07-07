@@ -25,6 +25,8 @@ import RegisterEnterEmail from "../src/pages/forgotpassword/RegisterEnterEmail";
 import RegisterLoginPassword from "../src/pages/forgotpassword/RegisterLoginPassword";
 import VerifyRegisterForgot from "../src/pages/forgotpassword/VerifyRegisterForgot";
 import ChooseNewPassword from "../src/pages/forgotpassword/ChooseNewPassword";
+import AppointmentDetails from "../src/pages/doctor/AppointmentDetails";
+import MedicalHistory from "../src/pages/doctor/MedicalHistory";
 
 
 function App() {
@@ -88,6 +90,9 @@ function App() {
       <Route path="/registerloginpassword" element={<RegisterLoginPassword />}></Route>
       <Route path="/verifyregisterforgot" element={<VerifyRegisterForgot />}></Route>
       <Route path="/choosenewpassword" element={<ChooseNewPassword />}></Route>
+      {/* doctor */}
+      <Route path="/appointmentdetails" element={<AppointmentDetails />}></Route>
+      <Route path="/medicalhistory" element={<MedicalHistory />}></Route>
 
 
     </Routes>
