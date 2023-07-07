@@ -4,11 +4,11 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../../components/button/Button";
 import EnsignVN from "../../Images/vn.png";
 import EnsignAnh from "../../Images/anh.png";
-import { IoMdArrowDropdown } from 'react-icons/io';
+import { IoMdArrowDropdown } from "react-icons/io";
 import imgDoctor from "../../Images/Doctor2.png";
-import Wrapper from "../../Popper/Wrapper"
+import Wrapper from "../../Popper/Wrapper";
 import AccountMenu from "../../Popper/menu/AccountMenu";
-import { CiLogin } from 'react-icons/ci';
+import { CiLogin } from "react-icons/ci";
 const HomeNav = [
   {
     id: 1,
@@ -17,36 +17,31 @@ const HomeNav = [
   },
   {
     id: 2,
-    to: "/faq",
+    // to: "/faq",
+    to: "",
     title: "Records",
-  },
-  {
-    id: 3,
-    to: "/book_appointment",
-    title: "",
   },
 ];
 
-
 const MENU_ITEMS = [
   {
-    title: 'Account'
+    title: "Account",
   },
   {
-    title: 'Profile'
+    title: "Profile",
   },
   {
-    title: 'Private session'
+    title: "Private session",
   },
   {
-    title: 'Setting'
+    title: "Setting",
   },
   {
-    title: 'Log out',
+    title: "Log out",
     icon: <CiLogin />,
-    to: "/register"
+    to: "/register",
   },
-]
+];
 
 const HomeHeaderServiceGuest = () => {
   const navigate = useNavigate();
@@ -71,9 +66,21 @@ const HomeHeaderServiceGuest = () => {
                   </li>
                 );
               })}
+            <li>
+              <NavLink to={"/book_appointment_guest"}>Book Appointment</NavLink>
+            </li>
           </ul>
         </nav>
-        
+      </div>
+      <div className="flex items-center gap-8">
+        <Button
+          onClick={() => {
+            navigate("/login-user");
+          }}
+          className="!p-[10px_40px] rounded-lg text-[18px]"
+        >
+          Login
+        </Button>
       </div>
     </header>
   );
