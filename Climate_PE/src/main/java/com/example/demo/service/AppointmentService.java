@@ -116,7 +116,6 @@ public class AppointmentService {
 	}
 
 	public void saveAppointment(Appointment appointment) {
-		repository.save(appointment);
-		
+		repository.save(appointment);	
 	}
 }

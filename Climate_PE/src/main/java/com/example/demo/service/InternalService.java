@@ -29,12 +29,12 @@ public class InternalService implements UserDetailsService {
 	}
 
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		InternalAccount internal = internalRepository.findByEmail(username);
+		Optional<InternalAccount> internal = internalRepository.findByEmail(username);
 		if (internal == null) {
 			throw new UsernameNotFoundException("Invalid email or password.");
 		}
-		return new org.springframework.security.core.userdetails.User(internal.getEmail(), internal.getPassword(),
-				mapRolesToAuthorities(internal.getRole()));
+		return new org.springframework.security.core.userdetails.User(internal.get().getEmail(), internal.get().getPassword(),
+				mapRolesToAuthorities(internal.get().getRole()));
 	}
 	
 	public List<InternalAccount> findAllDoctor() {
@@ -51,7 +51,10 @@ public class InternalService implements UserDetailsService {
 	public List<InternalAccount> findAll() {
 		return internalRepository.findAll();
 	}
-
+	
+	public Optional<InternalAccount> findByEmail(String email) {
+		return internalRepository.findByEmail(email);
+	}
 	public Optional<InternalAccount> findById(Integer id) {
 		return internalRepository.findById(id);
 	}

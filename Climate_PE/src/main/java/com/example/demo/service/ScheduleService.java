@@ -51,4 +51,7 @@ public class ScheduleService {
 		return repository.save(schedule);
 		
 	}
+	  public List<Schedule> getSortedSchedulesByEmail(String email) {
+	        return repository.findByInaccountsEmailOrderByExamDateAscExamTimeAsc(email);
+	    }
 }
