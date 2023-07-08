@@ -35,7 +35,7 @@ public class ScheduleController {
 	}
 
 	@GetMapping("/list_date/{id}")
-	public List<Schedule> getScheduleById(@PathVariable("id") int id,
+	public List<Schedule> getScheduleByIdandMail(@PathVariable("id") int id,
 			@RequestParam("date") @DateTimeFormat(pattern = "yyyy/MM/dd") String date) {
 		System.out.println("- " + id);
 		System.out.println("- " + date);
@@ -47,4 +47,9 @@ public class ScheduleController {
 	public List<Schedule> getSchedulesByEmailSortedByExamDate(@RequestParam("email") String email) {
 	    return service.getSortedSchedulesByEmail(email);
 	}
+	@GetMapping("/list_schedules")
+	public Optional<Schedule> getScheduleById(@RequestParam("id") int id) {
+		return service.findById(id);
+	}
+	
 }
