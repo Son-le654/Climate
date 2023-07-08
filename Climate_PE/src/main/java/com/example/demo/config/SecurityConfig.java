@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 	    http
 	        .authorizeRequests()
-	        .antMatchers("/api/v1/login","/patient/login", "/api/login", "/google/login/google")
+	        .antMatchers("/api/v1/login","/patient/login", "/api/login", "/login/google")
 	        .permitAll()
 	        .antMatchers("/api/v1/doctors/**")
 	        .authenticated()
