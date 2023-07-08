@@ -26,4 +26,6 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
 	Schedule findByInNameAndDateTime(@Param(value = "name") String name, @Param(value = "examDate") String examDate,
 			@Param(value = "examTime") String examTime);
 
+	 List<Schedule> findByInaccountsEmailOrderByExamDateAscExamTimeAsc(String email);
+
 }

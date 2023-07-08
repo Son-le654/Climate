@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 	    http
 	        .authorizeRequests()
-	        .antMatchers("/api/v1/login", "/api/login", "/login/google")
+	        .antMatchers("/api/v1/login","/patient/login", "/api/login", "/google/login/google")
 	        .permitAll()
 	        .antMatchers("/api/v1/doctors/**")
 	        .authenticated()
@@ -64,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	        .sessionManagement()
 	        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 	        .and()
-	        .oauth2Login().defaultSuccessUrl("/user");
+	        .oauth2Login().defaultSuccessUrl("/user");;
 	}
 	
 	@Bean

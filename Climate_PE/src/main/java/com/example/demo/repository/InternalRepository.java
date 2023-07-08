@@ -10,7 +10,8 @@ import org.springframework.data.repository.query.Param;
 import com.example.demo.entity.InternalAccount;
 
 public interface InternalRepository extends JpaRepository<InternalAccount, Integer> {
-	InternalAccount findByEmail(String email);
+	
+	Optional<InternalAccount> findByEmail(String email);
 
 	@Query("select i from InternalAccount i where i.role.name = 'DOCTOR'")
 	List<InternalAccount> findAllDoctor();
