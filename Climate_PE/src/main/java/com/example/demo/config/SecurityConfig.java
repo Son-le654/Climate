@@ -19,6 +19,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import com.example.demo.service.CustomUserDetailsService;
 import com.example.demo.service.InternalService;
 import com.example.demo.service.PatientService;
 
@@ -27,18 +28,11 @@ import com.example.demo.service.PatientService;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private InternalService doctorService;
-	@Autowired
-	private PatientService patientService;
+	private CustomUserDetailsService customUserDetailsService;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		// check in internal account
-		auth.userDetailsService(doctorService).passwordEncoder(new BCryptPasswordEncoder());
-		;
-		//check in patient table
-		auth.userDetailsService(patientService).passwordEncoder(new BCryptPasswordEncoder());
-		;
+	    auth.userDetailsService(customUserDetailsService).passwordEncoder(new BCryptPasswordEncoder());
 	}
 
 	@Bean
@@ -50,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 	    http
 	        .authorizeRequests()
-	        .antMatchers("/api/v1/login","/patient/login", "/api/login", "/login/google")
+	        .antMatchers("/api/v1/login","/patient/logins", "/api/login", "/login/google")
 	        .permitAll()
 	        .antMatchers("/api/v1/doctors/**")
 	        .authenticated()
@@ -64,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	        .sessionManagement()
 	        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 	        .and()
-	        .oauth2Login().defaultSuccessUrl("/user");;
+	        .oauth2Login().defaultSuccessUrl("/user");
 	}
 	
 	@Bean
