@@ -44,7 +44,7 @@ public class LoginGoogle {
 	        requestBody.add("code", code);
 	        requestBody.add("client_id", "1012727703176-7bilg1agokg1824c95hc6sg6m481rnu8.apps.googleusercontent.com");
 	        requestBody.add("client_secret", "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");
-	        requestBody.add("redirect_uris", "https://clinicmates.io.vn");
+	        requestBody.add("redirect_uris", "https://clinicmates.io.vn/service");
 	        requestBody.add("grant_type", "authorization_code");
 
 	        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(requestBody, headers);

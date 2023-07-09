@@ -26,4 +26,24 @@ public class MedicalRecordService {
 	public Optional<MedicalRecord> findById(Integer id) {
         return repository.findById(id);
     }
+	
+	public List<MedicalRecord> getAllMedicalRecords() {
+        return repository.findAll();
+    }
+
+    public Optional<MedicalRecord> getMedicalRecordById(int id) {
+        return repository.findById(id);
+    }
+
+    public MedicalRecord createMedicalRecord(MedicalRecord medicalRecord) {
+        return repository.save(medicalRecord);
+    }
+
+    public MedicalRecord updateMedicalRecord(MedicalRecord medicalRecord) {
+        return repository.save(medicalRecord);
+    }
+
+    public void deleteMedicalRecord(int id) {
+    	repository.deleteById(id);
+    }
 }
