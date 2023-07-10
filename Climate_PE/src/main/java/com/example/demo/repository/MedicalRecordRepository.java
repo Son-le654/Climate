@@ -9,5 +9,5 @@ import com.example.demo.entity.Patient;
 
 @Repository
 public interface MedicalRecordRepository extends JpaRepository<MedicalRecord, Integer>{
-
+	  MedicalRecord findByAppointmentId(int appointmentId);
 }

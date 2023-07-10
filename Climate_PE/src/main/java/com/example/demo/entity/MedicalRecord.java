@@ -33,7 +33,7 @@ public class MedicalRecord {
 	private int commandFlag;
 
 	@JoinColumn(name = "APPOINTMENT_ID", referencedColumnName = "APPOINTMENT_ID")
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	private Appointment appointment;
 
 	@Column(name = "CLINIC_PROCESS", columnDefinition = "LONGTEXT")
@@ -50,7 +50,7 @@ public class MedicalRecord {
 	}
 
 	public MedicalRecord(int id, String doctorId, int commandFlag, Appointment appointment, String clinicProcess,
-			String sumaryResult, String treatment) {
+			String sumaryResult, String treatment,String releaseDate) {
 		super();
 		this.id = id;
 		this.doctorId = doctorId;
@@ -62,17 +62,6 @@ public class MedicalRecord {
 		this.treatment = treatment;
 	}
 
-	public MedicalRecord(int id, String doctorId, int commandFlag, String clinicProcess, String sumaryResult,
-			String treatment) {
-		super();
-		this.id = id;
-		this.doctorId = doctorId;
-		this.releaseDate = timeNow();
-		this.commandFlag = commandFlag;
-		this.clinicProcess = clinicProcess;
-		this.sumaryResult = sumaryResult;
-		this.treatment = treatment;
-	}
 
 	public String timeNow() {
 		LocalDateTime currentDateTime = LocalDateTime.now();
