@@ -110,7 +110,7 @@ public class AppointmentService {
 	public Optional<Appointment> findById(Integer id) {
 		return repository.findById(id);
 	}
-
+	
 	public List<Appointment> findByPaintedId(String paintedId) {
 		return repository.findByPaintedId(paintedId);
 	}

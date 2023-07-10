@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.entity.Appointment;
 import com.example.demo.entity.MedicalRecord;
 import com.example.demo.service.AppointmentService;
+import com.example.demo.service.InternalService;
 import com.example.demo.service.MedicalRecordService;
 
 @RestController
@@ -51,9 +52,17 @@ public class MedicalRecordController {
 	}
 
 	@PostMapping("/create")
-	public ResponseEntity<MedicalRecord> createMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
-		MedicalRecord createdMedicalRecord = service.createMedicalRecord(medicalRecord);
-		return ResponseEntity.status(HttpStatus.CREATED).body(createdMedicalRecord);
+	public ResponseEntity<String> createMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
+		if (service.findMedicalRecordByAppointmentId(medicalRecord.getAppointment().getId()) != null) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create medical record.");
+		}
+		try {
+			service.createMedicalRecord(medicalRecord);
+			return ResponseEntity.ok("Medical record created successfully.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create medical record.");
+		}
 	}
 
 	@PutMapping("/update/{id}")
