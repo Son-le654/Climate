@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { localPort, publicPort } from "../../components/url/link";
+import { BsFillFileTextFill } from "react-icons/bs";
 
 function AppointmentDetailContent({ appointment }) {
   const tabButtons1 = "Return to previous";
@@ -10,6 +11,22 @@ function AppointmentDetailContent({ appointment }) {
 
   const [type, setType] = useState("Appointment confirmation");
   const navigate = useNavigate();
+  const [showConfirmCancel, setshowConfirmCancel] = useState(false);
+  const [showConfirmApprove, setshowConfirmApprove] = useState(false);
+//cancel
+  const handleshowConfirmCancel = () => {
+    setshowConfirmCancel(true);
+  };
+  const handleUnshowConfirmCancel = () => {
+    setshowConfirmCancel(false);
+  };
+//approve
+  const handleshowConfirmApprove = () => {
+    setshowConfirmApprove(true);
+  };
+  const handleUnshowConfirmApprove = () => {
+    setshowConfirmApprove(false);
+  };
 
   const Approve = async () => {
     console.log(appointment);
@@ -18,9 +35,7 @@ function AppointmentDetailContent({ appointment }) {
         `appointment/commandFlag?appointmentId=${appointment.id}&command=approve`
     );
     console.log(response);
-    if (
-      response.data === "CommandFlag updated successfully."
-    ) {
+    if (response.data === "CommandFlag updated successfully.") {
       navigate("/appointments");
     } else {
       alert(response.data);
@@ -33,9 +48,7 @@ function AppointmentDetailContent({ appointment }) {
         `appointment/commandFlag?appointmentId=${appointment.id}&command=cancel`
     );
     console.log(response);
-    if (
-      response.data === "CommandFlag updated successfully."
-    ) {
+    if (response.data === "CommandFlag updated successfully.") {
       navigate("/appointments");
     } else {
       alert(response.data);
@@ -192,13 +205,13 @@ function AppointmentDetailContent({ appointment }) {
               <button
                 className=" rounded-2xl h-[50px] pl-[30px] pr-[30px] w-[30%] mr-[35px] bg-error"
                 style={{ color: "white" }}
-                onClick={() => Cancel()}
+                onClick={() => handleshowConfirmCancel()}
               >
                 Cancel the appointment
               </button>
               <button
                 className=" rounded-2xl h-[50px] pl-[30px] pr-[30px] w-[30%] mr-[35px] bg-success"
-                onClick={() => Approve()}
+                onClick={() => handleshowConfirmApprove()}
                 style={{ color: "white" }}
               >
                 Approve the appointment
@@ -209,6 +222,88 @@ function AppointmentDetailContent({ appointment }) {
           )}
         </div>
       </div>
+      {showConfirmCancel ? (
+        <div className="w-[100%] h-[100vh] fixed bg-gray2 inset-0 bg-opacity-50 ">
+          <div className="w-[40%] h-[300px] bg-white shadow-xl rounded-3xl fixed top-1/2 left-1/2 z-1000  transform -translate-x-1/2 -translate-y-1/2 flex justify-center items-center  ">
+            <div>
+              <div
+                className="w-[100%] h-[50px]  text-[70px] text-gradientLeft flex justify-center items-center"
+                style={{ color: "#eb5757" }}
+              >
+                <BsFillFileTextFill />
+              </div>
+              <div className="w-[100%] h-[100px] flex justify-center items-center">
+                <div>
+                  <h1 className="font-bold text-[18px] w-[100%] flex justify-center">
+                    Cancel Appointment
+                  </h1>
+                  <p>Do you want to cancel this appointment?</p>
+                </div>
+              </div>
+              <div className="w-[100%] h-[50px] flex justify-center">
+                <div className="w-[100%]  flex justify-between items-center">
+                  <span
+                    className="w-[40%] h-[50px] flex justify-center items-center  rounded-2xl bg-[#dddddd] cursor-pointer"
+                    onClick={handleUnshowConfirmCancel}
+                  >
+                    <button onClick={handleUnshowConfirmCancel}>
+                      No, close!
+                    </button>
+                  </span>
+                  <span
+                    className="w-[40%] cursor-pointer h-[50px] flex justify-center items-center text-white rounded-2xl bg-gradientLeft"
+                    onClick={Cancel}
+                    style={{ backgroundColor: "#eb5757" }}
+                  >
+                    <button>Yes, completed!</button>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
+      {showConfirmApprove ? (
+        <div className="w-[100%] h-[100vh] fixed bg-gray2 inset-0 bg-opacity-50 ">
+          <div className="w-[40%] h-[300px] bg-white shadow-xl rounded-3xl fixed top-1/2 left-1/2 z-1000  transform -translate-x-1/2 -translate-y-1/2 flex justify-center items-center  ">
+            <div>
+              <div
+                className="w-[100%] h-[50px]  text-[70px] text-gradientLeft flex justify-center items-center"
+                style={{ color: "#27ae60" }}
+              >
+                <BsFillFileTextFill />
+              </div>
+              <div className="w-[100%] h-[100px] flex justify-center items-center">
+                <div>
+                  <h1 className="font-bold text-[18px] w-[100%] flex justify-center">
+                    Approve Appointment
+                  </h1>
+                  <p>Do you want to approve this appointment?</p>
+                </div>
+              </div>
+              <div className="w-[100%] h-[50px] flex justify-center">
+                <div className="w-[100%]  flex justify-between items-center">
+                  <span
+                    className="w-[40%] h-[50px] flex justify-center items-center  rounded-2xl bg-[#dddddd] cursor-pointer"
+                    onClick={handleUnshowConfirmApprove}
+                  >
+                    <button onClick={handleUnshowConfirmApprove}>
+                      No, close!
+                    </button>
+                  </span>
+                  <span
+                    className="w-[40%] cursor-pointer h-[50px] flex justify-center items-center text-white rounded-2xl bg-gradientLeft"
+                    onClick={Approve}
+                    style={{ backgroundColor: "#27ae60" }}
+                  >
+                    <button>Yes, completed!</button>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

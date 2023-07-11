@@ -422,6 +422,12 @@ const BAContent = () => {
       return;
     }
 
+    const bdatee = new Date(registers.birthday);
+    if (bdatee > currentDate) {
+      alert("Birthdate is not valid");
+      return;
+    }
+
     if (currentDate > registers.bookDate) {
       alert("book date must be later than today");
       return;

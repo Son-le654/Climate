@@ -21,7 +21,7 @@ function ChooseNewPassword() {
   return (
     <div>
       <div className="bg-white">
-        <HomeHeaderService></HomeHeaderService>
+        {/* <HomeHeaderService></HomeHeaderService> */}
       </div>
       <div>
         <ChooseNewPasswordContent email={email}/>

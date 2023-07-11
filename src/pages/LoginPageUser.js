@@ -10,30 +10,31 @@ import InputUsername from "../components/input/InputUsername";
 import InputPassword from "../components/input/InputPassword";
 import { contextType } from "react-datetime";
 import { localPort, publicPort } from "../components/url/link";
+import { AiFillGoogleCircle } from "react-icons/ai";
 
 const LoginPageUser = () => {
   const navigate = useNavigate();
   const { control } = useForm();
-  const [data, setData] = useState([])
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [data, setData] = useState([]);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
     const storedName = localStorage.getItem("token");
     if (storedName !== null) {
-      navigate("/service")
+      navigate("/service");
     }
-  }, [])
+  }, []);
 
   const handleChangeUsername = (event) => {
     const userinput = event.target.value;
     // console.log(userinput);
     setUsername(event.target.value);
-  }
+  };
   const handleChangePassword = (event) => {
     setPassword(event.target.value);
     // console.log(password);
-  }
+  };
   //doc1@gmail.com - 123
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -42,28 +43,40 @@ const LoginPageUser = () => {
 
     if (!isValidEmail) {
       // do something
-      alert("Incorrect Email format")
+      alert("Incorrect Email format");
       return;
     }
-    const response = (await axios.post(publicPort + `patient/login`, {
-      "email": username,
-      "password": password
-    }));
+    const response = await axios.post(publicPort + `patient/login`, {
+      email: username,
+      password: password,
+    });
     console.log(response);
 
     if (response.data.token === undefined) {
-      alert("Incorrect email or password.")
+      alert("Incorrect email or password.");
     }
 
     if (response.data.token.length > 0) {
       const tokenn = response.data.token;
       console.log("true");
-      localStorage.setItem("token", response.data.token)
-      navigate("/service",
-        { state: { tokenn } })
+      localStorage.setItem("token", response.data.token);
+      navigate("/service", { state: { tokenn } });
     }
+  };
+  const handleLoginGoogle = async (event) => {
+    const response = await axios.get(publicPort + `login/google`);
+    console.log(response);
+    // if (response.data.token === undefined) {
+    //   alert("Incorrect email or password.");
+    // }
 
-  }
+    // if (response.data.token.length > 0) {
+    //   const tokenn = response.data.token;
+    //   console.log("true");
+    //   localStorage.setItem("token", response.data.token);
+    //   navigate("/service", { state: { tokenn } });
+    // }
+  };
 
   return (
     <LayoutSign
@@ -77,7 +90,10 @@ const LoginPageUser = () => {
         </div>
         <div className="flex w-[100%] justify-center mt-[10px]">
           <div className=" flex items-center justify-center gap-1 w-[45%] h-[70px] rounded-2xl mr-[10%] border-[#d8d7da] border-[1px]">
-            <Link to="/login-user" className="  text-textColor flex items-center">
+            <Link
+              to="/login-user"
+              className="  text-textColor flex items-center"
+            >
               <input className="w-[20px] h-[20px]" type="radio" checked />
               <p className="text-[20px] ml-[10px]">For user!</p>
             </Link>
@@ -132,7 +148,33 @@ const LoginPageUser = () => {
             Login
           </Button>
         </form>
-        <div className="mt-[32px] flex items-center justify-center gap-1 ">
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          OR
+        </div>
+        <AiFillGoogleCircle
+          style={{
+            // padding: "1rem",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "5rem",
+            width: "100%",
+            color: "red",
+          }}
+          onClick={handleLoginGoogle}
+        ></AiFillGoogleCircle>
+
+        <div
+          className="mt-[32px] flex items-center justify-center gap-1 "
+          style={{ marginTop: "1rem", marginBottom: "-2rem" }}
+        >
           <span className="text-gray2">New User?</span>
           <Link to="/register" className="text-textColor">
             Sign up here!

@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "../../components/Logo/Logo";
 import { NavLink, useNavigate } from "react-router-dom";
 import EnsignAnh from "../../Images/anh.png";
-import { IoMdArrowDropdown } from 'react-icons/io';
+import { IoMdArrowDropdown } from "react-icons/io";
 import AccountMenu from "../../Popper/menu/AccountMenu";
-import { CiLogin } from 'react-icons/ci';
+import { CiLogin } from "react-icons/ci";
+import jwtDecode from "jwt-decode";
 const HomeNav = [
   {
     id: 1,
@@ -18,34 +19,53 @@ const HomeNav = [
   },
   {
     id: 3,
-    to: "/book_appointment",
-    title: "Book Appointment",
+    to: "/",
+    title: "Patients",
+  },
+  {
+    id: 4,
+    to: "/",
+    title: "Doctors",
   },
 ];
 
-
 const MENU_ITEMS = [
   {
-    title: 'Account'
+    title: "Account",
   },
   {
-    title: 'Profile'
+    title: "Profile",
   },
   {
-    title: 'Private session'
+    title: "Private session",
   },
   {
-    title: 'Setting'
+    title: "Setting",
   },
   {
-    title: 'Log out',
+    title: "Log out",
     icon: <CiLogin />,
-    to: "/register"
+    to: "/register",
   },
-]
+];
 
 const HomeHeaderServiceNurse = () => {
   const navigate = useNavigate();
+  const storedName = localStorage.getItem("token");
+  const [role, setRole] = useState("");
+  const [nameuser, setNameUser] = useState("");
+  useEffect(() => {
+    try {
+      const decoded = jwtDecode(storedName);
+      const role = decoded.roles[0].authority;
+      setRole(role);
+      const nameuser = decoded.nameInternal;
+      setNameUser(nameuser);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
   return (
     <header className="max-w-[1156px] gap-[46px] mx-auto flex items-center pt-[45px]">
       <div>
@@ -69,13 +89,19 @@ const HomeHeaderServiceNurse = () => {
               })}
           </ul>
         </nav>
-        <AccountMenu
-          items={MENU_ITEMS}
-        >
-          <div className=" relative flex h-[35px] !p-[5px_40px] bg-[#e2edff] rounded-2xl  " style={{ color: '#3f84f6', borderRadius: '20px' }} >
-            <img className=" absolute rounded-full w-[24px] h-[24px] top-[6px] left-[4px]" src={EnsignAnh}></img>
-            <div className="font-bold">(nurse)</div>
-            <div className="absolute top-[3px] left-[83%]"><IoMdArrowDropdown style={{ fontSize: '30px' }} /></div>
+        <AccountMenu items={MENU_ITEMS}>
+          <div
+            className=" relative flex h-[35px] !p-[5px_40px] bg-[#e2edff] rounded-2xl  "
+            style={{ color: "#3f84f6", borderRadius: "20px" }}
+          >
+            <img
+              className=" absolute rounded-full w-[24px] h-[24px] top-[6px] left-[4px]"
+              src={EnsignAnh}
+            ></img>
+            <div className="font-bold">{nameuser} ({role})</div>
+            <div className="absolute top-[3px] left-[83%]">
+              <IoMdArrowDropdown style={{ fontSize: "30px" }} />
+            </div>
           </div>
         </AccountMenu>
       </div>

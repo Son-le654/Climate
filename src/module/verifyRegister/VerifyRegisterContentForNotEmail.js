@@ -46,6 +46,10 @@ function VerifyRegisterContentForNotEmail() {
     }
   };
 
+  const handleSkip = () => {
+    navigate("/login-user");
+  };
+
   const handleChangeName = (event) => {
     const { name, value } = event.target;
 
@@ -77,7 +81,7 @@ function VerifyRegisterContentForNotEmail() {
       console.log(response);
       if (response.data == "verify success") {
         alert("Your email is verified, welcome to clinicmate");
-        navigate("/");
+        navigate("/login-user");
       } else {
         alert("OTP is wrong, please check email again");
       }
@@ -121,18 +125,29 @@ function VerifyRegisterContentForNotEmail() {
               className="border-[1px] border-grayborder2 w-[100%] h-[50px] rounded-2xl"
             />
           </div>
-          <div className="w-[100%] h-[20px] mt-[10px] mb-[20px]"></div>
+          <button
+            className="button-content-only"
+            style={{
+              marginTop: "1rem",
+              marginBottom: "-1rem",
+              textDecoration: "underline",
+              color: "blue",
+            }}
+            onClick={handleClick}
+            disabled={disabled}
+          >
+            {remainingTime > 0
+              ? `Send OTP again in ${remainingTime}s`
+              : "Send OTP"}
+          </button>
           <hr className="w-[100%] text-grayborder2 font-normal mt-[10%] mb-[20px]" />
           <div className=" w-[100%] h-[45px] flex justify-end">
             <span className="w-[30%] bg-[#b9b4b4] h-[50px] mr-[30px] rounded-2xl">
               <button
                 className="w-[100%] h-[40px] mt-[5px] font-bold"
-                onClick={handleClick}
-                disabled={disabled}
+                onClick={handleSkip}
               >
-                {remainingTime > 0
-                  ? `Send OTP again in ${remainingTime}s`
-                  : "Send OTP"}
+                Skip
               </button>
             </span>
             <span className="w-[30%] bg-[#516af8] h-[50px] rounded-2xl">

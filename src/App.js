@@ -29,6 +29,7 @@ import AppointmentDetails from "../src/pages/doctor/AppointmentDetails";
 import MedicalHistory from "../src/pages/doctor/MedicalHistory";
 
 import AppointmentDetailsPageForNurse from "./pages/AppointmentDetailsPageForNurse";
+import SchedulesPage from "./pages/SchedulesPage";
 
 function App() {
   const storedName = localStorage.getItem("token");
@@ -96,6 +97,8 @@ function App() {
       <Route path="/verifyregisterforgot" element={<VerifyRegisterForgot />}></Route>
       <Route path="/choosenewpassword" element={<ChooseNewPassword />}></Route>
       {/* doctor */}
+      
+      <Route path="/schedules" element={<SchedulesPage />}></Route>
       <Route path="/appointmentdetails" element={<AppointmentDetails />}></Route>
       <Route path="/medicalhistory" element={<MedicalHistory />}></Route>
 

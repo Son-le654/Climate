@@ -14,26 +14,26 @@ import { localPort, publicPort } from "../components/url/link";
 const LoginPage = () => {
   const navigate = useNavigate();
   const { control } = useForm();
-  const [data, setData] = useState([])
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [data, setData] = useState([]);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
     const storedName = localStorage.getItem("token");
     if (storedName !== null) {
-      navigate("/")
+      navigate("/");
     }
-  }, [])
+  }, []);
 
   const handleChangeUsername = (event) => {
     const userinput = event.target.value;
     // console.log(userinput);
     setUsername(event.target.value);
-  }
+  };
   const handleChangePassword = (event) => {
     setPassword(event.target.value);
     // console.log(password);
-  }
+  };
 
   //doc1@gmail.com - 123
   const handleSubmit = async (event) => {
@@ -43,28 +43,26 @@ const LoginPage = () => {
 
     if (!isValidEmail) {
       // do something
-      alert("Incorrect Email format")
+      alert("Incorrect Email format");
       return;
     }
-    const response = (await axios.post(publicPort + `api/login`, {
-      "email": username,
-      "password": password
-    }));
+    const response = await axios.post(publicPort + `api/login`, {
+      email: username,
+      password: password,
+    });
     console.log(response);
 
     if (response.data.token === undefined) {
-      alert("Incorrect email or password.")
+      alert("Incorrect email or password.");
     }
 
     if (response.data.token.length > 0) {
       const tokenn = response.data.token;
       console.log("true");
-      localStorage.setItem("token", response.data.token)
-      navigate("/",
-        { state: { tokenn } })
+      localStorage.setItem("token", response.data.token);
+      navigate("/", { state: { tokenn } });
     }
-
-  }
+  };
 
   return (
     <LayoutSign
@@ -78,13 +76,19 @@ const LoginPage = () => {
         </div>
         <div className="flex w-[100%] justify-center mt-[10px]">
           <div className=" flex items-center justify-center gap-1 w-[45%] h-[70px] rounded-2xl mr-[10%] border-[#d8d7da] border-[1px]">
-            <Link to="/login-user" className="   text-[#a2a7af] flex items-center">
+            <Link
+              to="/login-user"
+              className="   text-[#a2a7af] flex items-center"
+            >
               <input className="w-[20px] h-[20px]" type="radio" />
               <p className="text-[20px] ml-[10px]">For user!</p>
             </Link>
           </div>
           <div className=" flex items-center justify-center gap-1 w-[45%] h-[70px] rounded-2xl border-[#d8d7da] border-[1px]">
-            <Link to="/login" className="   text-textColor    flex items-center">
+            <Link
+              to="/login"
+              className="   text-textColor    flex items-center"
+            >
               <input className="w-[20px] h-[20px]" type="radio" checked />
               <p className="text-[20px] ml-[10px]">For staff!</p>
             </Link>
@@ -109,19 +113,18 @@ const LoginPage = () => {
             control={control}
           ></InputPassword>
           <div className="flex justify-between mt-[10px]">
-            <div className="flex items-center gap-1 text-textColor">
+            {/* <div className="flex items-center gap-1 text-textColor">
               <input
                 type="checkbox"
                 className="w-[16px] h-[16px] border border-textColor"
               />
               <label htmlFor="">Remember me</label>
-            </div>
-            <div>
+            </div> */}
+            {/* <div>
               <Link to="/registerenteremail" className="text-gradientLeft">
                 Forgot Password?
               </Link>
-            </div>
-
+            </div> */}
           </div>
           <Button
             // onClick={() => {
@@ -134,12 +137,12 @@ const LoginPage = () => {
             Login
           </Button>
         </form>
-        <div className="mt-[32px] flex items-center justify-center gap-1 ">
+        {/* <div className="mt-[32px] flex items-center justify-center gap-1 ">
           <span className="text-gray2">New User?</span>
           <Link to="/register" className="text-textColor">
             Sign up here!
           </Link>
-        </div>
+        </div> */}
       </div>
     </LayoutSign>
   );

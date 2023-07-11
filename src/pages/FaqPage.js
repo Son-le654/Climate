@@ -3,6 +3,7 @@ import HomeHeader from "../module/home/HomeHeader";
 import FaqContent from "../module/faq/FaqContent";
 import Footer from "../module/home/Footer";
 import { useLocation, useNavigate } from "react-router";
+import HomeHeaderService from "../module/home/HomeHeaderService";
 
 const About = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const About = () => {
   return (
     <div className="bg-white w-[100%]">
       <div className="bg-white">
-        <HomeHeader></HomeHeader>
+        <HomeHeaderService></HomeHeaderService>
       </div>
       <div className="pt-[80px] pl-[190px] text-5xl font-bold py-[20px]">
         <h1>List of Doctors</h1>

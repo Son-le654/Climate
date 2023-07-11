@@ -23,7 +23,7 @@ function VerifyRegisterForgot() {
   return (
     <div>
       <div className="bg-white">
-        <HomeHeaderService></HomeHeaderService>
+        {/* <HomeHeaderService></HomeHeaderService> */}
       </div>
       <div>
         <VerifyRegisterContent email={email}/>
