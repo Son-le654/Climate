@@ -13,14 +13,14 @@ function AppointmentDetailContent({ appointment }) {
   const navigate = useNavigate();
   const [showConfirmCancel, setshowConfirmCancel] = useState(false);
   const [showConfirmApprove, setshowConfirmApprove] = useState(false);
-//cancel
+  //cancel
   const handleshowConfirmCancel = () => {
     setshowConfirmCancel(true);
   };
   const handleUnshowConfirmCancel = () => {
     setshowConfirmCancel(false);
   };
-//approve
+  //approve
   const handleshowConfirmApprove = () => {
     setshowConfirmApprove(true);
   };
@@ -79,7 +79,7 @@ function AppointmentDetailContent({ appointment }) {
                   ) : appointment != undefined &&
                     appointment.commandFlag == "1" ? (
                     <p
-                      className={`w-[12%] h-[30px] rounded-2xl ml-[14%] pt-[3px] text-white ${"bg-success"}`}
+                      className={`w-[13.5%] h-[30px] rounded-2xl ml-[14%] pt-[3px] text-white ${"bg-success"}`}
                     >
                       Approved
                     </p>
@@ -119,7 +119,11 @@ function AppointmentDetailContent({ appointment }) {
               <div className="pt-3 flex">
                 <span className="w-[35%]">ID Card</span>
                 <span className="w-[65%]">
-                  {appointment != undefined ? appointment.idC : ""}
+                  {appointment != undefined
+                    ? appointment.patient != null
+                      ? appointment.patient.id
+                      : ""
+                    : ""}
                 </span>
               </div>
               <div className="pt-3 flex">

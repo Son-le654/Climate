@@ -120,8 +120,11 @@ function AppointmentDetailsContent({ appointment }) {
       if (response.data === "cannot find patient") {
         window.alert("Cannot find patient");
       }
-      if (response.data === "success") {
+
+      if (response.data === "Medical record created successfully.") {
         navigate("/schedules");
+      } else {
+        alert(response.data);
       }
     }
   };
@@ -224,7 +227,11 @@ function AppointmentDetailsContent({ appointment }) {
               <div className="pt-3 flex">
                 <span className="w-[35%]">ID Card</span>
                 <span className="w-[65%]">
-                  {appointment != undefined ? appointment.appointment.idC : ""}
+                  {appointment != undefined
+                    ? appointment.appointment.patient != null
+                      ? appointment.appointment.patient.id
+                      : ""
+                    : ""}
                 </span>
               </div>
               <div className="pt-3 flex">

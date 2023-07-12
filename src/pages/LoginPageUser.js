@@ -64,7 +64,8 @@ const LoginPageUser = () => {
     }
   };
   const handleLoginGoogle = async (event) => {
-    const response = await axios.get(publicPort + `login/google`);
+    const response = await axios.get(`
+    https://103.68.85.120/login/google`);
     console.log(response);
     // if (response.data.token === undefined) {
     //   alert("Incorrect email or password.");

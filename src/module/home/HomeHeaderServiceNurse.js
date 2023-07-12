@@ -53,14 +53,14 @@ const HomeHeaderServiceNurse = () => {
   const navigate = useNavigate();
   const storedName = localStorage.getItem("token");
   const [role, setRole] = useState("");
-  const [nameuser, setNameUser] = useState("");
+  const [nameInter, setnameInter] = useState("");
   useEffect(() => {
     try {
       const decoded = jwtDecode(storedName);
       const role = decoded.roles[0].authority;
       setRole(role);
       const nameuser = decoded.nameInternal;
-      setNameUser(nameuser);
+      setnameInter(nameuser);
     } catch (error) {
       console.log(error);
     }
@@ -98,7 +98,7 @@ const HomeHeaderServiceNurse = () => {
               className=" absolute rounded-full w-[24px] h-[24px] top-[6px] left-[4px]"
               src={EnsignAnh}
             ></img>
-            <div className="font-bold">{nameuser} ({role})</div>
+            <div className="font-bold">{nameInter} ({role})</div>
             <div className="absolute top-[3px] left-[83%]">
               <IoMdArrowDropdown style={{ fontSize: "30px" }} />
             </div>
