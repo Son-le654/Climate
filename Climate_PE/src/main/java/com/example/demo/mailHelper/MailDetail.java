@@ -8,8 +8,6 @@ public class MailDetail {
 
 	public MailDetail() {
 	}
-	
-	
 
 	public MailDetail(String recipient, String subject, String msgBody, String attachment) {
 		super();
@@ -18,14 +16,13 @@ public class MailDetail {
 		this.msgBody = msgBody;
 		this.attachment = attachment;
 	}
+
 	public MailDetail(String recipient, String subject, String msgBody) {
 		super();
 		this.recipient = recipient;
 		this.subject = subject;
 		this.msgBody = msgBody;
 	}
-
-
 
 	public String getRecipient() {
 		return recipient;

@@ -11,12 +11,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
 
-	 @Bean
-	    public MultipartResolver multipartResolver() {
-	        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-	        resolver.setMaxUploadSize(10485760); // 10MB
-	        resolver.setMaxInMemorySize(1048576); // 1MB
-	        resolver.setDefaultEncoding("UTF-8");
-	        return resolver;
-	    }
+	@Bean
+	public MultipartResolver multipartResolver() {
+		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+		resolver.setMaxUploadSize(10485760); // 10MB
+		resolver.setMaxInMemorySize(1048576); // 1MB
+		resolver.setDefaultEncoding("UTF-8");
+		return resolver;
+	}
 }

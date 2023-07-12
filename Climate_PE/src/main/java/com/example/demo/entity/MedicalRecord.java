@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -23,18 +22,14 @@ public class MedicalRecord {
 	@Column(name = "MEDICAL_RECORD_ID")
 	private int id;
 
-	@Column(name = "DOCTOR_ID")
-	private String doctorId;
-
-	@Column(name = "RELEASE_DATE")
-	private String releaseDate;
-
 	@Column(name = "COMMAND_FLAG")
 	private int commandFlag;
 
-	@JoinColumn(name = "APPOINTMENT_ID", referencedColumnName = "APPOINTMENT_ID")
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-	private Appointment appointment;
+	@Column(name = "RELEASE_TIME")
+	private String releaseTime = timeNow();
+
+	@Column(name = "DOCTOR_ID")
+	private String doctorId;
 
 	@Column(name = "CLINIC_PROCESS", columnDefinition = "LONGTEXT")
 	private String clinicProcess;
@@ -45,23 +40,27 @@ public class MedicalRecord {
 	@Column(name = "TREATMENT", columnDefinition = "LONGTEXT")
 	private String treatment;
 
+	@JoinColumn(name = "CHECKIN_ID", referencedColumnName = "CHECKIN_ID")
+	@OneToOne
+	private Checkin checkin;
+
 	public MedicalRecord() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public MedicalRecord(int id, String doctorId, int commandFlag, Appointment appointment, String clinicProcess,
-			String sumaryResult, String treatment,String releaseDate) {
+	public MedicalRecord(String doctorId, String clinicProcess, String sumaryResult, String treatment,
+			Checkin checkin) {
 		super();
-		this.id = id;
 		this.doctorId = doctorId;
-		this.releaseDate = timeNow();
-		this.commandFlag = commandFlag;
-		this.appointment = appointment;
 		this.clinicProcess = clinicProcess;
 		this.sumaryResult = sumaryResult;
 		this.treatment = treatment;
-	}
+		this.checkin = checkin;
 
+		// 0: create, 1: block
+		this.commandFlag = 0;
+		this.releaseTime = timeNow();
+	}
 
 	public String timeNow() {
 		LocalDateTime currentDateTime = LocalDateTime.now();
@@ -78,22 +77,6 @@ public class MedicalRecord {
 		this.id = id;
 	}
 
-	public String getDoctorId() {
-		return doctorId;
-	}
-
-	public void setDoctorId(String doctorId) {
-		this.doctorId = doctorId;
-	}
-
-	public String getReleaseDate() {
-		return releaseDate;
-	}
-
-	public void setReleaseDate(String releaseDate) {
-		this.releaseDate = releaseDate;
-	}
-
 	public int getCommandFlag() {
 		return commandFlag;
 	}
@@ -102,12 +85,20 @@ public class MedicalRecord {
 		this.commandFlag = commandFlag;
 	}
 
-	public Appointment getAppointment() {
-		return appointment;
+	public String getReleaseTime() {
+		return releaseTime;
 	}
 
-	public void setAppointment(Appointment appointment) {
-		this.appointment = appointment;
+	public void setReleaseTime(String releaseTime) {
+		this.releaseTime = releaseTime;
+	}
+
+	public String getDoctorId() {
+		return doctorId;
+	}
+
+	public void setDoctorId(String doctorId) {
+		this.doctorId = doctorId;
 	}
 
 	public String getClinicProcess() {
@@ -132,6 +123,14 @@ public class MedicalRecord {
 
 	public void setTreatment(String treatment) {
 		this.treatment = treatment;
+	}
+
+	public Checkin getCheckin() {
+		return checkin;
+	}
+
+	public void setCheckin(Checkin checkin) {
+		this.checkin = checkin;
 	}
 
 }

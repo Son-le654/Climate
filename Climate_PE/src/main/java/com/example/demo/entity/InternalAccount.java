@@ -1,6 +1,8 @@
 package com.example.demo.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -31,17 +32,17 @@ public class InternalAccount {
 	@Column(name = "INTERNAL_ID")
 	private int id;
 
-	@Column(name = "EMAIL")
+	@Column(name = "EMAIL", nullable = false)
 	private String email;
 
-	@Column(name = "PASSWORD", nullable = false, columnDefinition = "LONGTEXT")
+	@Column(name = "PASSWORD", columnDefinition = "LONGTEXT")
 	private String password;
 
 	@Column(name = "NAME")
 	private String name;
 
 	@Column(name = "BIRTHDATE")
-	private LocalDate birthDate;
+	private String birthDate;
 
 	@Column(name = "GENDER")
 	private String gender;
@@ -52,9 +53,6 @@ public class InternalAccount {
 	@Column(name = "YEAR_OF_EXP")
 	private int yearOfExp;
 
-	@Column(name = "STATUS")
-	private int status;
-
 	@Column(name = "EDUCATION")
 	private String education;
 
@@ -63,19 +61,22 @@ public class InternalAccount {
 
 	@Column(name = "COMMAND_FLAG")
 	private int commandFlag;
-	
+
 	@Column(name = "INTRODUCT")
 	private String introduct;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@Column(name = "REGISTER_TIME")
+	private String registerTime = timeNow();
+
+	@ManyToOne
 	@JoinColumn(name = "LOCATION", referencedColumnName = "LOCATION_ID")
 	private Location workingPlace;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "ROLE", referencedColumnName = "ROLE_ID")
 	private Role role;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "SPECIATLY", referencedColumnName = "SPEC_ID")
 	private Specialty specialty;
 
@@ -89,9 +90,8 @@ public class InternalAccount {
 		// constructor mặc định không có tham số
 	}
 
-	public InternalAccount(String email, String password, String name, LocalDate birthDate, String gender, String phone,
-			int yearOfExp, int status, String education, int commandFlag, Location workingPlace, Role role,
-			Specialty specialty) {
+	public InternalAccount(String email, String password, String name, String birthDate, String gender, String phone,
+			int yearOfExp, String education, Location workingPlace, Role role, Specialty specialty) {
 		super();
 		this.email = email;
 		this.password = password;
@@ -100,12 +100,21 @@ public class InternalAccount {
 		this.gender = gender;
 		this.phone = phone;
 		this.yearOfExp = yearOfExp;
-		this.status = status;
 		this.education = education;
-		this.commandFlag = 1;
 		this.workingPlace = workingPlace;
 		this.role = role;
 		this.specialty = specialty;
+
+		// 0: create, 1: block
+		this.commandFlag = 0;
+		this.registerTime = timeNow();
+	}
+
+	public String timeNow() {
+		LocalDateTime currentDateTime = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss:SSS");
+		String formattedDateTime = currentDateTime.format(formatter);
+		return formattedDateTime;
 	}
 
 	public String getAvatar() {
@@ -168,11 +177,11 @@ public class InternalAccount {
 		this.name = name;
 	}
 
-	public LocalDate getBirthDate() {
+	public String getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(LocalDate birthDate) {
+	public void setBirthDate(String birthDate) {
 		this.birthDate = birthDate;
 	}
 
@@ -200,12 +209,16 @@ public class InternalAccount {
 		this.yearOfExp = yearOfExp;
 	}
 
-	public int getStatus() {
-		return status;
+	public String getRegisterTime() {
+		return registerTime;
 	}
 
-	public void setStatus(int status) {
-		this.status = status;
+	public void setRegisterTime(String registerTime) {
+		this.registerTime = registerTime;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public int getCommandFlag() {
@@ -239,12 +252,22 @@ public class InternalAccount {
 	public void setSpecialty(Specialty specialty) {
 		this.specialty = specialty;
 	}
-	
+
 	public String getIntroduct() {
 		return introduct;
 	}
-	
+
 	public void setIntroduct(String introduct) {
 		this.introduct = introduct;
 	}
+
+	@Override
+	public String toString() {
+		return "InternalAccount [id=" + id + ", email=" + email + ", password=" + password + ", name=" + name
+				+ ", birthDate=" + birthDate + ", gender=" + gender + ", phone=" + phone + ", yearOfExp=" + yearOfExp
+				+ ", education=" + education + ", avatar=" + avatar + ", commandFlag=" + commandFlag + ", introduct="
+				+ introduct + ", registerTime=" + registerTime + ", workingPlace=" + workingPlace + ", role=" + role
+				+ ", specialty=" + specialty + ", schedule=" + schedule + "]";
+	}
+
 }

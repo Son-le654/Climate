@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.entity.Symptom;
 
 @Repository
-public interface SymptomRepository extends JpaRepository<Symptom, Integer>{
-	
+public interface SymptomRepository extends JpaRepository<Symptom, Integer> {
+
 	@Query("select c from Symptom c")
 	List<Symptom> findSymtom();
 }

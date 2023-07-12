@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -26,7 +25,7 @@ public class Specialty {
 	@Column(name = "SPEC_ID")
 	private int id;
 
-	@Column(name = "SPEC_NAME", nullable = false)
+	@Column(name = "SPEC_NAME")
 	private String name;
 
 	@Column(name = "SPEC_DESCRIPTION")
@@ -53,7 +52,8 @@ public class Specialty {
 		super();
 		this.name = name;
 		this.description = description;
-		this.commandFlag = 1;
+		// 0: create, 1: block
+		this.commandFlag = 0;
 	}
 
 	public List<InternalAccount> getInternal() {

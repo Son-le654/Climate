@@ -22,8 +22,8 @@ public class Schedule {
 	@Column(name = "SCHEDULE_ID")
 	private int id;
 
-	@Column(name = "RELEASE_TIME")
-	private String releaseTime;
+	@Column(name = "COMMAND_FLAG")
+	private int commandFlag;
 
 	@Column(name = "EXAM_DATE")
 	private String examDate;
@@ -31,38 +31,46 @@ public class Schedule {
 	@Column(name = "EXAM_TIME")
 	private String examTime;
 
-	@Column(name = "COMMAND_FLAG")
-	private int commandFlag;
+	@Column(name = "RELEASE_TIME")
+	private String releaseTime = timeNow();
+
+	@OneToOne
+	@JoinColumn(name = "appointment_id")
+	private Appointment appointment;
 
 	@ManyToOne
 	@JoinColumn(name = "internal_id")
 	private InternalAccount inaccounts;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "appointment_id")
-	private Appointment appointment;
-
 	public Schedule() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Schedule(String releaseTime, InternalAccount inaccounts, Appointment appointment) {
-		super();
-		this.releaseTime = releaseTime;
-		this.commandFlag = 1;
-		this.inaccounts = inaccounts;
-		this.appointment = appointment;
-	}
+	// book - schedule
 
-	public Schedule(int id, String examDate, String examTime, InternalAccount inaccounts, Appointment appointment) {
+	public Schedule(String examDate, String examTime, Appointment appointment, InternalAccount inaccounts) {
 		super();
-		this.id = id;
-		this.releaseTime = timeNow();
 		this.examDate = examDate;
 		this.examTime = examTime;
-		this.commandFlag = 1;
-		this.inaccounts = inaccounts;
 		this.appointment = appointment;
+		this.inaccounts = inaccounts;
+
+		// 0: create, 1: complete, 2: cancel
+		this.commandFlag = 0;
+		this.releaseTime = timeNow();
+	}
+
+	// schedule for day off doctor
+
+	public Schedule(String examDate, String examTime, InternalAccount inaccounts) {
+		super();
+		this.examDate = examDate;
+		this.examTime = examTime;
+		this.inaccounts = inaccounts;
+
+		// 0: create, 1: complete, 2: cancel
+		this.commandFlag = 0;
+		this.releaseTime = timeNow();
 	}
 
 	public String timeNow() {

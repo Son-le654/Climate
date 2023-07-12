@@ -11,6 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "location")
@@ -29,7 +30,7 @@ public class Location {
 
 	@Column(name = "COMMAND_FLAG")
 	private int commandFlag;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "workingPlace")
 	private List<InternalAccount> account;
@@ -38,11 +39,12 @@ public class Location {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Location(String name, String description, int commandFlag) {
+	public Location(String name, String description) {
 		super();
 		this.name = name;
 		this.description = description;
-		this.commandFlag = 1;
+		// 0: create, 1: block
+		this.commandFlag = 0;
 	}
 
 	public int getId() {

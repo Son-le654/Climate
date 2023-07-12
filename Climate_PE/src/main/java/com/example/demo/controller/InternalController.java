@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,9 +25,7 @@ import com.example.demo.DTO.ApiResponse;
 import com.example.demo.DTO.InternalAccountDTO;
 import com.example.demo.DTO.LoginRequest;
 import com.example.demo.entity.InternalAccount;
-import com.example.demo.entity.Patient;
 import com.example.demo.entity.Specialty;
-import com.example.demo.entity.Symptom;
 import com.example.demo.service.InternalService;
 import com.example.demo.service.JwtResponse;
 import com.example.demo.service.JwtTokenUtil;
@@ -47,7 +46,7 @@ public class InternalController {
 
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
-	
+
 	@Autowired
 	private InternalService doctorService;
 
@@ -62,10 +61,9 @@ public class InternalController {
 			return ResponseEntity.ok("Incorrect email or password.");
 		}
 		Optional<InternalAccount> interacc = doctorService.findByEmail(email);
-        if(interacc.isEmpty())
-        {
-        	return ResponseEntity.ok("Not found accout.");
-        }
+		if (!interacc.isPresent()) {
+			return ResponseEntity.ok("Not found accout.");
+		}
 		final UserDetails userDetails = internalService.loadUserByUsername(email);
 		final String token = jwtTokenUtil.generateToken(userDetails);
 		return ResponseEntity.ok(new JwtResponse(token));
@@ -73,6 +71,14 @@ public class InternalController {
 
 	@PostMapping("/save")
 	public String save(@RequestBody InternalAccount account) {
+		System.out.println("enter save: " + account.toString());
+		internalService.save(account);
+		return "success";
+	}
+	
+	@PutMapping("/update")
+	public String update(@RequestBody InternalAccount account) {
+		System.out.println("enter save: " + account.toString());
 		internalService.save(account);
 		return "success";
 	}
@@ -91,7 +97,7 @@ public class InternalController {
 			return ResponseEntity.notFound().build();
 		}
 	}
-	
+
 	@GetMapping(value = "/doctors")
 	public List<InternalAccount> listAccDoctor() {
 		return internalService.findAllDoctor();

@@ -10,12 +10,12 @@ import org.springframework.data.repository.query.Param;
 import com.example.demo.entity.InternalAccount;
 
 public interface InternalRepository extends JpaRepository<InternalAccount, Integer> {
-	
+
 	Optional<InternalAccount> findByEmail(String email);
 
 	@Query("select i from InternalAccount i where i.role.name = 'DOCTOR'")
 	List<InternalAccount> findAllDoctor();
-	
+
 	@Query("select i from InternalAccount i where i.role.name = 'DOCTOR' AND i.name = :name and CONCAT(i.workingPlace.name, ' - ', i.workingPlace.description) = :location")
 	InternalAccount findDoctor(@Param(value = "name") String name, @Param(value = "location") String location);
 
@@ -30,6 +30,6 @@ public interface InternalRepository extends JpaRepository<InternalAccount, Integ
 	Optional<List<InternalAccount>> findByName(@Param(value = "name") String name);
 
 	@Query("SELECT ia FROM InternalAccount ia WHERE ia.specialty.name LIKE %:specialty% AND ia.role.name = 'DOCTOR'")
-	Optional<List<InternalAccount>>  findBySpecialty(@Param(value = "specialty") String specialty);
+	Optional<List<InternalAccount>> findBySpecialty(@Param(value = "specialty") String specialty);
 
 }

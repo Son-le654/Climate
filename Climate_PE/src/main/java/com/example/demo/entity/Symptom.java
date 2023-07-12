@@ -22,7 +22,7 @@ public class Symptom {
 	@Column(name = "SYMPTOM_ID")
 	private int id;
 
-	@Column(name = "SYMPTOM_NAME", nullable = false)
+	@Column(name = "SYMPTOM_NAME")
 	private String name;
 
 	@Column(name = "SYMPTOM_DESCRIPTION")
@@ -43,7 +43,9 @@ public class Symptom {
 		super();
 		this.name = name;
 		this.description = description;
-		this.commandFlag = 1;
+
+		// 0: create, 1: block
+		this.commandFlag = 0;
 		this.specialty = specialty;
 	}
 

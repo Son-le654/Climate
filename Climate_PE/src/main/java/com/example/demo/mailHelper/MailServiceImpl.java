@@ -45,29 +45,29 @@ public class MailServiceImpl implements MailService {
 	@Override
 	public String sendMailWithAttachment(MailDetail mailDetail) {
 		// Creating a Mime Message can send attachment, special character encoding....
-				MimeMessage mimeMessage = mailSender.createMimeMessage();
-				MimeMessageHelper mimeMessageHelper;
-				
-				try {
-					// Setting multipart as true for attachment to be send
-					mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
-					mimeMessageHelper.setFrom(sender);
-					mimeMessageHelper.setTo(mailDetail.getRecipient());
-					mimeMessageHelper.setSubject(mailDetail.getSubject());
-					mimeMessageHelper.setText(mailDetail.getMsgBody());
-					
-					//add file attachment
-					FileSystemResource file = new FileSystemResource(new File(mailDetail.getAttachment()));
-					
-					mimeMessageHelper.addAttachment(file.getFilename(), file);
-					
-					//sending
-					mailSender.send(mimeMessage);
-					return "sent success";
-				} catch (Exception e) {
-					// TODO: handle exception
-					return "Error while Sending email!!!";
-				}
+		MimeMessage mimeMessage = mailSender.createMimeMessage();
+		MimeMessageHelper mimeMessageHelper;
+
+		try {
+			// Setting multipart as true for attachment to be send
+			mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+			mimeMessageHelper.setFrom(sender);
+			mimeMessageHelper.setTo(mailDetail.getRecipient());
+			mimeMessageHelper.setSubject(mailDetail.getSubject());
+			mimeMessageHelper.setText(mailDetail.getMsgBody());
+
+			// add file attachment
+			FileSystemResource file = new FileSystemResource(new File(mailDetail.getAttachment()));
+
+			mimeMessageHelper.addAttachment(file.getFilename(), file);
+
+			// sending
+			mailSender.send(mimeMessage);
+			return "sent success";
+		} catch (Exception e) {
+			// TODO: handle exception
+			return "Error while Sending email!!!";
+		}
 	}
 
 }

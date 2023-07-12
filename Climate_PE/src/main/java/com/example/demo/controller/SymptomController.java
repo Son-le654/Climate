@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +19,7 @@ import com.example.demo.service.SymptomService;
 
 @RestController
 @RequestMapping("/symptom")
-@CrossOrigin(origins = {"http://clinicmates.io.vn/", "http://localhost:3000/"})
+@CrossOrigin(origins = { "http://clinicmates.io.vn/", "http://localhost:3000/" })
 public class SymptomController {
 
 	@Autowired
@@ -27,6 +28,12 @@ public class SymptomController {
 	@PostMapping("/save")
 	public String save(@RequestBody Symptom symtom) {
 		service.save(symtom);
+		return "success";
+	}
+
+	@PutMapping("/update")
+	public String update(@RequestBody Symptom symtom) {
+		service.update(symtom);
 		return "success";
 	}
 

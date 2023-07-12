@@ -1,42 +1,41 @@
 package com.example.demo.DTO;
 
-public class AppointmentDTO {
+public class CheckinDTO {
 
 	private String name;
 	private String phone;
 	private String idC;
+	private String idA;
 	private String birthday;
 	private String gender;
 	private String bookPlace;
 	private String symtom;
 	private String spec;
-	private String doctorName;
+	private String doctorId;
 	private String bookDate;
-	private String bookTime;
 	private String description;
 	private String paitent_name;
 	private String register_time;
 
-	public AppointmentDTO() {
+	public CheckinDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
-//for user
-	public AppointmentDTO(String name, String phone, String idC, String birthday, String gender, String bookPlace,
-			String symtom, String spec, String doctorName, String bookDate, String bookTime, String description,
+	public CheckinDTO(String name, String phone, String idC, String idA, String birthday, String gender,
+			String bookPlace, String symtom, String spec, String doctorId, String bookDate, String description,
 			String paitent_name, String register_time) {
 		super();
 		this.name = name;
 		this.phone = phone;
 		this.idC = idC;
+		this.idA = idA;
 		this.birthday = birthday;
 		this.gender = gender;
 		this.bookPlace = bookPlace;
 		this.symtom = symtom;
 		this.spec = spec;
-		this.doctorName = doctorName;
+		this.doctorId = doctorId;
 		this.bookDate = bookDate;
-		this.bookTime = bookTime;
 		this.description = description;
 		this.paitent_name = paitent_name;
 		this.register_time = register_time;
@@ -98,12 +97,12 @@ public class AppointmentDTO {
 		this.spec = spec;
 	}
 
-	public String getDoctorName() {
-		return doctorName;
+	public String getDoctorId() {
+		return doctorId;
 	}
 
-	public void setDoctorName(String doctorName) {
-		this.doctorName = doctorName;
+	public void setDoctorId(String doctorId) {
+		this.doctorId = doctorId;
 	}
 
 	public String getBookDate() {
@@ -112,14 +111,6 @@ public class AppointmentDTO {
 
 	public void setBookDate(String bookDate) {
 		this.bookDate = bookDate;
-	}
-
-	public String getBookTime() {
-		return bookTime;
-	}
-
-	public void setBookTime(String bookTime) {
-		this.bookTime = bookTime;
 	}
 
 	public String getDescription() {
@@ -136,6 +127,14 @@ public class AppointmentDTO {
 
 	public void setIdC(String idC) {
 		this.idC = idC;
+	}
+
+	public String getIdA() {
+		return idA;
+	}
+
+	public void setIdA(String idA) {
+		this.idA = idA;
 	}
 
 	public void setPaitent_name(String paitent_name) {
