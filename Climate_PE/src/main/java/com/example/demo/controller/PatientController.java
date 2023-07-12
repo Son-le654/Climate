@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import javax.mail.MessagingException;
@@ -25,10 +26,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.DTO.LoginRequest;
 import com.example.demo.DTO.RegisterRequest;
+import com.example.demo.entity.InternalAccount;
 import com.example.demo.entity.Patient;
 import com.example.demo.mailHelper.MailDetail;
 import com.example.demo.mailHelper.MailService;
 import com.example.demo.mailHelper.OTP;
+import com.example.demo.service.InternalService;
 import com.example.demo.service.JwtResponse;
 import com.example.demo.service.JwtTokenUtil;
 import com.example.demo.service.PatientService;
@@ -52,6 +55,11 @@ public class PatientController {
 
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
+	
+	@Autowired
+	private InternalService doctorService;
+	@Autowired
+	private PatientService patientService;
 
 	@PostMapping(value = "/login")
 	public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
@@ -64,6 +72,12 @@ public class PatientController {
 		} catch (BadCredentialsException e) {
 			return ResponseEntity.ok("Incorrect email or password.");
 		}
+		Optional<InternalAccount> interacc = doctorService.findByEmail(email);
+        Optional<Patient> pantiacc = Optional.ofNullable(patientService.findByEmail(email));
+        if(interacc.isPresent() && pantiacc.isEmpty())
+        {
+        	return ResponseEntity.ok("Not found accout.");
+        }
 		final UserDetails userDetails = service.loadUserByUsername(email);
 		final String token = jwtTokenUtil.generateToken(userDetails);
 		return ResponseEntity.ok(new JwtResponse(token));

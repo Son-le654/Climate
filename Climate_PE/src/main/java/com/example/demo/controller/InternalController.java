@@ -24,6 +24,7 @@ import com.example.demo.DTO.ApiResponse;
 import com.example.demo.DTO.InternalAccountDTO;
 import com.example.demo.DTO.LoginRequest;
 import com.example.demo.entity.InternalAccount;
+import com.example.demo.entity.Patient;
 import com.example.demo.entity.Specialty;
 import com.example.demo.entity.Symptom;
 import com.example.demo.service.InternalService;
@@ -46,6 +47,9 @@ public class InternalController {
 
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
+	
+	@Autowired
+	private InternalService doctorService;
 
 	@PostMapping(value = "/login")
 	public ResponseEntity<?> DoLogin(@RequestBody LoginRequest loginRequest) {
@@ -57,6 +61,11 @@ public class InternalController {
 		} catch (BadCredentialsException e) {
 			return ResponseEntity.ok("Incorrect email or password.");
 		}
+		Optional<InternalAccount> interacc = doctorService.findByEmail(email);
+        if(interacc.isEmpty())
+        {
+        	return ResponseEntity.ok("Not found accout.");
+        }
 		final UserDetails userDetails = internalService.loadUserByUsername(email);
 		final String token = jwtTokenUtil.generateToken(userDetails);
 		return ResponseEntity.ok(new JwtResponse(token));

@@ -28,11 +28,6 @@ public class ScheduleController {
 	@Autowired
 	private ScheduleService service;
 
-//	@PostMapping("/save")
-//	public String Save(@RequestBody AppointmentDTO appointmentDTO) {
-//		appointmentService.save(appointmentDTO);
-//		return "success";
-//	}
 
 	@GetMapping("/list")
 	public List<Schedule> getAll() {
@@ -40,11 +35,21 @@ public class ScheduleController {
 	}
 
 	@GetMapping("/list_date/{id}")
-	public List<Schedule> getScheduleById(@PathVariable("id") int id,
+	public List<Schedule> getScheduleByIdandMail(@PathVariable("id") int id,
 			@RequestParam("date") @DateTimeFormat(pattern = "yyyy/MM/dd") String date) {
 		System.out.println("- " + id);
 		System.out.println("- " + date);
 		return service.findAllByInIdAndDate(id, date);
 //		return null;
 	}
+	
+	@GetMapping("/listschedules")
+	public List<Schedule> getSchedulesByEmailSortedByExamDate(@RequestParam("email") String email) {
+	    return service.getSortedSchedulesByEmail(email);
+	}
+	@GetMapping("/list_schedules")
+	public Optional<Schedule> getScheduleById(@RequestParam("id") int id) {
+		return service.findById(id);
+	}
+	
 }

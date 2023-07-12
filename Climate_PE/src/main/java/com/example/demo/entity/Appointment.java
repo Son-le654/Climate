@@ -285,5 +285,4 @@ public class Appointment {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
 }

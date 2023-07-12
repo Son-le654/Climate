@@ -1,12 +1,19 @@
 package com.example.demo.service;
 
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
+import com.example.demo.entity.InternalAccount;
+import com.example.demo.entity.Patient;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -14,10 +21,28 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Service
 public class JwtTokenUtil {
     private final String secret = "mySecret";
-
+    
+	@Autowired
+	private InternalService internalService;
+	
+	@Autowired
+	private PatientService patientService;
+	
+	
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("roles", userDetails.getAuthorities());
+        Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+		claims.put("roles", authorities);
+        Optional<InternalAccount> interacc = internalService.findByEmail(userDetails.getUsername());
+        Optional<Patient> pantiacc = Optional.ofNullable(patientService.findByEmail(userDetails.getUsername()));
+        if(pantiacc.isPresent())
+        {
+        	claims.put("nameUser", pantiacc.get().getName());
+        }
+        if(interacc.isPresent())
+        {
+        	claims.put("nameInternal", interacc.get().getName());
+        }
         return doGenerateToken(claims, userDetails.getUsername());
     }
 
