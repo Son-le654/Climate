@@ -6,5 +6,5 @@ import com.example.demo.entity.Location;
 import com.example.demo.entity.Role;
 
 public interface LocationRepository extends JpaRepository<Location, Integer> {
-    Role findByName(String name);
+	Role findByName(String name);
 }

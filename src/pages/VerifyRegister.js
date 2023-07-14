@@ -17,7 +17,7 @@ function VerifyRegister() {
   return (
     <div>
       <div className="bg-white">
-        <HomeHeaderService></HomeHeaderService>
+        {/* <HomeHeaderService></HomeHeaderService> */}
       </div>
       {mail == "" ? (
         <div>

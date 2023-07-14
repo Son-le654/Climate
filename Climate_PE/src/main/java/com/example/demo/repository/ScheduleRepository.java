@@ -5,9 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.scheduling.config.ScheduledTaskHolder;
 
-import com.example.demo.entity.InternalAccount;
 import com.example.demo.entity.Schedule;
 
 public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
@@ -26,6 +24,6 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
 	Schedule findByInNameAndDateTime(@Param(value = "name") String name, @Param(value = "examDate") String examDate,
 			@Param(value = "examTime") String examTime);
 
-	 List<Schedule> findByInaccountsEmailOrderByExamDateAscExamTimeAsc(String email);
+	List<Schedule> findByInaccountsEmailOrderByExamDateAscExamTimeAsc(String email);
 
 }

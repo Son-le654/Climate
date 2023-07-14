@@ -5,12 +5,10 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -75,10 +73,11 @@ public class Role implements Serializable {
 		// constructor mặc định không có tham số
 	}
 
-	public Role(String name, int commandFlag) {
+	public Role(String name) {
 		super();
 		this.name = name;
-		this.commandFlag = 1;
+		// 0: create, 1: delete
+		this.commandFlag = 0;
 	}
 
 }

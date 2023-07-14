@@ -31,10 +31,10 @@ public class AppointmentController {
 
 	@Autowired
 	private AppointmentService appointmentService;
-	
+
 	@Autowired
 	private ScheduleService scheduleService;
-	
+
 	@Autowired
 	private InternalService internalService;
 
@@ -78,6 +78,13 @@ public class AppointmentController {
 		}
 	}
 
+	@PutMapping("/update")
+	public String update(@RequestBody Appointment account) {
+		System.out.println(account.toString());
+		appointmentService.update(account);
+		return "success";
+	}
+
 	@GetMapping("/list")
 	public List<Appointment> getAll() {
 		return appointmentService.findAll();
@@ -119,21 +126,22 @@ public class AppointmentController {
 				} else if (command.equalsIgnoreCase("approve")) {
 					appointment.setCommandFlag(1);
 					Schedule schedule = new Schedule();
-				    schedule.setExamDate(appointment.getExamDate());
-				    schedule.setExamTime(appointment.getExamTime());
-				    schedule.setReleaseTime(appointment.timeNow());
-				    schedule.setCommandFlag(appointment.getCommandFlag());
-				    schedule.setAppointment(appointment);
-				    InternalAccount inter = internalService.findByName(appointment.getDoctorName(),appointment.getBookPlace());
-				    schedule.setInaccounts(inter);
-				    scheduleService.saveSchedule(schedule);
+					schedule.setExamDate(appointment.getExamDate());
+					schedule.setExamTime(appointment.getExamTime());
+					schedule.setReleaseTime(appointment.timeNow());
+					schedule.setCommandFlag(appointment.getCommandFlag());
+					schedule.setAppointment(appointment);
+					InternalAccount inter = internalService.findByName(appointment.getDoctorName(),
+							appointment.getBookPlace());
+					schedule.setInaccounts(inter);
+					scheduleService.saveSchedule(schedule);
 				} else {
 					return ResponseEntity.badRequest().body("Invalid command.");
 				}
 
 				// Save the updated appointment
 				appointmentService.saveAppointment(appointment);
-				
+
 				return ResponseEntity.ok("CommandFlag updated successfully.");
 			} else {
 				return ResponseEntity.notFound().build();

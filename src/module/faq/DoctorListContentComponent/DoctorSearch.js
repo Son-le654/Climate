@@ -1,3 +1,4 @@
+import React from 'react';
 import { FaBuilding, FaMapMarkerAlt, FaSortDown, FaUserMd } from 'react-icons/fa';
 
 const datas = [
@@ -20,7 +21,7 @@ const datas = [
 
 
 
-function FaqContent() {
+function DoctorSearch() {
     return (
         <div className='flex'>
             {datas.map((data, index) => (
@@ -40,4 +41,4 @@ function FaqContent() {
         </div >
     )
 }
-export default FaqContent
+export default DoctorSearch

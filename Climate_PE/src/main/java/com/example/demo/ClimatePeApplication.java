@@ -14,12 +14,12 @@ public class ClimatePeApplication {
 	}
 
 	@Bean
-	 public WebMvcConfigurer configure() {
-	  return new WebMvcConfigurer() {
-	   @Override
-	   public void addCorsMappings(CorsRegistry reg) {
-	    reg.addMapping("/**").allowedOrigins("*");
-	   }
-	  };
+	public WebMvcConfigurer configure() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry reg) {
+				reg.addMapping("/**").allowedOrigins("*");
+			}
+		};
 	}
 }

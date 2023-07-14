@@ -9,18 +9,17 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.Specialty;
-import com.example.demo.entity.Symptom;
 import com.example.demo.service.SpeciatlyService;
-import com.example.demo.service.SymptomService;
 
 @RestController
 @RequestMapping("/spec")
-@CrossOrigin(origins = {"http://clinicmates.io.vn/", "http://localhost:3000/"})
+@CrossOrigin(origins = { "http://clinicmates.io.vn/", "http://localhost:3000/" })
 public class SpeciatlyController {
 
 	@Autowired
@@ -29,6 +28,12 @@ public class SpeciatlyController {
 	@PostMapping("/save")
 	public String save(@RequestBody Specialty specialty) {
 		service.save(specialty);
+		return "success";
+	}
+
+	@PutMapping("/update")
+	public String update(@RequestBody Specialty specialty) {
+		service.update(specialty);
 		return "success";
 	}
 

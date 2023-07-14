@@ -1,7 +1,8 @@
 package com.example.demo.entity;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -22,16 +23,16 @@ public class Patient implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "PAINTED_ID", nullable = false) // cccd
+	@Column(name = "PAINTED_ID") // cccd
 	private String id;
 
 	@Column(name = "NAME")
 	private String name;
 
-	@Column(name = "EMAIL", nullable = false)
+	@Column(name = "EMAIL")
 	private String email;
 
-	@Column(name = "PASSWORD", nullable = false, columnDefinition = "LONGTEXT")
+	@Column(name = "PASSWORD", columnDefinition = "LONGTEXT")
 	private String password;
 
 	@Column(name = "ADDRESS")
@@ -41,13 +42,10 @@ public class Patient implements Serializable {
 	private String phone;
 
 	@Column(name = "BIRTHDATE")
-	private LocalDate birthDate;
+	private String birthDate;
 
-	@Column(name = "REGISTRATION_DATE")
-	private LocalDate registrationDate;
-
-	@Column(name = "STATUS")
-	private int status;
+	@Column(name = "REGISTRATION_TIME")
+	private String registrationTime = timeNow();;
 
 	@Column(name = "COMMAND_FLAG")
 	private int commandFlag;
@@ -55,24 +53,57 @@ public class Patient implements Serializable {
 	@Column(name = "ROLE")
 	private String role;
 
-
 	@JsonIgnore
 	@OneToMany(mappedBy = "patient")
 	private List<Appointment> appointments;
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "patient")
+	private List<Checkin> checkins;
+
 	/////////////////////////////////
 
-	public void setRole(String role) {
-		this.role = role;
+	public Patient() {
+		// constructor mặc định không có tham số
 	}
 
+	public Patient(String id, String name, String email, String password, String birthDate) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.birthDate = birthDate;
 
-	public List<Appointment> getAppointments() {
-		return appointments;
+		// 0: create, 1: verify, 2: block
+		this.commandFlag = 0;
+		this.registrationTime = timeNow();
+		this.role = "USER";
 	}
 
-	public void setAppointments(List<Appointment> appointments) {
-		this.appointments = appointments;
+	// for update
+	public Patient(String id, String name, String email, String password, String address, String phone,
+			String birthDate, int commandFlag) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.address = address;
+		this.phone = phone;
+		this.birthDate = birthDate;
+
+		// 0: create, 1: verify, 2: block
+		this.commandFlag = 0;
+		this.registrationTime = timeNow();
+		this.role = "USER";
+	}
+
+	public String timeNow() {
+		LocalDateTime currentDateTime = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss:SSS");
+		String formattedDateTime = currentDateTime.format(formatter);
+		return formattedDateTime;
 	}
 
 	public String getId() {
@@ -87,44 +118,8 @@ public class Patient implements Serializable {
 		return name;
 	}
 
-	public String getRole() {
-		return role;
-	}
-
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public LocalDate getBirthDate() {
-		return birthDate;
-	}
-
-	public void setBirthDate(LocalDate birthDate) {
-		this.birthDate = birthDate;
-	}
-
-	public LocalDate getRegistrationDate() {
-		return registrationDate;
-	}
-
-	public void setRegistrationDate(LocalDate registrationDate) {
-		this.registrationDate = registrationDate;
 	}
 
 	public String getEmail() {
@@ -135,6 +130,14 @@ public class Patient implements Serializable {
 		this.email = email;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public String getAddress() {
 		return address;
 	}
@@ -143,12 +146,28 @@ public class Patient implements Serializable {
 		this.address = address;
 	}
 
-	public int getStatus() {
-		return status;
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setStatus(int status) {
-		this.status = status;
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(String birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public String getRegistrationTime() {
+		return registrationTime;
+	}
+
+	public void setRegistrationTime(String registrationTime) {
+		this.registrationTime = registrationTime;
 	}
 
 	public int getCommandFlag() {
@@ -159,37 +178,32 @@ public class Patient implements Serializable {
 		this.commandFlag = commandFlag;
 	}
 
-	public Patient() {
-		// constructor mặc định không có tham số
+	public String getRole() {
+		return role;
 	}
 
-	public Patient(String id, String name, String email, String password, String address, String phone,
-			LocalDate birthDate) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.password = password;
-		this.address = address;
-		this.phone = phone;
-		this.birthDate = birthDate;
-		this.registrationDate = LocalDate.now();
-		this.status = 1;
-		this.commandFlag = 0;
-		this.role = "USER";
+	public void setRole(String role) {
+		this.role = role;
 	}
 
-	public Patient(String id, String name, String email, String password, LocalDate birthDate) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.password = password;
-		this.birthDate = birthDate;
-		this.registrationDate = LocalDate.now();
-		this.status = 1;
-		this.commandFlag = 0;
-		this.role = "USER";
+	public List<Appointment> getAppointments() {
+		return appointments;
+	}
+
+	public void setAppointments(List<Appointment> appointments) {
+		this.appointments = appointments;
+	}
+
+	public List<Checkin> getCheckins() {
+		return checkins;
+	}
+
+	public void setCheckins(List<Checkin> checkins) {
+		this.checkins = checkins;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 }

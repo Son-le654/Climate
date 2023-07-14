@@ -55,7 +55,7 @@ public class PatientController {
 
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
-	
+
 	@Autowired
 	private InternalService doctorService;
 	@Autowired
@@ -73,11 +73,10 @@ public class PatientController {
 			return ResponseEntity.ok("Incorrect email or password.");
 		}
 		Optional<InternalAccount> interacc = doctorService.findByEmail(email);
-        Optional<Patient> pantiacc = Optional.ofNullable(patientService.findByEmail(email));
-        if(interacc.isPresent() && pantiacc.isEmpty())
-        {
-        	return ResponseEntity.ok("Not found accout.");
-        }
+		Optional<Patient> pantiacc = Optional.ofNullable(patientService.findByEmail(email));
+		if (interacc.isPresent() && !pantiacc.isPresent()) {
+			return ResponseEntity.ok("Not found accout.");
+		}
 		final UserDetails userDetails = service.loadUserByUsername(email);
 		final String token = jwtTokenUtil.generateToken(userDetails);
 		return ResponseEntity.ok(new JwtResponse(token));

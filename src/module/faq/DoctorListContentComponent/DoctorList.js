@@ -15,7 +15,7 @@ import { event } from "jquery";
 //   slidesToScroll: 1,
 // };
 
-export default function FaqList({ docList }) {
+export default function DoctorList({ docList }) {
   const navigate = useNavigate();
   const [listOrigin, setListOrigin] = useState(docList);
   const [currentPage, setCurrentPage] = useState(1);

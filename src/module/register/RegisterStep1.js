@@ -15,21 +15,21 @@ const RegisterStep1 = ({ control, handleChangeName }) => {
           placeholder="First Name *"
           type="text"
           control={control}
-          name="first"
+          name="pname"
         ></Input>
         <Input
-          placeholder="Last Name *"
+          placeholder="Your Password *"
           type="text"
           control={control}
-          name="last"
+          name="password"
         ></Input>
         <InputBirthDay
-        // handleChangeName={handleChangeName}
-         placeholder="BirthDate *"
-         type="date"
-         control={control}
-         name="bdate">
-        </InputBirthDay>
+          // handleChangeName={handleChangeName}
+          placeholder="BirthDate *"
+          type="date"
+          control={control}
+          name="bdate"
+        ></InputBirthDay>
       </div>
       <div className="flex flex-col flex-1 gap-[32px]">
         <Input
@@ -39,10 +39,10 @@ const RegisterStep1 = ({ control, handleChangeName }) => {
           name="email"
         ></Input>
         <Input
-          placeholder="Your Password *"
+          placeholder="Confirm Your Password *"
           type="text"
           control={control}
-          name="password"
+          name="cpassword"
         ></Input>
         <Input
           placeholder="Social Security Number *"

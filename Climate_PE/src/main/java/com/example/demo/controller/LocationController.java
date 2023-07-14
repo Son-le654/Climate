@@ -14,13 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.Location;
-import com.example.demo.entity.Role;
 import com.example.demo.service.LocationService;
-
 
 @RestController
 @RequestMapping("/location")
-@CrossOrigin(origins = {"http://clinicmates.io.vn/", "http://localhost:3000/"})
+@CrossOrigin(origins = { "http://clinicmates.io.vn/", "http://localhost:3000/" })
 public class LocationController {
 
 	@Autowired

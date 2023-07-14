@@ -20,8 +20,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.example.demo.service.CustomUserDetailsService;
-import com.example.demo.service.InternalService;
-import com.example.demo.service.PatientService;
 
 @Configuration
 @EnableWebSecurity
@@ -32,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-	    auth.userDetailsService(customUserDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+		auth.userDetailsService(customUserDetailsService).passwordEncoder(new BCryptPasswordEncoder());
 	}
 
 	@Bean
@@ -42,25 +40,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-	    http
-	        .authorizeRequests()
-	        .antMatchers("/api/v1/login","/patient/logins", "/api/login", "/login/google")
-	        .permitAll()
-	        .antMatchers("/api/v1/doctors/**")
-	        .authenticated()
-	        .and()
-	        .csrf()
-	        .disable()
-	        .formLogin()
-	        .disable()
-	        .httpBasic()
-	        .disable()
-	        .sessionManagement()
-	        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-	        .and()
-	        .oauth2Login().defaultSuccessUrl("/user");
+		http.authorizeRequests().antMatchers("/api/v1/login", "/patient/logins", "/api/login", "/login/google")
+				.permitAll().antMatchers("/api/v1/doctors/**").authenticated().and().csrf().disable().formLogin()
+				.disable().httpBasic().disable().sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().oauth2Login().defaultSuccessUrl("/user");
 	}
-	
+
 	@Bean
 	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception {

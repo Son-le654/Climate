@@ -16,8 +16,6 @@ public class OTP {
 		this.expiredTime = expiredTime;
 	}
 
-
-
 	public String getEmail() {
 		return email;
 	}

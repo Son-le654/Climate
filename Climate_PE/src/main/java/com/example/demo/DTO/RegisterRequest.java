@@ -1,7 +1,6 @@
 package com.example.demo.DTO;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 public class RegisterRequest implements Serializable {
 

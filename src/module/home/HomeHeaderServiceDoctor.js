@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "../../components/Logo/Logo";
 import { NavLink, useNavigate } from "react-router-dom";
 import EnsignAnh from "../../Images/anh.png";
 import { IoMdArrowDropdown } from 'react-icons/io';
 import AccountMenu from "../../Popper/menu/AccountMenu";
 import { CiLogin } from 'react-icons/ci';
+import jwtDecode from "jwt-decode";
 const HomeNav = [
   {
     id: 1,
@@ -13,13 +14,13 @@ const HomeNav = [
   },
   {
     id: 2,
-    to: "/faq",
-    title: "Records",
+    to: "/schedules",
+    title: "Schedule",
   },
   {
     id: 3,
-    to: "/book_appointment",
-    title: "Book Appointment",
+    to: "/",
+    title: "News",
   },
 ];
 
@@ -46,6 +47,21 @@ const MENU_ITEMS = [
 
 const HomeHeaderServiceDoctor = () => {
   const navigate = useNavigate();
+  const storedName = localStorage.getItem("token");
+  const [role, setRole] = useState("");
+  const [nameuser, setNameUser] = useState("");
+  useEffect(() => {
+    try {
+      const decoded = jwtDecode(storedName);
+      const role = decoded.roles[0].authority;
+      setRole(role);
+      const nameuser = decoded.nameInternal;
+      setNameUser(nameuser);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+  
   return (
     <header className="max-w-[1156px] gap-[46px] mx-auto flex items-center pt-[45px]">
       <div>
@@ -74,7 +90,7 @@ const HomeHeaderServiceDoctor = () => {
         >
           <div className=" relative flex h-[35px] !p-[5px_40px] bg-[#e2edff] rounded-2xl  " style={{ color: '#3f84f6', borderRadius: '20px' }} >
             <img className=" absolute rounded-full w-[24px] h-[24px] top-[6px] left-[4px]" src={EnsignAnh}></img>
-            <div className="font-bold">(doctor)</div>
+            <div className="font-bold">{nameuser} ({role})</div>
             <div className="absolute top-[3px] left-[83%]"><IoMdArrowDropdown style={{ fontSize: '30px' }} /></div>
           </div>
         </AccountMenu>

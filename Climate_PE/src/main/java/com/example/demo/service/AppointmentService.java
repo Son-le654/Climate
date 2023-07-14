@@ -7,11 +7,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.DTO.AppointmentDTO;
 import com.example.demo.entity.Appointment;
+import com.example.demo.entity.InternalAccount;
 import com.example.demo.entity.Patient;
 import com.example.demo.entity.Schedule;
 import com.example.demo.repository.AppointmentRepository;
@@ -35,6 +38,7 @@ public class AppointmentService {
 		Appointment appSearch = null;
 		Patient p = null;
 		Schedule s = null;
+
 		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 		LocalDateTime dateTime = LocalDateTime.parse(appointmentDTO.getBookDate(), inputFormatter);
 		ZoneId utcZone = ZoneId.of("UTC");
@@ -63,10 +67,10 @@ public class AppointmentService {
 			return "This doctor is busy at this time";
 		}
 
-		app = new Appointment(appointmentDTO.getDescription(), appointmentDTO.getBookTime(), outputDateString,
-				appointmentDTO.getSpec(), appointmentDTO.getDoctorName(), appointmentDTO.getName(), p,
-				appointmentDTO.getSymtom(), appointmentDTO.getPhone(), appointmentDTO.getIdC(),
-				appointmentDTO.getBirthday(), appointmentDTO.getGender(), appointmentDTO.getBookPlace());
+		app = new Appointment(p, appointmentDTO.getDoctorName(), outputDateString, appointmentDTO.getBookTime(),
+				appointmentDTO.getDescription(), appointmentDTO.getSpec(), appointmentDTO.getSymtom(),
+				appointmentDTO.getName(), appointmentDTO.getBirthday(), appointmentDTO.getGender(),
+				appointmentDTO.getPhone(), appointmentDTO.getBookPlace());
 		repository.save(app);
 		return "success";
 
@@ -90,13 +94,20 @@ public class AppointmentService {
 			return "This doctor is busy at this time";
 		}
 
-		app = new Appointment(appointmentDTO.getDescription(), appointmentDTO.getBookTime(), outputDateString,
-				appointmentDTO.getSpec(), appointmentDTO.getDoctorName(), appointmentDTO.getName(),
-				appointmentDTO.getSymtom(), appointmentDTO.getPhone(), appointmentDTO.getIdC(),
-				appointmentDTO.getBirthday(), appointmentDTO.getGender(), appointmentDTO.getBookPlace());
+		app = new Appointment(appointmentDTO.getDoctorName(), outputDateString, appointmentDTO.getBookTime(),
+				appointmentDTO.getDescription(), appointmentDTO.getSpec(), appointmentDTO.getSymtom(),
+				appointmentDTO.getName(), appointmentDTO.getBirthday(), appointmentDTO.getGender(),
+				appointmentDTO.getPhone(), appointmentDTO.getBookPlace());
 		repository.save(app);
 		return "success";
 
+	}
+
+	public Appointment update(Appointment appointment) {
+		Appointment c = repository.findById(appointment.getId())
+				.orElseThrow(() -> new EntityNotFoundException("Appointment not found with id " + appointment.getId()));
+
+		return repository.save(appointment);
 	}
 
 	public List<Appointment> findAll() {
@@ -110,12 +121,12 @@ public class AppointmentService {
 	public Optional<Appointment> findById(Integer id) {
 		return repository.findById(id);
 	}
-	
+
 	public List<Appointment> findByPaintedId(String paintedId) {
 		return repository.findByPaintedId(paintedId);
 	}
 
 	public void saveAppointment(Appointment appointment) {
-		repository.save(appointment);	
+		repository.save(appointment);
 	}
 }

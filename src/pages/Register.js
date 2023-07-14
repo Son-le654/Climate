@@ -16,42 +16,8 @@ const RegisterStep = [
   { id: 1, title: "Your Profile", step: <RegisterStep1 /> },
   { id: 2, title: "Consent To Trest", step: <RegisterStep2 /> },
 ];
-const schame = yup.object({
-  first: yup.string().required("Vui lòng nhập first name"),
-  last: yup.string().required("Vui lòng nhập last name"),
-  socialsecurity: yup.string().required("Vui lòng nhập ocial security number"),
-  email: yup.string().required("Vui lòng nhập email của bạn "),
-  // .min(10, "không được nhập dưới 10 ký tự")
-  // .max(32, "Không nhập quá 32 ký tự")
-  // .matches(/^[a-z][a-z0-9_.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/, {
-  //   message: "không đúng định dạng",
-  // })
-  password: yup.string().required("vui lòng nhập password của bạn"),
-  // .min(6, "nhập tối thiểu 6 ký tự")
-  // .max(20, "Nhập tối đa 20 ký tự")
-  // .matches(
-  //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-  //   {
-  //     message:
-  //       "Vui long Tối thiểu ít nhất một ký tự viết hoa, một ký tự viết thường, một số và một ký tự đặc biệt",
-  //   }
-  // ),
-});
+const schame = yup.object({});
 const Register = () => {
-
-
-  // const [data, setData] = useState([])
-
-  // useEffect(() => { 
-  //   const fetchData = async () => {
-  //     const result = await axios(
-  //       'https://fakestoreapi.com/users'
-  //     );
-  //     setData(result.data);
-  //   };
-  //   fetchData();
-  // }, []);
-  // console.log(data);
   const navigate = useNavigate();
 
   const {
@@ -61,16 +27,15 @@ const Register = () => {
   } = useForm({
     mode: "onChange",
     defaultValues: {
-      first: "",
-      last: "",
+      pname: "",
       password: "",
+      cpassword: "",
       socialsecurity: "",
       email: "",
-      bdate: ""
+      bdate: "",
     },
     resolver: yupResolver(schame),
   });
-  // console.log("errors: ", errors);
   const { step, setStep } = useStep();
 
   const handleRegister = async (values) => {
@@ -78,28 +43,34 @@ const Register = () => {
       setStep(step + 1);
     }
     if (step === 1) {
-      //handle register
-      // console.log(values.first);
-
       const currentDate = new Date();
       const birthdate = new Date(Date.parse(values.bdate));
       if (currentDate <= birthdate) {
         alert("Birthdate must be lower or equal than today");
         return;
       }
+      console.log(values.socialsecurity);
+      if (values.socialsecurity.length !== 12) {
+        alert("Your ID card number must have 12 characters");
+        return;
+      }
 
-      const partient = ({
+      if (values.password != values.cpassword) {
+        alert("Your confirm password must be same as password");
+        return;
+      }
+      const partient = {
         PAINTED_ID: values.socialsecurity,
-        Name: values.first + " " + values.last,
+        Name: values.pname,
         Email: values.email,
         PASSWORD: values.password,
-        BIRTHDATE: values.bdate
-      })
+        BIRTHDATE: values.bdate,
+      };
       console.log(partient);
       const mail = partient.Email;
       const response = await axios.post( publicPort + `patient/register`, {
         'id': values.socialsecurity,
-        'name': values.first + " " + values.last,
+        'name': values.pname,
         'email': values.email,
         'password': values.password,
         'birthdate': values.bdate.replace(/-/g, '/')
@@ -110,14 +81,13 @@ const Register = () => {
       if (response.data === "Create success") {
         navigate("/verifyregister",  { state: { mail } });
       }
-
     }
   };
   return (
     <LayoutSign
       header="Create New Account"
       childrenStyle="max-w-[1200px]"
-    // nextStep={<NextStep />}
+      // nextStep={<NextStep />}
     >
       <form autoComplete="off" onSubmit={handleSubmit(handleRegister)}>
         <div className="overflow-hidden bg-white rounded-3xl">
@@ -126,21 +96,24 @@ const Register = () => {
               RegisterStep.map((item, index) => {
                 return (
                   <div
-                    className={`flex flex-1 first:rounded-[0px_48px_48px_0px] last:rounded-[48px_0px_0px_48px]  items-center  justify-center gap-4 rounded-full p-[21px] ${index === step
-                      ? "bg-bgRegister text-textColor"
-                      : "text-white opacity-20"
-                      }`}
+                    className={`flex flex-1 first:rounded-[0px_48px_48px_0px] last:rounded-[48px_0px_0px_48px]  items-center  justify-center gap-4 rounded-full p-[21px] ${
+                      index === step
+                        ? "bg-bgRegister text-textColor"
+                        : "text-white opacity-20"
+                    }`}
                     key={item.id}
                   >
                     <span
-                      className={`text-[20px]  w-[42px] rounded-full flex items-center justify-center h-[42px] ${index === step ? "bg-white" : "bg-textColor text-white"
-                        }`}
+                      className={`text-[20px]  w-[42px] rounded-full flex items-center justify-center h-[42px] ${
+                        index === step ? "bg-white" : "bg-textColor text-white"
+                      }`}
                     >
                       {item.id}
                     </span>
                     <span
-                      className={`text-2xl ${index === step ? null : "text-textColor"
-                        }`}
+                      className={`text-2xl ${
+                        index === step ? null : "text-textColor"
+                      }`}
                     >
                       {item.title}
                     </span>

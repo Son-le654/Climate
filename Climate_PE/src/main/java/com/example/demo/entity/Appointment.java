@@ -3,7 +3,6 @@ package com.example.demo.entity;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,121 +29,100 @@ public class Appointment {
 	@Column(name = "APPOINTMENT_ID")
 	private int id;
 
-	@Column(name = "NOTE")
-	private String note;
-
-	@Column(name = "EXAM_TIME", nullable = false)
-	private String examTime;
-
-	@Column(name = "EXAM_DATE", nullable = false)
-	private String examDate;
-
-	@Column(name = "SPECIATLY", nullable = false)
-	private String speciatly;
-
-	@Column(name = "DOCTOR_NAME", nullable = false)
-	private String doctorName;
-
-	@Column(name = "PATIENT_NAME", nullable = false)
-	private String patientName;
-
-	@Column(name = "REGISTER_TIME")
-	private String registerTime;
-
-	@Column(name = "PHONE", nullable = false)
-	private String phone;
-
-	@Column(name = "ID_C", nullable = true)
-	private String idC;
-
-	@Column(name = "BIRTHDAY", nullable = false)
-	private String birthday;
-
-	@Column(name = "GENDER", nullable = false)
-	private String gender;
-
-	@Column(name = "BOOK_PLACE", nullable = false)
-	private String bookPlace;
-
 	@ManyToOne
 	@JoinColumn(name = "PATIENT_ID")
 	private Patient patient;
 
-	@JsonIgnore
-	@OneToOne(mappedBy = "appointment")
-	private Schedule schedule;
-
-	@Column(name = "SYMPTOM")
-	private String symptom;
+	@Column(name = "REGISTER_TIME")
+	private String registerTime;
 
 	@Column(name = "COMMAND_FLAG")
 	private int commandFlag;
 
+	@Column(name = "DOCTOR_NAME", nullable = false)
+	private String doctorName;
+
+	@Column(name = "EXAM_DATE", nullable = false)
+	private String examDate;
+
+	@Column(name = "EXAM_TIME", nullable = false)
+	private String examTime;
+
+	@Column(name = "NOTE")
+	private String note;
+
+	@Column(name = "SPECIATLY")
+	private String speciatly;
+
+	@Column(name = "SYMPTOM")
+	private String symptom;
+
+	@Column(name = "PATIENT_NAME")
+	private String patientName;
+
+	@Column(name = "BIRTHDAY")
+	private String birthday;
+
+	@Column(name = "GENDER")
+	private String gender;
+
+	@Column(name = "PHONE")
+	private String phone;
+
+	@Column(name = "BOOK_PLACE")
+	private String bookPlace;
+
 	@JsonIgnore
 	@OneToOne(mappedBy = "appointment")
-	private MedicalRecord medicalRecord;
+	private Schedule schedule;
 
 	public Appointment() {
 		// TODO Auto-generated constructor stub
 	}
 
 	// for user
-	public Appointment(String note, String examTime, String examDate, String speciatly, String doctorName,
-			String patientName, Patient patient, String symptom, String phone, String idC, String birthday,
-			String gender, String bookPlace) {
+
+	public Appointment(Patient patient, String doctorName, String examDate, String examTime, String note,
+			String speciatly, String symptom, String patientName, String birthday, String gender, String phone,
+			String bookPlace) {
 		super();
-		this.note = note;
-		this.examTime = examTime;
-		this.examDate = examDate;
-		this.speciatly = speciatly;
-		this.doctorName = doctorName;
-		this.patientName = patientName;
 		this.patient = patient;
+		this.doctorName = doctorName;
+		this.examDate = examDate;
+		this.examTime = examTime;
+		this.note = note;
+		this.speciatly = speciatly;
 		this.symptom = symptom;
-		this.registerTime = timeNow();
-		this.commandFlag = 0;
-		this.phone = phone;
-		this.idC = idC;
+		this.patientName = patientName;
 		this.birthday = birthday;
 		this.gender = gender;
+		this.phone = phone;
 		this.bookPlace = bookPlace;
+
+		// 0: pending, 1: approve, 2: cancel
+		this.commandFlag = 0;
+		this.registerTime = timeNow();
 	}
 
 	// for guest
-	public Appointment(String note, String examTime, String examDate, String speciatly, String doctorName,
-			String patientName, String symptom, String phone, String idC, String birthday, String gender,
-			String bookPlace) {
+	public Appointment(String doctorName, String examDate, String examTime, String note, String speciatly,
+			String symptom, String patientName, String birthday, String gender, String phone, String bookPlace) {
 		super();
-		this.note = note;
-		this.examTime = examTime;
-		this.examDate = examDate;
-		this.speciatly = speciatly;
 		this.doctorName = doctorName;
-		this.patientName = patientName;
-		this.registerTime = timeNow();
+		this.examDate = examDate;
+		this.examTime = examTime;
+		this.note = note;
+		this.speciatly = speciatly;
 		this.symptom = symptom;
-		this.commandFlag = 0;
-		this.phone = phone;
-		this.idC = idC;
+		this.patientName = patientName;
 		this.birthday = birthday;
 		this.gender = gender;
+		this.phone = phone;
 		this.bookPlace = bookPlace;
-	}
 
-	public MedicalRecord getMedicalRecord() {
-		return medicalRecord;
-	}
-
-	public void setMedicalRecord(MedicalRecord medicalRecord) {
-		this.medicalRecord = medicalRecord;
-	}
-
-	public String getBookPlace() {
-		return bookPlace;
-	}
-
-	public void setBookPlace(String bookPlace) {
-		this.bookPlace = bookPlace;
+		// 0: pending, 1: approve, 2: cancel
+		this.commandFlag = 0;
+		this.registerTime = timeNow();
 	}
 
 	public String timeNow() {
@@ -152,22 +130,6 @@ public class Appointment {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss:SSS");
 		String formattedDateTime = currentDateTime.format(formatter);
 		return formattedDateTime;
-	}
-
-	public String getRegisterTime() {
-		return registerTime;
-	}
-
-	public void setRegisterTime(String registerTime) {
-		this.registerTime = registerTime;
-	}
-
-	public Schedule getSchedule() {
-		return schedule;
-	}
-
-	public void setSchedule(Schedule schedule) {
-		this.schedule = schedule;
 	}
 
 	public int getId() {
@@ -178,46 +140,6 @@ public class Appointment {
 		this.id = id;
 	}
 
-	public String getNote() {
-		return note;
-	}
-
-	public void setNote(String note) {
-		this.note = note;
-	}
-
-	public String getExamTime() {
-		return examTime;
-	}
-
-	public void setExamTime(String examTime) {
-		this.examTime = examTime;
-	}
-
-	public String getExamDate() {
-		return examDate;
-	}
-
-	public void setExamDate(String examDate) {
-		this.examDate = examDate;
-	}
-
-	public String getSpeciatly() {
-		return speciatly;
-	}
-
-	public void setSpeciatly(String speciatly) {
-		this.speciatly = speciatly;
-	}
-
-	public String getDoctorName() {
-		return doctorName;
-	}
-
-	public void setDoctorName(String doctorName) {
-		this.doctorName = doctorName;
-	}
-
 	public Patient getPatient() {
 		return patient;
 	}
@@ -226,12 +148,12 @@ public class Appointment {
 		this.patient = patient;
 	}
 
-	public String getSymptom() {
-		return symptom;
+	public String getRegisterTime() {
+		return registerTime;
 	}
 
-	public void setSymptom(String symptom) {
-		this.symptom = symptom;
+	public void setRegisterTime(String registerTime) {
+		this.registerTime = registerTime;
 	}
 
 	public int getCommandFlag() {
@@ -242,28 +164,60 @@ public class Appointment {
 		this.commandFlag = commandFlag;
 	}
 
+	public String getDoctorName() {
+		return doctorName;
+	}
+
+	public void setDoctorName(String doctorName) {
+		this.doctorName = doctorName;
+	}
+
+	public String getExamDate() {
+		return examDate;
+	}
+
+	public void setExamDate(String examDate) {
+		this.examDate = examDate;
+	}
+
+	public String getExamTime() {
+		return examTime;
+	}
+
+	public void setExamTime(String examTime) {
+		this.examTime = examTime;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+
+	public String getSpeciatly() {
+		return speciatly;
+	}
+
+	public void setSpeciatly(String speciatly) {
+		this.speciatly = speciatly;
+	}
+
+	public String getSymptom() {
+		return symptom;
+	}
+
+	public void setSymptom(String symptom) {
+		this.symptom = symptom;
+	}
+
 	public String getPatientName() {
 		return patientName;
 	}
 
 	public void setPatientName(String patientName) {
 		this.patientName = patientName;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public String getIdC() {
-		return idC;
-	}
-
-	public void setIdC(String idC) {
-		this.idC = idC;
 	}
 
 	public String getBirthday() {
@@ -282,7 +236,41 @@ public class Appointment {
 		this.gender = gender;
 	}
 
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getBookPlace() {
+		return bookPlace;
+	}
+
+	public void setBookPlace(String bookPlace) {
+		this.bookPlace = bookPlace;
+	}
+
+	public Schedule getSchedule() {
+		return schedule;
+	}
+
+	public void setSchedule(Schedule schedule) {
+		this.schedule = schedule;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+	@Override
+	public String toString() {
+		return "Appointment [id=" + id + ", patient=" + patient + ", registerTime=" + registerTime + ", commandFlag="
+				+ commandFlag + ", doctorName=" + doctorName + ", examDate=" + examDate + ", examTime=" + examTime
+				+ ", note=" + note + ", speciatly=" + speciatly + ", symptom=" + symptom + ", patientName="
+				+ patientName + ", birthday=" + birthday + ", gender=" + gender + ", phone=" + phone + ", bookPlace="
+				+ bookPlace + ", schedule=" + schedule + "]";
+	}
+
 }

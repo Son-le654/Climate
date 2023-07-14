@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
 import AppointmentDetailContent from "../module/appointmentConfirmation/AppointmentDetailContent";
+import HomeHeaderServiceNurse from "../module/home/HomeHeaderServiceNurse";
 
 const AppointmentDetailsPageForNurse = () => {
   const navigate = useNavigate();
@@ -40,7 +41,8 @@ const AppointmentDetailsPageForNurse = () => {
   return (
     <div className="bg-white">
       <div className="bg-white">
-        <HomeHeaderService></HomeHeaderService>
+        <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
+        
       </div>
       <div className="pt-[80px] pl-[190px] text-6xl font-bold py-[20px]">
         <h1>Appointment Confirmation</h1>

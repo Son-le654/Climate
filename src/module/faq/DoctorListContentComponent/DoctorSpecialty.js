@@ -5,7 +5,7 @@ import { BsFillPeopleFill } from "react-icons/bs";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { publicPort } from "../../../components/url/link";
 
-function FaqSpecialty() {
+function DoctorSpecialty() {
   const [expanded, setExpanded] = useState(false);
   const [itemsToShow, setItemsToShow] = useState(2);
   const [listOrigin, setListOrigin] = useState([]);
@@ -64,4 +64,4 @@ function FaqSpecialty() {
     </div>
   );
 }
-export default FaqSpecialty;
+export default DoctorSpecialty;

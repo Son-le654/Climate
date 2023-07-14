@@ -9,17 +9,18 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.entity.Appointment;
 import com.example.demo.entity.Role;
 import com.example.demo.service.RoleService;
 
-
 @RestController
 @RequestMapping("/role")
-@CrossOrigin(origins = {"http://clinicmates.io.vn/", "http://localhost:3000/"})
+@CrossOrigin(origins = { "http://clinicmates.io.vn/", "http://localhost:3000/" })
 public class RoleController {
 
 	@Autowired
@@ -31,6 +32,13 @@ public class RoleController {
 		return "success";
 	}
 
+	@PutMapping("/update")
+	public String update(@RequestBody Role role) {
+		System.out.println(role.toString());
+		service.update(role);
+		return "success";
+	}
+
 	@GetMapping("/list")
 	public List<Role> getAll() {
 		return service.findAll();
@@ -38,7 +46,7 @@ public class RoleController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Role> getRoleById(@PathVariable(value = "id") Integer id) {
-		Optional<Role> role= service.findById(id);
+		Optional<Role> role = service.findById(id);
 		if (role.isPresent()) {
 			return ResponseEntity.ok().body(role.get());
 		} else {
