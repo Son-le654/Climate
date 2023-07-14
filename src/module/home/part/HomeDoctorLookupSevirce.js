@@ -81,7 +81,7 @@ const HomeDoctorLookupService = () => {
     var docList = response.data;
 
     if (response.data !== "No doctor information found") {
-      navigate("/faq", { state: { docList } });
+      navigate("/listDoctor", { state: { docList } });
     } else {
       alert("No doctor found");
     }

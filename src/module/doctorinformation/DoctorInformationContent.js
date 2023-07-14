@@ -8,6 +8,7 @@ import DoctorInfoAssessment from "./doctorinfoContent/Assessment";
 import axios from "axios";
 import { localPort, publicPort } from "../../components/url/link";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const tabButtons = ["DETAILED INFORMATION", "ASSESSMENT"];
 
@@ -19,6 +20,7 @@ function DoctorInformationContent({ docId }) {
   console.log("doc info conteint: " + docId);
   const response = axios.get(publicPort + `api/1`);
   console.log(response.data);
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log("Enter useEffect with id: " + docId);
@@ -38,6 +40,11 @@ function DoctorInformationContent({ docId }) {
     setType(data);
     setShowComponentC(data === tabButtons[0]);
     setShowComponentD(data === tabButtons[1]);
+  };
+
+  const book_appointment = (item) => {
+    console.log(item);
+    navigate("/book_appointment", { state: { item } });
   };
 
   return (
@@ -74,9 +81,9 @@ function DoctorInformationContent({ docId }) {
                   style={
                     type === data
                       ? {
-                        color: "#5562f7",
-                        textUnderlineOffset: "#3681f8",
-                      }
+                          color: "#5562f7",
+                          textUnderlineOffset: "#3681f8",
+                        }
                       : {}
                   }
                   onClick={() => handleClick(data)}
@@ -87,7 +94,10 @@ function DoctorInformationContent({ docId }) {
             ))}
           </div>
           <div className="w-[30%]">
-            <button className="bg-gradientLeft h-[50px] w-[120px] rounded-3xl text-secondary">
+            <button
+              className="bg-gradientLeft h-[50px] w-[120px] rounded-3xl text-secondary"
+              onClick={() => book_appointment(doct)}
+            >
               Book
             </button>
           </div>

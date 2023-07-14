@@ -1,4 +1,5 @@
 
+import React from 'react';
 import { BsFillPeopleFill } from 'react-icons/bs';
 import { MdKeyboardArrowRight } from 'react-icons/md';
 
@@ -26,7 +27,7 @@ const Listdata = [
     },
 ]
 
-function FaqUserful() {
+function DoctorUserful() {
     return (
         <div className='w-[100%] h-[300px] rounded-3xl bg-white shadow-xl'>
             <div className="w-[100%] rounded-3xl h-[35px]">
@@ -58,6 +59,6 @@ function FaqUserful() {
         </div >
     )
 }
-export default FaqUserful
+export default DoctorUserful
 
 

@@ -14,7 +14,7 @@ import Service from "./pages/ServicePage";
 import Appointments from "./pages/AppointmentsPage";
 import AppointmentConfirmation from "./pages/AppointmentConfirmationPage";
 import About from "./pages/About";
-import FAQ from "./pages/FaqPage";
+import ListDoctor from "./pages/ListDoctorPage";
 import SampleDateSort from "./SampleDateSort";
 import axios from "axios";
 import BAContentGuest from "./module/bookAppointment/BAContentGuest";
@@ -30,6 +30,7 @@ import MedicalHistory from "../src/pages/doctor/MedicalHistory";
 
 import AppointmentDetailsPageForNurse from "./pages/AppointmentDetailsPageForNurse";
 import SchedulesPage from "./pages/SchedulesPage";
+import React from "react";
 
 function App() {
   const storedName = localStorage.getItem("token");
@@ -85,7 +86,7 @@ function App() {
         element={<AppointmentConfirmationPageGuest />}
       ></Route>
       <Route path="/about" element={<About />}></Route>
-      <Route path="/faq" element={<FAQ />}></Route>
+      <Route path="/listDoctor" element={<ListDoctor />}></Route>
       <Route path="/doctorinformation" element={<DoctorInformation />}></Route>
       <Route path="/verifyregister" element={<VerifyRegister />}></Route>
       <Route path="/test" element={<SampleDateSort />}></Route>
