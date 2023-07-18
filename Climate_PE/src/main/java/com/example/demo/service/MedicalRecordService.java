@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.DTO.MedicalRecordDTO;
 import com.example.demo.entity.Checkin;
 import com.example.demo.entity.MedicalRecord;
 import com.example.demo.repository.MedicalRecordRepository;
@@ -55,14 +56,15 @@ public class MedicalRecordService {
 		return formattedDateTime;
 	}
 
-	public MedicalRecord createMedicalRecord(MedicalRecord medicalRecord) {
-
-		Optional<Checkin> optionalCheckin = checkinService.findById(medicalRecord.getCheckin().getId());
+	public MedicalRecord createMedicalRecord(MedicalRecordDTO medicalRecord) {
+		Optional<Checkin> optionalCheckin = checkinService.findById(medicalRecord.getCheckinId());
 		Checkin appoint = optionalCheckin.orElse(null);
-		medicalRecord.setCheckin(appoint);
-		medicalRecord.setCommandFlag(0);
-		medicalRecord.setReleaseTime(timeNow());
-		return repository.save(medicalRecord);
+		MedicalRecord record = new MedicalRecord(medicalRecord.getDoctorId(), medicalRecord.getClinicProcess(), medicalRecord.getClinicProcess(), medicalRecord.getTreatment(), appoint);
+//		record.setCheckin(appoint);
+		appoint.setCommandFlag(2);
+		record.setCommandFlag(0);
+		record.setReleaseTime(timeNow());
+		return repository.save(record);
 	}
 
 	public MedicalRecord updateMedicalRecord(MedicalRecord medicalRecord) {

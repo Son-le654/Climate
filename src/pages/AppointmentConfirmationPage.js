@@ -4,11 +4,14 @@ import Footer from "../module/home/Footer";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
+import React from "react";
+import HomeHeaderServiceNurse from "module/home/HomeHeaderServiceNurse";
 
 const AppointmentConfirmationPage = () => {
   const navigate = useNavigate();
   const storedName = localStorage.getItem("token");
   const [appointment, setAppointment] = useState();
+  const [role, setRole] = useState("");
 
   useEffect(() => {
     if (storedName == null) {
@@ -16,10 +19,11 @@ const AppointmentConfirmationPage = () => {
     } else {
       try {
         const decoded = jwtDecode(storedName);
-        const role = decoded.roles[0].authority;
+        const rol = decoded.roles[0].authority;
         // if (role !== 'USER') {
         //   navigate("/")
         // }
+        setRole(rol);
       } catch (error) {
         console.log(error);
       }
@@ -40,7 +44,11 @@ const AppointmentConfirmationPage = () => {
   return (
     <div className="bg-white">
       <div className="bg-white">
-        <HomeHeaderService></HomeHeaderService>
+        {role == "NURSE" ? (
+          <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
+        ) : (
+          <HomeHeaderService></HomeHeaderService>
+        )}
       </div>
       <div className="pt-[80px] pl-[190px] text-6xl font-bold py-[20px]">
         <h1>Appointment Confirmation</h1>

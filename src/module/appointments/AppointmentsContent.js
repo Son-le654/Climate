@@ -123,7 +123,11 @@ function AppointmentsContent() {
   const handleDetail = (appointment) => {
     console.log(appointment);
     navigate("/appointmentdetailsfornurse", { state: { appointment } });
-  }
+  };
+  const handleCheckin = (appointment) => {
+    console.log(appointment);
+    navigate("/checkin", { state: { appointment } });
+  };
   return (
     <div className="bg-white p-5 rounded-2xl shadow-2xl w-[100%] min-h-[500px]">
       <div>
@@ -233,10 +237,21 @@ function AppointmentsContent() {
                     </p>
                   </td>
                   <td className="pb-[10px] pt-[10px]  w-[13%]">
-                    <button className="w-[80%] h-[40px] bg-gradientLeft rounded-3xl text-white "
-                    onClick={() => handleDetail(listD)}>
-                      View
-                    </button>
+                    {listD.commandFlag == 1 ? (
+                      <button
+                        className="w-[80%] h-[40px] bg-gradientLeft rounded-3xl text-white "
+                        onClick={() => handleCheckin(listD)}
+                      >
+                        Check-in
+                      </button>
+                    ) : (
+                      <button
+                        className="w-[80%] h-[40px] bg-gradientLeft rounded-3xl text-white "
+                        onClick={() => handleDetail(listD)}
+                      >
+                        View
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))}

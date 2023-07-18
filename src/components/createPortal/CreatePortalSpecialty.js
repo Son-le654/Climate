@@ -25,6 +25,7 @@ const CreatePortalSpecialty = ({
   changeSpecList,
   spec,
   symtomArr,
+  checkinSpec,
 }) => {
   const [specList, setSpecList] = useState([]);
   const [listOrigin, setListOrigin] = useState([]);
@@ -43,6 +44,23 @@ const CreatePortalSpecialty = ({
     };
     specs();
   }, []);
+
+  useEffect(() => {
+    if (checkinSpec != undefined) {
+      const places = async () => {
+        console.log(checkinSpec);
+        const response = await axios.get(publicPort + "spec/list");
+        const findItemByName = (name) => {
+          return response.data.find((item) => item.name === name);
+        };
+        // console.log(place);
+        const selectedItem = findItemByName(checkinSpec);
+        // console.log(selectedItem);
+        changeSpecList(selectedItem);
+      };
+      places();
+    }
+  }, [checkinSpec]);
 
   useEffect(() => {
     setSpecList([]);

@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
 import HomeHeaderServiceDoctor from "../../module/home/HomeHeaderServiceDoctor";
+import React from "react";
 function AppointmentDetails() {
   const navigate = useNavigate();
   const storedName = localStorage.getItem("token");

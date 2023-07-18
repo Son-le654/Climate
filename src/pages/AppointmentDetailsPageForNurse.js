@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
 import AppointmentDetailContent from "../module/appointmentConfirmation/AppointmentDetailContent";
 import HomeHeaderServiceNurse from "../module/home/HomeHeaderServiceNurse";
+import React from "react";
 
 const AppointmentDetailsPageForNurse = () => {
   const navigate = useNavigate();

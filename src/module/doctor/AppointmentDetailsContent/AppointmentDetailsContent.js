@@ -4,6 +4,7 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 import { BsFillFileTextFill } from "react-icons/bs";
 import { publicPort } from "../../../components/url/link";
 import { useNavigate } from "react-router-dom";
+import React from "react";
 
 function AppointmentDetailsContent({ appointment }) {
   const tabButtons1 = "Return to previous";
@@ -128,6 +129,11 @@ function AppointmentDetailsContent({ appointment }) {
       }
     }
   };
+
+  const goBack = () => {
+    navigate("/schedules");
+  }
+
   const handleChangeInput = (event) => {
     const { name, value } = event.target;
 
@@ -156,7 +162,7 @@ function AppointmentDetailsContent({ appointment }) {
         <div className=" w-[50%]  text-6xl font-bold">
           <h1>Appointment Details</h1>
         </div>
-        {!showMedicalSummary ? (
+        {/* {!showMedicalSummary ? (
           <div className="h-[50px] w-[50%] flex justify-end items-center">
             <div
               className="border-[1px] border-[#dddddd]  w-[40%] h-[40px] flex items-center justify-center rounded-3xl cursor-pointer"
@@ -170,16 +176,16 @@ function AppointmentDetailsContent({ appointment }) {
               </span>
             </div>
           </div>
-        ) : null}
+        ) : null} */}
       </div>
       <div className="bg-white p-5 rounded-3xl shadow-lg ">
         <div className="pl-[64px] pt-5 pb-10">
           <div key={appointment != undefined ? appointment.id : ""}>
-            <div className="min-h-[80px]">
+            {/* <div className="min-h-[80px]">
               <h1 className="text-[#4976f7] text-3xl font-semibold">Status</h1>
               <div className="pt-8 flex">
                 <span className="w-[35%]">Form of Service</span>
-                {/* <span className="w-[65%]">
+                <span className="w-[65%]">
                   <p
                     className={`w-[15%] min-h-[20px] ${
                       appointment.status === "Completed"
@@ -189,14 +195,14 @@ function AppointmentDetailsContent({ appointment }) {
                   >
                     {data.status}
                   </p>
-                </span> */}
+                </span>
                 <span className="w-[65%]">
                   <p className={`w-[15%] min-h-[20px]`}>
                     {appointment != undefined ? appointment.commandFlag : ""}
                   </p>
                 </span>
               </div>
-            </div>
+            </div> */}
             <div>
               <h1 className="text-[#4976f7] text-3xl font-semibold">Sevices</h1>
               <div className="pt-8 flex">
@@ -313,7 +319,7 @@ function AppointmentDetailsContent({ appointment }) {
           </div>
         </div>
       </div>
-      {showMedicalSummary ? (
+      {/* {showMedicalSummary ? (
         <div className="w-[100%] min-h-[600px] bg-white mt-[50px] shadow-xl rounded-3xl">
           <div className=" w-[100%] h-[80px] flex justify-end">
             <h1 className="font-semibold text-gradientLeft w-[93.5%] mt-[20px] text-[20px]">
@@ -391,7 +397,7 @@ function AppointmentDetailsContent({ appointment }) {
             </div>
           </div>
         </div>
-      ) : null}
+      ) : null} */}
       <div>
         <div
           style={{
@@ -403,7 +409,7 @@ function AppointmentDetailsContent({ appointment }) {
           <button
             key={tabButtons1}
             className="border-[3px] rounded-2xl h-[50px] pl-[30px] pr-[30px] w-[30%] mr-[35px]"
-            onClick={handleReturnToPrevious}
+            onClick={goBack}
             style={{
               borderColor: "#5562f7",
               color: "#5562f7",

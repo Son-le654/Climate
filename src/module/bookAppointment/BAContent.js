@@ -106,6 +106,30 @@ const BAContent = () => {
   const [selectedCheckbox, setSelectedCheckbox] = useState("");
   const location = useLocation();
   const [doct, setDoct] = useState();
+  const [EAppointment, setEAppointment] = useState();
+
+  useEffect(() => {
+    const eapp = location?.state?.appointment;
+    console.log("in update" + eapp);
+    console.log("Enter update" + eapp);
+    if (eapp) {
+      setEAppointment(eapp);
+
+      setFullName({ fname: eapp.patientName });
+      if (eapp.patient != null) {
+        setIdCard({ idC: eapp.patient.id });
+      }
+      if (eapp.id != null) {
+        setIdApp({ idA: eapp.id });
+      }
+      setBirthDay({ bday: eapp.birthday });
+      setPhone({ pnum: eapp.phone });
+      setDescription({ ds: eapp.note });
+      setSelectedCheckbox(eapp.gender);
+      onChange(eapp.examDate);
+      setHour(eapp.examTime);
+    }
+  }, [EAppointment]);
 
   useEffect(() => {
     console.log(" doctor" + location.state);
@@ -126,6 +150,11 @@ const BAContent = () => {
 
   const [numberOfSym, setNumberOfSym] = useState(0);
 
+  const [idApp, setIdApp] = useState([
+    {
+      idA: "",
+    },
+  ]);
   const [fullName, setFullName] = useState([
     {
       fname: "",
@@ -168,21 +197,27 @@ const BAContent = () => {
   const schArr = [];
 
   useEffect(() => {
-    if (value !== undefined && doctor) {
-      console.log(value);
-      // Get the offset between UTC and your local time zone in minutes
-      const offsetMinutes = value.getTimezoneOffset();
+    const dateRegex = /^\d{4}\/\d{2}\/\d{2}$/;
+    let formattedDate;
+    // console.log(value);
+    // console.log(dateRegex.test(value));
+    if (value != undefined && doctor) {
+      if (dateRegex.test(value) == false) {
+        console.log(value);
+        // Get the offset between UTC and your local time zone in minutes
+        const offsetMinutes = value.getTimezoneOffset();
 
-      // Convert the original date to your local time zone
-      const localDate = new Date(value.getTime() - offsetMinutes * 60 * 1000);
+        // Convert the original date to your local time zone
+        const localDate = new Date(value.getTime() - offsetMinutes * 60 * 1000);
 
-      // Format the local date as a string with the desired format
-      const formattedDate = localDate
-        .toISOString()
-        .slice(0, 10)
-        .replace(/-/g, "/");
+        // Format the local date as a string with the desired format
+        formattedDate = localDate.toISOString().slice(0, 10).replace(/-/g, "/");
+      } else {
+        formattedDate = value;
+      }
       const sche = async () => {
         try {
+          console.log("Enter call api");
           const response = await axios.get(
             publicPort + `schedule/list_date/${doctor.id}?date=${formattedDate}`
           );
@@ -208,6 +243,21 @@ const BAContent = () => {
     name: "",
     phone: "",
     idC: "",
+    birthday: "",
+    gender: "",
+    bookPlace: "",
+    symtom: "",
+    spec: "",
+    doctorName: "",
+    bookDate: "",
+    bookTime: "",
+    description: "",
+  };
+  var registersUpdate = {
+    name: "",
+    phone: "",
+    idC: "",
+    idA: "",
     birthday: "",
     gender: "",
     bookPlace: "",
@@ -390,18 +440,29 @@ const BAContent = () => {
 
   const bookAppointment = async () => {
     registers.name = fullName.fname;
+    registers.name = fullName.fname;
     registers.phone = phone.pnum;
     registers.idC = idCard.idC;
     registers.birthday = birthday.bday;
     registers.gender = selectedCheckbox;
-    // registers.foreign = selectedForeign;
     registers.bookPlace = place.name + " - " + place.description;
     if (symtomArr != undefined) {
       registers.symtom = symtomArr.map((item) => `${item.name}`).join(", ");
     }
     registers.spec = spec.name;
     registers.doctorName = doctor.name;
-    registers.bookDate = value;
+    // Get the offset between UTC and your local time zone in minutes
+    const offsetMinutes = value.getTimezoneOffset();
+
+    // Convert the original date to your local time zone
+    const localDate = new Date(value.getTime() - offsetMinutes * 60 * 1000);
+
+    // Format the local date as a string with the desired format
+    const formattedDate = localDate
+      .toISOString()
+      .slice(0, 10)
+      .replace(/-/g, "/");
+    registers.bookDate = formattedDate;
     registers.bookTime = hour;
     registers.description = description.ds;
 
@@ -435,11 +496,74 @@ const BAContent = () => {
     console.log(registers);
     navigate("/appointmentConfirmation", { state: { registers } });
   };
+  const UpdateAppointment = async () => {
+    registersUpdate.idA = idApp.idA;
+    registersUpdate.name = fullName.fname;
+    registersUpdate.phone = phone.pnum;
+    registersUpdate.idC = idCard.idC;
+    registersUpdate.birthday = birthday.bday;
+    registersUpdate.gender = selectedCheckbox;
+    registersUpdate.bookPlace = place.name + " - " + place.description;
+    if (symtomArr != undefined) {
+      registersUpdate.symtom = symtomArr
+        .map((item) => `${item.name}`)
+        .join(", ");
+    }
+    registersUpdate.spec = spec.name;
+    registersUpdate.doctorName = doctor.name;
+
+    const dateRegex = /^\d{4}\/\d{2}\/\d{2}$/;
+    let formattedDate;
+    if (dateRegex.test(value) == false) {
+      // Get the offset between UTC and your local time zone in minutes
+      const offsetMinutes = value.getTimezoneOffset();
+
+      // Convert the original date to your local time zone
+      const localDate = new Date(value.getTime() - offsetMinutes * 60 * 1000);
+
+      // Format the local date as a string with the desired format
+      formattedDate = localDate.toISOString().slice(0, 10).replace(/-/g, "/");
+    } else {
+      formattedDate = value;
+    }
+    registersUpdate.bookDate = formattedDate;
+    registersUpdate.bookTime = hour;
+    registersUpdate.description = description.ds;
+
+    const currentDate = new Date();
+
+    if (
+      registersUpdate.name === undefined ||
+      registersUpdate.phone === undefined ||
+      registersUpdate.birthday === undefined ||
+      registersUpdate.gender === "" ||
+      registersUpdate.bookPlace === "" ||
+      registersUpdate.bookTime === "" ||
+      registersUpdate.spec === "" ||
+      registersUpdate.doctor === ""
+    ) {
+      alert("Please fill all field");
+      return;
+    }
+    const bdatee = new Date(registersUpdate.birthday);
+    if (bdatee > currentDate) {
+      alert("Birthdate is not valid");
+      return;
+    }
+
+    if (currentDate > registersUpdate.bookDate) {
+      alert("book date must be later than today");
+      return;
+    }
+    console.log(registersUpdate);
+    navigate("/appointmentConfirmUpdate", { state: { registersUpdate } });
+  };
 
   return (
     <>
       <div className="max-w-[1156px] mx-auto mt-[8rem]">
         <CreatePortalPlace
+          checkinplace={EAppointment?.bookPlace}
           changePlaceList={changePlaceList}
           open={showPlace}
           onClose={() => setShowPlace(false)}
@@ -447,6 +571,7 @@ const BAContent = () => {
           handleClose={() => setShowPlace(false)}
         ></CreatePortalPlace>
         <CreatePortalSysptom
+          checkinsymptom={EAppointment?.symptom}
           symtomArr={symtomArr}
           nextSpec={nextSpec}
           numberOfSym={numberOfSym}
@@ -457,6 +582,7 @@ const BAContent = () => {
           handleClose={() => setShowSysptom(false)}
         ></CreatePortalSysptom>
         <CreatePortalSpecialty
+          checkinSpec={EAppointment?.speciatly}
           symtomArr={symtomArr}
           spec={spec}
           changeSpecList={changeSpecList}
@@ -466,6 +592,7 @@ const BAContent = () => {
           handleClose={() => setShowSpec(false)}
         ></CreatePortalSpecialty>
         <CreatePortalDoctor
+          checkinDoctor={EAppointment?.doctorId}
           place={place}
           doctor={doctor}
           spec={spec}
@@ -480,11 +607,25 @@ const BAContent = () => {
           <Header number={1}>Booking person information</Header>
           <div className="mt-[4.4rem]">
             <div className="grid grid-cols-2 gap-x-[12.2rem] gap-y-[3rem]">
+              {EAppointment != null ? (
+                <InputInfo
+                  // handleChangeName={handleChangeName}
+                  icon={<IconPen />}
+                  name={"idA"}
+                  // placeholder="Your name"
+                  value={idApp.idA}
+                  disabled={true}
+                ></InputInfo>
+              ) : (
+                <></>
+              )}
+
               <InputInfo
                 handleChangeName={handleChangeName}
                 icon={<IconPen />}
                 name={"fname"}
                 placeholder="Your name"
+                value={fullName.fname}
               ></InputInfo>
               <InputInfo
                 handleChangeName={handleChangeName}
@@ -492,12 +633,14 @@ const BAContent = () => {
                 type={"number"}
                 icon={<IconSearch />}
                 placeholder="Your ID card"
+                value={idCard.idC}
               ></InputInfo>
               <InputInfo
                 handleChangeName={handleChangeName}
                 name={"pnum"}
                 icon={<IconPhone />}
                 placeholder="Your phone"
+                value={phone.pnum}
               ></InputInfo>
               <InputInfo
                 handleChangeName={handleChangeName}
@@ -505,6 +648,7 @@ const BAContent = () => {
                 name={"bday"}
                 icon={<IconBirthday />}
                 placeholder="Your Birthday"
+                value={birthday.bday}
               ></InputInfo>
               <div className="relative flex gap-[2.4rem] py-[1.6rem] items-center border-b border-grayborder">
                 <span>
@@ -656,7 +800,7 @@ const BAContent = () => {
               </div>
               <div className="mt-[2.4rem] text-[1.8rem] gap-[10.4rem] flex justify-end font-bold">
                 <span className="text-gradient">Estimated examination fee</span>
-                {symtomArr.length <= 0 || spec !== null || doctor !== null ? (
+                {spec == null || doctor == null ? (
                   <>0đ</>
                 ) : (
                   <span className="text-warning">300.000đ</span>
@@ -754,18 +898,29 @@ const BAContent = () => {
               className="w-full h-[24rem]"
               name="ds"
               id=""
+              value={description.ds}
               placeholder="Detailed description your symptoms or your needs "
             ></textarea>
           </div>
         </div>
         <div className="pb-[6.4rem]">
-          <ButtonIcon
-            iconLeft={<IconCal />}
-            className="!rounded-[1.6rem] p-[1.6rem_4rem] w-max mt-[6.4rem] "
-            onClick={bookAppointment}
-          >
-            Book appointment
-          </ButtonIcon>
+          {EAppointment ? (
+            <ButtonIcon
+              iconLeft={<IconCal />}
+              className="!rounded-[1.6rem] p-[1.6rem_4rem] w-max mt-[6.4rem] "
+              onClick={UpdateAppointment}
+            >
+              Save appointment
+            </ButtonIcon>
+          ) : (
+            <ButtonIcon
+              iconLeft={<IconCal />}
+              className="!rounded-[1.6rem] p-[1.6rem_4rem] w-max mt-[6.4rem] "
+              onClick={bookAppointment}
+            >
+              Book appointment
+            </ButtonIcon>
+          )}
         </div>
       </div>
     </>

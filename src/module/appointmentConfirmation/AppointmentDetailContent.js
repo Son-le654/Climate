@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { localPort, publicPort } from "../../components/url/link";
 import { BsFillFileTextFill } from "react-icons/bs";
+import React from "react";
+import { AiOutlinePlusCircle } from "react-icons/ai";
+import { FaPencilAlt } from "react-icons/fa";
 
 function AppointmentDetailContent({ appointment }) {
   const tabButtons1 = "Return to previous";
@@ -55,17 +58,44 @@ function AppointmentDetailContent({ appointment }) {
     }
   };
 
+  const handleEditAppointment = () => {
+    console.log(appointment);
+    navigate("/update_appointment", { state: { appointment } });
+  };
+
   const goBack = () => {
     navigate("/appointments");
   };
 
   return (
     <div>
+      <div className="flex w-[100%] items-center pb-[30px]">
+        <div className=" w-[50%]  text-6xl font-bold">
+          <p style={{ fontSize: "3rem" }}>Appointment Details</p>
+        </div>
+        {appointment != undefined && appointment.commandFlag == "0" ? (
+          <div className="h-[50px] w-[50%] flex justify-end items-center">
+            <div
+              className="border-[1px] border-[#dddddd]  w-[40%] h-[40px] flex items-center justify-center rounded-3xl cursor-pointer"
+              onClick={handleEditAppointment}
+            >
+              <span className="w-[10%] text-[30px] text-gradientLeft ]">
+                <FaPencilAlt />
+              </span>
+              <span className="font-medium text-gradientLeft ">
+                Edit appointment
+              </span>
+            </div>
+          </div>
+        ) : (
+          <></>
+        )}
+      </div>
       <div className="bg-white p-5 rounded-3xl shadow-lg ">
         <div className="pl-[64px] pt-5 pb-10">
           <div key={appointment != undefined ? appointment.id : ""}>
             <div>
-              <h1 className="text-[#4976f7] text-3xl font-semibold">Sevices</h1>
+              <h1 className="text-[#4976f7] text-3xl font-semibold">Status</h1>
               <div className="pt-8 flex">
                 <span className="w-[35%]">Status of Appointment</span>
                 <span className="w-[65%]">

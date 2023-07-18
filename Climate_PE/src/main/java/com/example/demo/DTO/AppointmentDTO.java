@@ -5,6 +5,7 @@ public class AppointmentDTO {
 	private String name;
 	private String phone;
 	private String idC;
+	private String idA;
 	private String birthday;
 	private String gender;
 	private String bookPlace;
@@ -40,6 +41,34 @@ public class AppointmentDTO {
 		this.description = description;
 		this.paitent_name = paitent_name;
 		this.register_time = register_time;
+	}
+
+	public AppointmentDTO(String name, String phone, String idC, String idA, String birthday, String gender,
+			String bookPlace, String symtom, String spec, String doctorName, String bookDate, String bookTime,
+			String description, String paitent_name, String register_time) {
+		super();
+		this.phone = phone;
+		this.idC = idC;
+		this.idA = idA;
+		this.birthday = birthday;
+		this.gender = gender;
+		this.bookPlace = bookPlace;
+		this.symtom = symtom;
+		this.spec = spec;
+		this.doctorName = doctorName;
+		this.bookDate = bookDate;
+		this.bookTime = bookTime;
+		this.description = description;
+		this.paitent_name = paitent_name;
+		this.register_time = register_time;
+	}
+
+	public String getIdA() {
+		return idA;
+	}
+
+	public void setIdA(String idA) {
+		this.idA = idA;
 	}
 
 	public String getName() {

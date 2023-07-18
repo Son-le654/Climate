@@ -76,7 +76,7 @@ function VerifyRegisterContentForNotEmail() {
   const verifyAcc = async () => {
     if (otp.Votp != undefined && email.Vmail != undefined) {
       const response = await axios.get(
-        localPort + `patient/checkotp?otp=${otp.Votp}&email=${email.Vmail}`
+        publicPort + `patient/checkotp?otp=${otp.Votp}&email=${email.Vmail}`
       );
       console.log(response);
       if (response.data == "verify success") {

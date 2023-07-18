@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { localPort, publicPort } from "../../components/url/link";
+import React from "react";
+import jwtDecode from "jwt-decode";
 
 function AppointmentConfirmationContentGuest({ appointment }) {
   const tabButtons1 = "Return to previous";
@@ -27,39 +29,65 @@ function AppointmentConfirmationContentGuest({ appointment }) {
       specialty: "Nutrition",
     },
   ]);
+  const [role, setRole] = useState("");
+  const storedName = localStorage.getItem("token");
+  useEffect(() => {
+    try {
+      const decoded = jwtDecode(storedName);
+      const rol = decoded?.roles[0]?.authority;
+      setRole(rol);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
   console.log(appointment);
   const confirm = async () => {
     console.log(appointment);
-    const response = await axios.post(
-      publicPort + `appointment/saveguest`,
-      appointment
-    );
+    var response;
+    if (role == "NURSE") {
+      response = await axios.post(
+        publicPort + `appointment/bookapproveguest`,
+        appointment
+      );
+      // response = await axios.post(
+      //   publicPort + `appointment/bookapproveguest`,
+      //   appointment
+      // );
+    } else {
+      response = await axios.post(
+        publicPort + `appointment/saveguest`,
+        appointment
+      );
+    }
+
     console.log(response);
-    if (response.data === "success") {
+    if (response.data === "success" && role == "NURSE") {
+      navigate("/appointments");
+    } else {
       navigate("/");
     }
   };
 
-  const [formattedDate, setFormatDate] = useState();
-  useEffect(() => {
-    if (appointment != undefined) {
-      // Get the offset between UTC and your local time zone in minutes
-      const offsetMinutes = appointment.bookDate.getTimezoneOffset();
+  // const [formattedDate, setFormatDate] = useState();
+  // useEffect(() => {
+  //   if (appointment != undefined) {
+  //     // Get the offset between UTC and your local time zone in minutes
+  //     const offsetMinutes = appointment.bookDate.getTimezoneOffset();
 
-      // Convert the original date to your local time zone
-      const localDate = new Date(
-        appointment.bookDate.getTime() - offsetMinutes * 60 * 1000
-      );
+  //     // Convert the original date to your local time zone
+  //     const localDate = new Date(
+  //       appointment.bookDate.getTime() - offsetMinutes * 60 * 1000
+  //     );
 
-      // Format the local date as a string with the desired format
-      const formattedDate = localDate
-        .toISOString()
-        .slice(0, 10)
-        .replace(/-/g, "/");
+  //     // Format the local date as a string with the desired format
+  //     const formattedDate = localDate
+  //       .toISOString()
+  //       .slice(0, 10)
+  //       .replace(/-/g, "/");
 
-      setFormatDate(formattedDate);
-    }
-  }, [appointment]);
+  //     setFormatDate(formattedDate);
+  //   }
+  // }, [appointment]);
 
   const goBack = () => {
     navigate("/book_appointment_guest");
@@ -140,7 +168,7 @@ function AppointmentConfirmationContentGuest({ appointment }) {
                 <div className="pt-3 flex">
                   <span className="w-[35%]">Examination Date</span>
                   <span className="">
-                    {appointment != undefined ? formattedDate : ""}
+                    {appointment != undefined ? appointment.bookDate : ""}
                   </span>
                 </div>
                 <div className="pt-3 flex">

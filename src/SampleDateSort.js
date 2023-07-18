@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { localPort } from "./components/url/link";
+import { localPort, publicPort } from "./components/url/link";
 // function createObjectList() {
 //   return [
 //     { name: "Object 1", date: "2023/06/19 23:26:19" },
@@ -18,7 +18,7 @@ function SampleDateSort() {
     const income = async () => {
       try {
         const response = await axios.get(
-          localPort+"appointment/listIncome"
+          publicPort+"appointment/listIncome"
         );
         setListOrigin(response.data);
       } catch (error) {

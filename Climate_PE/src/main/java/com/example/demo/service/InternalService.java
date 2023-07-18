@@ -13,6 +13,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.InternalAccount;
@@ -48,6 +49,8 @@ public class InternalService implements UserDetailsService {
 
 	public InternalAccount save(InternalAccount account) {
 		System.out.println(account.toString());
+		String hashedPassword = BCrypt.hashpw(account.getPassword(), BCrypt.gensalt());
+		account.setPassword(hashedPassword);
 		return internalRepository.save(account);
 	}
 
