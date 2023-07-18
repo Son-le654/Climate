@@ -8,7 +8,7 @@ import { useRef } from "react";
 import Slider from "react-slick";
 import { useNavigate } from "react-router-dom";
 
-function SchedulesContent({email}) {
+function SchedulesContent({ email, role }) {
   const [sortedObjects, setSortedObjects] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
@@ -34,10 +34,10 @@ function SchedulesContent({email}) {
       id: 4,
       title: "Time",
     },
-    {
-      id: 5,
-      title: "Status",
-    },
+    // {
+    //   id: 5,
+    //   title: "Status",
+    // },
     {
       id: 6,
       title: "View Details",
@@ -52,7 +52,14 @@ function SchedulesContent({email}) {
     console.log(mail);
     const listApp = async () => {
       try {
-        const response = await axios.get(publicPort + `schedule/listschedules?email=${email}`);
+        let response;
+        if (role == "DOCTOR") {
+          response = await axios.get(
+            publicPort + `schedule/listschedules?email=${email}`
+          );
+        } else {
+          response = await axios.get(publicPort + `schedule/list`);
+        }
         setListOrigin(response.data);
         setListData(response.data);
       } catch (error) {
@@ -203,9 +210,9 @@ function SchedulesContent({email}) {
                   <td className="w-[12%]">
                     {listD != undefined ? listD.examTime : ""}
                   </td>
-                  <td className="w-[12%]">
+                  {/* <td className="w-[12%]">
                     {listD != undefined ? listD.commandFlag : ""}
-                  </td>
+                  </td> */}
                   {/* <td className="w-[12%]">
                     <p
                       className={`w-[70%] h-[30px] rounded-2xl ml-[14%] pt-[3px] text-white ${

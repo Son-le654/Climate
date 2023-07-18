@@ -51,6 +51,8 @@ const CreatePortalSysptom = ({
   numberOfSym,
   nextSpec,
   symtomArr,
+  checkinsymptom,
+  addSymptom,
 }) => {
   const [symptomList, setSymtomList] = useState([]);
   const [listOrigin, setListOrigin] = useState([]);
@@ -69,6 +71,34 @@ const CreatePortalSysptom = ({
 
     console.log(symptomList);
   }, []);
+
+  useEffect(() => {
+    if (checkinsymptom != undefined) {
+      const places = async () => {
+        console.log(checkinsymptom);
+        const checkinsymptom1 = "cough, toothache";
+        const response = await axios.get(publicPort + "symptom/list");
+
+        for (let i = 0; i < listOrigin.length; i++) {
+          if (checkinsymptom1.includes(response.data[i].name)) {
+            console.log("Execute: " + i);
+            console.log(response.data[i]);
+            // addSymptom(response.data[i]);
+            changeSymtomList(response.data[i]);
+          }
+
+          // return response.data.find(
+          //   (item) => item.name + " - " + item.description === name
+          // );
+        }
+        // // console.log(place);
+        // const selectedItem = findItemByName(checkinsymptom);
+        // // console.log(selectedItem);
+        // changeSymtomList(selectedItem);
+      };
+      places();
+    }
+  }, [checkinsymptom]);
 
   const handleSearchInputChange = (event) => {
     let searchInput = event.target.value;

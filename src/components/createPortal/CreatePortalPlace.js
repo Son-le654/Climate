@@ -16,14 +16,16 @@ const CreatePortalPlace = ({
   onClose,
   handleClose,
   changePlaceList,
+  checkinplace,
 }) => {
   const [placeList, setPlaceList] = useState();
   const [listOrigin, setListOrigin] = useState();
+  const [place, setPlace] = useState(checkinplace);
 
   useEffect(() => {
     const places = async () => {
       try {
-        const response = await axios.get(publicPort + "location/list");
+        const response = await axios.get("https://103.68.85.120/location/list");
         setPlaceList(response.data);
         setListOrigin(response.data);
       } catch (error) {
@@ -32,6 +34,25 @@ const CreatePortalPlace = ({
     };
     places();
   }, []);
+
+  useEffect(() => {
+    if (checkinplace != undefined) {
+      const places = async () => {
+        console.log(checkinplace);
+        const response = await axios.get(publicPort + "location/list");
+        const findItemByName = (name) => {
+          return response.data.find(
+            (item) => item.name + " - " + item.description === name
+          );
+        };
+        // console.log(place);
+        const selectedItem = findItemByName(checkinplace);
+        // console.log(selectedItem);
+        changePlaceList(selectedItem);
+      };
+      places();
+    }
+  }, [checkinplace]);
 
   const handleSearchInputChange = (event) => {
     let searchInput = event.target.value;

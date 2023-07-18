@@ -75,7 +75,7 @@ public class InternalController {
 		internalService.save(account);
 		return "success";
 	}
-	
+
 	@PutMapping("/update")
 	public String update(@RequestBody InternalAccount account) {
 		System.out.println("enter save: " + account.toString());
@@ -129,6 +129,17 @@ public class InternalController {
 		String role = "DOCTOR";
 		Optional<List<InternalAccount>> accounts = internalService.searchInternalAccounts(name, specialty);
 		if (accounts.isPresent() && !accounts.get().isEmpty()) {
+			return ResponseEntity.ok(accounts);
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("No doctor information found"));
+		}
+	}
+
+	@GetMapping("/internal-accounts/search-email")
+	public ResponseEntity<?> searchByEmail(@RequestParam(value = "email") String email) {
+
+		Optional<InternalAccount> accounts = internalService.findByEmail(email);
+		if (accounts.isPresent()) {
 			return ResponseEntity.ok(accounts);
 		} else {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("No doctor information found"));

@@ -79,9 +79,9 @@ public class AppointmentController {
 	}
 
 	@PutMapping("/update")
-	public String update(@RequestBody Appointment account) {
-		System.out.println(account.toString());
-		appointmentService.update(account);
+	public String update(@RequestBody AppointmentDTO appDTO) {
+		System.out.println(appDTO.toString());
+		appointmentService.update(appDTO);
 		return "success";
 	}
 
@@ -110,6 +110,69 @@ public class AppointmentController {
 		}
 	}
 
+	@PostMapping("/bookapprove")
+	public String saveApprove(@RequestBody AppointmentDTO appointmentDTO) {
+		System.out.println(appointmentDTO.getIdC());
+
+		// validate
+		if (appointmentDTO.getName() == "" || appointmentDTO.getPhone() == "" || appointmentDTO.getBirthday() == ""
+				|| appointmentDTO.getGender() == "" || appointmentDTO.getBookPlace() == ""
+				|| appointmentDTO.getSpec() == "" || appointmentDTO.getDoctorName() == ""
+				|| appointmentDTO.getBookDate() == "" || appointmentDTO.getBookTime() == ""
+				|| appointmentDTO.getIdC() == "") {
+			return "Invalid data, please fill all data";
+		}
+
+		Appointment result = null;
+		result = appointmentService.saveNow(appointmentDTO);
+		if (result != null) {
+			result.setCommandFlag(1);
+			Schedule schedule = new Schedule();
+			schedule.setExamDate(result.getExamDate());
+			schedule.setExamTime(result.getExamTime());
+			schedule.setReleaseTime(result.timeNow());
+			schedule.setCommandFlag(result.getCommandFlag());
+			schedule.setAppointment(result);
+			InternalAccount inter = internalService.findByName(result.getDoctorName(), result.getBookPlace());
+			schedule.setInaccounts(inter);
+			scheduleService.saveSchedule(schedule);
+			return "success";
+		} else {
+			return "Has error";
+		}
+	}
+
+	@PostMapping("/bookapproveguest")
+	public String saveApproveGuest(@RequestBody AppointmentDTO appointmentDTO) {
+		System.out.println(appointmentDTO.getIdC());
+
+		// validate
+		if (appointmentDTO.getName() == "" || appointmentDTO.getPhone() == "" || appointmentDTO.getBirthday() == ""
+				|| appointmentDTO.getGender() == "" || appointmentDTO.getBookPlace() == ""
+				|| appointmentDTO.getSpec() == "" || appointmentDTO.getDoctorName() == ""
+				|| appointmentDTO.getBookDate() == "" || appointmentDTO.getBookTime() == "") {
+			return "Invalid data, please fill all data";
+		}
+
+		Appointment result = null;
+		result = appointmentService.saveGuestNow(appointmentDTO);
+		if (result != null) {
+			result.setCommandFlag(1);
+			Schedule schedule = new Schedule();
+			schedule.setExamDate(result.getExamDate());
+			schedule.setExamTime(result.getExamTime());
+			schedule.setReleaseTime(result.timeNow());
+			schedule.setCommandFlag(0);
+			schedule.setAppointment(result);
+			InternalAccount inter = internalService.findByName(result.getDoctorName(), result.getBookPlace());
+			schedule.setInaccounts(inter);
+			scheduleService.saveSchedule(schedule);
+			return "success";
+		} else {
+			return "Has error";
+		}
+	}
+
 	@PutMapping("/commandFlag")
 	public ResponseEntity<String> updateCommandFlag(@RequestParam("appointmentId") int appointmentId,
 			@RequestParam("command") String command) {
@@ -129,7 +192,7 @@ public class AppointmentController {
 					schedule.setExamDate(appointment.getExamDate());
 					schedule.setExamTime(appointment.getExamTime());
 					schedule.setReleaseTime(appointment.timeNow());
-					schedule.setCommandFlag(appointment.getCommandFlag());
+					schedule.setCommandFlag(0);
 					schedule.setAppointment(appointment);
 					InternalAccount inter = internalService.findByName(appointment.getDoctorName(),
 							appointment.getBookPlace());

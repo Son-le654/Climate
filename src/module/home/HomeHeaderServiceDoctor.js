@@ -19,6 +19,11 @@ const HomeNav = [
   },
   {
     id: 3,
+    to: "/checkin-list",
+    title: "List check-in",
+  },
+  {
+    id: 4,
     to: "/",
     title: "News",
   },

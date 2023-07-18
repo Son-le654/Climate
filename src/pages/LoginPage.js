@@ -60,7 +60,7 @@ const LoginPage = () => {
       const tokenn = response.data.token;
       console.log("true");
       localStorage.setItem("token", response.data.token);
-      navigate("/", { state: { tokenn } });
+      navigate("/service", { state: { tokenn } });
     }
   };
 

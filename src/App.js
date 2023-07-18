@@ -16,7 +16,6 @@ import AppointmentConfirmation from "./pages/AppointmentConfirmationPage";
 import About from "./pages/About";
 import ListDoctor from "./pages/ListDoctorPage";
 import SampleDateSort from "./SampleDateSort";
-import axios from "axios";
 import BAContentGuest from "./module/bookAppointment/BAContentGuest";
 import BookAppointmentPageGuest from "./pages/BookAppointmentPageGuest";
 import AppointmentConfirmationPageGuest from "./pages/AppointmentConfirmationPageGuest";
@@ -31,6 +30,17 @@ import MedicalHistory from "../src/pages/doctor/MedicalHistory";
 import AppointmentDetailsPageForNurse from "./pages/AppointmentDetailsPageForNurse";
 import SchedulesPage from "./pages/SchedulesPage";
 import React from "react";
+import CheckinPage from "pages/CheckinPage";
+import CIContent from "module/bookAppointment/CIContent";
+import CheckinConfirmationPage from "pages/CheckinConfirmationPage";
+import MyCalendar from "MyCalendar";
+import CheckinListPage from "pages/CheckinListPage";
+import CheckinDetails from "pages/doctor/CheckinDetails";
+import UpdateAppointmentPage from "pages/UpdateAppointmentPage";
+import AppointmentConfirmUpdatePage from "pages/AppointmentConfirmUpdatePage";
+import EditProfile from "pages/EditProfile";
+import ProfilePage from "pages/ProfilePage";
+import NewsPage from "guest/NewsPage";
 
 function App() {
   const storedName = localStorage.getItem("token");
@@ -60,6 +70,12 @@ function App() {
           element={<BAContent></BAContent>}
         ></Route>
       </Route>
+      <Route element={<UpdateAppointmentPage />}>
+        <Route
+          path="/update_appointment"
+          element={<BAContent></BAContent>}
+        ></Route>
+      </Route>
 
       <Route element={<BookAppointmentPageGuest />}>
         <Route
@@ -67,6 +83,10 @@ function App() {
           element={<BAContentGuest></BAContentGuest>}
         ></Route>
       </Route>
+      <Route element={<CheckinPage />}>
+        <Route path="/checkin" element={<CIContent></CIContent>}></Route>
+      </Route>
+      <Route path="/checkin-list" element={<CheckinListPage />}></Route>
 
       <Route path="/register" element={<Register />}></Route>
       <Route path="/login" element={<LoginPage />}></Route>
@@ -76,6 +96,14 @@ function App() {
       <Route
         path="/appointmentConfirmation"
         element={<AppointmentConfirmation />}
+      ></Route>
+      <Route
+        path="/appointmentConfirmUpdate"
+        element={<AppointmentConfirmUpdatePage />}
+      ></Route>
+      <Route
+        path="/checkinConfirmation"
+        element={<CheckinConfirmationPage />}
       ></Route>
       <Route
         path="/appointmentdetailsfornurse"
@@ -91,19 +119,38 @@ function App() {
       <Route path="/verifyregister" element={<VerifyRegister />}></Route>
       <Route path="/test" element={<SampleDateSort />}></Route>
       {/* staff */}
-      <Route path="/informationdoctorstaff" element={<DoctorInformationStaff />}></Route>
+      <Route
+        path="/informationdoctorstaff"
+        element={<DoctorInformationStaff />}
+      ></Route>
       {/* Forgot password */}
-      <Route path="/registerenteremail" element={<RegisterEnterEmail />}></Route>
-      <Route path="/registerloginpassword" element={<RegisterLoginPassword />}></Route>
-      <Route path="/verifyregisterforgot" element={<VerifyRegisterForgot />}></Route>
+      <Route
+        path="/registerenteremail"
+        element={<RegisterEnterEmail />}
+      ></Route>
+      <Route
+        path="/registerloginpassword"
+        element={<RegisterLoginPassword />}
+      ></Route>
+      <Route
+        path="/verifyregisterforgot"
+        element={<VerifyRegisterForgot />}
+      ></Route>
       <Route path="/choosenewpassword" element={<ChooseNewPassword />}></Route>
       {/* doctor */}
-      
+
       <Route path="/schedules" element={<SchedulesPage />}></Route>
-      <Route path="/appointmentdetails" element={<AppointmentDetails />}></Route>
+      <Route path="/calendar" element={<MyCalendar />}></Route>
+      <Route
+        path="/appointmentdetails"
+        element={<AppointmentDetails />}
+      ></Route>
+      <Route path="/checindetails" element={<CheckinDetails />}></Route>
       <Route path="/medicalhistory" element={<MedicalHistory />}></Route>
 
-
+      <Route path="/profilepage" element={<ProfilePage />}></Route>
+      <Route path="/editprofile" element={<EditProfile />}></Route>
+      <Route path="/newspage" element={<NewsPage />}></Route>
     </Routes>
   );
 }

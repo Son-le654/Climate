@@ -7,38 +7,51 @@ import { useState } from "react";
 import Button from "../components/button/Button";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-
+import HomeContentServiceStaff from "module/home/HomeContentServiceStaff";
+import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
+import HomeHeaderServiceNurse from "module/home/HomeHeaderServiceNurse";
 
 const ServicePage = () => {
-    const navigate = useNavigate();
-    const storedName = localStorage.getItem("token");
-    useEffect(() => {
-        if (storedName == null) {
-            navigate("/login-user")
-        } else {
-            try {
-                const decoded = jwtDecode(storedName);
-                const role = decoded.roles[0].authority
-                if (role !== 'USER') {
-                  navigate("/")
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        }
-    }, [])
-    return (
-        <>
-            <div className="bg-white">
-                <HomeHeaderService></HomeHeaderService>
-            </div>
-            <div>
-                <HomeContentService></HomeContentService>
-            </div>
-            <div>
-                <Footer></Footer>
-            </div>
-        </>
-    )
-}
-export default ServicePage
+  const [role, setRole] = useState("");
+  const navigate = useNavigate();
+  const storedName = localStorage.getItem("token");
+  useEffect(() => {
+    if (storedName == null) {
+      navigate("/login-user");
+    } else {
+      try {
+        const decoded = jwtDecode(storedName);
+        const rol = decoded.roles[0].authority;
+        setRole(rol);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, []);
+  return (
+    <>
+      <div className="bg-white">
+        {/* <HomeHeaderService></HomeHeaderService> */}
+        {role == "USER" ? (
+        <HomeHeaderService></HomeHeaderService>
+      ) : role == "NURSE" ? (
+        <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
+      ) : (
+        <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
+      )}
+      </div>
+      <div>
+        {role == "USER" ? (
+          <HomeContentService></HomeContentService>
+        ) : (
+          <HomeContentServiceStaff></HomeContentServiceStaff>
+        )}
+        {/* <HomeContentServiceStaff></HomeContentServiceStaff> */}
+      </div>
+      <div>
+        <Footer></Footer>
+      </div>
+    </>
+  );
+};
+export default ServicePage;

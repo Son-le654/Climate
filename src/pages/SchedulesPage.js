@@ -22,7 +22,7 @@ const SchedulesPage = () => {
         setEmail(decoded.sub)
         console.log(decoded.sub);
         // console.log(decoded.sub);
-        if (role !== 'DOCTOR') {
+        if (role !== 'DOCTOR' && role !== 'NURSE') {
           navigate("/")
         }
       } catch (error) {

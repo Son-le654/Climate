@@ -378,7 +378,18 @@ const BAContentGuest = () => {
     }
     registers.spec = spec.name;
     registers.doctorName = doctor.name;
-    registers.bookDate = value;
+    // Get the offset between UTC and your local time zone in minutes
+    const offsetMinutes = value.getTimezoneOffset();
+
+    // Convert the original date to your local time zone
+    const localDate = new Date(value.getTime() - offsetMinutes * 60 * 1000);
+
+    // Format the local date as a string with the desired format
+    const formattedDate = localDate
+      .toISOString()
+      .slice(0, 10)
+      .replace(/-/g, "/");
+    registers.bookDate = formattedDate;
     registers.bookTime = hour;
     registers.description = description.ds;
 
@@ -452,7 +463,9 @@ const BAContentGuest = () => {
         ></CreatePortalDoctor>
         <h3 className="text-[32px] font-semibold text-gradient">Appointment</h3>
         <div className="mt-[10rem]">
-          <Header number={1}>Booking person information</Header>
+          <Header number={1} children={undefined} className={undefined}>
+            Booking person information
+          </Header>
           <div className="mt-[4.4rem]">
             <div className="grid grid-cols-2 gap-x-[12.2rem] gap-y-[3rem]">
               <InputInfo
@@ -460,12 +473,14 @@ const BAContentGuest = () => {
                 icon={<IconPen />}
                 name={"fname"}
                 placeholder="Your name"
+                type={undefined}
               ></InputInfo>
               <InputInfo
                 handleChangeName={handleChangeName}
                 name={"pnum"}
                 icon={<IconPhone />}
                 placeholder="Your phone"
+                type={undefined}
               ></InputInfo>
               <InputInfo
                 handleChangeName={handleChangeName}
@@ -624,7 +639,7 @@ const BAContentGuest = () => {
               </div>
               <div className="mt-[2.4rem] text-[1.8rem] gap-[10.4rem] flex justify-end font-bold">
                 <span className="text-gradient">Estimated examination fee</span>
-                {symtomArr.length <= 0 || spec !== null || doctor !== null ? (
+                {spec == null || doctor == null ? (
                   <>0đ</>
                 ) : (
                   <span className="text-warning">300.000đ</span>
@@ -637,13 +652,17 @@ const BAContentGuest = () => {
         )}
         <div className="mt-[6.4rem] gap-[80px] flex justify-between">
           <div className="flex-1">
-            <Header number={3}>Select a date</Header>
+            <Header number={3} children={undefined} className={undefined}>
+              Select a date
+            </Header>
             <div className="p-[3.8rem_4.3rem] shadow-lg date_picker rounded-[24px] mt-[3.8rem]">
               <Calendar onChange={onChange} value={value} />
             </div>
           </div>
           <div className="flex-1">
-            <Header number={4}>Select a time</Header>
+            <Header number={4} children={undefined} className={undefined}>
+              Select a time
+            </Header>
             <div className="p-[3.8rem_4.3rem] shadow-lg flex flex-wrap gap-x-[1rem] gap-y-[0.17rem] rounded-[24px] mt-[3.8rem]">
               {hoursList.length > 0 &&
                 hoursList.map((item) =>
@@ -701,7 +720,9 @@ const BAContentGuest = () => {
           </div>
         </div>
         <div className="mt-[6.4rem] ">
-          <Header number={5}>Reasons for medical examination</Header>
+          <Header number={5} children={undefined} className={undefined}>
+            Reasons for medical examination
+          </Header>
           <div className="flex gap-[3rem] mt-[4.4rem] shadow-md rounded-[2.4rem] p-[2.8rem_3.2rem]">
             <span>
               <svg
@@ -731,6 +752,8 @@ const BAContentGuest = () => {
             iconLeft={<IconCal />}
             className="!rounded-[1.6rem] p-[1.6rem_4rem] w-max mt-[6.4rem] "
             onClick={bookAppointment}
+            children={undefined}
+            iconRight={undefined}
           >
             Book appointment
           </ButtonIcon>

@@ -12,6 +12,8 @@ import com.example.demo.entity.InternalAccount;
 public interface InternalRepository extends JpaRepository<InternalAccount, Integer> {
 
 	Optional<InternalAccount> findByEmail(String email);
+//	@Query("select i from InternalAccount i where i.email = :email")
+//	Optional<InternalAccount> findByEmail(@Param(value = "email") String email);
 
 	@Query("select i from InternalAccount i where i.role.name = 'DOCTOR'")
 	List<InternalAccount> findAllDoctor();
@@ -25,6 +27,9 @@ public interface InternalRepository extends JpaRepository<InternalAccount, Integ
 	@Query("SELECT ia FROM InternalAccount ia JOIN ia.specialty s WHERE ia.name LIKE %:name% AND ia.role.name = 'DOCTOR' AND s.name LIKE %:specialty%")
 	Optional<List<InternalAccount>> findByNameAndSpecialty(@Param("name") String name,
 			@Param("specialty") String specialty);
+	
+	@Query("SELECT ia FROM InternalAccount ia JOIN ia.specialty s WHERE ia.name LIKE %:name% AND ia.role.name = 'DOCTOR'")
+	InternalAccount findDoctorByName(@Param("name") String name);
 
 	@Query("SELECT ia FROM InternalAccount ia JOIN ia.specialty s WHERE ia.name LIKE %:name% AND ia.role.name = 'DOCTOR'")
 	Optional<List<InternalAccount>> findByName(@Param(value = "name") String name);
