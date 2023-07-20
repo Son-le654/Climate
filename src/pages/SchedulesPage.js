@@ -3,12 +3,12 @@ import HomeHeaderServiceNurse from "../module/home/HomeHeaderServiceNurse";
 import Footer from "../module/home/Footer";
 import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
-import SchedulesContent from "../module/appointments/SchedulesContent.js"
+import SchedulesContent from "../module/appointments/SchedulesContent.js";
 
 const SchedulesPage = () => {
   const navigate = useNavigate();
-  const [role, setRole] = useState("");
-  const [email, setEmail] = useState("");
+  const [role, setRole] = useState();
+  const [email, setEmail] = useState();
 
   useEffect(() => {
     const storedName = localStorage.getItem("token");
@@ -19,11 +19,11 @@ const SchedulesPage = () => {
         const decoded = jwtDecode(storedName);
         const role = decoded.roles[0].authority;
         setRole(role);
-        setEmail(decoded.sub)
+        setEmail(decoded.sub);
         console.log(decoded.sub);
         // console.log(decoded.sub);
-        if (role !== 'DOCTOR' && role !== 'NURSE') {
-          navigate("/")
+        if (role !== "DOCTOR" && role !== "NURSE") {
+          navigate("/");
         }
       } catch (error) {
         console.log(error);
@@ -40,7 +40,7 @@ const SchedulesPage = () => {
         <h1>Schedule</h1>
       </div>
       <div className="bg-white" style={{ padding: "5% 12%" }}>
-        <SchedulesContent email={email}></SchedulesContent>
+        <SchedulesContent email={email} role={role}></SchedulesContent>
       </div>
       <div>
         <Footer></Footer>

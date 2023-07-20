@@ -222,7 +222,12 @@ const BAContent = () => {
             publicPort + `schedule/list_date/${doctor.id}?date=${formattedDate}`
           );
           console.log(response.data);
-          setScheOfDoc(response.data);
+          // setScheOfDoc(response.data);
+          setHour("");
+          const arrr = response.data.map((item) => item.examTime);
+          console.log(arrr);
+
+          setScheOfDoc(arrr);
         } catch (error) {
           console.log(error);
         }
@@ -439,6 +444,7 @@ const BAContent = () => {
   };
 
   const bookAppointment = async () => {
+    console.log("Enter book");
     registers.name = fullName.fname;
     registers.name = fullName.fname;
     registers.phone = phone.pnum;
@@ -467,6 +473,7 @@ const BAContent = () => {
     registers.description = description.ds;
 
     const currentDate = new Date();
+    console.log(registers);
 
     if (
       registers.name === undefined ||
@@ -823,54 +830,30 @@ const BAContent = () => {
             <div className="p-[3.8rem_4.3rem] shadow-lg flex flex-wrap gap-x-[1rem] gap-y-[0.17rem] rounded-[24px] mt-[3.8rem]">
               {hoursList.length > 0 &&
                 hoursList.map((item) =>
-                  scheOfDoc.length > 0 ? (
-                    <>
-                      {scheOfDoc.map((item1) =>
-                        item1.examTime == item.from + " - " + item.to ? (
-                          <>
-                            <div
-                              style={{ width: "22rem", color: "red" }}
-                              className={`p-[1.4rem_1.6rem] cursor-pointer border rounded-[0.8rem] border-textColor2 `}
-                              key={item.id}
-                            >
-                              <span>{item.from}</span> - <span>{item.to}</span>
-                            </div>
-                          </>
-                        ) : (
-                          <>
-                            <div
-                              onClick={() => addHour(item)}
-                              style={{ width: "22rem" }}
-                              className={`p-[1.4rem_1.6rem] cursor-pointer border rounded-[0.8rem] border-textColor2 
-                    ${
-                      hour.includes(item.from + " - " + item.to)
-                        ? "bg-gradient-to-tr from-gradientLeft to-gradientRight text-white"
-                        : ""
-                    }`}
-                              key={item.id}
-                            >
-                              <span>{item.from}</span> - <span>{item.to}</span>
-                            </div>
-                          </>
-                        )
-                      )}
-                    </>
+                  scheOfDoc != undefined &&
+                  scheOfDoc.includes(item.from + " - " + item.to) ? (
+                    <div
+                      style={{ width: "22rem", color: "red" }}
+                      className={`p-[1.4rem_1.6rem] cursor-pointer border rounded-[0.8rem] border-textColor2 
+                       `}
+                      key={item.id}
+                    >
+                      <span>{item.from}</span> - <span>{item.to}</span>
+                    </div>
                   ) : (
-                    <>
-                      <div
-                        onClick={() => addHour(item)}
-                        style={{ width: "22rem" }}
-                        className={`p-[1.4rem_1.6rem] cursor-pointer border rounded-[0.8rem] border-textColor2 
-                    ${
-                      hour.includes(item.from + " - " + item.to)
-                        ? "bg-gradient-to-tr from-gradientLeft to-gradientRight text-white"
-                        : ""
-                    }`}
-                        key={item.id}
-                      >
-                        <span>{item.from}</span> - <span>{item.to}</span>
-                      </div>
-                    </>
+                    <div
+                      onClick={() => addHour(item)}
+                      style={{ width: "22rem" }}
+                      className={`p-[1.4rem_1.6rem] cursor-pointer border rounded-[0.8rem] border-textColor2 
+                        ${
+                          hour.includes(item.from + " - " + item.to)
+                            ? "bg-gradient-to-tr from-gradientLeft to-gradientRight text-white"
+                            : ""
+                        }`}
+                      key={item.id}
+                    >
+                      <span>{item.from}</span> - <span>{item.to}</span>
+                    </div>
                   )
                 )}
             </div>

@@ -3,6 +3,7 @@ import Footer from "../module/home/Footer";
 import VerifyRegisterContent from "../module/verifyRegister/VerifyRegisterContent";
 import VerifyRegisterContentForNotEmail from "../module/verifyRegister/VerifyRegisterContentForNotEmail";
 import { useLocation, useNavigate } from "react-router";
+import React from "react";
 
 function VerifyRegister() {
   const location = useLocation();

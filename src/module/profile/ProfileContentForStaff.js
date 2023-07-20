@@ -13,7 +13,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { publicPort } from "components/url/link";
 
-function ProfileContent({ mail }) {
+function ProfileContentForStaff({ mail }) {
   const [infor, setInfor] = useState();
   useEffect(() => {
     console.log(mail);
@@ -270,4 +270,4 @@ function ProfileContent({ mail }) {
     </div>
   );
 }
-export default ProfileContent;
+export default ProfileContentForStaff;

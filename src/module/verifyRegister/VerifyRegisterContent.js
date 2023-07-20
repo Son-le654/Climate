@@ -61,7 +61,7 @@ function VerifyRegisterContent({ mail }) {
       console.log(response);
       if (response.data == "verify success") {
         alert("Your email is verified, welcome to clinicmate");
-        navigate("/");
+        navigate("/login-user");
       } else {
         alert("OTP is wrong, please check email again");
       }

@@ -25,7 +25,7 @@ const CreatePortalPlace = ({
   useEffect(() => {
     const places = async () => {
       try {
-        const response = await axios.get("https://103.68.85.120/location/list");
+        const response = await axios.get(publicPort + "location/list");
         setPlaceList(response.data);
         setListOrigin(response.data);
       } catch (error) {
@@ -38,7 +38,7 @@ const CreatePortalPlace = ({
   useEffect(() => {
     if (checkinplace != undefined) {
       const places = async () => {
-        console.log(checkinplace);
+        // console.log(checkinplace);
         const response = await axios.get(publicPort + "location/list");
         const findItemByName = (name) => {
           return response.data.find(

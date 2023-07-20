@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { localPort, publicPort } from "../../components/url/link";
+import { publicPort } from "../../components/url/link";
 import { BiSearch } from "react-icons/bi";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { MdKeyboardArrowLeft } from "react-icons/md";

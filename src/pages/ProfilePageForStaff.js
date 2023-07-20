@@ -7,7 +7,7 @@ import HomeHeaderServiceNurse from "module/home/HomeHeaderServiceNurse";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function ProfilePage() {
+function ProfilePageForStaff() {
   const navigate = useNavigate();
   const [role, setRole] = useState("");
   const [mail, setMail] = useState("");
@@ -56,4 +56,4 @@ function ProfilePage() {
     </div>
   );
 }
-export default ProfilePage;
+export default ProfilePageForStaff;

@@ -126,4 +126,12 @@ public class PatientService implements UserDetailsService {
 	private Patient checkIDExists(String id) {
 		return repository.findByID(id);
 	}
+
+	public Patient getProfileByEmail(String email) {
+		// TODO Auto-generated method stub
+		Patient p = null;
+		p = repository.findByEmail(email);
+
+		return p;
+	}
 }

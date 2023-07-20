@@ -241,6 +241,11 @@ public class PatientController {
 		}
 	}
 
+	@GetMapping("/profile")
+	public Patient getProfile(@RequestParam("email") String email) {
+		return service.getProfileByEmail(email);
+	}
+
 	/**
 	 * Generate OTP for an user with user's email.
 	 *

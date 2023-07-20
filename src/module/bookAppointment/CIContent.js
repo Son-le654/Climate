@@ -109,12 +109,12 @@ const CIContent = () => {
   const [check, setCheck] = useState();
 
   useEffect(() => {
-    console.log(" checkin" + location.state);
+    // console.log(" checkin" + location.state);
     const check_in = location?.state?.appointment;
-    console.log(check_in);
+    // console.log(check_in);
     setCheck(check_in);
     if (check_in) {
-      console.log(check_in.bookPlace);
+      // console.log(check_in.bookPlace);
       setFullName({ fname: check_in.patientName });
       if (check_in.patient != null) {
         setIdCard({ idC: check_in.patient.id });
@@ -134,7 +134,7 @@ const CIContent = () => {
 
   const handleCheckboxChange = (event) => {
     setSelectedCheckbox(event.target.value);
-    console.log(event.target.value);
+    // console.log(event.target.value);
   };
 
   const [numberOfSym, setNumberOfSym] = useState(0);
@@ -187,7 +187,7 @@ const CIContent = () => {
 
   useEffect(() => {
     if (value !== undefined && doctor) {
-      console.log(value);
+      // console.log(value);
       // Get the offset between UTC and your local time zone in minutes
       const offsetMinutes = value.getTimezoneOffset();
 
@@ -204,7 +204,7 @@ const CIContent = () => {
           const response = await axios.get(
             publicPort + `schedule/list_date/${doctor.id}?date=${formattedDate}`
           );
-          console.log(response.data);
+          // console.log(response.data);
           setScheOfDoc(response.data);
         } catch (error) {
           console.log(error);
@@ -240,15 +240,15 @@ const CIContent = () => {
   const handleChangeName = (event) => {
     const { name, value } = event.target;
 
-    console.log(name);
-    console.log(value);
+    // console.log(name);
+    // console.log(value);
 
     if (name === "fname") {
       const newName = {
         ...fullName,
         [name]: value,
       };
-      console.log("set name");
+      // console.log("set name");
       setFullName(newName);
     }
 
@@ -257,7 +257,7 @@ const CIContent = () => {
         ...phone,
         [name]: value,
       };
-      console.log("set phone");
+      // console.log("set phone");
       setPhone(newPhone);
     }
 
@@ -266,7 +266,7 @@ const CIContent = () => {
         ...birthday,
         [name]: value,
       };
-      console.log("set birth day");
+      // console.log("set birth day");
       setBirthDay(newBday);
     }
 
@@ -275,7 +275,7 @@ const CIContent = () => {
         ...idCard,
         [name]: value,
       };
-      console.log("set ID");
+      // console.log("set ID");
       setIdCard(newIDs);
     }
     if (name === "idA") {
@@ -283,7 +283,7 @@ const CIContent = () => {
         ...idApp,
         [name]: value,
       };
-      console.log("set ID appointment");
+      // console.log("set ID appointment");
       setIdApp(newIDa);
     }
 
@@ -292,7 +292,7 @@ const CIContent = () => {
         ...description,
         [name]: value,
       };
-      console.log("set description");
+      // console.log("set description");
       setDescription(newDs);
     }
   };
@@ -329,9 +329,9 @@ const CIContent = () => {
 
   //////////////////////////////////// symtom
   const addSymtomItem = (item) => {
-    console.log(item);
+    // console.log(item);
     const newArr = [...symtomArr, item];
-    console.log(newArr);
+    // console.log(newArr);
     setSymtomArr(newArr);
 
     // setShowSysptom(false);
@@ -358,13 +358,13 @@ const CIContent = () => {
   };
 
   const changeSymtomList = (item) => {
-    console.log("enter change symptom");
-    console.log(item);
+    // console.log("enter change symptom");
+    // console.log(item);
     if (symtomArr.includes(item)) {
-      console.log("include");
+      // console.log("include");
       deleteSymtomItem(item);
     } else {
-      console.log("none, add");
+      // console.log("none, add");
       addSymtomItem(item);
     }
     // console.log(item);
@@ -394,7 +394,7 @@ const CIContent = () => {
   };
   //////////////////////////////////// doctor
   const addDoctorItem = (item) => {
-    console.log(item);
+    // console.log(item);
     setDoctor(item);
     setShowDoctor(false);
   };
@@ -414,7 +414,7 @@ const CIContent = () => {
 
   const addHour = (item) => {
     let h = item.from + " - " + item.to;
-    console.log(h);
+    // console.log(h);
     setHour(h);
   };
 
@@ -435,7 +435,7 @@ const CIContent = () => {
     registers.description = description.ds;
 
     const currentDate = new Date();
-    console.log("log: " + registers);
+    // console.log("log: " + registers);
     if (
       registers.name === undefined ||
       registers.phone === undefined ||
@@ -454,7 +454,7 @@ const CIContent = () => {
       alert("Birthdate is not valid");
       return;
     }
-    console.log(registers);
+    // console.log(registers);
     navigate("/checkinConfirmation", { state: { registers } });
   };
 
@@ -470,7 +470,7 @@ const CIContent = () => {
           handleClose={() => setShowPlace(false)}
         ></CreatePortalPlace>
         <CreatePortalSysptom
-          addSymptom={addSymtomItem}
+          setSymtom={setSymtomArr}
           checkinsymptom={check?.symptom}
           symtomArr={symtomArr}
           nextSpec={nextSpec}
