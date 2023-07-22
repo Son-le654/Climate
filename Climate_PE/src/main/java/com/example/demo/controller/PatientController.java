@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -22,7 +23,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.DTO.LoginRequest;
 import com.example.demo.DTO.PatientDTO;
@@ -36,7 +39,8 @@ import com.example.demo.service.InternalService;
 import com.example.demo.service.JwtResponse;
 import com.example.demo.service.JwtTokenUtil;
 import com.example.demo.service.PatientService;
-
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import net.bytebuddy.utility.RandomString;
 
 @RestController
@@ -112,14 +116,24 @@ public class PatientController {
 
 	}
 
-	@PostMapping(value = "/updateprofile")
-	public ResponseEntity<?> update(@RequestBody PatientDTO patient) {
+	 @PostMapping(value = "/updateprofile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	    public ResponseEntity<?> update(@RequestParam("patient") String patientJson,
+	                                     @RequestParam("fileData") MultipartFile fileData) {
+	        // Convert thông tin bệnh nhân từ JSON thành đối tượng PatientDTO
+	        PatientDTO patientDTO = null;
+	        try {
+	            ObjectMapper objectMapper = new ObjectMapper();
+	            patientDTO = objectMapper.readValue(patientJson, PatientDTO.class);
+	        } catch (JsonProcessingException e) {
+	            e.printStackTrace();
+	            return ResponseEntity.badRequest().body("Invalid JSON data for patient.");
+	        }
 
-		String result = service.updateprofile(patient);
+	        // Tiến hành xử lý thông tin bệnh nhân và fileData
+	        String result = service.updateprofile(patientDTO, fileData);
 
-		return ResponseEntity.ok(result);
-
-	}
+	        return ResponseEntity.ok(result);
+	    }
 
 	@GetMapping("/resend")
 	public String resendOTP(@RequestParam("email") String email) {
