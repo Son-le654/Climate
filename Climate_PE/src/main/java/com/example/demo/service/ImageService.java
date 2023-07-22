@@ -55,11 +55,11 @@ public class ImageService {
 			Storage storage = options.getService();
 			String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
 			BlobId blobId = BlobId.of(bucketName, fileName);
-			BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("image/jpeg").build();
+			BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("image/*").build();
 			storage.create(blobInfo, file.getBytes());
 			return fileName;
 		} catch (IOException e) {
-			return "Không thẻ upload file";
+			return "Cannot upload file";
 		}
 	}
 

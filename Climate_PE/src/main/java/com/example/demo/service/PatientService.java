@@ -100,12 +100,12 @@ public class PatientService implements UserDetailsService {
 		p.setPhone(patientDTO.getPhone());
 		p.setAvatar(patientDTO.getAvatar());
 		String avartar = imageService.uploadImage(patientDTO.getFileData());
-		if(!avartar.equals("Không thẻ upload file"))
+		if(!avartar.equals("Cannot upload file"))
 		{
 		imageService.deleteImage(patientDTO.getAvatar());
 		p.setAvatar(avartar);
 		}
-		if(avartar.equals("Không thẻ upload file"))
+		if(avartar.equals("Cannot upload file"))
 		{
 			return "Update no success";
 		}

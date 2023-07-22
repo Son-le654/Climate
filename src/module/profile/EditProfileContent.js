@@ -263,6 +263,7 @@ function EditProfileContent() {
     gender: "",
     avatar: "",
     phone: "",
+    fileData: "",
   };
   const handleSave = async () => {
     console.log("Enter save");
@@ -273,7 +274,7 @@ function EditProfileContent() {
     profileSave.address = address.adr;
     profileSave.gender = gender.gd;
 
-    // profileSave.avatar = selectedFile;
+    profileSave.fileData = selectedFile;
 
     profileSave.phone = phone.pnum;
 

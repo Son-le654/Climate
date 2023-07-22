@@ -84,7 +84,8 @@ function ProfileContent({ mail }) {
               <div className="w-[20%] flex justify-center items-center ">
                 <img
                   className="rounded-full w-[60px] h-[60px]"
-                  src={EnsignAnh}
+                  src={infor != undefined ? infor.avatar : ""}
+                  alt="Avatar"
                 ></img>
               </div>
               <div className="w-[60%] flex justify-start  items-center">
