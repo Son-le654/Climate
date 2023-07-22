@@ -7,6 +7,7 @@ import { MdKeyboardArrowLeft } from "react-icons/md";
 import { useRef } from "react";
 import Slider from "react-slick";
 import { useNavigate } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 
 function SchedulesContent({ email, role }) {
   const [sortedObjects, setSortedObjects] = useState([]);
@@ -14,6 +15,7 @@ function SchedulesContent({ email, role }) {
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [statusFilter, setStatusFilter] = useState("All");
   const [mail, setMail] = useState(email);
+  const [rol, setRol] = useState();
   const [listData, setListData] = useState([]);
   const [listOrigin, setListOrigin] = useState([]);
   const navigate = useNavigate();
@@ -48,14 +50,37 @@ function SchedulesContent({ email, role }) {
   const [inputValue, setInputValue] = useState("");
   const currentItems = listOrigin.slice(indexOfFirstItem, indexOfLastItem);
 
+  // useEffect(() => {
+  //   setMail(email);
+  // });
+
   useEffect(() => {
     console.log(mail);
+    if (mail == undefined) {
+      setMail(email);
+    }
+    let r;
+    let m;
+
+    const storedName = localStorage.getItem("token");
+    try {
+      const decoded = jwtDecode(storedName);
+      const role = decoded.roles[0].authority;
+      r = role;
+      setRol(role);
+      setMail(decoded.sub);
+      m = decoded.sub;
+      console.log(decoded.sub);
+    } catch (error) {
+      console.log(error);
+    }
+
     const listApp = async () => {
       try {
         let response;
-        if (role == "DOCTOR") {
+        if (r == "DOCTOR") {
           response = await axios.get(
-            publicPort + `schedule/listschedules?email=${email}`
+            publicPort + `schedule/listschedules?email=${m}`
           );
         } else {
           response = await axios.get(publicPort + `schedule/list`);
@@ -67,7 +92,7 @@ function SchedulesContent({ email, role }) {
       }
     };
     listApp();
-  }, [email]);
+  }, [email, rol]);
 
   useEffect(() => {
     setListData(listOrigin.slice(indexOfFirstItem, indexOfLastItem));

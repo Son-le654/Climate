@@ -59,7 +59,7 @@ public class MedicalRecordService {
 	public MedicalRecord createMedicalRecord(MedicalRecordDTO medicalRecord) {
 		Optional<Checkin> optionalCheckin = checkinService.findById(medicalRecord.getCheckinId());
 		Checkin appoint = optionalCheckin.orElse(null);
-		MedicalRecord record = new MedicalRecord(medicalRecord.getDoctorId(), medicalRecord.getClinicProcess(), medicalRecord.getClinicProcess(), medicalRecord.getTreatment(), appoint);
+		MedicalRecord record = new MedicalRecord(medicalRecord.getDoctorId(), medicalRecord.getClinicProcess(), medicalRecord.getSumaryResult(), medicalRecord.getTreatment(), appoint);
 //		record.setCheckin(appoint);
 		appoint.setCommandFlag(2);
 		record.setCommandFlag(0);

@@ -12,7 +12,7 @@ const RegisterStep1 = ({ control, handleChangeName }) => {
     <div className="p-[9rem_154px] gap-[76px] flex">
       <div className="flex flex-col flex-1 gap-[32px]">
         <Input
-          placeholder="First Name *"
+          placeholder="Name *"
           type="text"
           control={control}
           name="pname"

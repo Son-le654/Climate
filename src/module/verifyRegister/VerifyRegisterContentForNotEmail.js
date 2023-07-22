@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { localPort, publicPort } from "../../components/url/link";
 import { useNavigate } from "react-router";
+import React from "react";
 
 function VerifyRegisterContentForNotEmail() {
   const [email, setEmail] = useState([

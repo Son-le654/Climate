@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.DTO.PatientDTO;
 import com.example.demo.DTO.RegisterRequest;
 import com.example.demo.entity.Patient;
 import com.example.demo.repository.PatientRepository;
@@ -77,6 +78,34 @@ public class PatientService implements UserDetailsService {
 		return "Update success";
 	}
 
+	public String updateprofile(PatientDTO patientDTO) {
+
+		if (checkIDExists(patientDTO.getId()) == null) {
+			return "Patient not exists";
+		}
+
+//		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//		String hashedPassword = passwordEncoder.encode(request.getPassword());
+////		LocalDate date = LocalDate.parse(request.getBirthdate(), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+
+		Patient p = checkIDExists(patientDTO.getId());
+
+		p.setName(patientDTO.getName());
+		p.setBirthDate(patientDTO.getBirthdate());
+		p.setAddress(patientDTO.getAddress());
+		p.setGender(patientDTO.getGender());
+		p.setPhone(patientDTO.getPhone());
+		p.setAvatar(patientDTO.getAvatar());
+
+		if (!p.getEmail().equals(patientDTO.getEmail())) {
+			p.setEmail(patientDTO.getEmail());
+			p.setCommandFlag(0);
+		}
+
+		repository.save(p);
+		return "Update success";
+	}
+
 	public String updatePassword(String email, String password) {
 		Patient p = null;
 		if (checkEmailExists(email) == null) {
@@ -125,5 +154,13 @@ public class PatientService implements UserDetailsService {
 
 	private Patient checkIDExists(String id) {
 		return repository.findByID(id);
+	}
+
+	public Patient getProfileByEmail(String email) {
+		// TODO Auto-generated method stub
+		Patient p = null;
+		p = repository.findByEmail(email);
+
+		return p;
 	}
 }

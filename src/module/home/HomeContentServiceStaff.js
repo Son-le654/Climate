@@ -6,11 +6,26 @@ import { useNavigate } from "react-router-dom";
 import FeaturedSeliderSevirce from "./part/FeaturedSeliderSevirce";
 import LatestNewService from "./part/LatestNewService";
 import { publicPort } from "../../components/url/link";
+import jwtDecode from "jwt-decode";
 
 const HomeContentServiceStaff = () => {
   const tabButtons = ["In-Person", "E - consultations"];
   const [type, setType] = useState("In-Person");
   const navigate = useNavigate();
+  const storedName = localStorage.getItem("token");
+  const [role, setRole] = useState("");
+  const [nameInter, setnameInter] = useState("");
+  useEffect(() => {
+    try {
+      const decoded = jwtDecode(storedName);
+      const role = decoded.roles[0].authority;
+      setRole(role);
+      const nameuser = decoded.nameInternal;
+      setnameInter(nameuser);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   // useEffect(() => {
   //   const interval = setInterval(() => {
@@ -31,7 +46,7 @@ const HomeContentServiceStaff = () => {
           <div>
             <span className="text-[32px] font-bold">Hello,</span>
             <span className="text-[32px] mt-6 text-[#fff0] ml-[10px] font-bold bg-clip-text w-max bg-gradient-to-tr from-gradientLeft to-gradientRight">
-              Dr Ho Dac Dat
+              {role} {nameInter}
             </span>
           </div>
           <span className="mt-2 text-textColor2">

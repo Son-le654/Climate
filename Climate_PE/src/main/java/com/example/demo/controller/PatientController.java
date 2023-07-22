@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.DTO.LoginRequest;
+import com.example.demo.DTO.PatientDTO;
 import com.example.demo.DTO.RegisterRequest;
 import com.example.demo.entity.InternalAccount;
 import com.example.demo.entity.Patient;
@@ -106,6 +107,15 @@ public class PatientController {
 	public ResponseEntity<?> update(@RequestBody RegisterRequest request) {
 
 		String result = service.update(request);
+
+		return ResponseEntity.ok(result);
+
+	}
+
+	@PostMapping(value = "/updateprofile")
+	public ResponseEntity<?> update(@RequestBody PatientDTO patient) {
+
+		String result = service.updateprofile(patient);
 
 		return ResponseEntity.ok(result);
 
@@ -239,6 +249,11 @@ public class PatientController {
 		} else {
 			return result;
 		}
+	}
+
+	@GetMapping("/profile")
+	public Patient getProfile(@RequestParam("email") String email) {
+		return service.getProfileByEmail(email);
 	}
 
 	/**

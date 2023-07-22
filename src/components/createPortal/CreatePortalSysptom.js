@@ -52,10 +52,11 @@ const CreatePortalSysptom = ({
   nextSpec,
   symtomArr,
   checkinsymptom,
-  addSymptom,
+  setSymtom,
 }) => {
   const [symptomList, setSymtomList] = useState([]);
   const [listOrigin, setListOrigin] = useState([]);
+  const [symarr, setsymarr] = useState(checkinsymptom);
 
   useEffect(() => {
     const symptoms = async () => {
@@ -70,35 +71,33 @@ const CreatePortalSysptom = ({
     symptoms();
 
     console.log(symptomList);
+
+    console.log("75" + checkinsymptom);
+    setsymarr(checkinsymptom);
   }, []);
 
   useEffect(() => {
     if (checkinsymptom != undefined) {
       const places = async () => {
-        console.log(checkinsymptom);
         const checkinsymptom1 = "cough, toothache";
         const response = await axios.get(publicPort + "symptom/list");
 
         for (let i = 0; i < listOrigin.length; i++) {
-          if (checkinsymptom1.includes(response.data[i].name)) {
-            console.log("Execute: " + i);
+          console.log(checkinsymptom);
+          if (
+            checkinsymptom
+              .toLowerCase()
+              .includes(response.data[i].name.toLowerCase())
+          ) {
             console.log(response.data[i]);
             // addSymptom(response.data[i]);
             changeSymtomList(response.data[i]);
           }
-
-          // return response.data.find(
-          //   (item) => item.name + " - " + item.description === name
-          // );
         }
-        // // console.log(place);
-        // const selectedItem = findItemByName(checkinsymptom);
-        // // console.log(selectedItem);
-        // changeSymtomList(selectedItem);
       };
       places();
     }
-  }, [checkinsymptom]);
+  }, [listOrigin]);
 
   const handleSearchInputChange = (event) => {
     let searchInput = event.target.value;
