@@ -41,6 +41,12 @@ public class Patient implements Serializable {
 	@Column(name = "PHONE")
 	private String phone;
 
+	@Column(name = "GENDER")
+	private String gender;
+
+	@Column(name = "AVATAR")
+	private String avatar;
+
 	@Column(name = "BIRTHDATE")
 	private String birthDate;
 
@@ -82,21 +88,22 @@ public class Patient implements Serializable {
 	}
 
 	// for update
-	public Patient(String id, String name, String email, String password, String address, String phone,
-			String birthDate, int commandFlag) {
+	public Patient(String id, String name, String email, String address, String phone, String gender,
+			String avatar, String birthDate) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
-		this.password = password;
 		this.address = address;
 		this.phone = phone;
+		this.gender = gender;
+		this.avatar = avatar;
 		this.birthDate = birthDate;
-
-		// 0: create, 1: verify, 2: block
-		this.commandFlag = 0;
-		this.registrationTime = timeNow();
-		this.role = "USER";
+//
+//		// 0: create, 1: verify, 2: block
+//		this.commandFlag = 0;
+//		this.registrationTime = timeNow();
+//		this.role = "USER";
 	}
 
 	public String timeNow() {
@@ -112,6 +119,22 @@ public class Patient implements Serializable {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 
 	public String getName() {

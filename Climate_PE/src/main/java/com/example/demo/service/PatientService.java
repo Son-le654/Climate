@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.DTO.PatientDTO;
 import com.example.demo.DTO.RegisterRequest;
 import com.example.demo.entity.Patient;
 import com.example.demo.repository.PatientRepository;
@@ -72,6 +73,34 @@ public class PatientService implements UserDetailsService {
 
 		Patient p = new Patient(request.getId(), request.getName(), request.getEmail(), hashedPassword,
 				request.getBirthdate());
+
+		repository.save(p);
+		return "Update success";
+	}
+
+	public String updateprofile(PatientDTO patientDTO) {
+
+		if (checkIDExists(patientDTO.getId()) == null) {
+			return "Patient not exists";
+		}
+
+//		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//		String hashedPassword = passwordEncoder.encode(request.getPassword());
+////		LocalDate date = LocalDate.parse(request.getBirthdate(), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+
+		Patient p = checkIDExists(patientDTO.getId());
+
+		p.setName(patientDTO.getName());
+		p.setBirthDate(patientDTO.getBirthdate());
+		p.setAddress(patientDTO.getAddress());
+		p.setGender(patientDTO.getGender());
+		p.setPhone(patientDTO.getPhone());
+		p.setAvatar(patientDTO.getAvatar());
+
+		if (!p.getEmail().equals(patientDTO.getEmail())) {
+			p.setEmail(patientDTO.getEmail());
+			p.setCommandFlag(0);
+		}
 
 		repository.save(p);
 		return "Update success";

@@ -41,6 +41,8 @@ import AppointmentConfirmUpdatePage from "pages/AppointmentConfirmUpdatePage";
 import EditProfile from "pages/EditProfile";
 import ProfilePage from "pages/ProfilePage";
 import NewsPage from "guest/NewsPage";
+import ProfilePageForStaff from "pages/ProfilePageForStaff";
+import EditProfileContentForStaff from "module/profile/EditProfileContentForStaff";
 
 function App() {
   const storedName = localStorage.getItem("token");
@@ -150,6 +152,12 @@ function App() {
 
       <Route path="/profilepage" element={<ProfilePage />}></Route>
       <Route path="/editprofile" element={<EditProfile />}></Route>
+
+      <Route path="/profilepagestaff" element={<ProfilePageForStaff />}></Route>
+      <Route
+        path="/editprofilestaff"
+        element={<EditProfileContentForStaff />}
+      ></Route>
       <Route path="/newspage" element={<NewsPage />}></Route>
     </Routes>
   );

@@ -12,11 +12,49 @@ import { FaBook, FaUserAlt } from "react-icons/fa";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { publicPort } from "components/url/link";
+import jwtDecode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 function ProfileContent({ mail }) {
   const [infor, setInfor] = useState();
+
+  const navigate = useNavigate();
+  const [viewer, setViewer] = useState();
+
+  useEffect(() => {
+    const storedName = localStorage.getItem("token");
+    if (storedName == null) {
+      navigate("/login-user");
+    } else {
+      try {
+        const decoded = jwtDecode(storedName);
+        const role = decoded.roles[0].authority;
+        const mal = decoded.sub;
+        setViewer(mal);
+        // if (role !== 'USER') {
+        //   navigate("/")
+        // }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, []);
+
   useEffect(() => {
     console.log(mail);
+    const storedName = localStorage.getItem("token");
+    if (storedName == null) {
+      navigate("/login-user");
+    } else {
+      try {
+        const decoded = jwtDecode(storedName);
+        const role = decoded.roles[0].authority;
+        const mal = decoded.sub;
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
     const listApp = async () => {
       try {
         let response;
@@ -32,6 +70,10 @@ function ProfileContent({ mail }) {
     };
     listApp();
   }, [mail]);
+
+  const handleEditAccount = () => {
+    navigate("/editprofile", { state: { mail } });
+  };
 
   return (
     <div className="w-[100%] min-h-[600px] flex justify-between">
@@ -55,11 +97,18 @@ function ProfileContent({ mail }) {
                   </p>
                 </div>
               </div>
-              <div className="w-[20%] flex justify-end">
-                <span>
-                  <BsPencilSquare className="text-[20px] text-gradientLeft cursor-pointer mt-[30px]" />
-                </span>
-              </div>
+              {mail == viewer ? (
+                <div className="w-[20%] flex justify-end">
+                  <span>
+                    <BsPencilSquare
+                      onClick={handleEditAccount}
+                      className="text-[20px] text-gradientLeft cursor-pointer mt-[30px]"
+                    />
+                  </span>
+                </div>
+              ) : (
+                <></>
+              )}
             </div>
             <div className="w-[100%] h-[190px]">
               <div className="flex w-[100%] min-h-[10px] mb-[15px]">
@@ -80,12 +129,12 @@ function ProfileContent({ mail }) {
                   <p>{infor != undefined ? infor.phone : ""} </p>
                 </span>
               </div>
-              <div className="flex w-[100%]  min-h-[10px] mb-[10px]">
+              {/* <div className="flex w-[100%]  min-h-[10px] mb-[10px]">
                 <span className="w-[50%]">Gender</span>
                 <span className="w-[50%] flex justify-end">
                   <p>Male </p>
                 </span>
-              </div>
+              </div> */}
               <div className="w-[100%] flex justify-end">
                 <span className="text-gradientLeft cursor-pointer">More</span>
               </div>

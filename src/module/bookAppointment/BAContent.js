@@ -666,29 +666,29 @@ const BAContent = () => {
                     <input
                       className="w-[1.6rem] h-[1.6rem]"
                       type="checkbox"
-                      checked={selectedCheckbox === "male"}
+                      checked={selectedCheckbox === "Male"}
                       onChange={handleCheckboxChange}
                       name="gender"
-                      value="male"
-                      id="male"
+                      value="Male"
+                      id="Male"
                     />
-                    <label htmlFor="male" className="font-semibold">
+                    <label htmlFor="Male" className="font-semibold">
                       {" "}
                       Male
                     </label>
                   </div>
                   <div className="flex items-center gap-[0.8rem]">
                     <input
-                      id="female"
+                      id="FeMale"
                       className="w-[1.6rem] h-[1.6rem]"
                       type="checkbox"
-                      checked={selectedCheckbox === "female"}
+                      checked={selectedCheckbox === "FeMale"}
                       onChange={handleCheckboxChange}
                       name="gender"
-                      value="female"
+                      value="FeMale"
                     />
-                    <label htmlFor="female" className="font-semibold">
-                      Female
+                    <label htmlFor="FeMale" className="font-semibold">
+                    FeMale
                     </label>
                   </div>
                 </div>
