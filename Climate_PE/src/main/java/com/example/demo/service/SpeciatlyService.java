@@ -28,7 +28,10 @@ public class SpeciatlyService {
 	}
 
 	public List<Specialty> findAll() {
-		return repository.findAll();
+		return repository.findSpecialty();
+	}
+	public List<Specialty> findAllForAdmin() {
+		return repository.findSpecialtyForAdmin();
 	}
 
 	public Optional<Specialty> findById(Integer id) {

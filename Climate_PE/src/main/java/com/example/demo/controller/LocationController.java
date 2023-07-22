@@ -34,6 +34,10 @@ public class LocationController {
 	public List<Location> getAll() {
 		return service.findAll();
 	}
+	@GetMapping("/listadmin")
+	public List<Location> getAllForAdmin() {
+		return service.findAllForAdmin();
+	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Location> getAppointmentById(@PathVariable(value = "id") Integer id) {

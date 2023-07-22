@@ -114,7 +114,7 @@ public class PatientController {
 
 	@PostMapping(value = "/updateprofile")
 	public ResponseEntity<?> update(@RequestBody PatientDTO patient) {
-
+		System.out.println("Enter controller");
 		String result = service.updateprofile(patient);
 
 		return ResponseEntity.ok(result);

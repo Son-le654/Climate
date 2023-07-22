@@ -15,26 +15,26 @@ public interface InternalRepository extends JpaRepository<InternalAccount, Integ
 //	@Query("select i from InternalAccount i where i.email = :email")
 //	Optional<InternalAccount> findByEmail(@Param(value = "email") String email);
 
-	@Query("select i from InternalAccount i where i.role.name = 'DOCTOR'")
+	@Query("select i from InternalAccount i where i.role.name = 'DOCTOR' and i.commandFlag = 0")
 	List<InternalAccount> findAllDoctor();
 
-	@Query("select i from InternalAccount i where i.role.name = 'DOCTOR' AND i.name = :name and CONCAT(i.workingPlace.name, ' - ', i.workingPlace.description) = :location")
+	@Query("select i from InternalAccount i where i.role.name = 'DOCTOR' and i.commandFlag = 0 AND i.name = :name and CONCAT(i.workingPlace.name, ' - ', i.workingPlace.description) = :location")
 	InternalAccount findDoctor(@Param(value = "name") String name, @Param(value = "location") String location);
 
-	@Query("select i from InternalAccount i where i.role.name = 'DOCTOR' and i.workingPlace.id = :location")
+	@Query("select i from InternalAccount i where i.role.name = 'DOCTOR' and i.commandFlag = 0 and i.workingPlace.id = :location")
 	List<InternalAccount> findAllDoctorByLocation(@Param(value = "location") int id);
 
-	@Query("SELECT ia FROM InternalAccount ia JOIN ia.specialty s WHERE ia.name LIKE %:name% AND ia.role.name = 'DOCTOR' AND s.name LIKE %:specialty%")
+	@Query("SELECT ia FROM InternalAccount ia JOIN ia.specialty s WHERE ia.name LIKE %:name% AND ia.role.name = 'DOCTOR' and ia.commandFlag = 0 AND s.name LIKE %:specialty%")
 	Optional<List<InternalAccount>> findByNameAndSpecialty(@Param("name") String name,
 			@Param("specialty") String specialty);
 	
-	@Query("SELECT ia FROM InternalAccount ia JOIN ia.specialty s WHERE ia.name LIKE %:name% AND ia.role.name = 'DOCTOR'")
+	@Query("SELECT ia FROM InternalAccount ia JOIN ia.specialty s WHERE ia.name LIKE %:name% and ia.commandFlag = 0 AND ia.role.name = 'DOCTOR'")
 	InternalAccount findDoctorByName(@Param("name") String name);
 
-	@Query("SELECT ia FROM InternalAccount ia JOIN ia.specialty s WHERE ia.name LIKE %:name% AND ia.role.name = 'DOCTOR'")
+	@Query("SELECT ia FROM InternalAccount ia JOIN ia.specialty s WHERE ia.name LIKE %:name% and ia.commandFlag = 0 AND ia.role.name = 'DOCTOR'")
 	Optional<List<InternalAccount>> findByName(@Param(value = "name") String name);
 
-	@Query("SELECT ia FROM InternalAccount ia WHERE ia.specialty.name LIKE %:specialty% AND ia.role.name = 'DOCTOR'")
+	@Query("SELECT ia FROM InternalAccount ia WHERE ia.specialty.name LIKE %:specialty% and ia.commandFlag = 0 AND ia.role.name = 'DOCTOR'")
 	Optional<List<InternalAccount>> findBySpecialty(@Param(value = "specialty") String specialty);
 
 }

@@ -22,7 +22,7 @@ public class PatientService implements UserDetailsService {
 
 	@Autowired
 	private PatientRepository repository;
-	
+
 	@Autowired
 	private ImageService imageService;
 
@@ -82,7 +82,7 @@ public class PatientService implements UserDetailsService {
 	}
 
 	public String updateprofile(PatientDTO patientDTO) {
-
+		System.out.println("Enter service");
 		if (checkIDExists(patientDTO.getId()) == null) {
 			return "Patient not exists";
 		}
@@ -100,13 +100,11 @@ public class PatientService implements UserDetailsService {
 		p.setPhone(patientDTO.getPhone());
 		p.setAvatar(patientDTO.getAvatar());
 		String avartar = imageService.uploadImage(patientDTO.getFileData());
-		if(!avartar.equals("Cannot upload file"))
-		{
-		imageService.deleteImage(patientDTO.getAvatar());
-		p.setAvatar(avartar);
+		if (!avartar.equals("Cannot upload file")) {
+			imageService.deleteImage(patientDTO.getAvatar());
+			p.setAvatar(avartar);
 		}
-		if(avartar.equals("Cannot upload file"))
-		{
+		if (avartar.equals("Cannot upload file")) {
 			return "Update no success";
 		}
 		if (!p.getEmail().equals(patientDTO.getEmail())) {
