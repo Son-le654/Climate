@@ -272,19 +272,23 @@ function EditProfileContent() {
     profileSave.birthdate = year.bY + "/" + month.bM + "/" + date.bD;
     profileSave.address = address.adr;
     profileSave.gender = gender.gd;
-
+    profileSave.avatar =avatar.avt;
     // profileSave.avatar = selectedFile;
 
     profileSave.phone = phone.pnum;
 
     console.log(profileSave);
+    const formData = new FormData();
 
+    formData.append("fileData", selectedFile); // Thêm file vào formData
+    formData.append("patient", JSON.stringify(profileSave)); // Thêm thông tin bệnh nhân vào formData
+  
     var response;
-    response = await axios.post(
-      publicPort + `patient/updateprofile`,
-      profileSave
-    );
-
+     response = await axios.post(publicPort + "patient/updateprofile", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data", // Đặt header để server hiểu là gửi dữ liệu dạng multipart/form-data
+      },
+    });
     console.log(response);
 
     if (response.data === "Update success") {

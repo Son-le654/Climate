@@ -1,5 +1,7 @@
 package com.example.demo.DTO;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class PatientDTO {
 
 	private String id;
@@ -26,12 +28,12 @@ public class PatientDTO {
 		this.gender = gender;
 		this.avatar = avatar;
 		this.phone = phone;
+
 	}
 
 	public String getId() {
 		return id;
 	}
-
 	public void setId(String id) {
 		this.id = id;
 	}
