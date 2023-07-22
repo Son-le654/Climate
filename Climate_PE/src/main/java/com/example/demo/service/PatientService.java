@@ -22,6 +22,9 @@ public class PatientService implements UserDetailsService {
 
 	@Autowired
 	private PatientRepository repository;
+	
+	@Autowired
+	private ImageService imageService;
 
 	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(String role) {
 		return Collections.singleton(new SimpleGrantedAuthority(role));
@@ -96,7 +99,16 @@ public class PatientService implements UserDetailsService {
 		p.setGender(patientDTO.getGender());
 		p.setPhone(patientDTO.getPhone());
 		p.setAvatar(patientDTO.getAvatar());
-
+		String avartar = imageService.uploadImage(patientDTO.getFileData());
+		if(!avartar.equals("Không thẻ upload file"))
+		{
+		imageService.deleteImage(patientDTO.getAvatar());
+		p.setAvatar(avartar);
+		}
+		if(avartar.equals("Không thẻ upload file"))
+		{
+			return "Update no success";
+		}
 		if (!p.getEmail().equals(patientDTO.getEmail())) {
 			p.setEmail(patientDTO.getEmail());
 			p.setCommandFlag(0);

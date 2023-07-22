@@ -1,5 +1,7 @@
 package com.example.demo.DTO;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class PatientDTO {
 
 	private String id;
@@ -10,13 +12,14 @@ public class PatientDTO {
 	private String gender;
 	private String avatar;
 	private String phone;
+	private MultipartFile fileData;
 
 	public PatientDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public PatientDTO(String id, String name, String email, String birthdate, String address, String gender,
-			String avatar, String phone) {
+			String avatar, String phone, MultipartFile fileData) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -26,11 +29,19 @@ public class PatientDTO {
 		this.gender = gender;
 		this.avatar = avatar;
 		this.phone = phone;
+		this.fileData=fileData;
 	}
 
 	public String getId() {
 		return id;
 	}
+	  public MultipartFile getFileData() {
+	        return fileData;
+	    }
+
+	    public void setFileData(MultipartFile fileData) {
+	        this.fileData = fileData;
+	    }
 
 	public void setId(String id) {
 		this.id = id;
