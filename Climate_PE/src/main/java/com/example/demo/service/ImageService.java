@@ -55,7 +55,7 @@ public class ImageService {
 			Storage storage = options.getService();
 			String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
 			BlobId blobId = BlobId.of(bucketName, fileName);
-			BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("image/*").build();
+			BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("image/jpg").build();
 			storage.create(blobInfo, file.getBytes());
 			return fileName;
 		} catch (IOException e) {

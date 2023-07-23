@@ -71,6 +71,22 @@ function ProfileContent({ mail }) {
     listApp();
   }, [mail]);
 
+  useEffect(() => {
+    const viewimg = async () => {
+      try {
+        let response;
+
+        response = await axios.get(
+          publicPort + `images/${infor.avatar}`
+        );
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    viewimg();
+  }, [infor]);
+
   const handleEditAccount = () => {
     navigate("/editprofile", { state: { mail } });
   };
