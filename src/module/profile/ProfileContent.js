@@ -76,9 +76,9 @@ function ProfileContent({ mail }) {
   };
 
   const handleChangePass = () => {
-    const email = mail
+    const email = mail;
     navigate("/choosenewpassword", { state: { email } });
-  }
+  };
 
   return (
     <div className="w-[100%] min-h-[600px] flex justify-between">
@@ -205,7 +205,10 @@ function ProfileContent({ mail }) {
             <div className="w-[100%] h-[50px] flex items-center ">
               <h1 className="text-[20px] font-bold">Settings</h1>
             </div>
-            <div className="flex w-[100%] h-[40px] items-center" onClick={handleChangePass}>
+            <div
+              className="flex w-[100%] h-[40px] items-center"
+              onClick={handleChangePass}
+            >
               <div className="w-[10%] ">
                 <span className=" text-[30px] w-[35px] h-[35px] bg-[#e2edff] rounded-2xl flex justify-center items-center">
                   <AiTwotoneLock className=" text-[20px] text-gradientLeft" />

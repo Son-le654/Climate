@@ -19,7 +19,7 @@ const RegisterStep1 = ({ control, handleChangeName }) => {
         ></Input>
         <Input
           placeholder="Your Password *"
-          type="text"
+          type="password"
           control={control}
           name="password"
         ></Input>
@@ -40,7 +40,7 @@ const RegisterStep1 = ({ control, handleChangeName }) => {
         ></Input>
         <Input
           placeholder="Confirm Your Password *"
-          type="text"
+          type="password"
           control={control}
           name="cpassword"
         ></Input>
