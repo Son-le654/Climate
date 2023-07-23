@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.DTO.PatientDTO;
 import com.example.demo.DTO.RegisterRequest;
@@ -81,8 +82,8 @@ public class PatientService implements UserDetailsService {
 		return "Update success";
 	}
 
-	public String updateprofile(PatientDTO patientDTO) {
-		System.out.println("Enter service");
+	public String updateprofile(PatientDTO patientDTO, MultipartFile fileData) {
+
 		if (checkIDExists(patientDTO.getId()) == null) {
 			return "Patient not exists";
 		}
@@ -100,11 +101,13 @@ public class PatientService implements UserDetailsService {
 		p.setPhone(patientDTO.getPhone());
 		p.setAvatar(patientDTO.getAvatar());
 		String avartar = imageService.uploadImage(patientDTO.getFileData());
-		if (!avartar.equals("Cannot upload file")) {
-			imageService.deleteImage(patientDTO.getAvatar());
-			p.setAvatar(avartar);
+		if(!avartar.equals("Không thẻ upload file"))
+		{
+		imageService.deleteImage(patientDTO.getAvatar());
+		p.setAvatar(avartar);
 		}
-		if (avartar.equals("Cannot upload file")) {
+		if(avartar.equals("Không thẻ upload file"))
+		{
 			return "Update no success";
 		}
 		if (!p.getEmail().equals(patientDTO.getEmail())) {
