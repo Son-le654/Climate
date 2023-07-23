@@ -32,6 +32,9 @@ public class SymptomService {
 	public List<Symptom> findAll() {
 		return repository.findSymtom();
 	}
+	public List<Symptom> findAllForAdmin() {
+		return repository.findSymtomForAdmin();
+	}
 
 	public Optional<Symptom> findById(Integer id) {
 		return repository.findById(id);

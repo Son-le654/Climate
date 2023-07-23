@@ -61,15 +61,12 @@ function DetailedInformation({ doct }) {
             </div>
             <hr className="w-[90%] ml-5 text-[rgb(212,212,212)]" />
             <div {...getCollapseProps()}>
-              {Listdata.map((data) => (
-                <div
-                  className=" text-[13px] justify-around w-[100%] ml-2 font-light p-[10px]"
-                  key={data.id}
-                  style={{ lineHeight: "35px" }}
-                >
-                  {data.name}
-                </div>
-              ))}
+              <div
+                className=" text-[13px] justify-around w-[100%] ml-2 font-light p-[10px]"
+                style={{ lineHeight: "35px" }}
+              >
+                {doct.introduct}
+              </div>
             </div>
           </div>
           <div className="mb-[20px]">
@@ -84,22 +81,22 @@ function DetailedInformation({ doct }) {
         </div>
         <div className="w-[30%] mr-[5%] ml-[5%] ">
           <div className="mb-[20px]">
-              <Position doct={doct.role} />
-            </div>
+            <Position doct={doct.role} />
+          </div>
           <div className="mb-[20px]">
-              <WorkPlace doct={doct.workingPlace} />
-            </div>
+            <WorkPlace doct={doct.workingPlace} />
+          </div>
           <div className="mb-[20px]">
-              <Experience doct={doct} />
-            </div>
+            <Experience doct={doct} />
+          </div>
         </div>
         <div className="w-[30%]">
           <div className="mb-[20px]">
-              <Specialtiess doct={doct.specialty} />
-            </div>
+            <Specialtiess doct={doct.specialty} />
+          </div>
           <div className="mb-[20px]">
-              <Education doct={doct} />
-            </div>
+            <Education doct={doct} />
+          </div>
         </div>
       </div>
     </div>

@@ -41,6 +41,10 @@ public class SymptomController {
 	public List<Symptom> getAll() {
 		return service.findAll();
 	}
+	@GetMapping("/listadmin")
+	public List<Symptom> getAllForAdmin() {
+		return service.findAllForAdmin();
+	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Symptom> getSymptomById(@PathVariable(value = "id") Integer id) {

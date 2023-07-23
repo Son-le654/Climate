@@ -11,6 +11,9 @@ import com.example.demo.entity.Symptom;
 @Repository
 public interface SymptomRepository extends JpaRepository<Symptom, Integer> {
 
-	@Query("select c from Symptom c")
+	@Query("select c from Symptom c where c.commandFlag = 0")
 	List<Symptom> findSymtom();
+	
+	@Query("select c from Symptom c ")
+	List<Symptom> findSymtomForAdmin();
 }

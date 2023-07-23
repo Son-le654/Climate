@@ -113,8 +113,8 @@ function AppointmentsContent() {
     if (searchInput === "") {
       setListData(listOrigin);
     } else {
-      const filteredList = listOrigin.filter((item) =>
-        item.patientName.toLowerCase().includes(searchInput.toLowerCase())
+      const filteredList = listOrigin.filter(
+        (item) => item.id == searchInput
       );
       setListData(filteredList);
     }

@@ -72,7 +72,7 @@ export default function DoctorList({ docList }) {
               key={data.id}
             >
               <div className="w-[15%] h-[120px] rounded-[15px] overflow-hidden mr-[30px] mt-2 ">
-                <img className="w-[100%]" src={data.avatar} alt="" />
+                <img className="w-[100%]" src={data.avatar} alt="avatar" />
               </div>
               <div className="w-[85%] pr-[20%]">
                 <h1 className="font-semibold">{data.name}</h1>
@@ -91,7 +91,7 @@ export default function DoctorList({ docList }) {
                   </a>
                 </div>
                 <div>
-                  <span className="text-lg font-light">Introduction</span>
+                  <span className="text-lg font-light">{data.introduct}</span>
                   <span className=" text-lg text-gradientLeft cursor-pointer">
                     <p onClick={() => view_detail(data)}> Read more</p>
                   </span>

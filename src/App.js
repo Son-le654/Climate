@@ -43,6 +43,7 @@ import ProfilePage from "pages/ProfilePage";
 import NewsPage from "guest/NewsPage";
 import ProfilePageForStaff from "pages/ProfilePageForStaff";
 import EditProfileContentForStaff from "module/profile/EditProfileContentForStaff";
+import MedicalRecordDetails from "pages/doctor/MedicalRecordDetails";
 
 function App() {
   const storedName = localStorage.getItem("token");
@@ -148,6 +149,7 @@ function App() {
         element={<AppointmentDetails />}
       ></Route>
       <Route path="/checindetails" element={<CheckinDetails />}></Route>
+      <Route path="/medicaldetails" element={<MedicalRecordDetails />}></Route>
       <Route path="/medicalhistory" element={<MedicalHistory />}></Route>
 
       <Route path="/profilepage" element={<ProfilePage />}></Route>

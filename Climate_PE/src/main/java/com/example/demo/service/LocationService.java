@@ -20,7 +20,10 @@ public class LocationService {
 	}
 
 	public List<Location> findAll() {
-		return repository.findAll();
+		return repository.findLocation();
+	}
+	public List<Location> findAllForAdmin() {
+		return repository.findLocationForAdmin();
 	}
 
 	public Optional<Location> findById(Integer id) {

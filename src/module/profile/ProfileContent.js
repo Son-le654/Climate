@@ -71,8 +71,29 @@ function ProfileContent({ mail }) {
     listApp();
   }, [mail]);
 
+  useEffect(() => {
+    const viewimg = async () => {
+      try {
+        let response;
+
+        response = await axios.get(
+          publicPort + `images/${infor.avatar}`
+        );
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    viewimg();
+  }, [infor]);
+
   const handleEditAccount = () => {
     navigate("/editprofile", { state: { mail } });
+  };
+
+  const handleChangePass = () => {
+    const email = mail;
+    navigate("/choosenewpassword", { state: { email } });
   };
 
   return (
@@ -84,7 +105,8 @@ function ProfileContent({ mail }) {
               <div className="w-[20%] flex justify-center items-center ">
                 <img
                   className="rounded-full w-[60px] h-[60px]"
-                  src={EnsignAnh}
+                  src={infor != undefined ? infor.avatar : ""}
+                  alt="Avatar"
                 ></img>
               </div>
               <div className="w-[60%] flex justify-start  items-center">
@@ -129,12 +151,12 @@ function ProfileContent({ mail }) {
                   <p>{infor != undefined ? infor.phone : ""} </p>
                 </span>
               </div>
-              {/* <div className="flex w-[100%]  min-h-[10px] mb-[10px]">
+              <div className="flex w-[100%]  min-h-[10px] mb-[10px]">
                 <span className="w-[50%]">Gender</span>
                 <span className="w-[50%] flex justify-end">
-                  <p>Male </p>
+                  <p>{infor != undefined ? infor.gender : ""} </p>
                 </span>
-              </div> */}
+              </div>
               <div className="w-[100%] flex justify-end">
                 <span className="text-gradientLeft cursor-pointer">More</span>
               </div>
@@ -199,7 +221,10 @@ function ProfileContent({ mail }) {
             <div className="w-[100%] h-[50px] flex items-center ">
               <h1 className="text-[20px] font-bold">Settings</h1>
             </div>
-            <div className="flex w-[100%] h-[40px] items-center">
+            <div
+              className="flex w-[100%] h-[40px] items-center"
+              onClick={handleChangePass}
+            >
               <div className="w-[10%] ">
                 <span className=" text-[30px] w-[35px] h-[35px] bg-[#e2edff] rounded-2xl flex justify-center items-center">
                   <AiTwotoneLock className=" text-[20px] text-gradientLeft" />

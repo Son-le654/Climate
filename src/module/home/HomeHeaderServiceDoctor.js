@@ -9,23 +9,28 @@ import jwtDecode from "jwt-decode";
 const HomeNav = [
   {
     id: 1,
-    to: "/",
-    title: "Home",
+    to: "/service",
+    title: "Service",
   },
   {
     id: 2,
-    to: "/schedules",
-    title: "Schedule",
+    to: "/appointments",
+    title: "Appointments",
   },
   {
     id: 3,
     to: "/checkin-list",
-    title: "List check-in",
+    title: "Patients ",
   },
   {
     id: 4,
     to: "/",
-    title: "News",
+    title: "Doctors",
+  },
+  {
+    id: 5,
+    to: "/medicalhistory",
+    title: "Medical History",
   },
 ];
 

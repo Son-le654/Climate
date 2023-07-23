@@ -41,6 +41,11 @@ public class SpeciatlyController {
 	public List<Specialty> getAll() {
 		return service.findAll();
 	}
+	
+	@GetMapping("/listadmin")
+	public List<Specialty> getAllForAdmin() {
+		return service.findAllForAdmin();
+	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Specialty> getSpecById(@PathVariable(value = "id") Integer id) {

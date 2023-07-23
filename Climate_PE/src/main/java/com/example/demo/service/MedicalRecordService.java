@@ -33,6 +33,10 @@ public class MedicalRecordService {
 		return repository.findAll();
 	}
 
+	public List<MedicalRecord> findAllByDoctorId(String id) {
+		return repository.findAllByDoctorId(id);
+	}
+
 	public Optional<MedicalRecord> findById(Integer id) {
 		return repository.findById(id);
 	}
@@ -59,7 +63,8 @@ public class MedicalRecordService {
 	public MedicalRecord createMedicalRecord(MedicalRecordDTO medicalRecord) {
 		Optional<Checkin> optionalCheckin = checkinService.findById(medicalRecord.getCheckinId());
 		Checkin appoint = optionalCheckin.orElse(null);
-		MedicalRecord record = new MedicalRecord(medicalRecord.getDoctorId(), medicalRecord.getClinicProcess(), medicalRecord.getSumaryResult(), medicalRecord.getTreatment(), appoint);
+		MedicalRecord record = new MedicalRecord(medicalRecord.getDoctorId(), medicalRecord.getClinicProcess(),
+				medicalRecord.getSumaryResult(), medicalRecord.getTreatment(), appoint);
 //		record.setCheckin(appoint);
 		appoint.setCommandFlag(2);
 		record.setCommandFlag(0);

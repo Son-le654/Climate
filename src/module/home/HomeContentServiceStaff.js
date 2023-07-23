@@ -39,6 +39,13 @@ const HomeContentServiceStaff = () => {
   //   };
   // }, [type, tabButtons]);
 
+  const handleSchedule = () => {
+    navigate("/schedules");
+  };
+  const handleCheckinList = () => {
+    navigate("/checkin-list");
+  };
+
   return (
     <div className="bg-white">
       <div className="flex items-center gap-[141px] justify-between max-w-[1156px] mx-auto">
@@ -68,9 +75,9 @@ const HomeContentServiceStaff = () => {
                 // borderColor: "#5562f7",
                 // color: "#5562f7",
               }}
-              onClick={""}
+              onClick={handleSchedule}
             >
-              My schedule
+              Schedule List
             </button>
             <button
               className="border-[3px] rounded-2xl h-[50px] pl-[30px] pr-[30px] w-[40%] mr-[35px]"
@@ -80,9 +87,9 @@ const HomeContentServiceStaff = () => {
                 // borderColor: "#5562f7",
                 color: "#5562f7",
               }}
-              onClick={""}
+              onClick={handleCheckinList}
             >
-              My Waiting list
+              Waiting list
             </button>
           </div>
         </div>

@@ -9,23 +9,28 @@ import jwtDecode from "jwt-decode";
 const HomeNav = [
   {
     id: 1,
-    to: "/",
-    title: "Home",
+    to: "/service",
+    title: "Service",
   },
   {
     id: 2,
     to: "/appointments",
-    title: "Records",
+    title: "Appointments",
   },
   {
     id: 3,
     to: "/checkin-list",
-    title: "List check-in patient ",
+    title: "Patients ",
   },
   {
     id: 4,
     to: "/",
     title: "Doctors",
+  },
+  {
+    id: 5,
+    to: "/medicalhistory",
+    title: "Medical History",
   },
 ];
 
@@ -98,7 +103,9 @@ const HomeHeaderServiceNurse = () => {
               className=" absolute rounded-full w-[24px] h-[24px] top-[6px] left-[4px]"
               src={EnsignAnh}
             ></img>
-            <div className="font-bold">{nameInter} ({role})</div>
+            <div className="font-bold">
+              {nameInter} ({role})
+            </div>
             <div className="absolute top-[3px] left-[83%]">
               <IoMdArrowDropdown style={{ fontSize: "30px" }} />
             </div>

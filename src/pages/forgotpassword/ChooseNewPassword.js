@@ -7,9 +7,9 @@ import { useEffect, useState } from "react";
 function ChooseNewPassword() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
- 
+
   const location = useLocation();
-  useEffect( () => {
+  useEffect(() => {
     const email = location?.state?.email;
     console.log(email);
     if (email == undefined) {
@@ -24,7 +24,7 @@ function ChooseNewPassword() {
         {/* <HomeHeaderService></HomeHeaderService> */}
       </div>
       <div>
-        <ChooseNewPasswordContent email={email}/>
+        <ChooseNewPasswordContent email={email} />
       </div>
 
       <div>
