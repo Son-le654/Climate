@@ -118,7 +118,7 @@ public class PatientController {
 
 	 @PostMapping(value = "/updateprofile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	    public ResponseEntity<?> update(@RequestParam("patient") String patientJson,
-	                                     @RequestParam("fileData") MultipartFile fileData) {
+	    		@RequestParam(value = "fileData", required = false) MultipartFile fileData) {
 	        // Convert thông tin bệnh nhân từ JSON thành đối tượng PatientDTO
 	        PatientDTO patientDTO = null;
 	        try {
