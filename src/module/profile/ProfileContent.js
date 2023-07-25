@@ -16,8 +16,10 @@ import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
 function ProfileContent({ mail }) {
-  const [infor, setInfor] = useState();
-
+  const [infor, setInfor] = useState({
+    avatar: "" 
+  });
+  const [imageData, setImageData] = useState(null);
   const navigate = useNavigate();
   const [viewer, setViewer] = useState();
 
@@ -72,20 +74,41 @@ function ProfileContent({ mail }) {
   }, [mail]);
 
   useEffect(() => {
-    const viewimg = async () => {
+    const fetchData = async () => {
       try {
-        let response;
-
-        response = await axios.get(
-          publicPort + `images/${infor.avatar}`
-        );
-        console.log(response.data);
+        const response = await axios.get(publicPort + `users/getUserInfo`);
+        setInfor(response.data);
       } catch (error) {
         console.log(error);
       }
     };
-    viewimg();
-  }, [infor]);
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchImage = async () => {
+      if (infor.avatar) {
+        try {
+          const response = await axios.get(publicPort + `images/${infor.avatar}`, {
+            responseType: "blob", // set thành kiểu blob
+          });
+
+          // Đọc dữ liệu hình ảnh và chuyển đổi nó thành chuỗi base64
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            setImageData(reader.result);
+          };
+          reader.readAsDataURL(response.data);
+        } catch (error) {
+          console.error("Error fetching image:", error);
+        }
+      }
+    };
+
+    fetchImage();
+  }, [infor.avatar]);
+
 
   const handleEditAccount = () => {
     navigate("/editprofile", { state: { mail } });
@@ -105,7 +128,7 @@ function ProfileContent({ mail }) {
               <div className="w-[20%] flex justify-center items-center ">
                 <img
                   className="rounded-full w-[60px] h-[60px]"
-                  src={infor != undefined ? infor.avatar : ""}
+                  src={imageData}
                   alt="Avatar"
                 ></img>
               </div>
