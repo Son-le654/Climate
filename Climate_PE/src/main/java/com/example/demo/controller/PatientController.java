@@ -31,6 +31,7 @@ import com.example.demo.DTO.LoginRequest;
 import com.example.demo.DTO.PatientDTO;
 import com.example.demo.DTO.RegisterRequest;
 import com.example.demo.entity.InternalAccount;
+import com.example.demo.entity.Location;
 import com.example.demo.entity.Patient;
 import com.example.demo.mailHelper.MailDetail;
 import com.example.demo.mailHelper.MailService;
@@ -321,6 +322,15 @@ public class PatientController {
 			return false;
 		}
 		return true;
+	}
+	
+	@GetMapping("/list")
+	public List<Patient> getAll() {
+		return service.findAll();
+	}
+	@GetMapping("/listadmin")
+	public List<Patient> getAllForAdmin() {
+		return service.findAllForAdmin();
 	}
 
 }

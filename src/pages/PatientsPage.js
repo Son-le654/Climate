@@ -1,15 +1,17 @@
-import HomeHeaderService from "../../module/home/HomeHeaderService";
-import MedicalHistoryContent from "../../module/doctor/MedicalHistoryContent/MedicalHistoryContent";
 import React, { useEffect, useState } from "react";
+import HomeHeaderServiceNurse from "../module/home/HomeHeaderServiceNurse";
+import AppointmentsContent from "../module/appointments/AppointmentsContent";
+import Footer from "../module/home/Footer";
 import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import HomeHeaderService from "module/home/HomeHeaderService";
 import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
-import HomeHeaderServiceNurse from "module/home/HomeHeaderServiceNurse";
+import PatientsContent from "module/appointments/PatientsContent";
 
-function MedicalHistory() {
+const PatientsPage = () => {
   const navigate = useNavigate();
-  const [role, setRole] = useState();
-  const [email, setEmail] = useState();
+  const [role, setRole] = useState("");
+  const [mail, setmail] = useState("");
 
   useEffect(() => {
     const storedName = localStorage.getItem("token");
@@ -20,10 +22,8 @@ function MedicalHistory() {
         const decoded = jwtDecode(storedName);
         const role = decoded.roles[0].authority;
         setRole(role);
-        setEmail(decoded.sub);
-        console.log(decoded.sub);
-        // console.log(decoded.sub);
-        // if (role !== "DOCTOR" && role !== "NURSE") {
+        setmail(decoded.sub);
+        // if (role !== "USER") {
         //   navigate("/");
         // }
       } catch (error) {
@@ -33,21 +33,26 @@ function MedicalHistory() {
   }, []);
 
   return (
-    <div>
+    <>
       <div className="bg-white">
         {role == "DOCTOR" ? (
           <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
         ) : role == "NURSE" ? (
           <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
         ) : (
-          <HomeHeaderService></HomeHeaderService>
+          <></>
         )}
       </div>
-      <div style={{ padding: "3% 12%" }} className="bg-white">
-        <MedicalHistoryContent email={email} role={role} />
+      <div className="pt-[80px] pl-[190px] text-7xl font-bold py-[20px] bg-white">
+        <h1>Patient list</h1>
       </div>
-      <div></div>
-    </div>
+      <div className="bg-white" style={{ padding: "5% 12%" }}>
+        <PatientsContent role={role} mail={mail}></PatientsContent>
+      </div>
+      <div>
+        <Footer></Footer>
+      </div>
+    </>
   );
-}
-export default MedicalHistory;
+};
+export default PatientsPage;

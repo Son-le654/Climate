@@ -20,11 +20,11 @@ const HomeNav = [
   {
     id: 3,
     to: "/checkin-list",
-    title: "Patients ",
+    title: "Check-in list",
   },
   {
     id: 4,
-    to: "/",
+    to: "/doctors",
     title: "Doctors",
   },
   {

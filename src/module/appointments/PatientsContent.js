@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { publicPort } from "../../components/url/link";
+import { localPort, publicPort } from "../../components/url/link";
 import { BiSearch } from "react-icons/bi";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { MdKeyboardArrowLeft } from "react-icons/md";
@@ -8,15 +8,13 @@ import { useRef } from "react";
 import Slider from "react-slick";
 import { useNavigate } from "react-router-dom";
 
-function CheckinListContent({ email, role }) {
+function PatientsContent({ role, mail }) {
   const [sortedObjects, setSortedObjects] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [statusFilter, setStatusFilter] = useState("All");
-  const [mail, setMail] = useState(email);
   const [listData, setListData] = useState([]);
   const [listOrigin, setListOrigin] = useState([]);
-  const [doct, setDoct] = useState();
   const navigate = useNavigate();
   const listtitle = [
     {
@@ -29,11 +27,15 @@ function CheckinListContent({ email, role }) {
     },
     {
       id: 3,
-      title: "Date",
+      title: "Email",
+    },
+    {
+      id: 4,
+      title: "Gender",
     },
     {
       id: 5,
-      title: "Status",
+      title: "Phone",
     },
     {
       id: 6,
@@ -46,40 +48,22 @@ function CheckinListContent({ email, role }) {
   const currentItems = listOrigin.slice(indexOfFirstItem, indexOfLastItem);
 
   useEffect(() => {
-    console.log(mail);
     const listApp = async () => {
       try {
         let response;
         let response1;
-        if (role == "DOCTOR") {
-          response = await axios.get(
-            publicPort + `api/internal-accounts/search-email?email=${email}`
-          );
+        let id;
 
-          response1 = await axios.get(
-            publicPort + `checkin/listbydoctorid?doctorId=${response.data.id}`
-          );
-        } else if (role == "USER") {
-          response = await axios.get(
-            publicPort + `patient/profile?email=${email}`
-          );
-
-          response1 = await axios.get(
-            publicPort +
-              `checkin/listBypaintedId?painted_id=${response.data.id}`
-          );
-        } else {
-          response1 = await axios.get(publicPort + `checkin/list`);
-        }
-        console.log(response1.data);
-        setListOrigin(response1.data);
-        setListData(response1.data);
+        response = await axios.get(publicPort + "patient/list");
+        setListOrigin(response.data);
+        setListData(response.data);
+        console.log(response.data);
       } catch (error) {
         console.log(error);
       }
     };
     listApp();
-  }, [email, role]);
+  }, [mail, role]);
 
   useEffect(() => {
     setListData(listOrigin.slice(indexOfFirstItem, indexOfLastItem));
@@ -127,70 +111,22 @@ function CheckinListContent({ email, role }) {
       setListData(listOrigin);
     } else {
       const filteredList = listOrigin.filter((item) =>
-        item.patientName.toLowerCase().includes(searchInput.toLowerCase())
+        item.name.toLowerCase().includes(searchInput.toLowerCase())
       );
       setListData(filteredList);
     }
   };
 
-  const handleDetail = (checkin) => {
-    console.log(checkin);
-    navigate("/checindetails", { state: { checkin } });
+  const handleDetail = (appointment) => {
+    console.log(appointment);
+    // navigate("/appointmentdetailsfornurse", { state: { appointment } });
+  };
+  const handleCheckin = (appointment) => {
+    console.log(appointment);
+    // navigate("/checkin", { state: { appointment } });
   };
   return (
     <div className="bg-white p-5 rounded-2xl shadow-2xl w-[100%] min-h-[500px]">
-      <div>
-        <span
-          className={
-            statusFilter === "All"
-              ? "ml-[50px] font-bold text-3xl mr-[100px] text-gradientLeft "
-              : "ml-[50px] font-bold text-3xl mr-[100px] text-[#c5c4c4]"
-          }
-          onClick={() => handleFilter("All")}
-        >
-          ALL
-        </span>
-        <span
-          className={
-            statusFilter === "0"
-              ? "font-bold text-3xl mr-[100px] text-gradientLeft "
-              : "font-bold text-3xl mr-[100px] text-[#c5c4c4]"
-          }
-          onClick={() => handleFilter("0")}
-        >
-          INCOME
-        </span>
-        <span
-          className={
-            statusFilter === "1"
-              ? "font-bold text-3xl mr-[100px] text-gradientLeft "
-              : "font-bold text-3xl mr-[100px] text-[#c5c4c4]"
-          }
-          onClick={() => handleFilter("1")}
-        >
-          EXAMINATING
-        </span>
-        <span
-          className={
-            statusFilter === "2"
-              ? "font-bold text-3xl mr-[100px] text-gradientLeft "
-              : "font-bold text-3xl mr-[100px] text-[#c5c4c4]"
-          }
-          onClick={() => handleFilter("2")}
-        >
-          COMPLETED
-        </span>
-        <span
-          className={
-            statusFilter === "3"
-              ? "font-bold text-3xl mr-[100px] text-gradientLeft "
-              : "font-bold text-3xl mr-[100px] text-[#c5c4c4]"
-          }
-          onClick={() => handleFilter("3")}
-        >
-          CANCEL
-        </span>
-      </div>
       <div className="w-[100%] h-[50px]">
         <div className="mt-[40px] h-[50px] w-[30%] border-[1px] rounded-2xl flex border-[#c5c4c4] ml-[10px]">
           <button className="w-[15%]">
@@ -228,48 +164,18 @@ function CheckinListContent({ email, role }) {
                   }`}
                   key={listD.id}
                 >
-                  <td className="w-[10%]">
-                    {listD != undefined ? listD.id : ""}
-                  </td>
-                  <td className="w-[13%]">
-                    {listD != undefined ? listD.patientName : ""}
-                  </td>
-                  <td className="w-[13%]">
-                    <p className="ml-[20%]">
-                      {listD != undefined ? listD.examDate : ""}
-                    </p>
-                  </td>
+                  <td className="w-[10%]">{listD.id}</td>
+                  <td className="w-[13%]">{listD.name}</td>
+                  <td className="w-[13%]">{listD.email}</td>
+                  <td className="w-[13%]">{listD.gender}</td>
+                  <td className="w-[13%]">{listD.phone}</td>
 
-                  {/* <td className="w-[12%]">
-                    {listD != undefined ? listD.commandFlag : ""}
-                  </td> */}
-                  <td className="w-[12%]">
-                    <p
-                      className={`w-[70%] h-[30px] rounded-2xl ml-[14%] pt-[3px] text-white ${
-                        listD.commandFlag == "0"
-                          ? "bg-[#9747ff]"
-                          : listD.commandFlag == "1"
-                          ? "bg-[#6c87ae]"
-                          : listD.commandFlag == "2"
-                          ? "bg-success"
-                          : "bg-error"
-                      }`}
-                    >
-                      {listD.commandFlag == 0
-                        ? "Checked-in"
-                        : listD.commandFlag == 1
-                        ? "Examining"
-                        : listD.commandFlag == 2
-                        ? "Completed"
-                        : "Cancel"}
-                    </p>
-                  </td>
                   <td className="pb-[10px] pt-[10px]  w-[13%]">
                     <button
                       className="w-[80%] h-[40px] bg-gradientLeft rounded-3xl text-white "
                       onClick={() => handleDetail(listD)}
                     >
-                      View
+                      View Detail
                     </button>
                   </td>
                 </tr>
@@ -309,4 +215,4 @@ function CheckinListContent({ email, role }) {
     </div>
   );
 }
-export default CheckinListContent;
+export default PatientsContent;

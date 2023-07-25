@@ -46,6 +46,13 @@ const HomeContentServiceStaff = () => {
     navigate("/checkin-list");
   };
 
+  const handleAddAppointment = () => {
+    navigate("/book_appointment");
+  };
+  const handleAddCheckin = () => {
+    navigate("/checkin");
+  };
+
   return (
     <div className="bg-white">
       <div className="flex items-center gap-[141px] justify-between max-w-[1156px] mx-auto">
@@ -67,30 +74,61 @@ const HomeContentServiceStaff = () => {
               paddingTop: "20px",
             }}
           >
-            <button
-              className="border-[3px] rounded-2xl h-[50px] pl-[30px] pr-[30px] w-[40%] mr-[35px]"
-              style={{
-                color: "#ffff",
-                backgroundColor: "#3681f8",
-                // borderColor: "#5562f7",
-                // color: "#5562f7",
-              }}
-              onClick={handleSchedule}
-            >
-              Schedule List
-            </button>
-            <button
-              className="border-[3px] rounded-2xl h-[50px] pl-[30px] pr-[30px] w-[40%] mr-[35px]"
-              style={{
-                // color: "#ffff",
-                // backgroundColor: "#3681f8",
-                // borderColor: "#5562f7",
-                color: "#5562f7",
-              }}
-              onClick={handleCheckinList}
-            >
-              Waiting list
-            </button>
+            {role == "NURSE" ? (
+              <>
+                <button
+                  className="border-[3px] rounded-2xl h-[50px] pl-[30px] pr-[30px] w-[40%] mr-[35px]"
+                  style={{
+                    color: "#ffff",
+                    backgroundColor: "#3681f8",
+                    // borderColor: "#5562f7",
+                    // color: "#5562f7",
+                  }}
+                  onClick={handleAddCheckin}
+                >
+                  New Check-in
+                </button>
+                <button
+                  className="border-[3px] rounded-2xl h-[50px] pl-[30px] pr-[30px] w-[40%] mr-[35px]"
+                  style={{
+                    // color: "#ffff",
+                    // backgroundColor: "#3681f8",
+                    // borderColor: "#5562f7",
+                    color: "#5562f7",
+                  }}
+                  onClick={handleAddAppointment}
+                >
+                  New appointment
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  className="border-[3px] rounded-2xl h-[50px] pl-[30px] pr-[30px] w-[40%] mr-[35px]"
+                  style={{
+                    color: "#ffff",
+                    backgroundColor: "#3681f8",
+                    // borderColor: "#5562f7",
+                    // color: "#5562f7",
+                  }}
+                  onClick={handleSchedule}
+                >
+                  Schedule List
+                </button>
+                <button
+                  className="border-[3px] rounded-2xl h-[50px] pl-[30px] pr-[30px] w-[40%] mr-[35px]"
+                  style={{
+                    // color: "#ffff",
+                    // backgroundColor: "#3681f8",
+                    // borderColor: "#5562f7",
+                    color: "#5562f7",
+                  }}
+                  onClick={handleCheckinList}
+                >
+                  Waiting list
+                </button>
+              </>
+            )}
           </div>
         </div>
         <div className="w-[46%]">

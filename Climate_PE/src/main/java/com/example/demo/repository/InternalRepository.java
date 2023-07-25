@@ -17,6 +17,9 @@ public interface InternalRepository extends JpaRepository<InternalAccount, Integ
 
 	@Query("select i from InternalAccount i where i.role.name = 'DOCTOR' and i.commandFlag = 0")
 	List<InternalAccount> findAllDoctor();
+	
+	@Query("select i from InternalAccount i where i.role.name = 'DOCTOR' and i.commandFlag = 0")
+	List<InternalAccount> findAllDoctorForAdmin();
 
 	@Query("select i from InternalAccount i where i.role.name = 'DOCTOR' and i.commandFlag = 0 AND i.name = :name and CONCAT(i.workingPlace.name, ' - ', i.workingPlace.description) = :location")
 	InternalAccount findDoctor(@Param(value = "name") String name, @Param(value = "location") String location);

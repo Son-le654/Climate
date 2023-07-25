@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import Logo from "../../components/Logo/Logo";
 import { NavLink, useNavigate } from "react-router-dom";
 import EnsignAnh from "../../Images/anh.png";
-import { IoMdArrowDropdown } from 'react-icons/io';
+import { IoMdArrowDropdown } from "react-icons/io";
 import AccountMenu from "../../Popper/menu/AccountMenu";
-import { CiLogin } from 'react-icons/ci';
+import { CiLogin } from "react-icons/ci";
 import jwtDecode from "jwt-decode";
 const HomeNav = [
   {
@@ -20,7 +20,7 @@ const HomeNav = [
   {
     id: 3,
     to: "/checkin-list",
-    title: "Patients ",
+    title: "Check-in list",
   },
   {
     id: 4,
@@ -34,26 +34,25 @@ const HomeNav = [
   },
 ];
 
-
 const MENU_ITEMS = [
   {
-    title: 'Account'
+    title: "Account",
   },
   {
-    title: 'Profile'
+    title: "Profile",
   },
   {
-    title: 'Private session'
+    title: "Private session",
   },
   {
-    title: 'Setting'
+    title: "Setting",
   },
   {
-    title: 'Log out',
+    title: "Log out",
     icon: <CiLogin />,
-    to: "/register"
+    to: "/register",
   },
-]
+];
 
 const HomeHeaderServiceDoctor = () => {
   const navigate = useNavigate();
@@ -71,7 +70,7 @@ const HomeHeaderServiceDoctor = () => {
       console.log(error);
     }
   }, []);
-  
+
   return (
     <header className="max-w-[1156px] gap-[46px] mx-auto flex items-center pt-[45px]">
       <div>
@@ -95,13 +94,21 @@ const HomeHeaderServiceDoctor = () => {
               })}
           </ul>
         </nav>
-        <AccountMenu
-          items={MENU_ITEMS}
-        >
-          <div className=" relative flex h-[35px] !p-[5px_40px] bg-[#e2edff] rounded-2xl  " style={{ color: '#3f84f6', borderRadius: '20px' }} >
-            <img className=" absolute rounded-full w-[24px] h-[24px] top-[6px] left-[4px]" src={EnsignAnh}></img>
-            <div className="font-bold">{nameuser} ({role})</div>
-            <div className="absolute top-[3px] left-[83%]"><IoMdArrowDropdown style={{ fontSize: '30px' }} /></div>
+        <AccountMenu items={MENU_ITEMS}>
+          <div
+            className=" relative flex h-[35px] !p-[5px_40px] bg-[#e2edff] rounded-2xl  "
+            style={{ color: "#3f84f6", borderRadius: "20px" }}
+          >
+            <img
+              className=" absolute rounded-full w-[24px] h-[24px] top-[6px] left-[4px]"
+              src={EnsignAnh}
+            ></img>
+            <div className="font-bold">
+              {nameuser} ({role})
+            </div>
+            <div className="absolute top-[3px] left-[83%]">
+              <IoMdArrowDropdown style={{ fontSize: "30px" }} />
+            </div>
           </div>
         </AccountMenu>
       </div>

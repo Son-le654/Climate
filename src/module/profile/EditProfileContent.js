@@ -326,8 +326,8 @@ function EditProfileContent() {
         <div className=" flex justify-start w-[100%]">
           <div className="h-[70px] w-[80%] border-[1px] rounded-2xl border-[#c5c4c4] flex">
             <input
+            disabled={true}
               placeholder="Email"
-              onChange={handleChangeName}
               value={emailP.emp}
               name="emp"
               className="w-[80%] h-[100%] ml-[10px] text-[20px] "
@@ -450,7 +450,7 @@ function EditProfileContent() {
                 onChange={handleFileChange}
                 className="w-[80%] h-[100%] ml-[10px] text-[20px] "
               />
-              {selectedFile && <p>Selected file: {selectedFile.name}</p>}
+              {/* {selectedFile && <p>Selected file: {selectedFile.name}</p>} */}
             </div>
           </div>
         </div>

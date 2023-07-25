@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.DTO.PatientDTO;
 import com.example.demo.DTO.RegisterRequest;
+import com.example.demo.entity.Location;
 import com.example.demo.entity.Patient;
 import com.example.demo.repository.PatientRepository;
 
@@ -23,7 +25,7 @@ public class PatientService implements UserDetailsService {
 
 	@Autowired
 	private PatientRepository repository;
-	
+
 	@Autowired
 	private ImageService imageService;
 
@@ -101,16 +103,13 @@ public class PatientService implements UserDetailsService {
 		p.setPhone(patientDTO.getPhone());
 		p.setAvatar(patientDTO.getAvatar());
 		String avartar = imageService.uploadImage(fileData);
-		if(!avartar.equals("Cannot upload file"))
-		{
-		if(!patientDTO.getAvatar().isEmpty())
-		{
-		imageService.deleteImage(patientDTO.getAvatar());
+		if (!avartar.equals("Cannot upload file")) {
+			if (!patientDTO.getAvatar().isEmpty()) {
+				imageService.deleteImage(patientDTO.getAvatar());
+			}
+			p.setAvatar(avartar);
 		}
-		p.setAvatar(avartar);
-		}
-		if(avartar.equals("Cannot upload file"))
-		{
+		if (avartar.equals("Cannot upload file")) {
 			return "Update no success";
 		}
 		if (!p.getEmail().equals(patientDTO.getEmail())) {
@@ -178,5 +177,13 @@ public class PatientService implements UserDetailsService {
 		p = repository.findByEmail(email);
 
 		return p;
+	}
+
+	public List<Patient> findAll() {
+		return repository.findPatients();
+	}
+
+	public List<Patient> findAllForAdmin() {
+		return repository.findPatientsForAdmin();
 	}
 }

@@ -14,8 +14,18 @@ const HomeNav = [
   },
   {
     id: 2,
-    to: "/faq",
+    to: "/appointments",
     title: "Records",
+  },
+  {
+    id: 2,
+    to: "/checkin-list",
+    title: "Checkins",
+  },
+  {
+    id: 2,
+    to: "/medicalhistory",
+    title: "Medical History",
   },
   {
     id: 3,

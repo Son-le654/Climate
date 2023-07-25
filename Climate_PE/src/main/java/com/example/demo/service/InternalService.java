@@ -42,6 +42,9 @@ public class InternalService implements UserDetailsService {
 	public List<InternalAccount> findAllDoctor() {
 		return internalRepository.findAllDoctor();
 	}
+	public List<InternalAccount> findAllDoctorForAdmin() {
+		return internalRepository.findAllDoctorForAdmin();
+	}
 
 	public List<InternalAccount> findAllDoctorWithLocation(int id) {
 		return internalRepository.findAllDoctorByLocation(id);

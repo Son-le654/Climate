@@ -44,7 +44,7 @@ const ServicePage = () => {
         {role == "USER" ? (
           <HomeContentService></HomeContentService>
         ) : (
-          <HomeContentServiceStaff></HomeContentServiceStaff>
+          <HomeContentServiceStaff role = {role}></HomeContentServiceStaff>
         )}
         {/* <HomeContentServiceStaff></HomeContentServiceStaff> */}
       </div>

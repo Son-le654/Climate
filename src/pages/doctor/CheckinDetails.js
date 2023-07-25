@@ -7,6 +7,7 @@ import jwtDecode from "jwt-decode";
 import HomeHeaderServiceDoctor from "../../module/home/HomeHeaderServiceDoctor";
 import React from "react";
 import CheckinDetailsContent from "module/doctor/CheckinDetailsContent/CheckinDetailsContent";
+import HomeHeaderServiceNurse from "module/home/HomeHeaderServiceNurse";
 function CheckinDetails() {
   const navigate = useNavigate();
   const storedName = localStorage.getItem("token");
@@ -20,7 +21,7 @@ function CheckinDetails() {
       try {
         const decoded = jwtDecode(storedName);
         const rol = decoded.roles[0].authority;
-        setrole(rol)
+        setrole(rol);
         // if (role !== 'NURSE') {
         //   navigate("/")
         // }\
@@ -44,11 +45,17 @@ function CheckinDetails() {
   return (
     <div>
       <div className="bg-white">
-        <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
+        {role == "DOCTOR" ? (
+          <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
+        ) : role == "NURSE" ? (
+          <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
+        ) : (
+          <HomeHeaderService></HomeHeaderService>
+        )}
       </div>
 
       <div style={{ padding: "3% 12%" }} className="bg-white">
-        <CheckinDetailsContent checkin={checkin} role={role}/>
+        <CheckinDetailsContent checkin={checkin} role={role} />
       </div>
       <div>
         <Footer></Footer>
