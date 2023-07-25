@@ -21,7 +21,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.example.demo.DTO.LoginRequest;
 
 @RestController
-@CrossOrigin(origins = { "http://clinicmates.io.vn/", "http://localhost:3000/" })
+@CrossOrigin(origins = { "http://clinicmates.io.vn/", "http://localhost:3000/","https://clinicmates.io.vn:8081/" })
 public class LoginGoogle {
 
 	@GetMapping("/login/google")
