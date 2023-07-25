@@ -93,5 +93,9 @@ public class PatientDTO {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
+	
+	 public boolean isAvatarEmptyOrNull() {
+	        String avatar = getAvatar();
+	        return avatar == null || avatar.isEmpty();
+	    }
 }
