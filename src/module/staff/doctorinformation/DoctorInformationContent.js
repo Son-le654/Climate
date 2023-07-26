@@ -4,40 +4,43 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import { FaHouseUser } from "react-icons/fa";
 import Avatar from "../../../Images/ava1134.png";
 import DoctorInfoDetailedInformation from "./doctorinfoContent/DetailedInformation";
-import DoctorInfoAssessment from "./doctorinfoContent/Assessment";
+import DoctorInfoSchedule from "./doctorinfoContent/Schedule";
+import DoctorInfoMedicalHistory from "./doctorinfoContent/MedicalHistory";
 import axios from "axios";
 import { localPort, publicPort } from "../../../components/url/link";
 import { useEffect } from "react";
 
-const tabButtons = ["DETAILED INFORMATION", "ASSESSMENT"];
+const tabButtons = ["DETAILED INFORMATION", "SCHEDULE", "MEDICAL HISTORY"];
 
 function DoctorInformationContent({ docId }) {
   const [type, setType] = useState(tabButtons[0]);
   const [showComponentC, setShowComponentC] = useState(true);
   const [showComponentD, setShowComponentD] = useState(false);
+  const [showComponentE, setShowComponentE] = useState(false);
   const [doct, setDoct] = useState({});
   console.log("doc info conteint: " + docId);
   const response = axios.get(publicPort + `api/1`);
   console.log(response.data);
 
-  useEffect(() => {
-    console.log("Enter useEffect with id: " + docId);
-    const doc = async () => {
-      try {
-        const response = await axios.get(publicPort + `api/${docId}`);
-        setDoct(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    doc();
-  }, [docId]);
+  // useEffect(() => {
+  //   console.log("Enter useEffect with id: " + docId);
+  //   const doc = async () => {
+  //     try {
+  //       const response = await axios.get(publicPort + `api/${docId}`);
+  //       setDoct(response.data);
+  //       console.log(response.data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   doc();
+  // }, [docId]);
 
   const handleClick = (data) => {
     setType(data);
     setShowComponentC(data === tabButtons[0]);
     setShowComponentD(data === tabButtons[1]);
+    setShowComponentE(data === tabButtons[2]);
   };
 
   return (
@@ -95,7 +98,8 @@ function DoctorInformationContent({ docId }) {
       </div>
       <div>
         {showComponentC && <DoctorInfoDetailedInformation doct={doct} />}
-        {showComponentD && <DoctorInfoAssessment />}
+        {showComponentD && <DoctorInfoSchedule />}
+        {showComponentE && <DoctorInfoMedicalHistory />}
       </div>
     </div>
   );

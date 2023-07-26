@@ -47,6 +47,8 @@ import MedicalRecordDetails from "pages/doctor/MedicalRecordDetails";
 import PatientsPage from "pages/PatientsPage";
 import DoctorsPage from "pages/DoctorsPage";
 import InternalAccountsPage from "pages/InternalAccountsPage";
+import ListOfAppointment from "../src/pages/ListOfAppointment";
+import AdminPages from "../src/pages/AdminPages";
 
 function App() {
   const storedName = localStorage.getItem("token");
@@ -167,6 +169,9 @@ function App() {
         element={<EditProfileContentForStaff />}
       ></Route>
       <Route path="/newspage" element={<NewsPage />}></Route>
+      <Route path="/listofappointment" element={<ListOfAppointment />}></Route>
+      <Route path="/adminpages" element={<AdminPages />}></Route>
+
     </Routes>
   );
 }
