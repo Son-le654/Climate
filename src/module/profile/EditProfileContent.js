@@ -180,4 +180,3 @@ function EditProfileContent() {
     )
 }
 export default EditProfileContent
-
