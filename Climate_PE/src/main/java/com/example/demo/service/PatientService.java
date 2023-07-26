@@ -102,15 +102,18 @@ public class PatientService implements UserDetailsService {
 		p.setGender(patientDTO.getGender());
 		p.setPhone(patientDTO.getPhone());
 		p.setAvatar(patientDTO.getAvatar());
-		String avartar = imageService.uploadImage(fileData);
-		if (!avartar.equals("Cannot upload file")) {
-			if (!patientDTO.getAvatar().isEmpty()) {
-				imageService.deleteImage(patientDTO.getAvatar());
+		if (fileData != null) {
+			String avartar = imageService.uploadImage(fileData);
+
+			if (!avartar.equals("Cannot upload file")) {
+				if (!patientDTO.isAvatarEmptyOrNull()) {
+					imageService.deleteImage(patientDTO.getAvatar());
+				}
+				p.setAvatar(avartar);
 			}
-			p.setAvatar(avartar);
-		}
-		if (avartar.equals("Cannot upload file")) {
-			return "Update no success";
+			if (avartar.equals("Cannot upload file")) {
+				return "Update no success";
+			}
 		}
 		if (!p.getEmail().equals(patientDTO.getEmail())) {
 			p.setEmail(patientDTO.getEmail());
