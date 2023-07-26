@@ -7,6 +7,7 @@ import { MdKeyboardArrowLeft } from "react-icons/md";
 import { useRef } from "react";
 import Slider from "react-slick";
 import { useNavigate } from "react-router-dom";
+import { AiOutlinePlusCircle } from "react-icons/ai";
 
 function AppointmentsContent({ role, mail }) {
   const [sortedObjects, setSortedObjects] = useState([]);
@@ -144,6 +145,9 @@ function AppointmentsContent({ role, mail }) {
     console.log(appointment);
     navigate("/checkin", { state: { appointment } });
   };
+  const handleAddNewAppointment = () => {
+    navigate("/book_appointment");
+  };
   return (
     <div className="bg-white p-5 rounded-2xl shadow-2xl w-[100%] min-h-[500px]">
       <div>
@@ -188,7 +192,7 @@ function AppointmentsContent({ role, mail }) {
           APPROVED
         </span>
       </div>
-      <div className="w-[100%] h-[50px]">
+      <div className="w-[100%] h-[50px] flex justify-between mb-[5rem]">
         <div className="mt-[40px] h-[50px] w-[30%] border-[1px] rounded-2xl flex border-[#c5c4c4] ml-[10px]">
           <button className="w-[15%]">
             <BiSearch className="text-[25px] ml-[13px] text-[#c5c4c4]" />
@@ -198,6 +202,19 @@ function AppointmentsContent({ role, mail }) {
             className="w-[83%] h-[100%] "
             onChange={handleSearchInputChange}
           />
+        </div>
+        <div className="h-[50px] w-[50%] flex justify-end items-center pt-[8rem]">
+          <div
+            className="  w-[40%] h-[40px] flex items-center justify-center rounded-3xl cursor-pointer"
+            onClick={handleAddNewAppointment}
+          >
+            {/* <span className="w-[10%] text-[30px] text-gradientLeft ]">
+              <AiOutlinePlusCircle />
+            </span> */}
+            <span className="font-medium underline text-success ">
+              Add new appointment
+            </span>
+          </div>
         </div>
       </div>
       <div className=" min-h-[550px]">

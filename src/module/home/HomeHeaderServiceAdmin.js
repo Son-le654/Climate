@@ -15,22 +15,22 @@ const HomeNav = [
   {
     id: 2,
     to: "/appointments",
-    title: "Appointments",
+    title: "Symptoms",
   },
   {
     id: 3,
     to: "/checkin-list",
-    title: "Check-in list",
+    title: "Specialties",
   },
   {
     id: 4,
     to: "/doctors",
-    title: "Doctors",
+    title: "Locations",
   },
   {
     id: 5,
     to: "/medicalhistory",
-    title: "Medical History",
+    title: "Internal Accounts",
   },
 ];
 
@@ -54,7 +54,7 @@ const MENU_ITEMS = [
   },
 ];
 
-const HomeHeaderServiceDoctor = () => {
+const HomeHeaderServiceAdmin = () => {
   const navigate = useNavigate();
   const storedName = localStorage.getItem("token");
   const [role, setRole] = useState("");
@@ -116,4 +116,4 @@ const HomeHeaderServiceDoctor = () => {
   );
 };
 
-export default HomeHeaderServiceDoctor;
+export default HomeHeaderServiceAdmin;

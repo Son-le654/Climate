@@ -10,7 +10,7 @@ const HomeNav = [
   {
     id: 1,
     to: "/service",
-    title: "Service",
+    title: "Home",
   },
   {
     id: 2,

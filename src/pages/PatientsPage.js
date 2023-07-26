@@ -23,9 +23,9 @@ const PatientsPage = () => {
         const role = decoded.roles[0].authority;
         setRole(role);
         setmail(decoded.sub);
-        // if (role !== "USER") {
-        //   navigate("/");
-        // }
+        if (role == "USER") {
+          navigate("/service");
+        }
       } catch (error) {
         console.log(error);
       }

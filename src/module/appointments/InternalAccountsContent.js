@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { publicPort } from "../../components/url/link";
+import { localPort, publicPort } from "../../components/url/link";
 import { BiSearch } from "react-icons/bi";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { MdKeyboardArrowLeft } from "react-icons/md";
@@ -8,15 +8,13 @@ import { useRef } from "react";
 import Slider from "react-slick";
 import { useNavigate } from "react-router-dom";
 
-function CheckinListContent({ email, role }) {
+function InternalAccountsContent({ role, mail }) {
   const [sortedObjects, setSortedObjects] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [statusFilter, setStatusFilter] = useState("All");
-  const [mail, setMail] = useState(email);
   const [listData, setListData] = useState([]);
   const [listOrigin, setListOrigin] = useState([]);
-  const [doct, setDoct] = useState();
   const navigate = useNavigate();
   const listtitle = [
     {
@@ -25,19 +23,23 @@ function CheckinListContent({ email, role }) {
     },
     {
       id: 2,
-      title: "Patient Name",
+      title: "Staff Name",
     },
     {
       id: 3,
-      title: "Date",
+      title: "Email",
+    },
+    {
+      id: 4,
+      title: "Specialty",
     },
     {
       id: 5,
-      title: "Status",
+      title: "Role",
     },
     {
       id: 6,
-      title: "View Details",
+      title: "Action",
     },
   ];
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -46,40 +48,22 @@ function CheckinListContent({ email, role }) {
   const currentItems = listOrigin.slice(indexOfFirstItem, indexOfLastItem);
 
   useEffect(() => {
-    console.log(mail);
     const listApp = async () => {
       try {
         let response;
         let response1;
-        if (role == "DOCTOR") {
-          response = await axios.get(
-            publicPort + `api/internal-accounts/search-email?email=${email}`
-          );
+        let id;
 
-          response1 = await axios.get(
-            publicPort + `checkin/listbydoctorid?doctorId=${response.data.id}`
-          );
-        } else if (role == "USER") {
-          response = await axios.get(
-            publicPort + `patient/profile?email=${email}`
-          );
-
-          response1 = await axios.get(
-            publicPort +
-              `checkin/listBypaintedId?painted_id=${response.data.id}`
-          );
-        } else {
-          response1 = await axios.get(publicPort + `checkin/list`);
-        }
-        console.log(response1.data);
-        setListOrigin(response1.data);
-        setListData(response1.data);
+        response = await axios.get(publicPort + "api/list");
+        setListOrigin(response.data);
+        setListData(response.data);
+        console.log(response.data);
       } catch (error) {
         console.log(error);
       }
     };
     listApp();
-  }, [email, role]);
+  }, [mail, role]);
 
   useEffect(() => {
     setListData(listOrigin.slice(indexOfFirstItem, indexOfLastItem));
@@ -127,31 +111,35 @@ function CheckinListContent({ email, role }) {
       setListData(listOrigin);
     } else {
       const filteredList = listOrigin.filter((item) =>
-        item.patientName.toLowerCase().includes(searchInput.toLowerCase())
+        item.name.toLowerCase().includes(searchInput.toLowerCase())
       );
       setListData(filteredList);
     }
   };
-
-  const handleDetail = (checkin) => {
-    console.log(checkin);
-    navigate("/checindetails", { state: { checkin } });
+  const view_detail = (item) => {
+    const id = item.id;
+    console.log(id);
+    navigate("/doctorinformation", { state: { id } });
   };
-  const handleAddNewCheckin = () => {
-    navigate("/checkin");
+  const handleAddNewAccount = () => {
+    // navigate("/checkin", { state: { appointment } });
+  };
+  const handleInternal = () => {
+    // navigate("/checkin", { state: { appointment } });
+  };
+  const handleExternal = () => {
+    // navigate("/checkin", { state: { appointment } });
   };
   return (
     <div className="bg-white p-5 rounded-2xl shadow-2xl w-[100%] min-h-[500px]">
       <div>
         <span
           className={
-            statusFilter === "All"
-              ? "ml-[50px] font-bold text-3xl mr-[100px] text-gradientLeft "
-              : "ml-[50px] font-bold text-3xl mr-[100px] text-[#c5c4c4]"
+            "ml-[50px] font-bold text-3xl mr-[100px] text-gradientLeft "
           }
-          onClick={() => handleFilter("All")}
+          onClick={handleInternal}
         >
-          ALL
+          ITERNAL
         </span>
         <span
           className={
@@ -159,39 +147,9 @@ function CheckinListContent({ email, role }) {
               ? "font-bold text-3xl mr-[100px] text-gradientLeft "
               : "font-bold text-3xl mr-[100px] text-[#c5c4c4]"
           }
-          onClick={() => handleFilter("0")}
+          onClick={handleExternal}
         >
-          INCOME
-        </span>
-        <span
-          className={
-            statusFilter === "1"
-              ? "font-bold text-3xl mr-[100px] text-gradientLeft "
-              : "font-bold text-3xl mr-[100px] text-[#c5c4c4]"
-          }
-          onClick={() => handleFilter("1")}
-        >
-          EXAMINATING
-        </span>
-        <span
-          className={
-            statusFilter === "2"
-              ? "font-bold text-3xl mr-[100px] text-gradientLeft "
-              : "font-bold text-3xl mr-[100px] text-[#c5c4c4]"
-          }
-          onClick={() => handleFilter("2")}
-        >
-          COMPLETED
-        </span>
-        <span
-          className={
-            statusFilter === "3"
-              ? "font-bold text-3xl mr-[100px] text-gradientLeft "
-              : "font-bold text-3xl mr-[100px] text-[#c5c4c4]"
-          }
-          onClick={() => handleFilter("3")}
-        >
-          CANCEL
+          EXTERNAL
         </span>
       </div>
       <div className="w-[100%] h-[50px] flex justify-between mb-[5rem]">
@@ -205,22 +163,19 @@ function CheckinListContent({ email, role }) {
             onChange={handleSearchInputChange}
           />
         </div>
-        {role == "NURSE" ? (
-          <>
-            <div className="h-[50px] w-[50%] flex justify-end items-center pt-[8rem]">
-              <div
-                className="  w-[40%] h-[40px] flex items-center justify-center rounded-3xl cursor-pointer"
-                onClick={handleAddNewCheckin}
-              >
-                <span className="font-medium underline text-success ">
-                  Add new check-in
-                </span>
-              </div>
-            </div>
-          </>
-        ) : (
-          <></>
-        )}
+        <div className="h-[50px] w-[50%] flex justify-end items-center pt-[8rem]">
+          <div
+            className="  w-[40%] h-[40px] flex items-center justify-center rounded-3xl cursor-pointer"
+            onClick={handleAddNewAccount}
+          >
+            {/* <span className="w-[10%] text-[30px] text-gradientLeft ]">
+              <AiOutlinePlusCircle />
+            </span> */}
+            <span className="font-medium underline text-success ">
+              Add new appointment
+            </span>
+          </div>
+        </div>
       </div>
       <div className=" min-h-[550px]">
         <table>
@@ -247,46 +202,22 @@ function CheckinListContent({ email, role }) {
                   }`}
                   key={listD.id}
                 >
-                  <td className="w-[10%]">
-                    {listD != undefined ? listD.id : ""}
-                  </td>
-                  <td className="w-[13%]">
-                    {listD != undefined ? listD.patientName : ""}
-                  </td>
-                  <td className="w-[13%]">
-                    <p className="ml-[20%]">
-                      {listD != undefined ? listD.examDate : ""}
+                  <td className="w-[10%]">{listD.id}</td>
+                  <td className="w-[15%]  ">{listD.name}</td>
+                  <td className="w-[15%]  ">{listD.email}</td>
+                  <td className="w-[12%]">
+                    <p>
+                      {listD.specialty != undefined ? listD.specialty.name : ""}
                     </p>
+                  </td>
+                  <td className="w-[12%]">
+                    <p>{listD.role.name}</p>
                   </td>
 
-                  {/* <td className="w-[12%]">
-                    {listD != undefined ? listD.commandFlag : ""}
-                  </td> */}
-                  <td className="w-[12%]">
-                    <p
-                      className={`w-[70%] h-[30px] rounded-2xl ml-[14%] pt-[3px] text-white ${
-                        listD.commandFlag == "0"
-                          ? "bg-[#9747ff]"
-                          : listD.commandFlag == "1"
-                          ? "bg-[#6c87ae]"
-                          : listD.commandFlag == "2"
-                          ? "bg-success"
-                          : "bg-error"
-                      }`}
-                    >
-                      {listD.commandFlag == 0
-                        ? "Checked-in"
-                        : listD.commandFlag == 1
-                        ? "Examining"
-                        : listD.commandFlag == 2
-                        ? "Completed"
-                        : "Cancel"}
-                    </p>
-                  </td>
                   <td className="pb-[10px] pt-[10px]  w-[13%]">
                     <button
                       className="w-[80%] h-[40px] bg-gradientLeft rounded-3xl text-white "
-                      onClick={() => handleDetail(listD)}
+                      onClick={() => view_detail(listD)}
                     >
                       View
                     </button>
@@ -328,4 +259,4 @@ function CheckinListContent({ email, role }) {
     </div>
   );
 }
-export default CheckinListContent;
+export default InternalAccountsContent;

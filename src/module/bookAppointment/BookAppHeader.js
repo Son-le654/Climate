@@ -6,13 +6,8 @@ import Button from "../../components/button/Button";
 const bookappointment = [
   {
     id: 1,
-    to: "/dashboard",
-    title: "Dashboard",
-  },
-  {
-    id: 2,
-    to: "/myappointments",
-    title: "My Appointments",
+    to: "/service",
+    title: "Home",
   },
   {
     id: 3,
@@ -34,11 +29,10 @@ const BookAppHeader = ({ storedName }) => {
   const handleLogout = () => {
     //log out here
     localStorage.removeItem("token");
-    navigate("/login-user")
-  }
+    navigate("/login-user");
+  };
 
   return (
-
     <div className="max-w-[1156px] gap-[46px] mx-auto flex items-center pt-[45px]">
       <div>
         <Logo></Logo>
@@ -56,26 +50,21 @@ const BookAppHeader = ({ storedName }) => {
                     >
                       {item.title}
                     </NavLink>
-
                   </li>
-
                 </>
               );
             })}
         </ul>
       </nav>
-      <div className="flex items-center gap-8" style={{marginLeft: "36rem"}}>
-
-      <Button
-        onClick={handleLogout}
-        className="!p-[10px_40px] rounded-lg text-[18px]"
-      >
-        Logout
-      </Button>
-
-
+      {/* <div className="flex items-center gap-8" style={{ marginLeft: "36rem" }}>
+        <Button
+          onClick={handleLogout}
+          className="!p-[10px_40px] rounded-lg text-[18px]"
+        >
+          Logout
+        </Button>
+      </div> */}
     </div>
-    </div >
   );
 };
 

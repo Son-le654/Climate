@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import HomeHeaderService from "module/home/HomeHeaderService";
 import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
 import DoctorsContent from "module/appointments/DoctorsContent";
+import InternalAccountsContent from "module/appointments/InternalAccountsContent";
+import HomeHeaderServiceAdmin from "module/home/HomeHeaderServiceAdmin";
 
 const InternalAccountsPage = () => {
   const navigate = useNavigate();
@@ -23,7 +25,7 @@ const InternalAccountsPage = () => {
         const role = decoded.roles[0].authority;
         setRole(role);
         setmail(decoded.sub);
-        if (role == "USER") {
+        if (role !== "ADMIN") {
           navigate("/");
         }
       } catch (error) {
@@ -35,19 +37,16 @@ const InternalAccountsPage = () => {
   return (
     <>
       <div className="bg-white">
-        {role == "DOCTOR" ? (
-          <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
-        ) : role == "NURSE" ? (
-          <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
-        ) : (
-          <></>
-        )}
+        <HomeHeaderServiceAdmin></HomeHeaderServiceAdmin>
       </div>
       <div className="pt-[80px] pl-[190px] text-7xl font-bold py-[20px] bg-white">
         <h1>Doctor list</h1>
       </div>
       <div className="bg-white" style={{ padding: "5% 12%" }}>
-        <DoctorsContent role={role} mail={mail}></DoctorsContent>
+        <InternalAccountsContent
+          role={role}
+          mail={mail}
+        ></InternalAccountsContent>
       </div>
       <div>
         <Footer></Footer>

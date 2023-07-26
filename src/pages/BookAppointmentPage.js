@@ -31,13 +31,14 @@ const BookAppointmentPage = () => {
   return (
     <div className="bg-white">
       {/* <BookAppHeader storedName={storedName}></BookAppHeader> */}
-      {role == "USER" ? (
+      {/* {role == "USER" ? (
         <HomeHeaderService></HomeHeaderService>
       ) : role == "NURSE" ? (
         <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
       ) : (
         <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
-      )}
+      )} */}
+      <BookAppHeader></BookAppHeader>
 
       <div>
         <Outlet></Outlet>

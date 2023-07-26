@@ -46,6 +46,7 @@ import EditProfileContentForStaff from "module/profile/EditProfileContentForStaf
 import MedicalRecordDetails from "pages/doctor/MedicalRecordDetails";
 import PatientsPage from "pages/PatientsPage";
 import DoctorsPage from "pages/DoctorsPage";
+import InternalAccountsPage from "pages/InternalAccountsPage";
 
 function App() {
   const storedName = localStorage.getItem("token");
@@ -100,6 +101,7 @@ function App() {
       <Route path="/appointments" element={<Appointments />}></Route>
       <Route path="/patients" element={<PatientsPage />}></Route>
       <Route path="/doctors" element={<DoctorsPage />}></Route>
+      <Route path="/internals" element={<InternalAccountsPage />}></Route>
       <Route
         path="/appointmentConfirmation"
         element={<AppointmentConfirmation />}
