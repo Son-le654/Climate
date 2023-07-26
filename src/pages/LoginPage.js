@@ -51,7 +51,10 @@ const LoginPage = () => {
       password: password,
     });
     console.log(response);
-
+    if (response.data == "You have no permission to login.") {
+      alert("You have no permission to login.");
+      return;
+    }
     if (response.data.token === undefined) {
       alert("Incorrect email or password.");
     }

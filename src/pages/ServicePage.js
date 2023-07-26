@@ -10,6 +10,7 @@ import jwtDecode from "jwt-decode";
 import HomeContentServiceStaff from "module/home/HomeContentServiceStaff";
 import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
 import HomeHeaderServiceNurse from "module/home/HomeHeaderServiceNurse";
+import HomeHeaderServiceAdmin from "module/home/HomeHeaderServiceAdmin";
 
 const ServicePage = () => {
   const [role, setRole] = useState("");
@@ -33,18 +34,20 @@ const ServicePage = () => {
       <div className="bg-white">
         {/* <HomeHeaderService></HomeHeaderService> */}
         {role == "USER" ? (
-        <HomeHeaderService></HomeHeaderService>
-      ) : role == "NURSE" ? (
-        <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
-      ) : (
-        <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
-      )}
+          <HomeHeaderService></HomeHeaderService>
+        ) : role == "NURSE" ? (
+          <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
+        ) : role == "ADMIN" ? (
+          <HomeHeaderServiceAdmin></HomeHeaderServiceAdmin>
+        ) : (
+          <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
+        )}
       </div>
       <div>
         {role == "USER" ? (
           <HomeContentService></HomeContentService>
         ) : (
-          <HomeContentServiceStaff role = {role}></HomeContentServiceStaff>
+          <HomeContentServiceStaff></HomeContentServiceStaff>
         )}
         {/* <HomeContentServiceStaff></HomeContentServiceStaff> */}
       </div>

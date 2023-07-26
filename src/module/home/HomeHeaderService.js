@@ -9,7 +9,7 @@ import jwtDecode from "jwt-decode";
 const HomeNav = [
   {
     id: 1,
-    to: "/",
+    to: "/service",
     title: "Home",
   },
   {

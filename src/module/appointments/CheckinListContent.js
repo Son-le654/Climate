@@ -137,6 +137,9 @@ function CheckinListContent({ email, role }) {
     console.log(checkin);
     navigate("/checindetails", { state: { checkin } });
   };
+  const handleAddNewCheckin = () => {
+    navigate("/checkin");
+  };
   return (
     <div className="bg-white p-5 rounded-2xl shadow-2xl w-[100%] min-h-[500px]">
       <div>
@@ -191,7 +194,7 @@ function CheckinListContent({ email, role }) {
           CANCEL
         </span>
       </div>
-      <div className="w-[100%] h-[50px]">
+      <div className="w-[100%] h-[50px] flex justify-between mb-[5rem]">
         <div className="mt-[40px] h-[50px] w-[30%] border-[1px] rounded-2xl flex border-[#c5c4c4] ml-[10px]">
           <button className="w-[15%]">
             <BiSearch className="text-[25px] ml-[13px] text-[#c5c4c4]" />
@@ -202,24 +205,38 @@ function CheckinListContent({ email, role }) {
             onChange={handleSearchInputChange}
           />
         </div>
+        {role == "NURSE" ? (
+          <>
+            <div className="h-[50px] w-[50%] flex justify-end items-center pt-[8rem]">
+              <div
+                className="  w-[40%] h-[40px] flex items-center justify-center rounded-3xl cursor-pointer"
+                onClick={handleAddNewCheckin}
+              >
+                <span className="font-medium underline text-success ">
+                  Add new check-in
+                </span>
+              </div>
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
       </div>
       <div className=" min-h-[550px]">
-        <table>
-          <thead className="h-[100px]">
-            <tr className="text-[30px]">
-              {listtitle.map((data) => (
-                <th
-                  key={data.id}
-                  className=" text-[#8d8b8b] w-[1%] text-center"
-                >
-                  {data.title}
-                </th>
-              ))}
-            </tr>
-          </thead>
-        </table>
         <div>
           <table className="w-[100%]">
+            <thead className="h-[100px]">
+              <tr className="text-[30px]">
+                {listtitle.map((data) => (
+                  <th
+                    key={data.id}
+                    className=" text-[#8d8b8b] w-[1%] text-center"
+                  >
+                    {data.title}
+                  </th>
+                ))}
+              </tr>
+            </thead>
             <tbody className="w-[100%] h-[200px]">
               {listData.map((listD) => (
                 <tr

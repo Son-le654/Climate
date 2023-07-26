@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.entity.InternalAccount;
 import com.example.demo.entity.Location;
 import com.example.demo.repository.LocationRepository;
 
@@ -22,11 +23,18 @@ public class LocationService {
 	public List<Location> findAll() {
 		return repository.findLocation();
 	}
+
 	public List<Location> findAllForAdmin() {
 		return repository.findLocationForAdmin();
 	}
 
 	public Optional<Location> findById(Integer id) {
 		return repository.findById(id);
+	}
+
+	public String blockLocation(Location c) {
+		c.setCommandFlag(2);
+		repository.save(c);
+		return "success";
 	}
 }

@@ -7,6 +7,7 @@ import { MdKeyboardArrowLeft } from "react-icons/md";
 import { useRef } from "react";
 import Slider from "react-slick";
 import { useNavigate } from "react-router-dom";
+import { CiPen, CiTrash } from "react-icons/ci";
 
 function SymptomsContent({ role, mail }) {
   const [sortedObjects, setSortedObjects] = useState([]);
@@ -126,9 +127,62 @@ function SymptomsContent({ role, mail }) {
     console.log(appointment);
     // navigate("/checkin", { state: { appointment } });
   };
+  const handleLocation = () => {
+    navigate("/locations");
+  };
+  const handleSpec = () => {
+    navigate("/specs");
+  };
+  const handleSymptom = () => {
+    navigate("/symptoms");
+  };
+  const handleRole = () => {
+    navigate("/roles");
+  };
+  const handleAddNewSymptom = () => {
+    navigate("/roles");
+  };
+
+  const [visibleItem, setVisibleItem] = useState(null);
+
+  const handleShow = (index) => {
+    // setshow(!show);
+    if (visibleItem === index) {
+      setVisibleItem(null);
+    } else {
+      setVisibleItem(index);
+    }
+  };
+
   return (
     <div className="bg-white p-5 rounded-2xl shadow-2xl w-[100%] min-h-[500px]">
-      <div className="w-[100%] h-[50px]">
+      <div>
+        <span
+          className={"ml-[50px] font-bold text-3xl mr-[100px] text-[#c5c4c4]"}
+          onClick={handleLocation}
+        >
+          LOCATIONS
+        </span>
+        <span
+          className={"font-bold text-3xl mr-[100px] text-[#c5c4c4]"}
+          onClick={handleSpec}
+        >
+          SPECIALTIES
+        </span>
+        <span
+          className={"font-bold text-3xl mr-[100px] text-gradientLeft "}
+          onClick={handleSymptom}
+        >
+          SYMPTOMS
+        </span>
+        <span
+          className={"font-bold text-3xl mr-[100px] text-[#c5c4c4]"}
+          onClick={handleRole}
+        >
+          ROLES
+        </span>
+      </div>
+      <div className="w-[100%] h-[50px] flex justify-between mb-[5rem]">
         <div className="mt-[40px] h-[50px] w-[30%] border-[1px] rounded-2xl flex border-[#c5c4c4] ml-[10px]">
           <button className="w-[15%]">
             <BiSearch className="text-[25px] ml-[13px] text-[#c5c4c4]" />
@@ -139,26 +193,37 @@ function SymptomsContent({ role, mail }) {
             onChange={handleSearchInputChange}
           />
         </div>
+        <div className="h-[50px] w-[50%] flex justify-end items-center pt-[8rem]">
+          <div
+            className="  w-[40%] h-[40px] flex items-center justify-center rounded-3xl cursor-pointer"
+            onClick={handleAddNewSymptom}
+          >
+            {/* <span className="w-[10%] text-[30px] text-gradientLeft ]">
+              <AiOutlinePlusCircle />
+            </span> */}
+            <span className="font-medium underline text-success ">
+              Add new symptom
+            </span>
+          </div>
+        </div>
       </div>
       <div className=" min-h-[550px]">
-        <table>
-          <thead className="h-[100px]">
-            <tr className="text-[30px]">
-              {listtitle.map((data) => (
-                <th
-                  key={data.id}
-                  className=" text-[#8d8b8b] w-[1%] text-center"
-                >
-                  {data.title}
-                </th>
-              ))}
-            </tr>
-          </thead>
-        </table>
         <div>
           <table className="w-[100%]">
+            <thead className="h-[100px]">
+              <tr className="text-[30px]">
+                {listtitle.map((data) => (
+                  <th
+                    key={data.id}
+                    className=" text-[#8d8b8b] w-[1%] text-center"
+                  >
+                    {data.title}
+                  </th>
+                ))}
+              </tr>
+            </thead>
             <tbody className="w-[100%] h-[200px]">
-              {listData.map((listD) => (
+              {listData.map((listD, index) => (
                 <tr
                   className={`text-center  ${
                     listD.id % 2 === 0 ? "bg-white  " : "  bg-[#e2edff] "
@@ -178,12 +243,50 @@ function SymptomsContent({ role, mail }) {
                   </td>
 
                   <td className="pb-[10px] pt-[10px]  w-[13%]">
-                    <button
-                      className="w-[80%] h-[40px] bg-gradientLeft rounded-3xl text-white "
-                      onClick={() => view_detail(listD)}
-                    >
-                      View
-                    </button>
+                    <button onClick={() => handleShow(index)}>:</button>
+                    {visibleItem === index && (
+                      <div
+                        className="ml-[6.5rem] w-[45%] "
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "flex-start",
+                          background: "#ececec",
+                          // fontSize:""
+                          borderRadius: "1rem",
+                          boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
+                        }}
+                      >
+                        <span
+                          // onClick={() => handleEdit(listD.id)}
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            margin: "1rem",
+                          }}
+                        >
+                          <p>
+                            <CiPen />
+                          </p>
+                          <p>Edit</p>
+                        </span>
+                        <span
+                          // onClick={() => handleDelete(listD.id)}
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            margin: "1rem",
+                          }}
+                        >
+                          <p>
+                            <CiTrash />
+                          </p>
+                          <p>Block</p>
+                        </span>
+                      </div>
+                    )}
                   </td>
                 </tr>
               ))}

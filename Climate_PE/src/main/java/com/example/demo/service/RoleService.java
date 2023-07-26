@@ -32,6 +32,9 @@ public class RoleService {
 	public List<Role> findAll() {
 		return repository.findAll();
 	}
+	public List<Role> findAllForAdmin() {
+		return repository.findAll();
+	}
 
 	public Optional<Role> findById(Integer id) {
 		return repository.findById(id);

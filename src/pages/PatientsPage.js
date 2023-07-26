@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import HomeHeaderService from "module/home/HomeHeaderService";
 import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
 import PatientsContent from "module/appointments/PatientsContent";
+import HomeHeaderServiceAdmin from "module/home/HomeHeaderServiceAdmin";
 
 const PatientsPage = () => {
   const navigate = useNavigate();
@@ -23,9 +24,9 @@ const PatientsPage = () => {
         const role = decoded.roles[0].authority;
         setRole(role);
         setmail(decoded.sub);
-        // if (role !== "USER") {
-        //   navigate("/");
-        // }
+        if (role == "USER") {
+          navigate("/service");
+        }
       } catch (error) {
         console.log(error);
       }
@@ -39,6 +40,8 @@ const PatientsPage = () => {
           <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
         ) : role == "NURSE" ? (
           <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
+        ) : role == "ADMIN" ? (
+          <HomeHeaderServiceAdmin></HomeHeaderServiceAdmin>
         ) : (
           <></>
         )}
