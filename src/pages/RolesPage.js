@@ -7,10 +7,11 @@ import { useNavigate } from "react-router-dom";
 import HomeHeaderService from "module/home/HomeHeaderService";
 import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
 import DoctorsContent from "module/appointments/DoctorsContent";
-import InternalAccountsContent from "module/appointments/InternalAccountsContent";
+import SymptomsContent from "module/appointments/SymptomsContent";
 import HomeHeaderServiceAdmin from "module/home/HomeHeaderServiceAdmin";
+import RolesContent from "module/appointments/RolesContent";
 
-const InternalAccountsPage = () => {
+const RolesPage = () => {
   const navigate = useNavigate();
   const [role, setRole] = useState("");
   const [mail, setmail] = useState("");
@@ -25,7 +26,7 @@ const InternalAccountsPage = () => {
         const role = decoded.roles[0].authority;
         setRole(role);
         setmail(decoded.sub);
-        if (role !== "ADMIN") {
+        if (role != "ADMIN") {
           navigate("/");
         }
       } catch (error) {
@@ -37,16 +38,13 @@ const InternalAccountsPage = () => {
   return (
     <>
       <div className="bg-white">
-        <HomeHeaderServiceAdmin></HomeHeaderServiceAdmin>
+        <HomeHeaderServiceAdmin />
       </div>
       <div className="pt-[80px] pl-[190px] text-7xl font-bold py-[20px] bg-white">
-        <h1>Internal account list</h1>
+        <h1>Internal Information</h1>
       </div>
       <div className="bg-white" style={{ padding: "5% 12%" }}>
-        <InternalAccountsContent
-          role={role}
-          mail={mail}
-        ></InternalAccountsContent>
+        <RolesContent role={role} mail={mail}></RolesContent>
       </div>
       <div>
         <Footer></Footer>
@@ -54,4 +52,4 @@ const InternalAccountsPage = () => {
     </>
   );
 };
-export default InternalAccountsPage;
+export default RolesPage;

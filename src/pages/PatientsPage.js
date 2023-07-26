@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import HomeHeaderService from "module/home/HomeHeaderService";
 import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
 import PatientsContent from "module/appointments/PatientsContent";
+import HomeHeaderServiceAdmin from "module/home/HomeHeaderServiceAdmin";
 
 const PatientsPage = () => {
   const navigate = useNavigate();
@@ -39,6 +40,8 @@ const PatientsPage = () => {
           <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
         ) : role == "NURSE" ? (
           <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
+        ) : role == "ADMIN" ? (
+          <HomeHeaderServiceAdmin></HomeHeaderServiceAdmin>
         ) : (
           <></>
         )}

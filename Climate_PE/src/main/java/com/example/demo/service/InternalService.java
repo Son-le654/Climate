@@ -42,6 +42,7 @@ public class InternalService implements UserDetailsService {
 	public List<InternalAccount> findAllDoctor() {
 		return internalRepository.findAllDoctor();
 	}
+
 	public List<InternalAccount> findAllDoctorForAdmin() {
 		return internalRepository.findAllDoctorForAdmin();
 	}
@@ -111,4 +112,11 @@ public class InternalService implements UserDetailsService {
 			return Optional.of(internalRepository.findAllDoctor());
 		}
 	}
+
+	public String blockAccount(InternalAccount c) {
+		c.setCommandFlag(2);
+		internalRepository.save(c);
+		return "success";
+	}
+
 }

@@ -26,6 +26,7 @@ import com.example.demo.DTO.InternalAccountDTO;
 import com.example.demo.DTO.LoginRequest;
 import com.example.demo.entity.InternalAccount;
 import com.example.demo.entity.Specialty;
+import com.example.demo.repository.InternalRepository;
 import com.example.demo.service.InternalService;
 import com.example.demo.service.JwtResponse;
 import com.example.demo.service.JwtTokenUtil;
@@ -40,6 +41,9 @@ public class InternalController {
 
 	@Autowired
 	private InternalService internalService;
+
+	@Autowired
+	private InternalRepository repository;
 
 	@Autowired
 	private SpeciatlyService speciatlyService;
@@ -62,7 +66,10 @@ public class InternalController {
 		}
 		Optional<InternalAccount> interacc = doctorService.findByEmail(email);
 		if (!interacc.isPresent()) {
-			return ResponseEntity.ok("Not found accout.");
+			return ResponseEntity.ok("Not found account.");
+		}
+		if (interacc.get().getCommandFlag() == 2) {
+			return ResponseEntity.ok("You have no permission to login.");
 		}
 		final UserDetails userDetails = internalService.loadUserByUsername(email);
 		final String token = jwtTokenUtil.generateToken(userDetails);
@@ -98,10 +105,30 @@ public class InternalController {
 		}
 	}
 
+	@GetMapping("/block")
+	public String blockAccount(@RequestParam(value = "id") String id) {
+		System.out.println(id);
+		InternalAccount acc = null;
+		int idc = Integer.parseInt(id);
+		acc = repository.getAccById(idc);
+		if (acc != null) {
+			String result = internalService.blockAccount(acc);
+			if (result.equals("success")) {
+
+				return "Block success";
+			} else {
+				return "Block fail";
+			}
+		} else {
+			return "Not found account in system";
+		}
+	}
+
 	@GetMapping(value = "/doctors")
 	public List<InternalAccount> listAccDoctor() {
 		return internalService.findAllDoctor();
 	}
+
 	@GetMapping(value = "/doctorsForAdmin")
 	public List<InternalAccount> listAccDoctorForAdmin() {
 		return internalService.findAllDoctorForAdmin();

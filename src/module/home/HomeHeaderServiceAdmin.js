@@ -29,8 +29,8 @@ const HomeNav = [
   },
   {
     id: 5,
-    to: "/medicalhistory",
-    title: "Internal Accounts",
+    to: "/internals",
+    title: "Accounts",
   },
 ];
 

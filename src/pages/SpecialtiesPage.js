@@ -8,6 +8,7 @@ import HomeHeaderService from "module/home/HomeHeaderService";
 import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
 import DoctorsContent from "module/appointments/DoctorsContent";
 import SpecialtiesContent from "module/appointments/SpecialtiesContent";
+import HomeHeaderServiceAdmin from "module/home/HomeHeaderServiceAdmin";
 
 const SpecialtiesPage = () => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const SpecialtiesPage = () => {
         const role = decoded.roles[0].authority;
         setRole(role);
         setmail(decoded.sub);
-        if (role == "USER") {
+        if (role != "ADMIN") {
           navigate("/");
         }
       } catch (error) {
@@ -36,16 +37,10 @@ const SpecialtiesPage = () => {
   return (
     <>
       <div className="bg-white">
-        {role == "DOCTOR" ? (
-          <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
-        ) : role == "NURSE" ? (
-          <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
-        ) : (
-          <></>
-        )}
+        <HomeHeaderServiceAdmin />
       </div>
       <div className="pt-[80px] pl-[190px] text-7xl font-bold py-[20px] bg-white">
-        <h1>Doctor list</h1>
+        <h1>Internal Information</h1>
       </div>
       <div className="bg-white" style={{ padding: "5% 12%" }}>
         <SpecialtiesContent role={role} mail={mail}></SpecialtiesContent>

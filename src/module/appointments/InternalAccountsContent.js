@@ -7,6 +7,7 @@ import { MdKeyboardArrowLeft } from "react-icons/md";
 import { useRef } from "react";
 import Slider from "react-slick";
 import { useNavigate } from "react-router-dom";
+import { CiPen, CiTrash } from "react-icons/ci";
 
 function InternalAccountsContent({ role, mail }) {
   const [sortedObjects, setSortedObjects] = useState([]);
@@ -39,6 +40,10 @@ function InternalAccountsContent({ role, mail }) {
     },
     {
       id: 6,
+      title: "Status",
+    },
+    {
+      id: 7,
       title: "Action",
     },
   ];
@@ -46,6 +51,17 @@ function InternalAccountsContent({ role, mail }) {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const [inputValue, setInputValue] = useState("");
   const currentItems = listOrigin.slice(indexOfFirstItem, indexOfLastItem);
+  const [show, setshow] = useState(false);
+  const [visibleItem, setVisibleItem] = useState(null);
+
+  const handleShow = (index) => {
+    // setshow(!show);
+    if (visibleItem === index) {
+      setVisibleItem(null);
+    } else {
+      setVisibleItem(index);
+    }
+  };
 
   useEffect(() => {
     const listApp = async () => {
@@ -122,13 +138,32 @@ function InternalAccountsContent({ role, mail }) {
     navigate("/doctorinformation", { state: { id } });
   };
   const handleAddNewAccount = () => {
-    // navigate("/checkin", { state: { appointment } });
+    navigate("/createacc");
   };
   const handleInternal = () => {
-    // navigate("/checkin", { state: { appointment } });
+    navigate("/internals");
   };
   const handleExternal = () => {
-    // navigate("/checkin", { state: { appointment } });
+    navigate("/patients");
+  };
+  const handleEdit = (id) => {
+    // navigate("/internals");
+    console.log("edit " + id);
+  };
+  const handleDelete = async (id) => {
+    // navigate("/patients");
+    console.log("delete " + id);
+    const response = await axios.get(publicPort + `api/block?id=${id}`);
+    console.log(response.data);
+    if (response.data == "Block success") {
+      navigate("/internals");
+    } else {
+      alert(response.data);
+    }
+  };
+  const handleUnDelete = (id) => {
+    // navigate("/patients");
+    console.log("undelete " + id);
   };
   return (
     <div className="bg-white p-5 rounded-2xl shadow-2xl w-[100%] min-h-[500px]">
@@ -139,7 +174,7 @@ function InternalAccountsContent({ role, mail }) {
           }
           onClick={handleInternal}
         >
-          ITERNAL
+          INTERNAL
         </span>
         <span
           className={
@@ -172,30 +207,28 @@ function InternalAccountsContent({ role, mail }) {
               <AiOutlinePlusCircle />
             </span> */}
             <span className="font-medium underline text-success ">
-              Add new appointment
+              Add new account
             </span>
           </div>
         </div>
       </div>
       <div className=" min-h-[550px]">
-        <table>
-          <thead className="h-[100px]">
-            <tr className="text-[30px]">
-              {listtitle.map((data) => (
-                <th
-                  key={data.id}
-                  className=" text-[#8d8b8b] w-[1%] text-center"
-                >
-                  {data.title}
-                </th>
-              ))}
-            </tr>
-          </thead>
-        </table>
         <div>
           <table className="w-[100%]">
+            <thead className="h-[100px]">
+              <tr className="text-[30px]">
+                {listtitle.map((data) => (
+                  <th
+                    key={data.id}
+                    className=" text-[#8d8b8b] w-[1%] text-center"
+                  >
+                    {data.title}
+                  </th>
+                ))}
+              </tr>
+            </thead>
             <tbody className="w-[100%] h-[200px]">
-              {listData.map((listD) => (
+              {listData.map((listD, index) => (
                 <tr
                   className={`text-center  ${
                     listD.id % 2 === 0 ? "bg-white  " : "  bg-[#e2edff] "
@@ -213,14 +246,69 @@ function InternalAccountsContent({ role, mail }) {
                   <td className="w-[12%]">
                     <p>{listD.role.name}</p>
                   </td>
+                  <td className="w-[12%]">
+                    <p
+                      className={`w-[70%] h-[30px] rounded-2xl ml-[14%] pt-[3px] text-white ${
+                        listD.commandFlag == "0"
+                          ? "bg-success"
+                          : listD.commandFlag == "2"
+                          ? "bg-error"
+                          : "bg-warning"
+                      }`}
+                    >
+                      {listD.commandFlag == 0
+                        ? "Active"
+                        : listD.commandFlag == 1
+                        ? "Busy"
+                        : "Blocked"}
+                    </p>
+                  </td>
 
                   <td className="pb-[10px] pt-[10px]  w-[13%]">
-                    <button
-                      className="w-[80%] h-[40px] bg-gradientLeft rounded-3xl text-white "
-                      onClick={() => view_detail(listD)}
-                    >
-                      View
-                    </button>
+                    <button onClick={() => handleShow(index)}>:</button>
+                    {visibleItem === index && (
+                      <div
+                        className="ml-[6.5rem] w-[45%] "
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "flex-start",
+                          background: "#ececec",
+                          // fontSize:""
+                          borderRadius: "1rem",
+                          boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
+                        }}
+                      >
+                        <span
+                          onClick={() => handleEdit(listD.id)}
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            margin: "1rem",
+                          }}
+                        >
+                          <p>
+                            <CiPen />
+                          </p>
+                          <p>Edit</p>
+                        </span>
+                        <span
+                          onClick={() => handleDelete(listD.id)}
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            margin: "1rem",
+                          }}
+                        >
+                          <p>
+                            <CiTrash />
+                          </p>
+                          <p>Block</p>
+                        </span>
+                      </div>
+                    )}
                   </td>
                 </tr>
               ))}

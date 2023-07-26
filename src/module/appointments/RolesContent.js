@@ -7,15 +7,13 @@ import { MdKeyboardArrowLeft } from "react-icons/md";
 import { useRef } from "react";
 import Slider from "react-slick";
 import { useNavigate } from "react-router-dom";
-import jwtDecode from "jwt-decode";
+import { CiPen, CiTrash } from "react-icons/ci";
 
-function SchedulesContent({ email, role }) {
+function RolesContent({ role, mail }) {
   const [sortedObjects, setSortedObjects] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [statusFilter, setStatusFilter] = useState("All");
-  const [mail, setMail] = useState(email);
-  const [rol, setRol] = useState();
   const [listData, setListData] = useState([]);
   const [listOrigin, setListOrigin] = useState([]);
   const navigate = useNavigate();
@@ -26,22 +24,18 @@ function SchedulesContent({ email, role }) {
     },
     {
       id: 2,
-      title: "Patient Name",
+      title: "Doctor Name",
     },
     {
       id: 3,
-      title: "Date",
+      title: "Specialty",
     },
     {
       id: 4,
-      title: "Time",
+      title: "Location",
     },
-    // {
-    //   id: 5,
-    //   title: "Status",
-    // },
     {
-      id: 6,
+      id: 5,
       title: "View Details",
     },
   ];
@@ -50,49 +44,23 @@ function SchedulesContent({ email, role }) {
   const [inputValue, setInputValue] = useState("");
   const currentItems = listOrigin.slice(indexOfFirstItem, indexOfLastItem);
 
-  // useEffect(() => {
-  //   setMail(email);
-  // });
-
   useEffect(() => {
-    console.log(mail);
-    if (mail == undefined) {
-      setMail(email);
-    }
-    let r;
-    let m;
-
-    const storedName = localStorage.getItem("token");
-    try {
-      const decoded = jwtDecode(storedName);
-      const role = decoded.roles[0].authority;
-      r = role;
-      setRol(role);
-      setMail(decoded.sub);
-      m = decoded.sub;
-      console.log(decoded.sub);
-    } catch (error) {
-      console.log(error);
-    }
-
     const listApp = async () => {
       try {
         let response;
-        if (r == "DOCTOR") {
-          response = await axios.get(
-            publicPort + `schedule/listschedules?email=${m}`
-          );
-        } else {
-          response = await axios.get(publicPort + `schedule/list`);
-        }
+        let response1;
+        let id;
+
+        response = await axios.get(publicPort + "api/doctors");
         setListOrigin(response.data);
         setListData(response.data);
+        console.log(response.data);
       } catch (error) {
         console.log(error);
       }
     };
     listApp();
-  }, [email, rol]);
+  }, [mail, role]);
 
   useEffect(() => {
     setListData(listOrigin.slice(indexOfFirstItem, indexOfLastItem));
@@ -140,7 +108,7 @@ function SchedulesContent({ email, role }) {
       setListData(listOrigin);
     } else {
       const filteredList = listOrigin.filter((item) =>
-        item.patientName.toLowerCase().includes(searchInput.toLowerCase())
+        item.name.toLowerCase().includes(searchInput.toLowerCase())
       );
       setListData(filteredList);
     }
@@ -148,43 +116,72 @@ function SchedulesContent({ email, role }) {
 
   const handleDetail = (appointment) => {
     console.log(appointment);
-    navigate("/AppointmentDetails", { state: { appointment } });
+    // navigate("/appointmentdetailsfornurse", { state: { appointment } });
+  };
+  const view_detail = (item) => {
+    const id = item.id;
+    console.log(id);
+    navigate("/doctorinformation", { state: { id } });
+  };
+  const handleCheckin = (appointment) => {
+    console.log(appointment);
+    // navigate("/checkin", { state: { appointment } });
+  };
+  const handleLocation = () => {
+    navigate("/locations");
+  };
+  const handleSpec = () => {
+    navigate("/specs");
+  };
+  const handleSymptom = () => {
+    navigate("/symptoms");
+  };
+  const handleRole = () => {
+    navigate("/roles");
+  };
+  const handleAddNewRole = () => {
+    navigate("/roles");
+  };
+
+  const [visibleItem, setVisibleItem] = useState(null);
+
+  const handleShow = (index) => {
+    // setshow(!show);
+    if (visibleItem === index) {
+      setVisibleItem(null);
+    } else {
+      setVisibleItem(index);
+    }
   };
   return (
     <div className="bg-white p-5 rounded-2xl shadow-2xl w-[100%] min-h-[500px]">
       <div>
         <span
-          className={
-            statusFilter === "All"
-              ? "ml-[50px] font-bold text-3xl mr-[100px] text-gradientLeft "
-              : "ml-[50px] font-bold text-3xl mr-[100px] text-[#c5c4c4]"
-          }
-          onClick={() => handleFilter("All")}
+          className={"ml-[50px] font-bold text-3xl mr-[100px] text-[#c5c4c4]"}
+          onClick={handleLocation}
         >
-          ALL
+          LOCATIONS
         </span>
         <span
-          className={
-            statusFilter === "0"
-              ? "font-bold text-3xl mr-[100px] text-gradientLeft "
-              : "font-bold text-3xl mr-[100px] text-[#c5c4c4]"
-          }
-          onClick={() => handleFilter("0")}
+          className={" font-bold text-3xl mr-[100px] text-[#c5c4c4]"}
+          onClick={handleSpec}
         >
-          INCOME
+          SPECIALTIES
         </span>
         <span
-          className={
-            statusFilter === "2"
-              ? "font-bold text-3xl mr-[100px] text-gradientLeft "
-              : "font-bold text-3xl mr-[100px] text-[#c5c4c4]"
-          }
-          onClick={() => handleFilter("2")}
+          className={"font-bold text-3xl mr-[100px] text-[#c5c4c4]"}
+          onClick={handleSymptom}
         >
-          COMPLETED
+          SYMPTOMS
+        </span>
+        <span
+          className={"font-bold text-3xl mr-[100px] text-gradientLeft "}
+          onClick={handleRole}
+        >
+          ROLES
         </span>
       </div>
-      <div className="w-[100%] h-[50px]">
+      <div className="w-[100%] h-[50px] flex justify-between mb-[5rem]">
         <div className="mt-[40px] h-[50px] w-[30%] border-[1px] rounded-2xl flex border-[#c5c4c4] ml-[10px]">
           <button className="w-[15%]">
             <BiSearch className="text-[25px] ml-[13px] text-[#c5c4c4]" />
@@ -194,6 +191,19 @@ function SchedulesContent({ email, role }) {
             className="w-[83%] h-[100%] "
             onChange={handleSearchInputChange}
           />
+        </div>
+        <div className="h-[50px] w-[50%] flex justify-end items-center pt-[8rem]">
+          <div
+            className="  w-[40%] h-[40px] flex items-center justify-center rounded-3xl cursor-pointer"
+            onClick={handleAddNewRole}
+          >
+            {/* <span className="w-[10%] text-[30px] text-gradientLeft ]">
+              <AiOutlinePlusCircle />
+            </span> */}
+            <span className="font-medium underline text-success ">
+              Add new role
+            </span>
+          </div>
         </div>
       </div>
       <div className=" min-h-[550px]">
@@ -212,54 +222,70 @@ function SchedulesContent({ email, role }) {
               </tr>
             </thead>
             <tbody className="w-[100%] h-[200px]">
-              {listData.map((listD) => (
+              {listData.map((listD, index) => (
                 <tr
                   className={`text-center  ${
                     listD.id % 2 === 0 ? "bg-white  " : "  bg-[#e2edff] "
                   }`}
                   key={listD.id}
                 >
-                  <td className="w-[10%]">
-                    {listD != undefined ? listD.id : ""}
-                  </td>
-                  <td className="w-[13%]">
-                    {listD != undefined ? listD.appointment.patientName : ""}
-                  </td>
-                  <td className="w-[13%]">
-                    <p className="ml-[20%]">
-                      {listD != undefined ? listD.examDate : ""}
-                    </p>
+                  <td className="w-[10%]">{listD.id}</td>
+                  <td className="w-[15%]  ">{listD.name}</td>
+                  <td className="w-[12%]">
+                    <p>{listD.specialty.name}</p>
                   </td>
                   <td className="w-[12%]">
-                    {listD != undefined ? listD.examTime : ""}
-                  </td>
-                  {/* <td className="w-[12%]">
-                    {listD != undefined ? listD.commandFlag : ""}
-                  </td> */}
-                  {/* <td className="w-[12%]">
-                    <p
-                      className={`w-[70%] h-[30px] rounded-2xl ml-[14%] pt-[3px] text-white ${
-                        listD.commandFlag == "0"
-                          ? "bg-warning"
-                          : listD.commandFlag == "2"
-                          ? "bg-error"
-                          : "bg-success"
-                      }`}
-                    >
-                      {listD.commandFlag == 0
-                        ? "Pending"
-                        : listD.commandFlag == 1
-                        ? "Approved"
-                        : "Cancel"}
+                    <p>
+                      {listD.workingPlace.name} -{" "}
+                      {listD.workingPlace.description}
                     </p>
-                  </td> */}
+                  </td>
+
                   <td className="pb-[10px] pt-[10px]  w-[13%]">
-                    <button
-                      className="w-[80%] h-[40px] bg-gradientLeft rounded-3xl text-white "
-                      onClick={() => handleDetail(listD)}
-                    >
-                      View
-                    </button>
+                    <button onClick={() => handleShow(index)}>:</button>
+                    {visibleItem === index && (
+                      <div
+                        className="ml-[6.5rem] w-[45%] "
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "flex-start",
+                          background: "#ececec",
+                          // fontSize:""
+                          borderRadius: "1rem",
+                          boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
+                        }}
+                      >
+                        <span
+                          // onClick={() => handleEdit(listD.id)}
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            margin: "1rem",
+                          }}
+                        >
+                          <p>
+                            <CiPen />
+                          </p>
+                          <p>Edit</p>
+                        </span>
+                        <span
+                          // onClick={() => handleDelete(listD.id)}
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            margin: "1rem",
+                          }}
+                        >
+                          <p>
+                            <CiTrash />
+                          </p>
+                          <p>Block</p>
+                        </span>
+                      </div>
+                    )}
                   </td>
                 </tr>
               ))}
@@ -298,4 +324,4 @@ function SchedulesContent({ email, role }) {
     </div>
   );
 }
-export default SchedulesContent;
+export default RolesContent;

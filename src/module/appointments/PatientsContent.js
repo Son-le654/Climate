@@ -53,8 +53,11 @@ function PatientsContent({ role, mail }) {
         let response;
         let response1;
         let id;
-
-        response = await axios.get(publicPort + "patient/list");
+        if (role == "ADMIN") {
+          response = await axios.get(publicPort + "patient/listadmin");
+        } else {
+          response = await axios.get(publicPort + "patient/list");
+        }
         setListOrigin(response.data);
         setListData(response.data);
         console.log(response.data);
@@ -121,12 +124,36 @@ function PatientsContent({ role, mail }) {
     console.log(appointment);
     // navigate("/appointmentdetailsfornurse", { state: { appointment } });
   };
-  const handleCheckin = (appointment) => {
-    console.log(appointment);
-    // navigate("/checkin", { state: { appointment } });
+  const handleInternal = () => {
+    navigate("/internals");
+  };
+  const handleExternal = () => {
+    navigate("/patients");
   };
   return (
     <div className="bg-white p-5 rounded-2xl shadow-2xl w-[100%] min-h-[500px]">
+      {role == "ADMIN" ? (
+        <>
+          <div>
+            <span
+              className={
+                "ml-[50px] font-bold text-3xl mr-[100px] text-[#c5c4c4]"
+              }
+              onClick={handleInternal}
+            >
+              ITERNAL
+            </span>
+            <span
+              className={"font-bold text-3xl mr-[100px] text-gradientLeft "}
+              onClick={handleExternal}
+            >
+              EXTERNAL
+            </span>
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
       <div className="w-[100%] h-[50px]">
         <div className="mt-[40px] h-[50px] w-[30%] border-[1px] rounded-2xl flex border-[#c5c4c4] ml-[10px]">
           <button className="w-[15%]">
@@ -140,22 +167,20 @@ function PatientsContent({ role, mail }) {
         </div>
       </div>
       <div className=" min-h-[550px]">
-        <table>
-          <thead className="h-[100px]">
-            <tr className="text-[30px]">
-              {listtitle.map((data) => (
-                <th
-                  key={data.id}
-                  className=" text-[#8d8b8b] w-[1%] text-center"
-                >
-                  {data.title}
-                </th>
-              ))}
-            </tr>
-          </thead>
-        </table>
         <div>
           <table className="w-[100%]">
+            <thead className="h-[100px]">
+              <tr className="text-[30px]">
+                {listtitle.map((data) => (
+                  <th
+                    key={data.id}
+                    className=" text-[#8d8b8b] w-[1%] text-center"
+                  >
+                    {data.title}
+                  </th>
+                ))}
+              </tr>
+            </thead>
             <tbody className="w-[100%] h-[200px]">
               {listData.map((listD) => (
                 <tr

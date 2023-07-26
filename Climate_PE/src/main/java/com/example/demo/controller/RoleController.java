@@ -43,6 +43,10 @@ public class RoleController {
 	public List<Role> getAll() {
 		return service.findAll();
 	}
+	@GetMapping("/listadmin")
+	public List<Role> getAllForAdmin() {
+		return service.findAllForAdmin();
+	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Role> getRoleById(@PathVariable(value = "id") Integer id) {

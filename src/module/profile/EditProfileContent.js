@@ -326,7 +326,7 @@ function EditProfileContent() {
         <div className=" flex justify-start w-[100%]">
           <div className="h-[70px] w-[80%] border-[1px] rounded-2xl border-[#c5c4c4] flex">
             <input
-            disabled={true}
+              disabled={true}
               placeholder="Email"
               value={emailP.emp}
               name="emp"
