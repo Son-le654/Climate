@@ -43,6 +43,11 @@ public class MedicalRecordController {
 	public List<MedicalRecord> getAllByDoctorId(@RequestParam("id") String id) {
 		return service.findAllByDoctorId(id);
 	}
+	
+	@GetMapping("/listByPatientId")
+	public List<MedicalRecord> getAllByPatientId(@RequestParam("id") String id) {
+		return service.findAllByPatientId(id);
+	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<MedicalRecord> getMedicalRecordById(@PathVariable(value = "id") Integer id) {

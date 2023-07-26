@@ -114,8 +114,8 @@ function MedicalRecordDetailsContent({ checkin, role }) {
                 <span className="w-[35%]">Patient ID</span>
                 <span className="w-[65%]">
                   {checkin != undefined
-                    ? checkin.checkin.patient != null
-                      ? checkin.patient.checkin.id
+                    ? checkin.checkin != undefined
+                      ? checkin.checkin.patient.id
                       : ""
                     : ""}
                 </span>

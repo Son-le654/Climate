@@ -20,11 +20,11 @@ const HomeNav = [
   {
     id: 3,
     to: "/checkin-list",
-    title: "Patients ",
+    title: "Check-in list",
   },
   {
     id: 4,
-    to: "/",
+    to: "/doctors",
     title: "Doctors",
   },
   {
@@ -104,7 +104,7 @@ const HomeHeaderServiceNurse = () => {
               src={EnsignAnh}
             ></img>
             <div className="font-bold">
-              {nameInter} ({role})
+              {nameInter}
             </div>
             <div className="absolute top-[3px] left-[83%]">
               <IoMdArrowDropdown style={{ fontSize: "30px" }} />

@@ -36,6 +36,9 @@ public class MedicalRecordService {
 	public List<MedicalRecord> findAllByDoctorId(String id) {
 		return repository.findAllByDoctorId(id);
 	}
+	public List<MedicalRecord> findAllByPatientId(String id) {
+		return repository.findAllByPatientId(id);
+	}
 
 	public Optional<MedicalRecord> findById(Integer id) {
 		return repository.findById(id);

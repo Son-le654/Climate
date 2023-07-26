@@ -57,6 +57,25 @@ const listData = [
 function MedicalHistoryContent({ email, role }) {
   const [listData, setListData] = useState([]);
   const [listOrigin, setListOrigin] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+  function handlePageClick(event, pageNumber) {
+    event.preventDefault();
+    setCurrentPage(pageNumber);
+  }
+
+  function handleItemsPerPageChange(event) {
+    setItemsPerPage(parseInt(event.target.value, 10));
+    setCurrentPage(1);
+  }
+
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(listOrigin.length / itemsPerPage); i++) {
+    pageNumbers.push(i);
+  }
   const navigate = useNavigate();
   useEffect(() => {
     const listApp = async () => {
@@ -70,6 +89,15 @@ function MedicalHistoryContent({ email, role }) {
 
           response1 = await axios.get(
             publicPort + `medicalrecord/listByDoctorId?id=${response.data.id}`
+          );
+        } else if (role == "USER") {
+          response = await axios.get(
+            publicPort + `patient/profile?email=${email}`
+          );
+
+          response1 = await axios.get(
+            publicPort +
+              `medicalrecord/listByPatientId?id=${response.data.id}`
           );
         } else {
           response1 = await axios.get(publicPort + `medicalrecord/list`);
@@ -85,8 +113,8 @@ function MedicalHistoryContent({ email, role }) {
   }, [email, role]);
 
   const handleDetails = (checkin) => {
-    navigate("/medicaldetails", {state: {checkin}})
-  }
+    navigate("/medicaldetails", { state: { checkin } });
+  };
   return (
     <div className="bg-white">
       <div className="flex w-[100%] items-center pb-[30px]">
@@ -137,7 +165,9 @@ function MedicalHistoryContent({ email, role }) {
             </div>
             <div className=" w-[20%] flex justify-center items-center">
               <div className="bg-gradientLeft w-[60%] h-[40px] flex justify-center items-center rounded-2xl text-white">
-                <button onClick={() => handleDetails(checkin)}>View Details</button>
+                <button onClick={() => handleDetails(checkin)}>
+                  View Details
+                </button>
               </div>
             </div>
           </div>
@@ -152,6 +182,34 @@ function MedicalHistoryContent({ email, role }) {
           {/*  */}
           <MdKeyboardArrowRight className="ml-[3px]" />
         </button>
+      </div>
+      <div className="" style={{ textAlign: "center" }}>
+        {/* <button className="button text-[30px] w-10 h-10 bg-gradientLeft mr-[30px]">
+          <MdKeyboardArrowLeft className="ml-[2px]" />
+        </button>
+
+        <button className="button text-[30px] w-10 h-10 bg-gradientLeft">
+          <MdKeyboardArrowRight className="ml-[3px]" />
+        </button> */}
+
+        <div>
+          {pageNumbers.map((pageNumber) => (
+            <button
+              key={pageNumber}
+              onClick={(event) => handlePageClick(event, pageNumber)}
+              style={{ margin: "5px" }}
+            >
+              {pageNumber}
+            </button>
+          ))}
+        </div>
+        <div>
+          <select value={itemsPerPage} onChange={handleItemsPerPageChange}>
+            <option value="3">3 per page</option>
+            <option value="7">7 per page</option>
+            <option value="10">10 per page</option>
+          </select>
+        </div>
       </div>
     </div>
   );

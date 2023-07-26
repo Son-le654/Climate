@@ -14,8 +14,18 @@ const HomeNav = [
   },
   {
     id: 2,
-    to: "/faq",
-    title: "Records",
+    to: "/appointments",
+    title: "Appointments",
+  },
+  {
+    id: 2,
+    to: "/checkin-list",
+    title: "Checkins",
+  },
+  {
+    id: 2,
+    to: "/medicalhistory",
+    title: "Medical History",
   },
   {
     id: 3,
@@ -98,7 +108,7 @@ const HomeHeaderService = () => {
               className=" absolute rounded-full w-[24px] h-[24px] top-[6px] left-[4px]"
               src={EnsignAnh}
             ></img>
-            <div className="font-bold">{nameuser} ({role})</div>
+            <div className="font-bold">{nameuser} </div>
             <div className="absolute top-[3px] left-[83%]">
               <IoMdArrowDropdown style={{ fontSize: "30px" }} />
             </div>

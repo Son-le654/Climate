@@ -4,10 +4,13 @@ import AppointmentsContent from "../module/appointments/AppointmentsContent";
 import Footer from "../module/home/Footer";
 import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import HomeHeaderService from "module/home/HomeHeaderService";
+import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
 
 const AppointmentsPage = () => {
   const navigate = useNavigate();
   const [role, setRole] = useState("");
+  const [mail, setmail] = useState("");
 
   useEffect(() => {
     const storedName = localStorage.getItem("token");
@@ -18,9 +21,10 @@ const AppointmentsPage = () => {
         const decoded = jwtDecode(storedName);
         const role = decoded.roles[0].authority;
         setRole(role);
-        if (role !== 'NURSE') {
-          navigate("/")
-        }
+        setmail(decoded.sub);
+        // if (role !== 'NURSE') {
+        //   navigate("/")
+        // }
       } catch (error) {
         console.log(error);
       }
@@ -30,13 +34,19 @@ const AppointmentsPage = () => {
   return (
     <>
       <div className="bg-white">
-        <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
+        {role == "DOCTOR" ? (
+          <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
+        ) : role == "NURSE" ? (
+          <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
+        ) : (
+          <HomeHeaderService></HomeHeaderService>
+        )}
       </div>
       <div className="pt-[80px] pl-[190px] text-7xl font-bold py-[20px] bg-white">
         <h1>Appointments</h1>
       </div>
       <div className="bg-white" style={{ padding: "5% 12%" }}>
-        <AppointmentsContent></AppointmentsContent>
+        <AppointmentsContent role={role} mail={mail}></AppointmentsContent>
       </div>
       <div>
         <Footer></Footer>

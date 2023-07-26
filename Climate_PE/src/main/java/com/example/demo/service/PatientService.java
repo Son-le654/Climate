@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.DTO.PatientDTO;
 import com.example.demo.DTO.RegisterRequest;
+import com.example.demo.entity.Location;
 import com.example.demo.entity.Patient;
 import com.example.demo.repository.PatientRepository;
 
@@ -178,5 +180,13 @@ public class PatientService implements UserDetailsService {
 		p = repository.findByEmail(email);
 
 		return p;
+	}
+
+	public List<Patient> findAll() {
+		return repository.findPatients();
+	}
+
+	public List<Patient> findAllForAdmin() {
+		return repository.findPatientsForAdmin();
 	}
 }

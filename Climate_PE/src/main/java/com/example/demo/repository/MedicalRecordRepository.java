@@ -15,4 +15,7 @@ public interface MedicalRecordRepository extends JpaRepository<MedicalRecord, In
 
 	@Query("select i from MedicalRecord i where i.doctorId = :id")
 	List<MedicalRecord> findAllByDoctorId(@Param(value = "id") String id);
+	
+	@Query("select i from MedicalRecord i where i.checkin.patient.id = :id")
+	List<MedicalRecord> findAllByPatientId(@Param(value = "id") String id);
 }

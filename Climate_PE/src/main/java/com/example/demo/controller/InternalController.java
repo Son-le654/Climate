@@ -102,6 +102,10 @@ public class InternalController {
 	public List<InternalAccount> listAccDoctor() {
 		return internalService.findAllDoctor();
 	}
+	@GetMapping(value = "/doctorsForAdmin")
+	public List<InternalAccount> listAccDoctorForAdmin() {
+		return internalService.findAllDoctorForAdmin();
+	}
 
 	@GetMapping(value = "/doctors/specialty")
 	public List<InternalAccountDTO> listAccDoctorwithSpecialty() {

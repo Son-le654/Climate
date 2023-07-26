@@ -8,7 +8,7 @@ import { useRef } from "react";
 import Slider from "react-slick";
 import { useNavigate } from "react-router-dom";
 
-function AppointmentsContent() {
+function AppointmentsContent({ role, mail }) {
   const [sortedObjects, setSortedObjects] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
@@ -58,15 +58,33 @@ function AppointmentsContent() {
   useEffect(() => {
     const listApp = async () => {
       try {
-        const response = await axios.get(publicPort + "appointment/list");
-        setListOrigin(response.data);
-        setListData(response.data);
+        let response;
+        let response1;
+        let id;
+        if (role == "USER") {
+          response1 = await axios.get(
+            publicPort + `patient/profile?email=${mail}`
+          );
+          console.log(response1.data);
+          id = response1.data.id;
+
+          console.log(id);
+          response = await axios.get(
+            publicPort + `appointment/listBypaintedId?painted_id=${id}`
+          );
+          setListOrigin(response.data);
+          setListData(response.data);
+        } else {
+          response = await axios.get(publicPort + "appointment/list");
+          setListOrigin(response.data);
+          setListData(response.data);
+        }
       } catch (error) {
         console.log(error);
       }
     };
     listApp();
-  }, []);
+  }, [mail, role]);
 
   useEffect(() => {
     setListData(listOrigin.slice(indexOfFirstItem, indexOfLastItem));
@@ -113,9 +131,7 @@ function AppointmentsContent() {
     if (searchInput === "") {
       setListData(listOrigin);
     } else {
-      const filteredList = listOrigin.filter(
-        (item) => item.id == searchInput
-      );
+      const filteredList = listOrigin.filter((item) => item.id == searchInput);
       setListData(filteredList);
     }
   };
@@ -237,7 +253,7 @@ function AppointmentsContent() {
                     </p>
                   </td>
                   <td className="pb-[10px] pt-[10px]  w-[13%]">
-                    {listD.commandFlag == 1 ? (
+                    {role == "NURSE" && listD.commandFlag == 1 ? (
                       <button
                         className="w-[80%] h-[40px] bg-gradientLeft rounded-3xl text-white "
                         onClick={() => handleCheckin(listD)}

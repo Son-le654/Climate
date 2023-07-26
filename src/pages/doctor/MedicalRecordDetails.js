@@ -32,7 +32,7 @@ function MedicalRecordDetails() {
   const location = useLocation();
   useEffect(() => {
     const check = location?.state?.checkin;
-    console.log(checkin);
+    console.log(check);
     if (check == undefined) {
       navigate("/medicalhistory");
     } else {
