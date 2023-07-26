@@ -104,7 +104,7 @@ const HomeHeaderServiceDoctor = () => {
               src={EnsignAnh}
             ></img>
             <div className="font-bold">
-              {nameuser} ({role})
+              {nameuser}
             </div>
             <div className="absolute top-[3px] left-[83%]">
               <IoMdArrowDropdown style={{ fontSize: "30px" }} />
