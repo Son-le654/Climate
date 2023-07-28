@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import HomeHeaderServiceNurse from "../module/home/HomeHeaderServiceNurse";
-import AppointmentsContent from "../module/appointments/AppointmentsContent";
 import Footer from "../module/home/Footer";
 import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
-import HomeHeaderService from "module/home/HomeHeaderService";
 import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
-import PatientsContent from "module/appointments/PatientsContent";
 import HomeHeaderServiceAdmin from "module/home/HomeHeaderServiceAdmin";
+import PatientsContent from "module/admin/accountmanagement/PatientsContent";
 
 const PatientsPage = () => {
   const navigate = useNavigate();

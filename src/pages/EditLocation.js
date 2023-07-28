@@ -7,9 +7,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
 import HomeHeaderServiceNurse from "module/home/HomeHeaderServiceNurse";
 import HomeHeaderServiceAdmin from "module/home/HomeHeaderServiceAdmin";
-import CreateNewInternalContent from "module/profile/CreateNewInternalContent";
-import CreateNewLocationContent from "module/profile/CreateNewLocationContent";
-import EditLocationContent from "module/profile/EditLocationContent";
+import CreateNewInternalContent from "module/admin/accountmanagement/CreateNewInternalContent";
+import EditLocationContent from "module/admin/locationmanagement/EditLocationContent";
 
 function EditLocation() {
   const navigate = useNavigate();

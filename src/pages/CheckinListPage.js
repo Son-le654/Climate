@@ -3,9 +3,9 @@ import HomeHeaderServiceNurse from "../module/home/HomeHeaderServiceNurse";
 import Footer from "../module/home/Footer";
 import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
-import SchedulesContent from "../module/appointments/SchedulesContent.js";
+import SchedulesContent from "../module/schedules/SchedulesContent.js";
 import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
-import CheckinListContent from "module/appointments/CheckinListContent";
+import CheckinListContent from "module/checkins/CheckinListContent";
 import HomeHeaderService from "module/home/HomeHeaderService";
 
 const CheckinListPage = () => {
@@ -23,7 +23,7 @@ const CheckinListPage = () => {
         const role = decoded.roles[0].authority;
         setRole(role);
         setEmail(decoded.sub);
-        console.log(decoded.sub);
+        // console.log(decoded.sub);
         // console.log(decoded.sub);
         // if (role !== "DOCTOR" && role !== "NURSE") {
         //   navigate("/");

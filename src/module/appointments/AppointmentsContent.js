@@ -1,13 +1,8 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { localPort, publicPort } from "../../components/url/link";
+import { publicPort } from "../../components/url/link";
 import { BiSearch } from "react-icons/bi";
-import { MdKeyboardArrowRight } from "react-icons/md";
-import { MdKeyboardArrowLeft } from "react-icons/md";
-import { useRef } from "react";
-import Slider from "react-slick";
 import { useNavigate } from "react-router-dom";
-import { AiOutlinePlusCircle } from "react-icons/ai";
 import jwtDecode from "jwt-decode";
 
 function AppointmentsContent({ role, mail }) {
@@ -60,7 +55,7 @@ function AppointmentsContent({ role, mail }) {
   const currentItems = listOrigin.slice(indexOfFirstItem, indexOfLastItem);
 
   useEffect(() => {
-    console.log(mail);
+    // console.log(mail);
     if (mail == undefined) {
       setMail(mail);
     }
@@ -75,7 +70,7 @@ function AppointmentsContent({ role, mail }) {
       setRol(role);
       setMail(decoded.sub);
       m = decoded.sub;
-      console.log(decoded.sub);
+      // console.log(decoded.sub);
     } catch (error) {
       console.log(error);
     }
@@ -89,10 +84,10 @@ function AppointmentsContent({ role, mail }) {
           response1 = await axios.get(
             publicPort + `patient/profile?email=${m}`
           );
-          console.log(response1.data);
+          // console.log(response1.data);
           id = response1.data.id;
 
-          console.log(id);
+          // console.log(id);
           response = await axios.get(
             publicPort + `appointment/listBypaintedId?painted_id=${id}`
           );
@@ -113,13 +108,6 @@ function AppointmentsContent({ role, mail }) {
   useEffect(() => {
     setListData(listOrigin.slice(indexOfFirstItem, indexOfLastItem));
   }, [itemsPerPage, currentPage]);
-
-  //   useEffect(() => {
-  //     const sorted = listOrigin.sort(
-  //       (a, b) => new Date(b.registerTime) - new Date(a.registerTime)
-  //     );
-  //     setSortedObjects(sorted);
-  //   }, [listOrigin]);
 
   function handlePageClick(event, pageNumber) {
     event.preventDefault();
@@ -165,7 +153,7 @@ function AppointmentsContent({ role, mail }) {
     navigate("/appointmentdetailsfornurse", { state: { appointment } });
   };
   const handleCheckin = (appointment) => {
-    console.log(appointment);
+    // console.log(appointment);
     navigate("/checkin", { state: { appointment } });
   };
   const handleAddNewAppointment = () => {
@@ -314,14 +302,6 @@ function AppointmentsContent({ role, mail }) {
         </div>
       </div>
       <div className="" style={{ textAlign: "center" }}>
-        {/* <button className="button text-[30px] w-10 h-10 bg-gradientLeft mr-[30px]">
-          <MdKeyboardArrowLeft className="ml-[2px]" />
-        </button>
-
-        <button className="button text-[30px] w-10 h-10 bg-gradientLeft">
-          <MdKeyboardArrowRight className="ml-[3px]" />
-        </button> */}
-
         <div>
           {pageNumbers.map((pageNumber) => (
             <button

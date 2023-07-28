@@ -1,19 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { localPort, publicPort } from "../../components/url/link";
+import { publicPort } from "../../components/url/link";
 import { BsFillFileTextFill } from "react-icons/bs";
 import React from "react";
-import { AiOutlinePlusCircle } from "react-icons/ai";
 import { FaPencilAlt } from "react-icons/fa";
 import jwtDecode from "jwt-decode";
 
 function AppointmentDetailContent({ appointment }) {
   const tabButtons1 = "Return to previous";
-  const tabButtons2 = "Appointment confirmation";
-  console.log(appointment);
+  // console.log(appointment);
 
-  const [type, setType] = useState("Appointment confirmation");
   const navigate = useNavigate();
   const [showConfirmCancel, setshowConfirmCancel] = useState(false);
   const [showConfirmApprove, setshowConfirmApprove] = useState(false);

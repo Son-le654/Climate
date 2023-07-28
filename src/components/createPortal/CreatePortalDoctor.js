@@ -1,19 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { CSSTransition } from "react-transition-group";
-import avatarDoctor from "../../Images/avatar.png";
 import PopupDoctor from "../propup/PopupDoctor";
 import axios from "axios";
-import { isEqual } from "lodash";
 import { publicPort } from "../url/link";
-
-// const listDoctor = [
-//   { id: 1, doctor: "Nguyen Hung", avatar: avatarDoctor, spec: "General suraery, Dematology" },
-//   { id: 2, doctor: "NC Phong ", avatar: avatarDoctor, spec: "General suraery, Dermatology" },
-//   { id: 3, doctor: "The Son", avatar: avatarDoctor, spec: "Otorhinolaryngology, Internal Medicine,Musculoskeletal" },
-//   { id: 4, doctor: "Thuy", avatar: avatarDoctor, spec: "Eyes specialist" },
-//   { id: 5, doctor: "Dat Ho", avatar: avatarDoctor, spec: "Neurology" }
-// ];
 const CreatePortalDoctor = ({
   visible,
   onClose,
@@ -28,13 +18,6 @@ const CreatePortalDoctor = ({
   const [listOrigin, setListOrigin] = useState([]);
   const [doctorListSearch, setDoctorListSearch] = useState();
 
-  // if (spec !== "") {
-  //   console.log(spec);
-  //   const filteredList = listDoctor.filter((item) =>
-  //     item.spec.toLowerCase().includes(spec.toLowerCase().trim())
-  //   );
-  //   console.log(filteredList);
-
   useEffect(() => {
     const doctos = async () => {
       try {
@@ -44,23 +27,19 @@ const CreatePortalDoctor = ({
         setDoctorList(response.data);
         setListOrigin(response.data);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
     doctos();
   }, [place]);
 
   useEffect(() => {
-    // console.log("Enter checkin doctor");
     if (checkinDoctor != undefined) {
       const places = async () => {
-        const response = await axios.get(
-          publicPort + `api/doctors`
-        );
+        const response = await axios.get(publicPort + `api/doctors`);
         const findItemByName = (name) => {
           return response.data.find((item) => item.id == name);
         };
-        // console.log(place);
         const selectedItem = findItemByName(checkinDoctor);
         changeDoctorList(selectedItem);
       };
@@ -77,8 +56,6 @@ const CreatePortalDoctor = ({
     setDoctorList(listOrigin);
     setDoctorListSearch(listOrigin);
     if (spec !== undefined) {
-      // console.log(spec);
-      // console.log(doctorList);
       const filteredItems = doctorList.filter((item) => {
         return (
           item.role.id === 3 &&

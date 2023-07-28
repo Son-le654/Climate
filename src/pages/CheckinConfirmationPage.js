@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
 import React from "react";
-import CheckinConfirmationContent from "module/appointmentConfirmation/CheckinConfirmationContent";
+import CheckinConfirmationContent from "module/checkinConfirmation/CheckinConfirmationContent";
 
 const CheckinConfirmationPage = () => {
   const navigate = useNavigate();

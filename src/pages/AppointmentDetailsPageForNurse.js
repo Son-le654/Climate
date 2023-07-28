@@ -33,7 +33,7 @@ const AppointmentDetailsPageForNurse = () => {
   const location = useLocation();
   useEffect(() => {
     const appointment = location?.state?.appointment;
-    console.log(appointment);
+    // console.log(appointment);
     if (appointment == undefined) {
       navigate("/appointments");
     } else {

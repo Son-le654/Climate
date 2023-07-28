@@ -77,9 +77,9 @@ function DoctorInformationContent({ docId }) {
                   style={
                     type === data
                       ? {
-                        color: "#5562f7",
-                        textUnderlineOffset: "#3681f8",
-                      }
+                          color: "#5562f7",
+                          textUnderlineOffset: "#3681f8",
+                        }
                       : {}
                   }
                   onClick={() => handleClick(data)}

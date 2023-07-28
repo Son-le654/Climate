@@ -103,9 +103,7 @@ const HomeHeaderServiceNurse = () => {
               className=" absolute rounded-full w-[24px] h-[24px] top-[6px] left-[4px]"
               src={EnsignAnh}
             ></img>
-            <div className="font-bold">
-              {nameInter}
-            </div>
+            <div className="font-bold">{nameInter}</div>
             <div className="absolute top-[3px] left-[83%]">
               <IoMdArrowDropdown style={{ fontSize: "30px" }} />
             </div>

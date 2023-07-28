@@ -6,55 +6,6 @@ import { GoSearch } from "react-icons/go";
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
-const listData = [
-  {
-    id: 1,
-    month: "February",
-    day: "13th",
-    name: "Nguyen Quang Hung",
-    phone: "0817411132",
-    type: "Nutrition",
-    time: "10:30, 12/06/2023",
-  },
-  {
-    id: 2,
-    month: "February",
-    day: "13th",
-    name: "Nguyen Quang Hung",
-    phone: "0817411132",
-    type: "Nutrition",
-    time: "10:30, 12/06/2023",
-  },
-
-  {
-    id: 3,
-    month: "February",
-    day: "13th",
-    name: "Nguyen Quang Hung",
-    phone: "0817411132",
-    type: "Nutrition",
-    time: "10:30, 12/06/2023",
-  },
-  {
-    id: 4,
-    month: "February",
-    day: "13th",
-    name: "Nguyen Quang Hung",
-    phone: "0817411132",
-    type: "Nutrition",
-    time: "10:30, 12/06/2023",
-  },
-  {
-    id: 5,
-    month: "February",
-    day: "13th",
-    name: "Nguyen Quang Hung",
-    phone: "0817411132",
-    type: "Nutrition",
-    time: "10:30, 12/06/2023",
-  },
-];
-
 function MedicalHistoryContent({ email, role }) {
   const [listData, setListData] = useState([]);
   const [listOrigin, setListOrigin] = useState([]);
@@ -65,6 +16,14 @@ function MedicalHistoryContent({ email, role }) {
 
   const [Email, setMail] = useState();
   const [rol, setRol] = useState();
+  // const [time, settime] = useState();
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     settime(1); // reload the component after 1 second
+  //   }, 1000);
+
+  //   return () => clearTimeout(timer); // clear the timer on unmount
+  // }, []);
 
   function handlePageClick(event, pageNumber) {
     event.preventDefault();
@@ -82,7 +41,7 @@ function MedicalHistoryContent({ email, role }) {
   }
   const navigate = useNavigate();
   useEffect(() => {
-    console.log(email);
+    // console.log(email);
     if (email == undefined) {
       setMail(email);
     }
@@ -97,7 +56,7 @@ function MedicalHistoryContent({ email, role }) {
       setRol(role);
       setMail(decoded.sub);
       m = decoded.sub;
-      console.log(decoded.sub);
+      // console.log(decoded.sub);
     } catch (error) {
       console.log(error);
     }
@@ -114,9 +73,7 @@ function MedicalHistoryContent({ email, role }) {
             publicPort + `medicalrecord/listByDoctorId?id=${response.data.id}`
           );
         } else if (role == "USER") {
-          response = await axios.get(
-            publicPort + `patient/profile?email=${email}`
-          );
+          response = await axios.get(publicPort + `patient/profile?email=${m}`);
 
           response1 = await axios.get(
             publicPort + `medicalrecord/listByPatientId?id=${response.data.id}`
@@ -124,7 +81,7 @@ function MedicalHistoryContent({ email, role }) {
         } else {
           response1 = await axios.get(publicPort + `medicalrecord/list`);
         }
-        console.log(response1.data);
+        // console.log(response1.data);
         setListOrigin(response1.data);
         setListData(response1.data);
       } catch (error) {

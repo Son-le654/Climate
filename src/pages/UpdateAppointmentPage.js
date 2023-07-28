@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
-import BookAppHeader from "../module/bookAppointment/BookAppHeader";
 import jwtDecode from "jwt-decode";
-import HomeHeaderService from "../module/home/HomeHeaderService";
-import HomeHeaderServiceDoctor from "../module/home/HomeHeaderServiceDoctor";
 import HomeHeaderServiceNurse from "../module/home/HomeHeaderServiceNurse";
 
 const UpdateAppointmentPage = () => {
   const navigate = useNavigate();
   const [role, setRole] = useState("");
   const location = useLocation();
-
 
   useEffect(() => {
     const storedName = localStorage.getItem("token");

@@ -46,22 +46,22 @@ import EditProfileContentForStaff from "module/profile/EditProfileContentForStaf
 import MedicalRecordDetails from "pages/doctor/MedicalRecordDetails";
 import PatientsPage from "pages/PatientsPage";
 import DoctorsPage from "pages/DoctorsPage";
-import InternalAccountsPage from "pages/InternalAccountsPage";
 import ListOfAppointment from "../src/pages/ListOfAppointment";
-import AdminPages from "../src/pages/AdminPages";
-import CreateNewInternalAcc from "pages/CreateNewInternalAcc";
-import LocationsPage from "pages/LocationsPage";
-import SymptomsPage from "pages/SymptomsPage";
-import SpecialtiesPage from "pages/SpecialtiesPage";
-import RolesPage from "pages/RolesPage";
-import CreateNewLocation from "pages/CreateNewLocation";
+import AdminPages from "./pages/admin/AdminPages";
 import EditLocation from "pages/EditLocation";
-import CreateNewSpec from "pages/CreateNewSpec";
-import EditSpec from "pages/EditSpec";
-import CreateNewRole from "pages/CreateNewRole";
-import EditRole from "pages/EditRole";
-import EditSymptom from "pages/EditSymptom";
-import CreateNewSymptom from "pages/CreateNewSymptom";
+import CreateNewInternalAcc from "pages/admin/CreateNewInternalAcc";
+import CreateNewLocation from "pages/admin/CreateNewLocation";
+import CreateNewRole from "pages/admin/CreateNewRole";
+import CreateNewSpec from "pages/admin/CreateNewSpec";
+import CreateNewSymptom from "pages/admin/CreateNewSymptom";
+import EditRole from "pages/admin/EditRole";
+import EditSpec from "pages/admin/EditSpec";
+import EditSymptom from "pages/admin/EditSymptom";
+import InternalAccountsPage from "pages/admin/InternalAccountsPage";
+import LocationsPage from "pages/admin/LocationsPage";
+import RolesPage from "pages/admin/RolesPage";
+import SpecialtiesPage from "pages/admin/SpecialtiesPage";
+import SymptomsPage from "pages/admin/SymptomsPage";
 
 function App() {
   const storedName = localStorage.getItem("token");
