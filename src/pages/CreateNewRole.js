@@ -8,8 +8,10 @@ import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
 import HomeHeaderServiceNurse from "module/home/HomeHeaderServiceNurse";
 import HomeHeaderServiceAdmin from "module/home/HomeHeaderServiceAdmin";
 import CreateNewInternalContent from "module/profile/CreateNewInternalContent";
+import CreateNewLocationContent from "module/profile/CreateNewLocationContent";
+import CreateNewRoleContent from "module/profile/CreateNewRoleContent";
 
-function CreateNewInternalAcc() {
+function CreateNewRole() {
   const navigate = useNavigate();
   const [role, setRole] = useState("");
   const [mail, setMail] = useState("");
@@ -41,10 +43,10 @@ function CreateNewInternalAcc() {
           <HomeHeaderServiceAdmin></HomeHeaderServiceAdmin>
         </div>
         <div className="w-[100%] h-[200px] flex items-center">
-          <h1 className="text-[40px] font-bold"> Create account</h1>
+          <h1 className="text-[40px] font-bold"> Create role</h1>
         </div>
         <div className="bg-white">
-          <CreateNewInternalContent />
+          <CreateNewRoleContent />
         </div>
         <div className="bg-white">
           <Footer />
@@ -53,4 +55,4 @@ function CreateNewInternalAcc() {
     </div>
   );
 }
-export default CreateNewInternalAcc;
+export default CreateNewRole;

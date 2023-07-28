@@ -71,7 +71,7 @@ const CreatePortalSpecialty = ({
     const newArr = [];
     if (symtomArr.length > 0) {
       symtomArr.map((item) => {
-        console.log(item);
+        // console.log(item);
         listOrigin.map((item1) => {
           if (item1.id === item.specialty.id) {
             if (newArr.includes(item1.name) !== true) {

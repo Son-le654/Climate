@@ -9,6 +9,7 @@ import HomeHeaderService from "../module/home/HomeHeaderService";
 import HomeHeaderServiceGuest from "../module/home/HomeHeaderServiceGuest";
 import HomeHeaderServiceNurse from "../module/home/HomeHeaderServiceNurse";
 import HomeHeaderServiceDoctor from "../module/home/HomeHeaderServiceDoctor";
+import HomeHeaderServiceAdmin from "module/home/HomeHeaderServiceAdmin";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -42,6 +43,8 @@ const HomePage = () => {
         <HomeHeaderService></HomeHeaderService>
       ) : role == "NURSE" ? (
         <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
+      ) : role == "ADMIN" ? (
+        <HomeHeaderServiceAdmin></HomeHeaderServiceAdmin>
       ) : (
         <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
       )}

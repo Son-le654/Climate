@@ -3,13 +3,16 @@ import Footer from "../module/home/Footer";
 import EditProfileContent from "../module/profile/EditProfileContent";
 import jwtDecode from "jwt-decode";
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
 import HomeHeaderServiceNurse from "module/home/HomeHeaderServiceNurse";
 import HomeHeaderServiceAdmin from "module/home/HomeHeaderServiceAdmin";
 import CreateNewInternalContent from "module/profile/CreateNewInternalContent";
+import CreateNewLocationContent from "module/profile/CreateNewLocationContent";
+import EditLocationContent from "module/profile/EditLocationContent";
+import EditSymptomContent from "module/profile/EditSymptomContent";
 
-function CreateNewInternalAcc() {
+function EditSymptom() {
   const navigate = useNavigate();
   const [role, setRole] = useState("");
   const [mail, setMail] = useState("");
@@ -34,6 +37,10 @@ function CreateNewInternalAcc() {
     }
   }, []);
 
+  const location = useLocation();
+  const locaTf = location?.state?.item;
+  console.log(locaTf);
+
   return (
     <div className="w-[100%] min-h-[1000px] bg-white flex justify-center">
       <div className="w-[80%] min-h-[1000px] bg-white">
@@ -41,10 +48,10 @@ function CreateNewInternalAcc() {
           <HomeHeaderServiceAdmin></HomeHeaderServiceAdmin>
         </div>
         <div className="w-[100%] h-[200px] flex items-center">
-          <h1 className="text-[40px] font-bold"> Create account</h1>
+          <h1 className="text-[40px] font-bold"> Edit symptom</h1>
         </div>
         <div className="bg-white">
-          <CreateNewInternalContent />
+          <EditSymptomContent item={locaTf}></EditSymptomContent>
         </div>
         <div className="bg-white">
           <Footer />
@@ -53,4 +60,4 @@ function CreateNewInternalAcc() {
     </div>
   );
 }
-export default CreateNewInternalAcc;
+export default EditSymptom;

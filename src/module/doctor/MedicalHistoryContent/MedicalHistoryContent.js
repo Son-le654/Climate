@@ -1,5 +1,6 @@
 import axios from "axios";
 import { publicPort } from "components/url/link";
+import jwtDecode from "jwt-decode";
 import React, { useEffect, useState } from "react";
 import { GoSearch } from "react-icons/go";
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
@@ -62,6 +63,9 @@ function MedicalHistoryContent({ email, role }) {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
+  const [Email, setMail] = useState();
+  const [rol, setRol] = useState();
+
   function handlePageClick(event, pageNumber) {
     event.preventDefault();
     setCurrentPage(pageNumber);
@@ -78,13 +82,32 @@ function MedicalHistoryContent({ email, role }) {
   }
   const navigate = useNavigate();
   useEffect(() => {
+    console.log(email);
+    if (email == undefined) {
+      setMail(email);
+    }
+    let r;
+    let m;
+
+    const storedName = localStorage.getItem("token");
+    try {
+      const decoded = jwtDecode(storedName);
+      const role = decoded.roles[0].authority;
+      r = role;
+      setRol(role);
+      setMail(decoded.sub);
+      m = decoded.sub;
+      console.log(decoded.sub);
+    } catch (error) {
+      console.log(error);
+    }
     const listApp = async () => {
       try {
         let response;
         let response1;
         if (role == "DOCTOR") {
           response = await axios.get(
-            publicPort + `api/internal-accounts/search-email?email=${email}`
+            publicPort + `api/internal-accounts/search-email?email=${m}`
           );
 
           response1 = await axios.get(
@@ -96,8 +119,7 @@ function MedicalHistoryContent({ email, role }) {
           );
 
           response1 = await axios.get(
-            publicPort +
-              `medicalrecord/listByPatientId?id=${response.data.id}`
+            publicPort + `medicalrecord/listByPatientId?id=${response.data.id}`
           );
         } else {
           response1 = await axios.get(publicPort + `medicalrecord/list`);
@@ -110,7 +132,7 @@ function MedicalHistoryContent({ email, role }) {
       }
     };
     listApp();
-  }, [email, role]);
+  }, [Email, rol]);
 
   const handleDetails = (checkin) => {
     navigate("/medicaldetails", { state: { checkin } });

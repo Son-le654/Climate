@@ -32,6 +32,10 @@ function CheckinListContent({ email, role }) {
       title: "Date",
     },
     {
+      id: 4,
+      title: "Time",
+    },
+    {
       id: 5,
       title: "Status",
     },
@@ -46,7 +50,7 @@ function CheckinListContent({ email, role }) {
   const currentItems = listOrigin.slice(indexOfFirstItem, indexOfLastItem);
 
   useEffect(() => {
-    console.log(mail);
+    // console.log(mail);
     const listApp = async () => {
       try {
         let response;
@@ -139,6 +143,10 @@ function CheckinListContent({ email, role }) {
   };
   const handleAddNewCheckin = () => {
     navigate("/checkin");
+  };
+  const handleChangeTime = (time) => {
+    const [date, hour] = time.split(" ");
+    return hour.substring(0, 5);
   };
   return (
     <div className="bg-white p-5 rounded-2xl shadow-2xl w-[100%] min-h-[500px]">
@@ -254,6 +262,13 @@ function CheckinListContent({ email, role }) {
                   <td className="w-[13%]">
                     <p className="ml-[20%]">
                       {listD != undefined ? listD.examDate : ""}
+                    </p>
+                  </td>
+                  <td className="w-[13%]">
+                    <p className="ml-[20%]">
+                      {listD != undefined
+                        ? handleChangeTime(listD.registerTime)
+                        : ""}
                     </p>
                   </td>
 

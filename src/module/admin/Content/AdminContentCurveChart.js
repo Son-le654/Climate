@@ -9,11 +9,11 @@ const AdminContentCurveChart = () => {
             value: 50,
         },
         {
-            type: 'Check-in',
+            type: 'Completed',
             value: 25,
         },
         {
-            type: 'Completed',
+            type: 'Cancel',
             value: 25,
         },
     ];

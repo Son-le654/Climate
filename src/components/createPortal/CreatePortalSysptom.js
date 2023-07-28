@@ -70,9 +70,9 @@ const CreatePortalSysptom = ({
     };
     symptoms();
 
-    console.log(symptomList);
+    // console.log(symptomList);
 
-    console.log("75" + checkinsymptom);
+    // console.log("75" + checkinsymptom);
     setsymarr(checkinsymptom);
   }, []);
 

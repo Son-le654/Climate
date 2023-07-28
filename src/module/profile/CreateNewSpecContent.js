@@ -6,9 +6,9 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function CreateNewLocationContent() {
+function CreateNewSpecContent() {
   const tabButtons1 = "Cancel ";
-  const tabButtons2 = "Create location";
+  const tabButtons2 = "Create specialty";
   const [active, setActive] = useState(false);
   const [selectedStaff, setSelectedStaff] = useState(null);
   const navigate = useNavigate();
@@ -27,15 +27,15 @@ function CreateNewLocationContent() {
   const handleChangeName = (event) => {
     const { name, value } = event.target;
 
-    console.log(name);
-    console.log(value);
+    // console.log(name);
+    // console.log(value);
 
     if (name === "name") {
       const newName = {
         ...Name,
         [name]: value,
       };
-      console.log("set name");
+      // console.log("set name");
       setName(newName);
     }
 
@@ -44,7 +44,7 @@ function CreateNewLocationContent() {
         ...desciption,
         [name]: value,
       };
-      console.log("set description");
+      // console.log("set description");
       setDescription(newDes);
     }
   };
@@ -67,20 +67,17 @@ function CreateNewLocationContent() {
     ) {
       alert("Please fill all fields");
     } else {
-      const response = await axios.post(
-        publicPort + `location/save`,
-        objectSave
-      );
+      const response = await axios.post(publicPort + `spec/save`, objectSave);
       console.log(response);
       if (response.data == "success") {
-        navigate("/locations");
+        navigate("/specs");
       } else {
         alert(response.data);
       }
     }
   };
   const goBack = () => {
-    navigate("/locations");
+    navigate("/specs");
   };
   return (
     <div className="w-[100%] min-h-[1000px] bg-white">
@@ -150,4 +147,4 @@ function CreateNewLocationContent() {
     </div>
   );
 }
-export default CreateNewLocationContent;
+export default CreateNewSpecContent;

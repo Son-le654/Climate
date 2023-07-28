@@ -6,9 +6,9 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-function EditLocationContent({ item }) {
+function EditSymptomContent({ item }) {
   const tabButtons1 = "Cancel ";
-  const tabButtons2 = "Update Location";
+  const tabButtons2 = "Update symptom";
   const [active, setActive] = useState(false);
   const [selectedStaff, setSelectedStaff] = useState(null);
   const navigate = useNavigate();
@@ -28,6 +28,11 @@ function EditLocationContent({ item }) {
       des: "",
     },
   ]);
+  const [spec, setSpec] = useState([
+    {
+      spc: "",
+    },
+  ]);
   const [status, setStatus] = useState([
     {
       sT: "",
@@ -39,6 +44,7 @@ function EditLocationContent({ item }) {
       setIdLo({ idL: item.id });
       setName({ name: item.name });
       setDescription({ des: item.description });
+      setSpec({ spc: item.specialty.id });
       setStatus({ sT: item.commandFlag });
     }
   }, [item]);
@@ -64,6 +70,13 @@ function EditLocationContent({ item }) {
       };
       setDescription(newDes);
     }
+    if (name === "spc") {
+      const newSpc = {
+        ...spec,
+        [name]: value,
+      };
+      setSpec(newSpc);
+    }
     if (name === "sT") {
       const newSt = {
         ...status,
@@ -76,7 +89,8 @@ function EditLocationContent({ item }) {
   var objectSave = {
     id: "",
     name: "",
-    desciption: "",
+    description: "",
+    specid: "",
     commandFlag: "",
   };
   const handleSave = async () => {
@@ -84,6 +98,7 @@ function EditLocationContent({ item }) {
     objectSave.id = idLo.idL;
     objectSave.name = Name.name;
     objectSave.description = desciption.des;
+    objectSave.specid = spec.spc;
     objectSave.commandFlag = status.sT;
 
     console.log(objectSave);
@@ -92,18 +107,20 @@ function EditLocationContent({ item }) {
       objectSave.name == undefined ||
       objectSave.description == "" ||
       objectSave.description == undefined ||
+      objectSave.specid == null ||
+      objectSave.specid == undefined ||
       objectSave.commandFlag == "" ||
       objectSave.commandFlag == undefined
     ) {
       alert("Please fill all fields");
     } else {
-      const response = await axios.post(
-        publicPort + `location/save`,
+      const response = await axios.put(
+        publicPort + `symptom/update`,
         objectSave
       );
       console.log(response);
       if (response.data == "success") {
-        navigate("/locations");
+        navigate("/symptoms");
       } else {
         alert(response.data);
       }
@@ -114,8 +131,17 @@ function EditLocationContent({ item }) {
     { id: "2", value: "Block" },
   ]);
   const goBack = () => {
-    navigate("/locations");
+    navigate("/symptoms");
   };
+  const [listSymptom, setListSymptom] = useState();
+
+  useEffect(() => {
+    const app = async () => {
+      const response = await axios.get(publicPort + `spec/list`);
+      setListSymptom(response.data);
+    };
+    app();
+  }, []);
   return (
     <div className="w-[100%] min-h-[1000px] bg-white">
       <div className="w-[100%] h-[120px] mb-[10px]">
@@ -164,6 +190,31 @@ function EditLocationContent({ item }) {
               name="des"
               className="w-[80%] h-[100%] ml-[10px] text-[20px] "
             />
+          </div>
+        </div>
+      </div>
+      <div className="w-[100%] h-[120px] mb-[10px]">
+        <div className="w-[100%] h-[50px]">
+          <h1 className=" text-[25px] font-bold">Specialty</h1>
+        </div>
+        <div className=" flex justify-start w-[100%]">
+          <div className="h-[60px] w-[22%] border-[1px] rounded-2xl border-[#c5c4c4] flex">
+            <select
+              className="h-[60px] w-[100%] pl-[10px] bg-white text-[20px] border-[1px] rounded-[10px] border-[#c5c4c4]"
+              value={spec.spc}
+              name="spc"
+              onChange={handleChangeName}
+            >
+              <option selected={true} disabled={true}>
+                -- Choose Specialty --
+              </option>
+              {listSymptom != undefined &&
+                listSymptom.map((staff) => (
+                  <option className="" key={staff.id} value={staff.id}>
+                    {staff.name}
+                  </option>
+                ))}
+            </select>
           </div>
         </div>
       </div>
@@ -228,4 +279,4 @@ function EditLocationContent({ item }) {
     </div>
   );
 }
-export default EditLocationContent;
+export default EditSymptomContent;
