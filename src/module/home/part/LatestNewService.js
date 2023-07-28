@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import startImg from "../../../Images/Star.png";
 import axios from "axios";
-import { localPort, publicPort } from "../../../components/url/link";
+import { publicPort } from "../../../components/url/link";
 const listCmt = [
   {
     id: 1,
@@ -45,7 +44,7 @@ const LatestNewService = () => {
       try {
         const response = await axios.get(publicPort + "news/random");
         setNews(response.data);
-        console.log(response.data);
+        // console.log(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -75,7 +74,7 @@ const LatestNewService = () => {
                       <img src={item.avatar} alt="avatar" />
                     </div>
                     <span className="font-medium text-black2 text-[20px] ml-[10px]">
-                    {item.creatby}
+                      {item.creatby}
                     </span>
                   </div>
                 </div>

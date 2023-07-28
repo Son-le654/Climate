@@ -17,7 +17,7 @@ const HomePage = () => {
 
   useEffect(() => {
     const storedName = localStorage.getItem("token");
-    console.log("store: ", storedName);
+    // console.log("store: ", storedName);
     if (storedName != null) {
       try {
         const decoded = jwtDecode(storedName);

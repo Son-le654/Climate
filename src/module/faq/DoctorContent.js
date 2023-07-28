@@ -1,5 +1,4 @@
 import React from "react";
-import { FaMapMarkerAlt, FaSortDown } from "react-icons/fa";
 import DoctorList from "./DoctorListContentComponent/DoctorList";
 import DoctorSearch from "./DoctorListContentComponent/DoctorSearch";
 import DoctorSpecialty from "./DoctorListContentComponent/DoctorSpecialty";

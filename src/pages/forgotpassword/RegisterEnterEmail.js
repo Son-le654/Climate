@@ -3,6 +3,7 @@ import avatar from "../../Images/clip.png";
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 import { useState } from "react";
 import { event } from "jquery";
+import React from "react";
 
 function RegisterEnterEmail() {
   const [email, setEmail] = useState({

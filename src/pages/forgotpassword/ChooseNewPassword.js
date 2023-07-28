@@ -3,6 +3,7 @@ import Footer from "../../module/home/Footer";
 import ChooseNewPasswordContent from "../../module/forgotpassword/choosenewpassword/ChooseNewPasswordContent";
 import { useLocation, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
+import React from "react";
 
 function ChooseNewPassword() {
   const navigate = useNavigate();

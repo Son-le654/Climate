@@ -6,7 +6,7 @@ import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import HomeHeaderService from "module/home/HomeHeaderService";
 import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
-import DoctorsContent from "module/appointments/DoctorsContent";
+import DoctorsContent from "module/doctors/DoctorsContent";
 
 const DoctorsPage = () => {
   const navigate = useNavigate();

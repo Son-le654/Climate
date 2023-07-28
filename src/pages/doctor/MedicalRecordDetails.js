@@ -19,7 +19,7 @@ function MedicalRecordDetails() {
       try {
         const decoded = jwtDecode(storedName);
         const rol = decoded.roles[0].authority;
-        setrole(rol)
+        setrole(rol);
         // if (role !== 'NURSE') {
         //   navigate("/")
         // }\
@@ -43,7 +43,7 @@ function MedicalRecordDetails() {
   return (
     <div>
       <div className="bg-white">
-      {role == "DOCTOR" ? (
+        {role == "DOCTOR" ? (
           <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
         ) : (
           <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
@@ -51,7 +51,7 @@ function MedicalRecordDetails() {
       </div>
 
       <div style={{ padding: "3% 12%" }} className="bg-white">
-        <MedicalRecordDetailsContent checkin={checkin} role={role}/>
+        <MedicalRecordDetailsContent checkin={checkin} role={role} />
       </div>
       <div>
         <Footer></Footer>

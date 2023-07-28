@@ -1,3 +1,4 @@
+import React from "react";
 import IconClose from "../../icon/IconClose";
 import IconSearch from "../../icon/IconSearch";
 
@@ -31,7 +32,6 @@ const Popup = ({ header, describe, handleClose, listData }) => {
                   // onClick={() => addItem(item)}
                   key={item.id}
                   className="shadow-md font-semibold text-[2rem] p-[2.7rem_4.7rem] rounded-[1.6rem] cursor-pointer"
-
                 >
                   {item.specialty}
                 </div>

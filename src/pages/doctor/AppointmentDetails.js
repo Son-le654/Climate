@@ -45,7 +45,7 @@ function AppointmentDetails() {
       </div>
 
       <div style={{ padding: "3% 12%" }} className="bg-white">
-        <AppointmentDetailsContent appointment={appointment}/>
+        <AppointmentDetailsContent appointment={appointment} />
       </div>
       <div>
         <Footer></Footer>

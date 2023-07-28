@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Header from "../../components/header/Header";
 import IconSpecialty from "../../icon/IconSpecialty";
-import SelectCard from "./part/SelectCardSymtom";
 import IconClinic from "../../icon/IconClinic";
 import IconDoctor from "../../icon/IconDoctor";
 import ButtonIcon from "../../components/button/ButtonIcon";
@@ -27,10 +26,8 @@ import SelectCardSpec from "./part/SelectCardSpec";
 import SelectCardDoctor from "./part/SelectCardDoctor";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
-import { bool, number } from "prop-types";
 import IconSearch from "../../icon/IconSearch";
-import IconRight from "../../icon/IconRight";
-import { localPort, publicPort } from "../../components/url/link";
+import { publicPort } from "../../components/url/link";
 
 const hoursList = [
   {
@@ -105,13 +102,10 @@ const BAContent = () => {
   const [value, onChange] = useState();
   const [selectedCheckbox, setSelectedCheckbox] = useState("");
   const location = useLocation();
-  const [doct, setDoct] = useState();
   const [EAppointment, setEAppointment] = useState();
 
   useEffect(() => {
     const eapp = location?.state?.appointment;
-    // console.log("in update" + eapp);
-    // console.log("Enter update" + eapp);
     if (eapp) {
       setEAppointment(eapp);
 
@@ -132,9 +126,7 @@ const BAContent = () => {
   }, [EAppointment]);
 
   useEffect(() => {
-    // console.log(" doctor" + location.state);
     const docId = location?.state?.item;
-    // console.log(docId);
     if (docId) {
       console.log(docId.workingPlace);
       changePlaceList(docId.workingPlace);
@@ -145,7 +137,6 @@ const BAContent = () => {
 
   const handleCheckboxChange = (event) => {
     setSelectedCheckbox(event.target.value);
-    // console.log(event.target.value);
   };
 
   const [numberOfSym, setNumberOfSym] = useState(0);
@@ -199,11 +190,8 @@ const BAContent = () => {
   useEffect(() => {
     const dateRegex = /^\d{4}\/\d{2}\/\d{2}$/;
     let formattedDate;
-    // console.log(value);
-    // console.log(dateRegex.test(value));
     if (value != undefined && doctor) {
       if (dateRegex.test(value) == false) {
-        // console.log(value);
         // Get the offset between UTC and your local time zone in minutes
         const offsetMinutes = value.getTimezoneOffset();
 
@@ -217,15 +205,11 @@ const BAContent = () => {
       }
       const sche = async () => {
         try {
-          // console.log("Enter call api");
           const response = await axios.get(
             publicPort + `schedule/list_date/${doctor.id}?date=${formattedDate}`
           );
-          // console.log(response.data);
-          // setScheOfDoc(response.data);
           setHour("");
           const arrr = response.data.map((item) => item.examTime);
-          // console.log(arrr);
 
           setScheOfDoc(arrr);
         } catch (error) {
@@ -233,13 +217,6 @@ const BAContent = () => {
         }
       };
       sche();
-      // hoursList.map((item) => {
-      //   const time = item.from + " - " + item.to;
-      //   console.log(time);
-      //   console.log(scheOfDoc);
-      //   // console.log(scheOfDoc.examTime);
-      //   // console.log(time == scheOfDoc.examTime);
-      // })
     }
     // Your code here
   }, [doctor, value]);
@@ -558,7 +535,7 @@ const BAContent = () => {
       return;
     }
 
-    if (currentDate > registersUpdate.bookDate) {
+    if (currentDate > value) {
       alert("book date must be later than today");
       return;
     }
@@ -693,19 +670,7 @@ const BAContent = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex items-center gap-[0.8rem]">
-                {/* <input
-                  onChange={handleCheckboxForeign}
-                  id="foreigner"
-                  className="w-[1.6rem] h-[1.6rem]"
-                  type="checkbox"
-                  name="gender"
-                  value="foreigner"
-                />
-                <label htmlFor="foreigner" className="font-semibold">
-                  Book for a foreigner
-                </label> */}
-              </div>
+              <div className="flex items-center gap-[0.8rem]"></div>
             </div>
           </div>
         </div>

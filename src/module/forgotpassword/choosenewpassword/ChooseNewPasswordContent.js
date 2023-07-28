@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { localPort, publicPort } from "../../../components/url/link";
 import { useNavigate } from "react-router";
+import React from "react";
 
 function ChooseNewPasswordContent({ email }) {
   const navigate = useNavigate();
@@ -88,7 +89,7 @@ function ChooseNewPasswordContent({ email }) {
           <div className="w-[100%] h-[70px] flex items-center">
             <div className="w-[60%] h-[45px] rounded-2xl flex justify-center items-center border-[#dddddd] border-[1px]">
               <input
-              type="password"
+                type="password"
                 name="newp"
                 className="w-[90%] h-[40px]"
                 onChange={handleChangePass}
@@ -99,7 +100,7 @@ function ChooseNewPasswordContent({ email }) {
           <div className="w-[100%] h-[70px] flex items-center">
             <div className="w-[60%] h-[45px] rounded-2xl flex justify-center items-center border-[#dddddd] border-[1px]">
               <input
-              type="password"
+                type="password"
                 name="newrep"
                 className="w-[90%] h-[40px]"
                 onChange={handleChangePass}

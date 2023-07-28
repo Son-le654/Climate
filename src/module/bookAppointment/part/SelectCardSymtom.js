@@ -2,7 +2,14 @@ import React from "react";
 import ButtonIcon from "../../../components/button/ButtonIcon";
 import IconRight from "../../../icon/IconRight";
 
-const SelectCardSymtom = ({ icon, title, describe, onClick, styleIcon, numberOfSym }) => {
+const SelectCardSymtom = ({
+  icon,
+  title,
+  describe,
+  onClick,
+  styleIcon,
+  numberOfSym,
+}) => {
   return (
     <div className="p-[32px] rounded-[24px] shadow-lg flex-1">
       <div
@@ -23,12 +30,7 @@ const SelectCardSymtom = ({ icon, title, describe, onClick, styleIcon, numberOfS
         className="mt-[2.4rem] w-full justify-center"
         iconRight={<IconRight />}
       >
-        {numberOfSym > 0 ?
-          <>Selected</>
-          :
-          <>Select</>
-        }
-
+        {numberOfSym > 0 ? <>Selected</> : <>Select</>}
       </ButtonIcon>
     </div>
   );

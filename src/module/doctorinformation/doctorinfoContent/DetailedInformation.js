@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useCollapse } from "react-collapsed";
 import { BsFillInfoCircleFill } from "react-icons/bs";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
@@ -9,10 +9,7 @@ import Specialtiess from "./DetailedinfoContent/Specialtiess";
 import Languages from "./DetailedinfoContent/Languages";
 import WorkPlace from "./DetailedinfoContent/WorkPlace";
 import Experience from "./DetailedinfoContent/Experience";
-import Sevirce from "./DetailedinfoContent/Sevirce";
 import Education from "./DetailedinfoContent/Education";
-import { localPort } from "../../../components/url/link";
-import axios from "axios";
 
 const Listdata = [
   {

@@ -1,9 +1,16 @@
+import React from "react";
 import IconClose from "../../icon/IconClose";
 import IconSearch from "../../icon/IconSearch";
 
-const PopupSpec = ({ header, describe, handleClose, listData, changeSpecList, handleSearchInputChange, spec }) => {
-  // console.log("listData: ", listData);
-  // console.log(spec);
+const PopupSpec = ({
+  header,
+  describe,
+  handleClose,
+  listData,
+  changeSpecList,
+  handleSearchInputChange,
+  spec,
+}) => {
   return (
     <div className="p-[3.2rem_7.4rem] rounded-[1.6rem] bg-white">
       <div className="flex items-center justify-between w-full">
@@ -29,25 +36,24 @@ const PopupSpec = ({ header, describe, handleClose, listData, changeSpecList, ha
         <div className="overflow-auto gap-[0.8rem] max-h-[40rem] mt-[2.4rem]">
           {listData?.length > 0 &&
             listData.map((item) => {
-              return (
-                (spec === item) == true ?
-                  <div
-                    onClick={() => changeSpecList(item)}
-                    key={item.id}
-                    className="shadow-md text-success font-semibold text-[2rem] p-[2.7rem_4.7rem] rounded-[1.6rem] cursor-pointer"
-                    style={{ border: "1px solid green", marginBottom: "1rem" }}
-                  >
-                    {item.name}
-                  </div>
-                  :
-                  <div
-                    onClick={() => changeSpecList(item)}
-                    key={item.id}
-                    className="shadow-md font-semibold text-[2rem] p-[2.7rem_4.7rem] rounded-[1.6rem] cursor-pointer"
-                    style={{ marginBottom: "1rem" }}
-                  >
-                    {item.name}
-                  </div>
+              return (spec === item) == true ? (
+                <div
+                  onClick={() => changeSpecList(item)}
+                  key={item.id}
+                  className="shadow-md text-success font-semibold text-[2rem] p-[2.7rem_4.7rem] rounded-[1.6rem] cursor-pointer"
+                  style={{ border: "1px solid green", marginBottom: "1rem" }}
+                >
+                  {item.name}
+                </div>
+              ) : (
+                <div
+                  onClick={() => changeSpecList(item)}
+                  key={item.id}
+                  className="shadow-md font-semibold text-[2rem] p-[2.7rem_4.7rem] rounded-[1.6rem] cursor-pointer"
+                  style={{ marginBottom: "1rem" }}
+                >
+                  {item.name}
+                </div>
               );
             })}
         </div>

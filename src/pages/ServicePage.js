@@ -1,11 +1,9 @@
 import React, { useEffect } from "react";
 import HomeHeaderService from "../module/home/HomeHeaderService";
 import HomeContentService from "../module/home/HomeContentService";
-import { Outlet, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Footer from "../module/home/Footer";
 import { useState } from "react";
-import Button from "../components/button/Button";
-import axios from "axios";
 import jwtDecode from "jwt-decode";
 import HomeContentServiceStaff from "module/home/HomeContentServiceStaff";
 import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";

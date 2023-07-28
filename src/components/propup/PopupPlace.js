@@ -1,8 +1,15 @@
+import React from "react";
 import IconClose from "../../icon/IconClose";
 import IconSearch from "../../icon/IconSearch";
 
-const PopupPlace = ({ header, describe, handleClose, listData, changePlaceList, handleSearchInputChange }) => {
-  // console.log("listData: ", listData);
+const PopupPlace = ({
+  header,
+  describe,
+  handleClose,
+  listData,
+  changePlaceList,
+  handleSearchInputChange,
+}) => {
   return (
     <div className="p-[3.2rem_7.4rem] rounded-[1.6rem] bg-white">
       <div className="flex items-center justify-between w-full">
@@ -33,9 +40,12 @@ const PopupPlace = ({ header, describe, handleClose, listData, changePlaceList, 
                   onClick={() => changePlaceList(item)}
                   key={item.id}
                   className="shadow-md font-semibold text-[2rem] p-[2.7rem_4.7rem] rounded-[1.6rem] cursor-pointer"
-
                 >
-                  {<p>{item.name} - {item.description}</p>}
+                  {
+                    <p>
+                      {item.name} - {item.description}
+                    </p>
+                  }
                 </div>
               );
             })}

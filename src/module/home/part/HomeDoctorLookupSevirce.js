@@ -93,7 +93,7 @@ const HomeDoctorLookupService = () => {
         const response = await axios.get(publicPort + "spec/list");
         setListOrigin(response.data);
         setSpecList(response.data);
-        console.log(response.data);
+        // console.log(response.data);
       } catch (error) {
         console.log(error);
       }

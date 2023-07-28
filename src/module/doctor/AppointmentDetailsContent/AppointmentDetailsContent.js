@@ -1,7 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { AiOutlinePlusCircle } from "react-icons/ai";
-import { BsFillFileTextFill } from "react-icons/bs";
 import { publicPort } from "../../../components/url/link";
 import { useNavigate } from "react-router-dom";
 import React from "react";
@@ -132,7 +130,7 @@ function AppointmentDetailsContent({ appointment }) {
 
   const goBack = () => {
     navigate("/schedules");
-  }
+  };
 
   const handleChangeInput = (event) => {
     const { name, value } = event.target;

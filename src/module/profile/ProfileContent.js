@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 
 function ProfileContent({ mail }) {
   const [infor, setInfor] = useState({
-    avatar: "" 
+    avatar: "",
   });
   const [imageData, setImageData] = useState(null);
   const navigate = useNavigate();
@@ -43,7 +43,7 @@ function ProfileContent({ mail }) {
   }, []);
 
   useEffect(() => {
-    console.log(mail);
+    // console.log(mail);
     const storedName = localStorage.getItem("token");
     if (storedName == null) {
       navigate("/login-user");
@@ -90,9 +90,12 @@ function ProfileContent({ mail }) {
     const fetchImage = async () => {
       if (infor.avatar) {
         try {
-          const response = await axios.get(publicPort + `images/${infor.avatar}`, {
-            responseType: "blob", // set thành kiểu blob
-          });
+          const response = await axios.get(
+            publicPort + `images/${infor.avatar}`,
+            {
+              responseType: "blob", // set thành kiểu blob
+            }
+          );
 
           // Đọc dữ liệu hình ảnh và chuyển đổi nó thành chuỗi base64
           const reader = new FileReader();
@@ -108,7 +111,6 @@ function ProfileContent({ mail }) {
 
     fetchImage();
   }, [infor.avatar]);
-
 
   const handleEditAccount = () => {
     navigate("/editprofile", { state: { mail } });

@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import LayoutSign from "../layout/LayoutSign";
-import Input from "../components/input/Input";
 import Button from "../components/button/Button";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../components/Logo/Logo";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import InputUsername from "../components/input/InputUsername";
 import InputPassword from "../components/input/InputPassword";
-import { contextType } from "react-datetime";
-import { localPort, publicPort } from "../components/url/link";
+import { publicPort } from "../components/url/link";
 import { AiFillGoogleCircle } from "react-icons/ai";
 
 const LoginPageUser = () => {
@@ -50,7 +48,7 @@ const LoginPageUser = () => {
       email: username,
       password: password,
     });
-    console.log(response);
+    // console.log(response);
 
     if (response.data.token === undefined) {
       alert("Incorrect email or password.");
@@ -58,7 +56,7 @@ const LoginPageUser = () => {
 
     if (response.data.token.length > 0) {
       const tokenn = response.data.token;
-      console.log("true");
+      // console.log("true");
       localStorage.setItem("token", response.data.token);
       navigate("/service", { state: { tokenn } });
     }

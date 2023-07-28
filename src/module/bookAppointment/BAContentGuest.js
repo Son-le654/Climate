@@ -102,14 +102,12 @@ const hoursList = [
 ];
 
 const BAContentGuest = () => {
-  // console.log("guest");
   const navigate = useNavigate();
   const [value, onChange] = useState();
   const [selectedCheckbox, setSelectedCheckbox] = useState("");
 
   const handleCheckboxChange = (event) => {
     setSelectedCheckbox(event.target.value);
-    // console.log(event.target.value);
   };
 
   const [numberOfSym, setNumberOfSym] = useState(0);
@@ -153,8 +151,6 @@ const BAContentGuest = () => {
   const [hour, setHour] = useState("");
   const [scheOfDoc, setScheOfDoc] = useState();
 
-  const schArr = [];
-
   useEffect(() => {
     if (value !== undefined && doctor) {
       // console.log(value);
@@ -174,11 +170,8 @@ const BAContentGuest = () => {
           const response = await axios.get(
             publicPort + `schedule/list_date/${doctor.id}?date=${formattedDate}`
           );
-          // console.log(response.data);
-          // setScheOfDoc(response.data);
           setHour("");
           const arrr = response.data.map((item) => item.examTime);
-          // console.log(arrr);
 
           setScheOfDoc(arrr);
         } catch (error) {
@@ -289,11 +282,7 @@ const BAContentGuest = () => {
   //////////////////////////////////// symtom
   const addSymtomItem = (item) => {
     const newArr = [...symtomArr, item];
-    // console.log(newArr);
     setSymtomArr(newArr);
-
-    // setShowSysptom(false);
-    // setShowSpec(true)
   };
 
   const nextSpec = () => {
@@ -321,15 +310,11 @@ const BAContentGuest = () => {
     } else {
       addSymtomItem(item);
     }
-    // console.log(item);
-    // addSymtomItem(item)
   };
 
   //////////////////////////////////// spec
   const addSpecItem = (item) => {
     setSpec(item);
-    // console.log(item);
-    // console.log(spec);
     setShowSpec(false);
     setShowDoctor(true);
   };
@@ -419,13 +404,10 @@ const BAContentGuest = () => {
       return;
     }
 
-    // console.log(currentDate);
-    // console.log(registers.bookDate);
     if (currentDate > value) {
       alert("book date must be later than today");
       return;
     }
-    // console.log(registers);
     navigate("/appointmentConfirmationGuest", { state: { registers } });
   };
 
@@ -532,19 +514,7 @@ const BAContentGuest = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex items-center gap-[0.8rem]">
-                {/* <input
-                  onChange={handleCheckboxForeign}
-                  id="foreigner"
-                  className="w-[1.6rem] h-[1.6rem]"
-                  type="checkbox"
-                  name="gender"
-                  value="foreigner"
-                />
-                <label htmlFor="foreigner" className="font-semibold">
-                  Book for a foreigner
-                </label> */}
-              </div>
+              <div className="flex items-center gap-[0.8rem]"></div>
             </div>
           </div>
         </div>

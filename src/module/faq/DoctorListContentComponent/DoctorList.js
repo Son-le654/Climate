@@ -1,19 +1,7 @@
-import { NavLink, useNavigate } from "react-router-dom";
-import React, { useEffect, useRef, useState } from "react";
-import Slider from "react-slick";
-import { FaQq, FaHospital } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { FaHospital } from "react-icons/fa";
 import { IoIosSchool } from "react-icons/io";
-import { MdKeyboardArrowRight } from "react-icons/md";
-import { MdKeyboardArrowLeft } from "react-icons/md";
-import { event } from "jquery";
-
-// const settings = {
-//   // dots: true,
-//   infinite: true,
-//   speed: 500,
-//   slidesToShow: 1,
-//   slidesToScroll: 1,
-// };
 
 export default function DoctorList({ docList }) {
   const navigate = useNavigate();
