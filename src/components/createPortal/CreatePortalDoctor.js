@@ -51,7 +51,7 @@ const CreatePortalDoctor = ({
   }, [place]);
 
   useEffect(() => {
-    console.log("Enter checkin doctor");
+    // console.log("Enter checkin doctor");
     if (checkinDoctor != undefined) {
       const places = async () => {
         const response = await axios.get(

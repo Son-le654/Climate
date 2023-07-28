@@ -11,6 +11,7 @@ const AppointmentDetailsPageForNurse = () => {
   const navigate = useNavigate();
   const storedName = localStorage.getItem("token");
   const [appointment, setAppointment] = useState();
+  const [role, setRole] = useState();
 
   useEffect(() => {
     if (storedName == null) {
@@ -19,6 +20,7 @@ const AppointmentDetailsPageForNurse = () => {
       try {
         const decoded = jwtDecode(storedName);
         const role = decoded.roles[0].authority;
+        setRole(role);
         // if (role !== 'NURSE') {
         //   navigate("/")
         // }
@@ -42,8 +44,11 @@ const AppointmentDetailsPageForNurse = () => {
   return (
     <div className="bg-white">
       <div className="bg-white">
-        <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
-        
+        {role == "NURSE" ? (
+          <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
+        ) : (
+          <HomeHeaderService></HomeHeaderService>
+        )}
       </div>
       <div className="pt-[80px] pl-[190px] text-6xl font-bold py-[20px]">
         <h1>Appointment Confirmation</h1>

@@ -5,84 +5,84 @@ import { Column } from '@ant-design/plots';
 const AdminContentRow = () => {
     const data = [
         {
-            Type: 'Online',
+            Type: 'Check-in',
             Name: 'Dr.Phong',
             Number: 20,
         },
         {
-            Type: 'Online',
+            Type: 'Check-in',
             Name: 'Dr.Son',
             Number: 28.8,
         },
         {
-            Type: 'Online',
+            Type: 'Check-in',
             Name: 'Dr.Tai',
             Number: 39.3,
         },
         {
-            Type: 'Online',
+            Type: 'Check-in',
             Name: 'Dr.Nghia',
             Number: 81.4,
         },
         {
-            Type: 'Online',
+            Type: 'Check-in',
             Name: 'Dr.Bien',
             Number: 47,
         },
         {
-            Type: 'Online',
+            Type: 'Check-in',
             Name: 'Dr.Dat',
             Number: 20.3,
         },
         {
-            Type: 'Online',
+            Type: 'Check-in',
             Name: 'Dr.Linh',
             Number: 24,
         },
         {
-            Type: 'Online',
+            Type: 'Check-in',
             Name: 'Dr.Trang',
             Number: 35.6,
         },
         {
             Type: 'Completed',
             Name: 'Dr.Phong',
-            Number: 40,
+            Number: 15,
         },
         {
             Type: 'Completed',
             Name: 'Dr.Son',
-            Number: 23.2,
+            Number: 20,
         },
         {
             Type: 'Completed',
             Name: 'Dr.Tai',
-            Number: 34.5,
+            Number: 34,
         },
         {
             Type: 'Completed',
             Name: 'Dr.Nghia',
-            Number: 99.7,
+            Number: 80,
         },
         {
             Type: 'Completed',
             Name: 'Dr.Bien',
-            Number: 52.6,
+            Number: 45,
         },
         {
             Type: 'Completed',
             Name: 'Dr.Dat',
-            Number: 35.5,
+            Number: 13,
         },
         {
             Type: 'Completed',
             Name: 'Dr.Linh',
-            Number: 37.4,
+            Number: 20,
         },
         {
             Type: 'Completed',
             Name: 'Dr.Trang',
-            Number: 42.4,
+            Number: 30,
         },
     ];
     const config = {

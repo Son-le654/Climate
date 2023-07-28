@@ -401,7 +401,7 @@ function CreateNewInternalContent() {
                 type="file"
                 accept="image/*"
                 onChange={handleFileChange}
-                className="w-[80%] h-[100%] ml-[10px] text-[20px] "
+                className="w-[80%] h-[100%] pt-[1.5rem] ml-[10px] text-[20px] "
               />
               {/* {selectedFile && <p>Selected file: {selectedFile.name}</p>} */}
             </div>

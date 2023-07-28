@@ -102,14 +102,14 @@ const hoursList = [
 ];
 
 const BAContentGuest = () => {
-  console.log("guest");
+  // console.log("guest");
   const navigate = useNavigate();
   const [value, onChange] = useState();
   const [selectedCheckbox, setSelectedCheckbox] = useState("");
 
   const handleCheckboxChange = (event) => {
     setSelectedCheckbox(event.target.value);
-    console.log(event.target.value);
+    // console.log(event.target.value);
   };
 
   const [numberOfSym, setNumberOfSym] = useState(0);
@@ -157,7 +157,7 @@ const BAContentGuest = () => {
 
   useEffect(() => {
     if (value !== undefined && doctor) {
-      console.log(value);
+      // console.log(value);
       // Get the offset between UTC and your local time zone in minutes
       const offsetMinutes = value.getTimezoneOffset();
 
@@ -174,11 +174,11 @@ const BAContentGuest = () => {
           const response = await axios.get(
             publicPort + `schedule/list_date/${doctor.id}?date=${formattedDate}`
           );
-          console.log(response.data);
+          // console.log(response.data);
           // setScheOfDoc(response.data);
           setHour("");
           const arrr = response.data.map((item) => item.examTime);
-          console.log(arrr);
+          // console.log(arrr);
 
           setScheOfDoc(arrr);
         } catch (error) {
@@ -207,15 +207,15 @@ const BAContentGuest = () => {
   const handleChangeName = (event) => {
     const { name, value } = event.target;
 
-    console.log(name);
-    console.log(value);
+    // console.log(name);
+    // console.log(value);
 
     if (name === "fname") {
       const newName = {
         ...fullName,
         [name]: value,
       };
-      console.log("set name");
+      // console.log("set name");
       setFullName(newName);
     }
 
@@ -224,7 +224,7 @@ const BAContentGuest = () => {
         ...phone,
         [name]: value,
       };
-      console.log("set phone");
+      // console.log("set phone");
       setPhone(newPhone);
     }
 
@@ -233,7 +233,7 @@ const BAContentGuest = () => {
         ...birthday,
         [name]: value,
       };
-      console.log("set birth day");
+      // console.log("set birth day");
       setBirthDay(newBday);
     }
 
@@ -242,7 +242,7 @@ const BAContentGuest = () => {
         ...idCard,
         [name]: value,
       };
-      console.log("set ID");
+      // console.log("set ID");
       setIdCard(newIDs);
     }
 
@@ -251,7 +251,7 @@ const BAContentGuest = () => {
         ...description,
         [name]: value,
       };
-      console.log("set description");
+      // console.log("set description");
       setDescription(newDs);
     }
   };
@@ -289,7 +289,7 @@ const BAContentGuest = () => {
   //////////////////////////////////// symtom
   const addSymtomItem = (item) => {
     const newArr = [...symtomArr, item];
-    console.log(newArr);
+    // console.log(newArr);
     setSymtomArr(newArr);
 
     // setShowSysptom(false);
@@ -348,7 +348,7 @@ const BAContentGuest = () => {
   };
   //////////////////////////////////// doctor
   const addDoctorItem = (item) => {
-    console.log(item);
+    // console.log(item);
     setDoctor(item);
     setShowDoctor(false);
   };
@@ -368,7 +368,7 @@ const BAContentGuest = () => {
 
   const addHour = (item) => {
     let h = item.from + " - " + item.to;
-    console.log(h);
+    // console.log(h);
     setHour(h);
   };
 
@@ -419,11 +419,13 @@ const BAContentGuest = () => {
       return;
     }
 
-    if (currentDate > registers.bookDate) {
+    // console.log(currentDate);
+    // console.log(registers.bookDate);
+    if (currentDate > value) {
       alert("book date must be later than today");
       return;
     }
-    console.log(registers);
+    // console.log(registers);
     navigate("/appointmentConfirmationGuest", { state: { registers } });
   };
 

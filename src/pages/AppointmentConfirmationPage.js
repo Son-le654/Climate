@@ -33,7 +33,7 @@ const AppointmentConfirmationPage = () => {
   const location = useLocation();
   useEffect(() => {
     const appointment = location?.state?.registers;
-    console.log(appointment);
+    // console.log(appointment);
     if (appointment == undefined) {
       navigate("/book_appointment");
     } else {

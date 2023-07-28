@@ -8,6 +8,7 @@ import { useRef } from "react";
 import Slider from "react-slick";
 import { useNavigate } from "react-router-dom";
 import { AiOutlinePlusCircle } from "react-icons/ai";
+import jwtDecode from "jwt-decode";
 
 function AppointmentsContent({ role, mail }) {
   const [sortedObjects, setSortedObjects] = useState([]);
@@ -17,6 +18,8 @@ function AppointmentsContent({ role, mail }) {
   const [listData, setListData] = useState([]);
   const [listOrigin, setListOrigin] = useState([]);
   const navigate = useNavigate();
+  const [Email, setMail] = useState();
+  const [rol, setRol] = useState();
   const listtitle = [
     {
       id: 1,
@@ -57,14 +60,34 @@ function AppointmentsContent({ role, mail }) {
   const currentItems = listOrigin.slice(indexOfFirstItem, indexOfLastItem);
 
   useEffect(() => {
+    console.log(mail);
+    if (mail == undefined) {
+      setMail(mail);
+    }
+    let r;
+    let m;
+
+    const storedName = localStorage.getItem("token");
+    try {
+      const decoded = jwtDecode(storedName);
+      const role = decoded.roles[0].authority;
+      r = role;
+      setRol(role);
+      setMail(decoded.sub);
+      m = decoded.sub;
+      console.log(decoded.sub);
+    } catch (error) {
+      console.log(error);
+    }
+
     const listApp = async () => {
       try {
         let response;
         let response1;
         let id;
-        if (role == "USER") {
+        if (r == "USER") {
           response1 = await axios.get(
-            publicPort + `patient/profile?email=${mail}`
+            publicPort + `patient/profile?email=${m}`
           );
           console.log(response1.data);
           id = response1.data.id;
@@ -85,7 +108,7 @@ function AppointmentsContent({ role, mail }) {
       }
     };
     listApp();
-  }, [mail, role]);
+  }, [Email, rol]);
 
   useEffect(() => {
     setListData(listOrigin.slice(indexOfFirstItem, indexOfLastItem));

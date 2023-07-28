@@ -56,6 +56,12 @@ import SpecialtiesPage from "pages/SpecialtiesPage";
 import RolesPage from "pages/RolesPage";
 import CreateNewLocation from "pages/CreateNewLocation";
 import EditLocation from "pages/EditLocation";
+import CreateNewSpec from "pages/CreateNewSpec";
+import EditSpec from "pages/EditSpec";
+import CreateNewRole from "pages/CreateNewRole";
+import EditRole from "pages/EditRole";
+import EditSymptom from "pages/EditSymptom";
+import CreateNewSymptom from "pages/CreateNewSymptom";
 
 function App() {
   const storedName = localStorage.getItem("token");
@@ -174,8 +180,15 @@ function App() {
       <Route path="/profilepage" element={<ProfilePage />}></Route>
       <Route path="/editprofile" element={<EditProfile />}></Route>
       <Route path="/editlocation" element={<EditLocation />}></Route>
+      <Route path="/editspec" element={<EditSpec />}></Route>
+      <Route path="/editrole" element={<EditRole />}></Route>
+      <Route path="/editsymptom" element={<EditSymptom />}></Route>
+
       <Route path="/createacc" element={<CreateNewInternalAcc />}></Route>
       <Route path="/createlocation" element={<CreateNewLocation />}></Route>
+      <Route path="/createspec" element={<CreateNewSpec />}></Route>
+      <Route path="/createrole" element={<CreateNewRole />}></Route>
+      <Route path="/createsymptom" element={<CreateNewSymptom />}></Route>
 
       <Route path="/profilepagestaff" element={<ProfilePageForStaff />}></Route>
       <Route

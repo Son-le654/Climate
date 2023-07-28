@@ -6,9 +6,9 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-function EditLocationContent({ item }) {
+function EditSpecContent({ item }) {
   const tabButtons1 = "Cancel ";
-  const tabButtons2 = "Update Location";
+  const tabButtons2 = "Update Specialty";
   const [active, setActive] = useState(false);
   const [selectedStaff, setSelectedStaff] = useState(null);
   const navigate = useNavigate();
@@ -97,13 +97,10 @@ function EditLocationContent({ item }) {
     ) {
       alert("Please fill all fields");
     } else {
-      const response = await axios.post(
-        publicPort + `location/save`,
-        objectSave
-      );
+      const response = await axios.post(publicPort + `spec/save`, objectSave);
       console.log(response);
       if (response.data == "success") {
-        navigate("/locations");
+        navigate("/specs");
       } else {
         alert(response.data);
       }
@@ -114,7 +111,7 @@ function EditLocationContent({ item }) {
     { id: "2", value: "Block" },
   ]);
   const goBack = () => {
-    navigate("/locations");
+    navigate("/specs");
   };
   return (
     <div className="w-[100%] min-h-[1000px] bg-white">
@@ -228,4 +225,4 @@ function EditLocationContent({ item }) {
     </div>
   );
 }
-export default EditLocationContent;
+export default EditSpecContent;

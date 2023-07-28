@@ -156,7 +156,7 @@ function InternalAccountsContent({ role, mail }) {
     const response = await axios.get(publicPort + `api/block?id=${id}`);
     console.log(response.data);
     if (response.data == "Block success") {
-      navigate("/internals");
+      window.location.reload();
     } else {
       alert(response.data);
     }

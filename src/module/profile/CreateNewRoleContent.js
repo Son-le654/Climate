@@ -6,9 +6,9 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function CreateNewLocationContent() {
+function CreateNewRoleContent() {
   const tabButtons1 = "Cancel ";
-  const tabButtons2 = "Create location";
+  const tabButtons2 = "Create role";
   const [active, setActive] = useState(false);
   const [selectedStaff, setSelectedStaff] = useState(null);
   const navigate = useNavigate();
@@ -18,70 +18,46 @@ function CreateNewLocationContent() {
       name: "",
     },
   ]);
-  const [desciption, setDescription] = useState([
-    {
-      des: "",
-    },
-  ]);
 
   const handleChangeName = (event) => {
     const { name, value } = event.target;
 
-    console.log(name);
-    console.log(value);
+    // console.log(name);
+    // console.log(value);
 
     if (name === "name") {
       const newName = {
         ...Name,
         [name]: value,
       };
-      console.log("set name");
+      // console.log("set name");
       setName(newName);
-    }
-
-    if (name === "des") {
-      const newDes = {
-        ...desciption,
-        [name]: value,
-      };
-      console.log("set description");
-      setDescription(newDes);
     }
   };
 
   var objectSave = {
     name: "",
-    desciption: "",
   };
   const handleSave = async () => {
     console.log("Enter save");
     objectSave.name = Name.name;
-    objectSave.description = desciption.des;
 
     console.log(objectSave);
-    if (
-      objectSave.name == "" ||
-      objectSave.name == undefined ||
-      objectSave.description == "" ||
-      objectSave.description == undefined
-    ) {
-      alert("Please fill all fields");
+    if (objectSave.name == "" || objectSave.name == undefined) {
+      alert("Please fill name");
     } else {
-      const response = await axios.post(
-        publicPort + `location/save`,
-        objectSave
-      );
+      const response = await axios.post(publicPort + `role/save`, objectSave);
       console.log(response);
       if (response.data == "success") {
-        navigate("/locations");
+        navigate("/roles");
       } else {
         alert(response.data);
       }
     }
   };
   const goBack = () => {
-    navigate("/locations");
-  };
+    navigate("/roles")
+  }
   return (
     <div className="w-[100%] min-h-[1000px] bg-white">
       <div className="w-[100%] h-[120px] mb-[10px]">
@@ -95,21 +71,6 @@ function CreateNewLocationContent() {
               onChange={handleChangeName}
               name="name"
               className="w-[90%] h-[100%] ml-[10px] text-[20px] "
-            />
-          </div>
-        </div>
-      </div>
-      <div className="w-[100%] h-[120px] mb-[10px]">
-        <div className="w-[100%] h-[50px]">
-          <h1 className=" text-[25px] font-bold">Description</h1>
-        </div>
-        <div className=" flex justify-start w-[100%]">
-          <div className="h-[70px] w-[80%] border-[1px] rounded-2xl border-[#c5c4c4] flex">
-            <input
-              onChange={handleChangeName}
-              placeholder="Description"
-              name="des"
-              className="w-[80%] h-[100%] ml-[10px] text-[20px] "
             />
           </div>
         </div>
@@ -150,4 +111,4 @@ function CreateNewLocationContent() {
     </div>
   );
 }
-export default CreateNewLocationContent;
+export default CreateNewRoleContent;

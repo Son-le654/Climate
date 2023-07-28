@@ -6,9 +6,9 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function CreateNewLocationContent() {
+function CreateNewSymptomContent() {
   const tabButtons1 = "Cancel ";
-  const tabButtons2 = "Create location";
+  const tabButtons2 = "Create symptom";
   const [active, setActive] = useState(false);
   const [selectedStaff, setSelectedStaff] = useState(null);
   const navigate = useNavigate();
@@ -23,6 +23,21 @@ function CreateNewLocationContent() {
       des: "",
     },
   ]);
+  const [spec, setSpec] = useState([
+    {
+      spc: "",
+    },
+  ]);
+
+  const [listSymptom, setListSymptom] = useState();
+
+  useEffect(() => {
+    const app = async () => {
+      const response = await axios.get(publicPort + `spec/list`);
+      setListSymptom(response.data);
+    };
+    app();
+  }, []);
 
   const handleChangeName = (event) => {
     const { name, value } = event.target;
@@ -35,7 +50,6 @@ function CreateNewLocationContent() {
         ...Name,
         [name]: value,
       };
-      console.log("set name");
       setName(newName);
     }
 
@@ -44,43 +58,54 @@ function CreateNewLocationContent() {
         ...desciption,
         [name]: value,
       };
-      console.log("set description");
       setDescription(newDes);
+    }
+
+    if (name === "spc") {
+      const newSpc = {
+        ...spec,
+        [name]: value,
+      };
+      setSpec(newSpc);
     }
   };
 
   var objectSave = {
     name: "",
-    desciption: "",
+    description: "",
+    specid: "",
   };
   const handleSave = async () => {
     console.log("Enter save");
     objectSave.name = Name.name;
     objectSave.description = desciption.des;
+    objectSave.specid = spec.spc;
 
     console.log(objectSave);
     if (
       objectSave.name == "" ||
       objectSave.name == undefined ||
       objectSave.description == "" ||
-      objectSave.description == undefined
+      objectSave.description == undefined ||
+      objectSave.specid == null ||
+      objectSave.specid == undefined
     ) {
       alert("Please fill all fields");
     } else {
       const response = await axios.post(
-        publicPort + `location/save`,
+        publicPort + `symptom/save`,
         objectSave
       );
       console.log(response);
       if (response.data == "success") {
-        navigate("/locations");
+        navigate("/symptoms");
       } else {
         alert(response.data);
       }
     }
   };
   const goBack = () => {
-    navigate("/locations");
+    navigate("/symptoms");
   };
   return (
     <div className="w-[100%] min-h-[1000px] bg-white">
@@ -111,6 +136,31 @@ function CreateNewLocationContent() {
               name="des"
               className="w-[80%] h-[100%] ml-[10px] text-[20px] "
             />
+          </div>
+        </div>
+      </div>
+      <div className="w-[100%] h-[120px] mb-[10px]">
+        <div className="w-[100%] h-[50px]">
+          <h1 className=" text-[25px] font-bold">Specialty</h1>
+        </div>
+        <div className=" flex justify-start w-[100%]">
+          <div className="h-[60px] w-[22%] border-[1px] rounded-2xl border-[#c5c4c4] flex">
+            <select
+              className="h-[60px] w-[100%] pl-[10px] bg-white text-[20px] border-[1px] rounded-[10px] border-[#c5c4c4]"
+              // value={status.sT}
+              name="spc"
+              onChange={handleChangeName}
+            >
+              <option selected={true} disabled={true}>
+                -- Choose Specialty --
+              </option>
+              {listSymptom != undefined &&
+                listSymptom.map((staff) => (
+                  <option className="" key={staff.id} value={staff.id}>
+                    {staff.name}
+                  </option>
+                ))}
+            </select>
           </div>
         </div>
       </div>
@@ -150,4 +200,4 @@ function CreateNewLocationContent() {
     </div>
   );
 }
-export default CreateNewLocationContent;
+export default CreateNewSymptomContent;

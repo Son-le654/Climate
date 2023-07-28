@@ -40,9 +40,9 @@ function AppointmentConfirmationContentGuest({ appointment }) {
       console.log(error);
     }
   }, []);
-  console.log(appointment);
+  // console.log(appointment);
   const confirm = async () => {
-    console.log(appointment);
+    // console.log(appointment);
     var response;
     if (role == "NURSE") {
       response = await axios.post(

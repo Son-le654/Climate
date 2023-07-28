@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Appointment;
+import com.example.demo.entity.Location;
 import com.example.demo.entity.Role;
 import com.example.demo.repository.RoleRepository;
 
@@ -33,10 +34,15 @@ public class RoleService {
 		return repository.findAll();
 	}
 	public List<Role> findAllForAdmin() {
-		return repository.findAll();
+		return repository.findAllForAdmin();
 	}
 
 	public Optional<Role> findById(Integer id) {
 		return repository.findById(id);
+	}
+	public String blockRole(Role c) {
+		c.setCommandFlag(2);
+		repository.save(c);
+		return "success";
 	}
 }

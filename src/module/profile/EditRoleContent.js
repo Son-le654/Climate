@@ -6,9 +6,9 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-function EditLocationContent({ item }) {
+function EditRoleContent({ item }) {
   const tabButtons1 = "Cancel ";
-  const tabButtons2 = "Update Location";
+  const tabButtons2 = "Update Role";
   const [active, setActive] = useState(false);
   const [selectedStaff, setSelectedStaff] = useState(null);
   const navigate = useNavigate();
@@ -23,11 +23,6 @@ function EditLocationContent({ item }) {
       name: "",
     },
   ]);
-  const [desciption, setDescription] = useState([
-    {
-      des: "",
-    },
-  ]);
   const [status, setStatus] = useState([
     {
       sT: "",
@@ -38,7 +33,6 @@ function EditLocationContent({ item }) {
     if (item != undefined) {
       setIdLo({ idL: item.id });
       setName({ name: item.name });
-      setDescription({ des: item.description });
       setStatus({ sT: item.commandFlag });
     }
   }, [item]);
@@ -57,13 +51,6 @@ function EditLocationContent({ item }) {
       setName(newName);
     }
 
-    if (name === "des") {
-      const newDes = {
-        ...desciption,
-        [name]: value,
-      };
-      setDescription(newDes);
-    }
     if (name === "sT") {
       const newSt = {
         ...status,
@@ -76,46 +63,39 @@ function EditLocationContent({ item }) {
   var objectSave = {
     id: "",
     name: "",
-    desciption: "",
     commandFlag: "",
   };
   const handleSave = async () => {
     console.log("Enter save");
     objectSave.id = idLo.idL;
     objectSave.name = Name.name;
-    objectSave.description = desciption.des;
     objectSave.commandFlag = status.sT;
 
     console.log(objectSave);
     if (
       objectSave.name == "" ||
       objectSave.name == undefined ||
-      objectSave.description == "" ||
-      objectSave.description == undefined ||
       objectSave.commandFlag == "" ||
       objectSave.commandFlag == undefined
     ) {
       alert("Please fill all fields");
     } else {
-      const response = await axios.post(
-        publicPort + `location/save`,
-        objectSave
-      );
+      const response = await axios.post(publicPort + `role/save`, objectSave);
       console.log(response);
       if (response.data == "success") {
-        navigate("/locations");
+        navigate("/roles");
       } else {
         alert(response.data);
       }
     }
   };
+  const goBack = () => {
+    navigate("/roles")
+  }
   const [flags] = useState([
     { id: "0", value: "Active" },
     { id: "2", value: "Block" },
   ]);
-  const goBack = () => {
-    navigate("/locations");
-  };
   return (
     <div className="w-[100%] min-h-[1000px] bg-white">
       <div className="w-[100%] h-[120px] mb-[10px]">
@@ -151,22 +131,7 @@ function EditLocationContent({ item }) {
           </div>
         </div>
       </div>
-      <div className="w-[100%] h-[120px] mb-[10px]">
-        <div className="w-[100%] h-[50px]">
-          <h1 className=" text-[25px] font-bold">Description</h1>
-        </div>
-        <div className=" flex justify-start w-[100%]">
-          <div className="h-[70px] w-[80%] border-[1px] rounded-2xl border-[#c5c4c4] flex">
-            <input
-              onChange={handleChangeName}
-              placeholder="Description"
-              value={desciption.des}
-              name="des"
-              className="w-[80%] h-[100%] ml-[10px] text-[20px] "
-            />
-          </div>
-        </div>
-      </div>
+
       <div className="w-[100%] h-[120px] mb-[10px]">
         <div className="w-[100%] h-[50px]">
           <h1 className=" text-[25px] font-bold">Status</h1>
@@ -228,4 +193,4 @@ function EditLocationContent({ item }) {
     </div>
   );
 }
-export default EditLocationContent;
+export default EditRoleContent;

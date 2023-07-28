@@ -1,11 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { localPort, publicPort } from "../../components/url/link";
+import { publicPort } from "../../components/url/link";
 import { BiSearch } from "react-icons/bi";
-import { MdKeyboardArrowRight } from "react-icons/md";
-import { MdKeyboardArrowLeft } from "react-icons/md";
-import { useRef } from "react";
-import Slider from "react-slick";
 import { useNavigate } from "react-router-dom";
 import { CiPen, CiTrash } from "react-icons/ci";
 
@@ -24,34 +20,27 @@ function RolesContent({ role, mail }) {
     },
     {
       id: 2,
-      title: "Doctor Name",
+      title: "Name",
     },
     {
       id: 3,
-      title: "Specialty",
+      title: "Status",
     },
     {
       id: 4,
-      title: "Location",
-    },
-    {
-      id: 5,
-      title: "View Details",
+      title: "Action",
     },
   ];
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const [inputValue, setInputValue] = useState("");
-  const currentItems = listOrigin.slice(indexOfFirstItem, indexOfLastItem);
 
   useEffect(() => {
     const listApp = async () => {
       try {
         let response;
-        let response1;
-        let id;
 
-        response = await axios.get(publicPort + "api/doctors");
+        response = await axios.get(publicPort + "role/listadmin");
         setListOrigin(response.data);
         setListData(response.data);
         console.log(response.data);
@@ -88,19 +77,6 @@ function RolesContent({ role, mail }) {
     pageNumbers.push(i);
   }
 
-  const handleFilter = (status) => {
-    setStatusFilter(status);
-
-    if (status === "All") {
-      setListData(listOrigin.slice(indexOfFirstItem, indexOfLastItem));
-    } else {
-      const filteredList = listOrigin.filter(
-        (item) => item.commandFlag == status
-      );
-      setListData(filteredList.slice(indexOfFirstItem, indexOfLastItem));
-    }
-  };
-
   const handleSearchInputChange = (event) => {
     let searchInput = event.target.value;
     setInputValue(searchInput);
@@ -112,20 +88,6 @@ function RolesContent({ role, mail }) {
       );
       setListData(filteredList);
     }
-  };
-
-  const handleDetail = (appointment) => {
-    console.log(appointment);
-    // navigate("/appointmentdetailsfornurse", { state: { appointment } });
-  };
-  const view_detail = (item) => {
-    const id = item.id;
-    console.log(id);
-    navigate("/doctorinformation", { state: { id } });
-  };
-  const handleCheckin = (appointment) => {
-    console.log(appointment);
-    // navigate("/checkin", { state: { appointment } });
   };
   const handleLocation = () => {
     navigate("/locations");
@@ -140,7 +102,7 @@ function RolesContent({ role, mail }) {
     navigate("/roles");
   };
   const handleAddNewRole = () => {
-    navigate("/roles");
+    navigate("/createrole");
   };
 
   const [visibleItem, setVisibleItem] = useState(null);
@@ -153,17 +115,35 @@ function RolesContent({ role, mail }) {
       setVisibleItem(index);
     }
   };
+
+  const handleDelete = async (id) => {
+    // navigate("/patients");
+    console.log("delete " + id);
+    const response = await axios.get(publicPort + `role/block?id=${id}`);
+    console.log(response.data);
+    if (response.data == "Block success") {
+      window.location.reload();
+    } else {
+      alert(response.data);
+    }
+  };
+
+  const handleEditLo = (item) => {
+    console.log("edit " + item);
+    navigate("/editrole", { state: { item } });
+  };
+
   return (
     <div className="bg-white p-5 rounded-2xl shadow-2xl w-[100%] min-h-[500px]">
       <div>
         <span
-          className={"ml-[50px] font-bold text-3xl mr-[100px] text-[#c5c4c4]"}
+          className={"ml-[50px] font-bold text-3xl mr-[100px] text-[#c5c4c4]  "}
           onClick={handleLocation}
         >
           LOCATIONS
         </span>
         <span
-          className={" font-bold text-3xl mr-[100px] text-[#c5c4c4]"}
+          className={"font-bold text-3xl mr-[100px] text-[#c5c4c4]"}
           onClick={handleSpec}
         >
           SPECIALTIES
@@ -232,15 +212,22 @@ function RolesContent({ role, mail }) {
                   <td className="w-[10%]">{listD.id}</td>
                   <td className="w-[15%]  ">{listD.name}</td>
                   <td className="w-[12%]">
-                    <p>{listD.specialty.name}</p>
-                  </td>
-                  <td className="w-[12%]">
-                    <p>
-                      {listD.workingPlace.name} -{" "}
-                      {listD.workingPlace.description}
+                    <p
+                      className={`w-[70%] h-[30px] rounded-2xl ml-[14%] pt-[3px] text-white ${
+                        listD.commandFlag == "0"
+                          ? "bg-success"
+                          : listD.commandFlag == "2"
+                          ? "bg-error"
+                          : "bg-warning"
+                      }`}
+                    >
+                      {listD.commandFlag == 0
+                        ? "Active"
+                        : listD.commandFlag == 1
+                        ? ""
+                        : "Blocked"}
                     </p>
                   </td>
-
                   <td className="pb-[10px] pt-[10px]  w-[13%]">
                     <button onClick={() => handleShow(index)}>:</button>
                     {visibleItem === index && (
@@ -257,7 +244,7 @@ function RolesContent({ role, mail }) {
                         }}
                       >
                         <span
-                          // onClick={() => handleEdit(listD.id)}
+                          onClick={() => handleEditLo(listD)}
                           style={{
                             display: "flex",
                             flexDirection: "row",
@@ -270,8 +257,9 @@ function RolesContent({ role, mail }) {
                           </p>
                           <p>Edit</p>
                         </span>
+
                         <span
-                          // onClick={() => handleDelete(listD.id)}
+                          onClick={() => handleDelete(listD.id)}
                           style={{
                             display: "flex",
                             flexDirection: "row",

@@ -71,7 +71,7 @@ public class LocationController {
 				return "Block fail";
 			}
 		} else {
-			return "Not found account in system";
+			return "Not found location in system";
 		}
 	}
 }

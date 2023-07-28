@@ -110,8 +110,8 @@ const BAContent = () => {
 
   useEffect(() => {
     const eapp = location?.state?.appointment;
-    console.log("in update" + eapp);
-    console.log("Enter update" + eapp);
+    // console.log("in update" + eapp);
+    // console.log("Enter update" + eapp);
     if (eapp) {
       setEAppointment(eapp);
 
@@ -132,9 +132,9 @@ const BAContent = () => {
   }, [EAppointment]);
 
   useEffect(() => {
-    console.log(" doctor" + location.state);
+    // console.log(" doctor" + location.state);
     const docId = location?.state?.item;
-    console.log(docId);
+    // console.log(docId);
     if (docId) {
       console.log(docId.workingPlace);
       changePlaceList(docId.workingPlace);
@@ -145,7 +145,7 @@ const BAContent = () => {
 
   const handleCheckboxChange = (event) => {
     setSelectedCheckbox(event.target.value);
-    console.log(event.target.value);
+    // console.log(event.target.value);
   };
 
   const [numberOfSym, setNumberOfSym] = useState(0);
@@ -203,7 +203,7 @@ const BAContent = () => {
     // console.log(dateRegex.test(value));
     if (value != undefined && doctor) {
       if (dateRegex.test(value) == false) {
-        console.log(value);
+        // console.log(value);
         // Get the offset between UTC and your local time zone in minutes
         const offsetMinutes = value.getTimezoneOffset();
 
@@ -217,15 +217,15 @@ const BAContent = () => {
       }
       const sche = async () => {
         try {
-          console.log("Enter call api");
+          // console.log("Enter call api");
           const response = await axios.get(
             publicPort + `schedule/list_date/${doctor.id}?date=${formattedDate}`
           );
-          console.log(response.data);
+          // console.log(response.data);
           // setScheOfDoc(response.data);
           setHour("");
           const arrr = response.data.map((item) => item.examTime);
-          console.log(arrr);
+          // console.log(arrr);
 
           setScheOfDoc(arrr);
         } catch (error) {
@@ -278,15 +278,15 @@ const BAContent = () => {
   const handleChangeName = (event) => {
     const { name, value } = event.target;
 
-    console.log(name);
-    console.log(value);
+    // console.log(name);
+    // console.log(value);
 
     if (name === "fname") {
       const newName = {
         ...fullName,
         [name]: value,
       };
-      console.log("set name");
+      // console.log("set name");
       setFullName(newName);
     }
 
@@ -295,7 +295,7 @@ const BAContent = () => {
         ...phone,
         [name]: value,
       };
-      console.log("set phone");
+      // console.log("set phone");
       setPhone(newPhone);
     }
 
@@ -304,7 +304,7 @@ const BAContent = () => {
         ...birthday,
         [name]: value,
       };
-      console.log("set birth day");
+      // console.log("set birth day");
       setBirthDay(newBday);
     }
 
@@ -313,7 +313,7 @@ const BAContent = () => {
         ...idCard,
         [name]: value,
       };
-      console.log("set ID");
+      // console.log("set ID");
       setIdCard(newIDs);
     }
 
@@ -322,7 +322,7 @@ const BAContent = () => {
         ...description,
         [name]: value,
       };
-      console.log("set description");
+      // console.log("set description");
       setDescription(newDs);
     }
   };
@@ -360,7 +360,7 @@ const BAContent = () => {
   //////////////////////////////////// symtom
   const addSymtomItem = (item) => {
     const newArr = [...symtomArr, item];
-    console.log(newArr);
+    // console.log(newArr);
     setSymtomArr(newArr);
 
     // setShowSysptom(false);
@@ -419,7 +419,7 @@ const BAContent = () => {
   };
   //////////////////////////////////// doctor
   const addDoctorItem = (item) => {
-    console.log(item);
+    // console.log(item);
     setDoctor(item);
     setShowDoctor(false);
   };
@@ -439,12 +439,12 @@ const BAContent = () => {
 
   const addHour = (item) => {
     let h = item.from + " - " + item.to;
-    console.log(h);
+    // console.log(h);
     setHour(h);
   };
 
   const bookAppointment = async () => {
-    console.log("Enter book");
+    // console.log("Enter book");
     registers.name = fullName.fname;
     registers.name = fullName.fname;
     registers.phone = phone.pnum;
@@ -473,7 +473,7 @@ const BAContent = () => {
     registers.description = description.ds;
 
     const currentDate = new Date();
-    console.log(registers);
+    // console.log(registers);
 
     if (
       registers.name === undefined ||
@@ -496,11 +496,11 @@ const BAContent = () => {
       return;
     }
 
-    if (currentDate > registers.bookDate) {
+    if (currentDate > value) {
       alert("book date must be later than today");
       return;
     }
-    console.log(registers);
+    // console.log(registers);
     navigate("/appointmentConfirmation", { state: { registers } });
   };
   const UpdateAppointment = async () => {
@@ -688,7 +688,7 @@ const BAContent = () => {
                       value="FeMale"
                     />
                     <label htmlFor="FeMale" className="font-semibold">
-                    FeMale
+                      FeMale
                     </label>
                   </div>
                 </div>
