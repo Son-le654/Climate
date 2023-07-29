@@ -142,4 +142,11 @@ public class CheckinService {
 	public void saveCheckin(Checkin appointment) {
 		repository.save(appointment);
 	}
+	 public int countCommandFlag2ForCurrentMonth() {
+	        return repository.countCommandFlag2ForCurrentMonth();
+	    }
+
+	    public int countCommandFlag3ForCurrentMonth() {
+	        return repository.countCommandFlag3ForCurrentMonth();
+	    }
 }
