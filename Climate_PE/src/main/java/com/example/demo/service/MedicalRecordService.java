@@ -82,4 +82,8 @@ public class MedicalRecordService {
 	public void deleteMedicalRecord(int id) {
 		repository.deleteById(id);
 	}
+	
+	public int countRecordsInCurrentMonth() {
+        return repository.countByReleaseTimeInCurrentMonth();
+    }
 }

@@ -22,14 +22,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.DTO.ApiResponse;
+import com.example.demo.DTO.CountResult;
 import com.example.demo.DTO.InternalAccountDTO;
 import com.example.demo.DTO.LoginRequest;
 import com.example.demo.entity.InternalAccount;
 import com.example.demo.entity.Specialty;
 import com.example.demo.repository.InternalRepository;
+import com.example.demo.service.AppointmentService;
+import com.example.demo.service.CheckinService;
 import com.example.demo.service.InternalService;
 import com.example.demo.service.JwtResponse;
 import com.example.demo.service.JwtTokenUtil;
+import com.example.demo.service.MedicalRecordService;
 import com.example.demo.service.SpeciatlyService;
 
 @RestController
@@ -41,7 +45,13 @@ public class InternalController {
 
 	@Autowired
 	private InternalService internalService;
-
+	
+	@Autowired
+	private CheckinService checkinService;
+	@Autowired
+	private AppointmentService appointmentService;
+	@Autowired
+	private MedicalRecordService medicalRecordService;
 	@Autowired
 	private InternalRepository repository;
 
@@ -176,4 +186,16 @@ public class InternalController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("No doctor information found"));
 		}
 	}
+	
+	 @GetMapping("/count-in-current-month")
+	    public CountResult  getCountOfRecordsInCurrentMonth() {
+	        int online = medicalRecordService.countRecordsInCurrentMonth();
+	        int completed = checkinService.countCommandFlag2ForCurrentMonth();
+	        int cancel = checkinService.countCommandFlag3ForCurrentMonth();
+	        int result = online+completed+cancel;
+	        double percentageOnline = (double) online / result * 100;
+	        double percentageCompleted = (double) completed / result * 100;
+	        double percentageCancel = (double) cancel / result * 100;
+	        return new CountResult(percentageOnline, percentageCompleted, percentageCancel);
+	    }
 }
