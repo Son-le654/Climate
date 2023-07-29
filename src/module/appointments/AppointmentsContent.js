@@ -1,3 +1,4 @@
+// @ts-nocheck
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { publicPort } from "../../components/url/link";
@@ -95,8 +96,24 @@ function AppointmentsContent({ role, mail }) {
           setListData(response.data);
         } else {
           response = await axios.get(publicPort + "appointment/list");
-          setListOrigin(response.data);
-          setListData(response.data);
+          const sortedData = response.data.sort((a, b) => {
+            // Convert commandFlag values to numbers for comparison (assuming they are strings).
+            const commandFlagA = Number(a.commandFlag);
+            const commandFlagB = Number(b.commandFlag);
+      
+            if (commandFlagA !== commandFlagB) {
+              // Sort by 'commandFlag' in ascending order.
+              return commandFlagA - commandFlagB;
+            } else {
+              // If 'commandFlag' is the same, sort by 'examDate' in ascending order.
+              const examDateA = new Date(a.examDate);
+              const examDateB = new Date(b.examDate);
+              return examDateA - examDateB;
+            }
+          });
+
+          setListOrigin(sortedData);
+          setListData(sortedData);
         }
       } catch (error) {
         console.log(error);
