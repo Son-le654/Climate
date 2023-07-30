@@ -45,4 +45,7 @@ public interface InternalRepository extends JpaRepository<InternalAccount, Integ
 
 	@Query("SELECT ia FROM InternalAccount ia WHERE ia.id = :id")
 	InternalAccount getAccById(@Param(value = "id") int id);
+	
+	@Query("SELECT ia.name FROM InternalAccount ia WHERE ia.id = :id")
+	String getAccByIdWithnameDoctor(@Param(value = "id") int id);
 }

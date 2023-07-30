@@ -21,4 +21,7 @@ public interface MedicalRecordRepository extends JpaRepository<MedicalRecord, In
 	
 	@Query("SELECT COUNT(mr) FROM MedicalRecord mr WHERE MONTH(mr.releaseTime) = MONTH(CURRENT_DATE) AND YEAR(mr.releaseTime) = YEAR(CURRENT_DATE)")
     int countByReleaseTimeInCurrentMonth();
+	
+	@Query("SELECT COUNT(m) FROM MedicalRecord m WHERE m.doctorId = :doctorId")
+    long countByDoctorId(@Param(value = "doctorId")String doctorId);
 }
