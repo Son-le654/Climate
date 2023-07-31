@@ -30,13 +30,7 @@ const CheckinPage = () => {
 
   return (
     <div className="bg-white">
-      {/* <BookAppHeader storedName={storedName}></BookAppHeader> */}
-      {role == "NURSE" ? (
-        <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
-      ) : (
-        <></>
-      )}
-
+      <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
       <div>
         <Outlet></Outlet>
       </div>

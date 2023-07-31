@@ -14,23 +14,18 @@ const HomeNav = [
   },
   {
     id: 2,
-    to: "/appointments",
-    title: "Appointments",
-  },
-  {
-    id: 2,
-    to: "/checkin-list",
-    title: "Checkins",
-  },
-  {
-    id: 2,
-    to: "/medicalhistory",
-    title: "Medical History",
+    to: "/book_appointment",
+    title: "Book Appointment",
   },
   {
     id: 3,
-    to: "/book_appointment",
-    title: "Book Appointment",
+    to: "",
+    title: "Records",
+  },
+  {
+    id: 4,
+    to: "",
+    title: "Lookup",
   },
 ];
 
@@ -57,6 +52,7 @@ const HomeHeaderService = () => {
   const navigate = useNavigate();
   const storedName = localStorage.getItem("token");
   const [role, setRole] = useState("");
+
   const [nameuser, setNameUser] = useState("");
   useEffect(() => {
     try {
@@ -75,6 +71,44 @@ const HomeHeaderService = () => {
     localStorage.removeItem("token");
     navigate("/login-user");
   };
+  const handleAppointments = () => {
+    window.location.href = "/listofappointment";
+  };
+  const handleCheckins = () => {
+    window.location.href = "/checkin-list";
+  };
+  const handleMedicalHistory = () => {
+    window.location.href = "/medicalhistory";
+  };
+  const handleDoctors = () => {
+    // navigate("/login-user");
+    window.location.href = "/listDoctorForAll";
+  };
+  const handleNews = () => {
+    window.location.href = "/newspage";
+  };
+
+  const [visibleItem, setVisibleItem] = useState(null);
+  const [visibleItem1, setVisibleItem1] = useState(null);
+
+  const handleShow = (index) => {
+    // setshow(!show);
+    if (visibleItem === index) {
+      setVisibleItem(null);
+    } else {
+      setVisibleItem(index);
+      setVisibleItem1(null);
+    }
+  };
+  const handleShow1 = (index) => {
+    // setshow(!show);
+    if (visibleItem1 === index) {
+      setVisibleItem1(null);
+    } else {
+      setVisibleItem(null);
+      setVisibleItem1(index);
+    }
+  };
 
   return (
     <header className="max-w-[1156px] gap-[46px] mx-auto flex items-center pt-[45px]">
@@ -82,17 +116,121 @@ const HomeHeaderService = () => {
         <Logo></Logo>
       </div>
       <div className="flex items-center justify-between w-full">
-        <nav className="home-nav">
+        <nav className="home-nav w-[84rem]">
           <ul>
             {HomeNav.length > 0 &&
-              HomeNav.map((item) => {
+              HomeNav.map((item, index) => {
                 return (
-                  <li key={item.id}>
+                  <li key={item.id} style={{ display: "contents" }}>
                     <NavLink
                       className={({ isActive }) => (isActive ? "active" : null)}
                       to={item.to}
+                      onClick={() => {
+                        switch (item.title) {
+                          case "Records":
+                            handleShow(index);
+                            break;
+                          case "Lookup":
+                            handleShow1(index);
+                            break;
+
+                          default:
+                            break;
+                        }
+                      }}
                     >
-                      {item.title}
+                      {item.title == "Lookup" || item.title == "Records"
+                        ? item.title + " ▽"
+                        : item.title}
+
+                      {visibleItem === index && (
+                        <div
+                          className=" w-[13%] mt-[5rem] ml-[-3rem]"
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "flex-start",
+                            borderRadius: "1rem",
+                            boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
+                            position: "absolute",
+                            top: "5rem",
+                            left: "62.5rem",
+                          }}
+                        >
+                          <span
+                            onClick={handleAppointments}
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              margin: "1rem",
+                            }}
+                          >
+                            <p>List of Appointment</p>
+                          </span>
+                          <span
+                            onClick={handleCheckins}
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              margin: "1rem",
+                            }}
+                          >
+                            <p>List of Check-in</p>
+                          </span>
+                          <span
+                            onClick={handleMedicalHistory}
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              margin: "1rem",
+                            }}
+                          >
+                            <p>Medical Record</p>
+                          </span>
+                        </div>
+                      )}
+
+                      {visibleItem1 === index && (
+                        <div
+                          className=" w-[7%] mt-[5rem] ml-[-3rem]"
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "flex-start",
+                            borderRadius: "1rem",
+                            boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
+                            position: "absolute",
+                            top: "5rem",
+                            left: "75.2rem",
+                          }}
+                        >
+                          <span
+                            onClick={handleDoctors}
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              margin: "1rem",
+                            }}
+                          >
+                            <p>Doctor</p>
+                          </span>
+                          <span
+                            onClick={handleNews}
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              margin: "1rem",
+                            }}
+                          >
+                            <p>News</p>
+                          </span>
+                        </div>
+                      )}
                     </NavLink>
                   </li>
                 );

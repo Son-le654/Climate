@@ -253,7 +253,7 @@ function CheckinListContent({ email, role }) {
           <></>
         )}
       </div>
-      <div className=" min-h-[550px]">
+      <div className="">
         <div>
           <table className="w-[100%]">
             <thead className="h-[100px]">

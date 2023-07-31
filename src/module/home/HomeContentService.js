@@ -25,7 +25,7 @@ const HomeContentService = () => {
   }, [type, tabButtons]);
 
   return (
-    <div className="bg-white">
+    <div className="bg-white pt-[3rem]">
       <div className="flex items-center gap-[141px] justify-between max-w-[1156px] mx-auto">
         <div className="flex flex-col w-[590px]">
           <div>

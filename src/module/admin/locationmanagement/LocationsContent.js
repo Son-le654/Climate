@@ -140,31 +140,19 @@ function LocationsContent({ role, mail }) {
           LOCATIONS
         </span>
         <span
-          className={
-            statusFilter === "0"
-              ? "font-bold text-3xl mr-[100px] text-gradientLeft "
-              : "font-bold text-3xl mr-[100px] text-[#c5c4c4]"
-          }
+          className={"font-bold text-3xl mr-[100px] text-[#c5c4c4]"}
           onClick={handleSpec}
         >
           SPECIALTIES
         </span>
         <span
-          className={
-            statusFilter === "0"
-              ? "font-bold text-3xl mr-[100px] text-gradientLeft "
-              : "font-bold text-3xl mr-[100px] text-[#c5c4c4]"
-          }
+          className={"font-bold text-3xl mr-[100px] text-[#c5c4c4]"}
           onClick={handleSymptom}
         >
           SYMPTOMS
         </span>
         <span
-          className={
-            statusFilter === "0"
-              ? "font-bold text-3xl mr-[100px] text-gradientLeft "
-              : "font-bold text-3xl mr-[100px] text-[#c5c4c4]"
-          }
+          className={"font-bold text-3xl mr-[100px] text-[#c5c4c4]"}
           onClick={handleRole}
         >
           ROLES
@@ -195,7 +183,7 @@ function LocationsContent({ role, mail }) {
           </div>
         </div>
       </div>
-      <div className=" min-h-[550px]">
+      <div className="">
         <div>
           <table className="w-[100%]">
             <thead className="h-[100px]">

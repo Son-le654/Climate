@@ -1,21 +1,20 @@
-import HomeHeaderService from "../../module/home/HomeHeaderService";
-import Footer from "../../module/home/Footer";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { localPort, publicPort } from "../../components/url/link";
+import React, { useEffect, useState } from "react";
+import HomeHeader from "../module/home/HomeHeader";
+import Footer from "../module/home/Footer";
 import { useLocation, useNavigate } from "react-router";
-import React from "react";
-import DoctorInformationContent from "module/staff/doctorinformation/DoctorInformationContent";
+import HomeHeaderService from "../module/home/HomeHeaderService";
+import DoctorContent from "../module/faq/DoctorContent";
+import PatientContentForAll from "module/faq/PatientContentForAll";
 import jwtDecode from "jwt-decode";
 import HomeHeaderServiceAdmin from "module/home/HomeHeaderServiceAdmin";
 import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
 import HomeHeaderServiceNurse from "module/home/HomeHeaderServiceNurse";
 
-function DoctorInformationStaff() {
+const ListPatientPageForAll = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [doctId, setDoctId] = useState();
-
+  const [docList, setDocList] = useState([]);
+  // console.log("list doctor" + location.state);
   const [role, setRole] = useState("");
   const storedName = localStorage.getItem("token");
   useEffect(() => {
@@ -25,6 +24,9 @@ function DoctorInformationStaff() {
       try {
         const decoded = jwtDecode(storedName);
         const rol = decoded.roles[0].authority;
+        if (rol == "USER") {
+          navigate("/service");
+        }
         setRole(rol);
       } catch (error) {
         console.log(error);
@@ -32,19 +34,8 @@ function DoctorInformationStaff() {
     }
   }, []);
 
-  useEffect(() => {
-    console.log("id doctor" + location.state);
-    const docId = location?.state?.id;
-    console.log(docId);
-    if (docId == undefined) {
-      navigate("/service");
-    } else {
-      setDoctId(docId);
-    }
-  }, []);
-
   return (
-    <div className="bg-white">
+    <div className="bg-white w-[100%]">
       <div className="bg-white">
         {role == "USER" ? (
           <HomeHeaderService></HomeHeaderService>
@@ -56,13 +47,16 @@ function DoctorInformationStaff() {
           <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
         )}
       </div>
-      <div className="bg-white">
-        <DoctorInformationContent docId={doctId} role={role}/>
+      <div className="pt-[80px] pl-[190px] text-5xl font-bold py-[20px]">
+        <h1>List of Patients</h1>
+      </div>
+      <div className="w-[100%]" style={{ padding: "0.5% 12.5%" }}>
+        <PatientContentForAll></PatientContentForAll>
       </div>
       <div>
         <Footer></Footer>
       </div>
     </div>
   );
-}
-export default DoctorInformationStaff;
+};
+export default ListPatientPageForAll;

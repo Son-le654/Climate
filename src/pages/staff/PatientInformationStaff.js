@@ -1,21 +1,21 @@
 import HomeHeaderService from "../../module/home/HomeHeaderService";
+import DoctorInformationContentstaff from "../../module/staff/doctorinformation/DoctorInformationContent";
 import Footer from "../../module/home/Footer";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { localPort, publicPort } from "../../components/url/link";
 import { useLocation, useNavigate } from "react-router";
 import React from "react";
-import DoctorInformationContent from "module/staff/doctorinformation/DoctorInformationContent";
+import PatientInformationContent from "module/staff/doctorinformation/PatientInformationContent";
 import jwtDecode from "jwt-decode";
 import HomeHeaderServiceAdmin from "module/home/HomeHeaderServiceAdmin";
 import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
 import HomeHeaderServiceNurse from "module/home/HomeHeaderServiceNurse";
 
-function DoctorInformationStaff() {
+function PatientInformationStaff() {
   const navigate = useNavigate();
   const location = useLocation();
   const [doctId, setDoctId] = useState();
-
   const [role, setRole] = useState("");
   const storedName = localStorage.getItem("token");
   useEffect(() => {
@@ -31,9 +31,7 @@ function DoctorInformationStaff() {
       }
     }
   }, []);
-
   useEffect(() => {
-    console.log("id doctor" + location.state);
     const docId = location?.state?.id;
     console.log(docId);
     if (docId == undefined) {
@@ -42,7 +40,6 @@ function DoctorInformationStaff() {
       setDoctId(docId);
     }
   }, []);
-
   return (
     <div className="bg-white">
       <div className="bg-white">
@@ -57,7 +54,7 @@ function DoctorInformationStaff() {
         )}
       </div>
       <div className="bg-white">
-        <DoctorInformationContent docId={doctId} role={role}/>
+        <PatientInformationContent docId={doctId} />
       </div>
       <div>
         <Footer></Footer>
@@ -65,4 +62,4 @@ function DoctorInformationStaff() {
     </div>
   );
 }
-export default DoctorInformationStaff;
+export default PatientInformationStaff;

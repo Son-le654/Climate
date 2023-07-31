@@ -33,8 +33,9 @@ function EditProfile() {
   }, []);
 
   return (
-    <div className="w-[100%] min-h-[1000px] bg-white flex justify-center">
-      <div className="w-[80%] min-h-[1000px] bg-white">
+    <div className="w-[100%] min-h-[1000px] bg-white ">
+    <div className="w-[100%] flex justify-center">
+    <div className="w-[80%] min-h-[1000px] bg-white">
         <div className="bg-white">
           {role == "USER" ? (
             <HomeHeaderService></HomeHeaderService>
@@ -50,10 +51,11 @@ function EditProfile() {
         <div className="bg-white">
           <EditProfileContent />
         </div>
-        <div className="bg-white">
+      </div>
+    </div>
+      <div className="bg-white">
           <Footer />
         </div>
-      </div>
     </div>
   );
 }

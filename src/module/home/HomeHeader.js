@@ -11,14 +11,29 @@ const HomeNav = [
     title: "Home",
   },
   {
-    id: 2,
-    to: "/faq",
-    title: "FAQ",
+    id: 4,
+    to: "",
+    title: "Function",
   },
   {
     id: 4,
     to: "/About",
     title: "About",
+  },
+  {
+    id: 2,
+    to: "/faq",
+    title: "FAQ",
+  },
+  {
+    id: 2,
+    to: "/newspage",
+    title: "News",
+  },
+  {
+    id: 2,
+    to: "/book_appointment_guest",
+    title: "Book Visist",
   },
 ];
 const HomeHeader = ({ storedName }) => {

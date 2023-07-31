@@ -1,15 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { FaHospital } from "react-icons/fa";
+import {
+  FaGenderless,
+  FaHospital,
+  FaPhone,
+  FaTransgender,
+} from "react-icons/fa";
 import { IoIosSchool } from "react-icons/io";
 
-export default function DoctorList({
-  docList,
-  searchspec,
-  searchlocation,
-  searchname,
-  role,
-}) {
+export default function PatientList({ docList, searchname }) {
   const navigate = useNavigate();
   const [listOrigin, setListOrigin] = useState(docList);
   const [specList, setSpecList] = useState(docList);
@@ -23,39 +22,8 @@ export default function DoctorList({
     setListOrigin(docList);
     setSpecList(docList);
   }, [docList]);
-  console.log(listOrigin);
-  console.log(docList);
-
-  useEffect(() => {
-    if (searchspec != undefined && searchlocation != undefined) {
-      const places = async () => {
-        // console.log(checkinSpec);
-        // const response = await axios.get(publicPort + "spec/list");
-        const findItemByName = (name, name1) => {
-          // return response.data.find((item) => item.name === name);
-          if (name.spc == "" && name1.lo == "") {
-            return listOrigin;
-          } else if (name.spc == "" && name1.lo != "") {
-            return listOrigin.filter(
-              (item1) => item1.workingPlace.id == name1.lo
-            );
-          } else if (name.spc != "" && name1.lo == "") {
-            return listOrigin.filter((item) => item.specialty.id == name.spc);
-          } else {
-            return listOrigin
-              .filter((item) => item.specialty.id == name.spc)
-              .filter((item1) => item1.workingPlace.id == name1.lo);
-          }
-        };
-        // console.log(place);
-        // console.log(searchspec);
-        const selectedItem = findItemByName(searchspec, searchlocation);
-        // console.log(selectedItem);
-        setSpecList(selectedItem);
-      };
-      places();
-    }
-  }, [searchspec, searchlocation]);
+  // console.log(listOrigin);
+  // console.log(docList);
 
   useEffect(() => {
     if (searchname != undefined) {
@@ -73,7 +41,7 @@ export default function DoctorList({
           }
         };
         // console.log(place);
-        console.log(searchspec);
+        // console.log(searchname);
         const selectedItem = findItemByName(searchname);
         // console.log(selectedItem);
         setSpecList(selectedItem);
@@ -99,18 +67,9 @@ export default function DoctorList({
   };
 
   const view_detail = (item) => {
-    const id = item.id;
+    const id = item.email;
     console.log(id);
-    if (role != "USER") {
-      navigate("/informationdoctorstaff", { state: { id } });
-    } else {
-      navigate("/doctorinformation", { state: { id } });
-    }
-  };
-
-  const book_appointment = (item) => {
-    console.log(item);
-    navigate("/book_appointment", { state: { item } });
+    navigate("/informationpatientstaff", { state: { id } });
   };
 
   function handlePageClick(event, pageNumber) {
@@ -147,34 +106,21 @@ export default function DoctorList({
                 <h1 className="font-semibold">{data.name}</h1>
                 <div className="flex">
                   <div className="pr-[5px] text-5xl">
-                    <IoIosSchool />
+                    <FaTransgender />
                   </div>
-                  <a className="text-2xl font-light ">{data.education}</a>
+                  <a className="text-2xl font-light ">{data.gender}</a>
                 </div>
                 <div className="flex pt-1">
                   <div className="pr-[10px] text-4xl">
-                    <FaHospital />
+                    <FaPhone />
                   </div>
-                  <a className="text-2xl font-light">
-                    {data.workingPlace.name}
-                  </a>
+                  <a className="text-2xl font-light">{data.phone}</a>
                 </div>
                 <div>
-                  <span className="text-lg font-light">
-                    {data.specialty.name}
-                  </span>
+                  <span className="text-lg font-light">{data.address}</span>
                   <span className=" text-lg text-gradientLeft cursor-pointer">
                     <p onClick={() => view_detail(data)}> Read more</p>
                   </span>
-                </div>
-                <div className="absolute top-8 right-8">
-                  <button
-                    className=" bg-blue-700 w-[200px] h-[40px] rounded-[10px] text-white"
-                    style={{ backgroundColor: "#3A8EF6" }}
-                    onClick={() => book_appointment(data)}
-                  >
-                    Book Appointment
-                  </button>
                 </div>
               </div>
             </div>

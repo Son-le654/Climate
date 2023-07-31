@@ -45,7 +45,7 @@ const PatientsPage = () => {
         )}
       </div>
       <div className="pt-[80px] pl-[190px] text-7xl font-bold py-[20px] bg-white">
-        <h1>Patient list</h1>
+        <h1>List of Patients</h1>
       </div>
       <div className="bg-white" style={{ padding: "5% 12%" }}>
         <PatientsContent role={role} mail={mail}></PatientsContent>
