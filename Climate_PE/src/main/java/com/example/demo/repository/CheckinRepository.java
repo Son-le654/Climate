@@ -28,4 +28,15 @@ public interface CheckinRepository extends JpaRepository<Checkin, Integer> {
 
 	@Query("SELECT a FROM Checkin a WHERE a.doctorId = :doctorId")
 	List<Checkin> findByDoctorId(@Param("doctorId") String doctorId);
+
+	@Query("SELECT COUNT(c) FROM Checkin c WHERE c.commandFlag = 2 "
+			+ "AND EXTRACT(MONTH FROM c.registerTime) = EXTRACT(MONTH FROM CURRENT_DATE)")
+	int countCommandFlag2ForCurrentMonth();
+
+	@Query("SELECT COUNT(c) FROM Checkin c WHERE c.commandFlag = 3 "
+			+ "AND EXTRACT(MONTH FROM c.registerTime) = EXTRACT(MONTH FROM CURRENT_DATE)")
+	int countCommandFlag3ForCurrentMonth();
+	
+    @Query("SELECT c.doctorId, COUNT(c.id) FROM Checkin c GROUP BY c.doctorId")
+    List<Object[]> countCheckinsByDoctor();
 }

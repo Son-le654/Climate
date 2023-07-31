@@ -36,6 +36,7 @@ public class MedicalRecordService {
 	public List<MedicalRecord> findAllByDoctorId(String id) {
 		return repository.findAllByDoctorId(id);
 	}
+
 	public List<MedicalRecord> findAllByPatientId(String id) {
 		return repository.findAllByPatientId(id);
 	}
@@ -81,5 +82,13 @@ public class MedicalRecordService {
 
 	public void deleteMedicalRecord(int id) {
 		repository.deleteById(id);
+	}
+
+	public int countRecordsInCurrentMonth() {
+		return repository.countByReleaseTimeInCurrentMonth();
+	}
+
+	public long countOccurrencesByDoctorId(String doctorId) {
+		return repository.countByDoctorId(doctorId);
 	}
 }

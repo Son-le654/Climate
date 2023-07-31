@@ -92,7 +92,9 @@ public class InternalService implements UserDetailsService {
 	public Optional<InternalAccount> findById(Integer id) {
 		return internalRepository.findById(id);
 	}
-
+	public String findByIdUsingName(int id) {
+		return internalRepository.getAccByIdWithnameDoctor(id);
+	}
 	public InternalAccount findByName(String doctorName, String location) {
 		return internalRepository.findDoctor(doctorName, location);
 	}
