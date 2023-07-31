@@ -1,13 +1,21 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { localPort, publicPort } from "../../components/url/link";
 import { BiSearch } from "react-icons/bi";
+import { MdKeyboardArrowRight } from "react-icons/md";
+import { MdKeyboardArrowLeft } from "react-icons/md";
+import { useRef } from "react";
+import Slider from "react-slick";
 import { useNavigate } from "react-router-dom";
-import { publicPort } from "components/url/link";
+import jwtDecode from "jwt-decode";
 
-function PatientsContent({ role, mail }) {
+function SchedulesContenForAll({ email, role }) {
+  const [sortedObjects, setSortedObjects] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [statusFilter, setStatusFilter] = useState("All");
+  const [mail, setMail] = useState(email);
+  const [rol, setRol] = useState();
   const [listData, setListData] = useState([]);
   const [listOrigin, setListOrigin] = useState([]);
   const navigate = useNavigate();
@@ -22,16 +30,16 @@ function PatientsContent({ role, mail }) {
     },
     {
       id: 3,
-      title: "Email",
+      title: "Date",
     },
     {
       id: 4,
-      title: "Gender",
+      title: "Time",
     },
-    {
-      id: 5,
-      title: "Phone",
-    },
+    // {
+    //   id: 5,
+    //   title: "Status",
+    // },
     {
       id: 6,
       title: "View Details",
@@ -42,30 +50,43 @@ function PatientsContent({ role, mail }) {
   const [inputValue, setInputValue] = useState("");
   const currentItems = listOrigin.slice(indexOfFirstItem, indexOfLastItem);
 
+  // useEffect(() => {
+  //   setMail(email);
+  // });
+
   useEffect(() => {
+    // console.log(mail);
+    if (mail == undefined) {
+      setMail(email);
+    }
+   
+
     const listApp = async () => {
       try {
         let response;
-        let response1;
-        let id;
-        if (role == "ADMIN") {
-          response = await axios.get(publicPort + "patient/listadmin");
-        } else {
-          response = await axios.get(publicPort + "patient/list");
-        }
+          response = await axios.get(
+            publicPort + `schedule/listschedules?email=${mail}`
+          );
+        
         setListOrigin(response.data);
         setListData(response.data);
-        console.log(response.data);
       } catch (error) {
         console.log(error);
       }
     };
     listApp();
-  }, [mail, role]);
+  }, [email, role]);
 
   useEffect(() => {
     setListData(listOrigin.slice(indexOfFirstItem, indexOfLastItem));
   }, [itemsPerPage, currentPage]);
+
+  //   useEffect(() => {
+  //     const sorted = listOrigin.sort(
+  //       (a, b) => new Date(b.registerTime) - new Date(a.registerTime)
+  //     );
+  //     setSortedObjects(sorted);
+  //   }, [listOrigin]);
 
   function handlePageClick(event, pageNumber) {
     event.preventDefault();
@@ -102,7 +123,7 @@ function PatientsContent({ role, mail }) {
       setListData(listOrigin);
     } else {
       const filteredList = listOrigin.filter((item) =>
-        item.name.toLowerCase().includes(searchInput.toLowerCase())
+        item.patientName.toLowerCase().includes(searchInput.toLowerCase())
       );
       setListData(filteredList);
     }
@@ -110,38 +131,42 @@ function PatientsContent({ role, mail }) {
 
   const handleDetail = (appointment) => {
     console.log(appointment);
-    // navigate("/appointmentdetailsfornurse", { state: { appointment } });
-  };
-  const handleInternal = () => {
-    navigate("/internals");
-  };
-  const handleExternal = () => {
-    navigate("/patients");
+    navigate("/AppointmentDetails", { state: { appointment } });
   };
   return (
     <div className="bg-white p-5 rounded-2xl shadow-2xl w-[100%] min-h-[500px]">
-      {role == "ADMIN" ? (
-        <>
-          <div>
-            <span
-              className={
-                "ml-[50px] font-bold text-3xl mr-[100px] text-[#c5c4c4]"
-              }
-              onClick={handleInternal}
-            >
-              ITERNAL
-            </span>
-            <span
-              className={"font-bold text-3xl mr-[100px] text-gradientLeft "}
-              onClick={handleExternal}
-            >
-              EXTERNAL
-            </span>
-          </div>
-        </>
-      ) : (
-        <></>
-      )}
+      {/* <div>
+        <span
+          className={
+            statusFilter === "All"
+              ? "ml-[50px] font-bold text-3xl mr-[100px] text-gradientLeft "
+              : "ml-[50px] font-bold text-3xl mr-[100px] text-[#c5c4c4]"
+          }
+          onClick={() => handleFilter("All")}
+        >
+          ALL
+        </span>
+        <span
+          className={
+            statusFilter === "0"
+              ? "font-bold text-3xl mr-[100px] text-gradientLeft "
+              : "font-bold text-3xl mr-[100px] text-[#c5c4c4]"
+          }
+          onClick={() => handleFilter("0")}
+        >
+          INCOME
+        </span>
+        <span
+          className={
+            statusFilter === "2"
+              ? "font-bold text-3xl mr-[100px] text-gradientLeft "
+              : "font-bold text-3xl mr-[100px] text-[#c5c4c4]"
+          }
+          onClick={() => handleFilter("2")}
+        >
+          COMPLETED
+        </span>
+      </div> */}
       <div className="w-[100%] h-[50px]">
         <div className="mt-[40px] h-[50px] w-[30%] border-[1px] rounded-2xl flex border-[#c5c4c4] ml-[10px]">
           <button className="w-[15%]">
@@ -177,18 +202,46 @@ function PatientsContent({ role, mail }) {
                   }`}
                   key={listD.id}
                 >
-                  <td className="w-[10%]">{listD.id}</td>
-                  <td className="w-[13%]">{listD.name}</td>
-                  <td className="w-[13%]">{listD.email}</td>
-                  <td className="w-[13%]">{listD.gender}</td>
-                  <td className="w-[13%]">{listD.phone}</td>
-
+                  <td className="w-[10%]">
+                    {listD != undefined ? listD.id : ""}
+                  </td>
+                  <td className="w-[13%]">
+                    {listD != undefined ? listD.appointment.patientName : ""}
+                  </td>
+                  <td className="w-[13%]">
+                    <p className="ml-[20%]">
+                      {listD != undefined ? listD.examDate : ""}
+                    </p>
+                  </td>
+                  <td className="w-[12%]">
+                    {listD != undefined ? listD.examTime : ""}
+                  </td>
+                  {/* <td className="w-[12%]">
+                    {listD != undefined ? listD.commandFlag : ""}
+                  </td> */}
+                  {/* <td className="w-[12%]">
+                    <p
+                      className={`w-[70%] h-[30px] rounded-2xl ml-[14%] pt-[3px] text-white ${
+                        listD.commandFlag == "0"
+                          ? "bg-warning"
+                          : listD.commandFlag == "2"
+                          ? "bg-error"
+                          : "bg-success"
+                      }`}
+                    >
+                      {listD.commandFlag == 0
+                        ? "Pending"
+                        : listD.commandFlag == 1
+                        ? "Approved"
+                        : "Cancel"}
+                    </p>
+                  </td> */}
                   <td className="pb-[10px] pt-[10px]  w-[13%]">
                     <button
                       className="w-[80%] h-[40px] bg-gradientLeft rounded-3xl text-white "
                       onClick={() => handleDetail(listD)}
                     >
-                      View Detail
+                      View
                     </button>
                   </td>
                 </tr>
@@ -198,6 +251,14 @@ function PatientsContent({ role, mail }) {
         </div>
       </div>
       <div className="" style={{ textAlign: "center" }}>
+        {/* <button className="button text-[30px] w-10 h-10 bg-gradientLeft mr-[30px]">
+          <MdKeyboardArrowLeft className="ml-[2px]" />
+        </button>
+
+        <button className="button text-[30px] w-10 h-10 bg-gradientLeft">
+          <MdKeyboardArrowRight className="ml-[3px]" />
+        </button> */}
+
         <div>
           {pageNumbers.map((pageNumber) => (
             <button
@@ -220,4 +281,4 @@ function PatientsContent({ role, mail }) {
     </div>
   );
 }
-export default PatientsContent;
+export default SchedulesContenForAll;

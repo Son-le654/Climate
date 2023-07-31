@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DoctorList from "./DoctorListContentComponent/DoctorList";
 import DoctorSearch from "./DoctorListContentComponent/DoctorSearch";
 import DoctorSpecialty from "./DoctorListContentComponent/DoctorSpecialty";
 import DoctorUserful from "./DoctorListContentComponent/DoctorUserful";
+import axios from "axios";
+import { publicPort } from "components/url/link";
 
-function DoctorContent({ docList, role }) {
+function DoctorContentForAll({ role }) {
   const [searchspec, setsearchspec] = useState({
     spc: "",
   });
@@ -14,6 +16,23 @@ function DoctorContent({ docList, role }) {
   const [searchname, setsearchname] = useState({
     sn: "",
   });
+
+  const [docList, setdocList] = useState();
+
+  useEffect(() => {
+    const listApp = async () => {
+      try {
+        let response;
+
+        response = await axios.get(publicPort + "api/doctors");
+        setdocList(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    listApp();
+  }, []);
 
   const handleSearchInputChange = (event) => {
     const { name, value } = event.target;
@@ -85,4 +104,4 @@ function DoctorContent({ docList, role }) {
     </div>
   );
 }
-export default DoctorContent;
+export default DoctorContentForAll;

@@ -85,6 +85,7 @@ function SchedulesContent({ email, role }) {
         } else {
           response = await axios.get(publicPort + `schedule/list`);
         }
+        // console.log(response.data);
         setListOrigin(response.data);
         setListData(response.data);
       } catch (error) {
@@ -139,8 +140,8 @@ function SchedulesContent({ email, role }) {
     if (searchInput === "") {
       setListData(listOrigin);
     } else {
-      const filteredList = listOrigin.filter((item) =>
-        item.patientName.toLowerCase().includes(searchInput.toLowerCase())
+      const filteredList = listOrigin?.filter((item) =>
+        item.appointment?.patientName?.toLowerCase().includes(searchInput.toLowerCase())
       );
       setListData(filteredList);
     }
@@ -152,7 +153,7 @@ function SchedulesContent({ email, role }) {
   };
   return (
     <div className="bg-white p-5 rounded-2xl shadow-2xl w-[100%] min-h-[500px]">
-      <div>
+      {/* <div>
         <span
           className={
             statusFilter === "All"
@@ -183,7 +184,7 @@ function SchedulesContent({ email, role }) {
         >
           COMPLETED
         </span>
-      </div>
+      </div> */}
       <div className="w-[100%] h-[50px]">
         <div className="mt-[40px] h-[50px] w-[30%] border-[1px] rounded-2xl flex border-[#c5c4c4] ml-[10px]">
           <button className="w-[15%]">
@@ -196,7 +197,7 @@ function SchedulesContent({ email, role }) {
           />
         </div>
       </div>
-      <div className=" min-h-[550px]">
+      <div className="">
         <div>
           <table className="w-[100%]">
             <thead className="h-[100px]">

@@ -13,14 +13,13 @@ import Sevirce from "./DetailedinfoContent/Sevirce";
 import Education from "./DetailedinfoContent/Education";
 import { localPort } from "../../../../components/url/link";
 import axios from "axios";
+import Address from "./DetailedinfoContent/Address";
+import PhoneNumber from "./DetailedinfoContent/PhoneNumber";
+import Gender from "./DetailedinfoContent/Gender";
+import IDCardAndPatient from "./DetailedinfoContent/IDCardAndPatient";
+import BirthDay from "./DetailedinfoContent/BirthDay";
 
-const Listdata = [
-  {
-    id: 1,
-    name: "  Doctor Carlos has 23 years of experience in treating cardiovascular diseases. Currently, he works as a Cardiologist at the Department of Internal Medicine and Outpatient Clinic at Clinicmate Clinicl in Da Nang.",
-  },
-];
-function DetailedInformation({ doct }) {
+function DetailedInformationForPatient({ doct }) {
   const [isIcon, setIsicon] = useState(false);
   const [isExpanded, setExpanded] = useState(true);
   // const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded });
@@ -43,13 +42,9 @@ function DetailedInformation({ doct }) {
               </div>
               <div className="w-[60%] rounded-3xl h-[35px]">
                 {isExpanded ? (
-                  <h1 className="p-3 ml-1 font-bold  text-[15px]">
-                    Introduction
-                  </h1>
+                  <h1 className="p-3 ml-1 font-bold  text-[15px]">Email</h1>
                 ) : (
-                  <h1 className="p-3 ml-1 font-bold  text-[15px]">
-                    Introduction
-                  </h1>
+                  <h1 className="p-3 ml-1 font-bold  text-[15px]">Email</h1>
                 )}
               </div>
               <div
@@ -61,45 +56,36 @@ function DetailedInformation({ doct }) {
             </div>
             <hr className="w-[90%] ml-5 text-[rgb(212,212,212)]" />
             <div {...getCollapseProps()}>
-                <div
-                  className=" text-[13px] justify-around w-[100%] ml-2 font-light p-[10px]"
-                  style={{ lineHeight: "35px" }}
-                >
-                  {doct.introduct}
-                </div>
+              <div
+                className=" text-[13px] justify-around w-[100%] ml-2 font-light p-[10px]"
+                style={{ lineHeight: "35px" }}
+              >
+                {doct.email}
+              </div>
             </div>
-          </div>
-          <div className="mb-[20px]">
-            <AwardsAndRecognitions />
-          </div>
-          <div className="mb-[20px]">
-            <BookResearchWork />
-          </div>
-          <div className="mb-[20px]">
-            <Languages />
           </div>
         </div>
         <div className="w-[30%] mr-[5%] ml-[5%] ">
           <div className="mb-[20px]">
-            <Position doct={doct.role} />
+            <Address doct={doct.address} />
           </div>
           <div className="mb-[20px]">
-            <WorkPlace doct={doct.workingPlace} />
+            <BirthDay doct={doct.birthDate} />
           </div>
           <div className="mb-[20px]">
-            <Experience doct={doct} />
+            <PhoneNumber doct={doct.phone} />
           </div>
         </div>
         <div className="w-[30%]">
           <div className="mb-[20px]">
-            <Specialtiess doct={doct.specialty} />
+            <Gender doct={doct.gender} />
           </div>
           <div className="mb-[20px]">
-            <Education doct={doct} />
+            <IDCardAndPatient doct={doct.id} />
           </div>
         </div>
       </div>
     </div>
   );
 }
-export default DetailedInformation;
+export default DetailedInformationForPatient;

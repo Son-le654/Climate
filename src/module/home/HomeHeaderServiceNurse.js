@@ -14,23 +14,18 @@ const HomeNav = [
   },
   {
     id: 2,
-    to: "/appointments",
-    title: "Appointments",
+    to: "",
+    title: "Appointment",
   },
   {
     id: 3,
-    to: "/checkin-list",
-    title: "Check-in list",
+    to: "",
+    title: "Check-in",
   },
   {
     id: 4,
-    to: "/doctors",
-    title: "Doctors",
-  },
-  {
-    id: 5,
-    to: "/medicalhistory",
-    title: "Medical History",
+    to: "",
+    title: "Lookup",
   },
 ];
 
@@ -71,6 +66,65 @@ const HomeHeaderServiceNurse = () => {
     }
   }, []);
 
+  const [visibleItem, setVisibleItem] = useState(null);
+  const [visibleItem1, setVisibleItem1] = useState(null);
+  const [visibleItem2, setVisibleItem2] = useState(null);
+
+  const handleShow = (index) => {
+    // setshow(!show);
+    if (visibleItem === index) {
+      setVisibleItem(null);
+    } else {
+      setVisibleItem(index);
+      setVisibleItem1(null);
+      setVisibleItem2(null);
+    }
+  };
+  const handleShow1 = (index) => {
+    // setshow(!show);
+    if (visibleItem1 === index) {
+      setVisibleItem1(null);
+    } else {
+      setVisibleItem(null);
+      setVisibleItem1(index);
+      setVisibleItem2(null);
+    }
+  };
+  const handleShow2 = (index) => {
+    // setshow(!show);
+    if (visibleItem2 === index) {
+      setVisibleItem2(null);
+    } else {
+      setVisibleItem(null);
+      setVisibleItem1(null);
+      setVisibleItem2(index);
+    }
+  };
+
+  const handleAppointments = () => {
+    window.location.href = "/appointments";
+  };
+  const handleAddAppointment = () => {
+    window.location.href = "/book_appointment";
+  };
+  const handleCheckins = () => {
+    window.location.href = "/checkin-list";
+  };
+  const handleAddCheckin = () => {
+    window.location.href = "/checkin";
+  };
+  const handleDoctors = () => {
+    // navigate("/login-user");
+    window.location.href = "/listDoctorForAll";
+  };
+  const handlePatients = () => {
+    // navigate("/login-user");
+    window.location.href = "/listPatientForAll";
+  };
+  const handleNews = () => {
+    window.location.href = "/newspage";
+  };
+
   return (
     <header className="max-w-[1156px] gap-[46px] mx-auto flex items-center pt-[45px]">
       <div>
@@ -80,14 +134,166 @@ const HomeHeaderServiceNurse = () => {
         <nav className="home-nav">
           <ul>
             {HomeNav.length > 0 &&
-              HomeNav.map((item) => {
+              HomeNav.map((item, index) => {
                 return (
-                  <li key={item.id}>
+                  <li key={item.id} style={{ display: "contents" }}>
                     <NavLink
                       className={({ isActive }) => (isActive ? "active" : null)}
                       to={item.to}
+                      onClick={() => {
+                        switch (item.title) {
+                          case "Appointment":
+                            handleShow(index);
+                            break;
+                          case "Lookup":
+                            handleShow1(index);
+                            break;
+                          case "Check-in":
+                            handleShow2(index);
+                            break;
+
+                          default:
+                            break;
+                        }
+                      }}
                     >
-                      {item.title}
+                      {item.title == "Lookup" ||
+                      item.title == "Appointment" ||
+                      item.title == "Check-in"
+                        ? item.title + " ▽"
+                        : item.title}
+
+                      {visibleItem === index && (
+                        <div
+                          className=" w-[13%] mt-[5rem] ml-[-3rem]"
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "flex-start",
+                            borderRadius: "1rem",
+                            boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
+                            position: "absolute",
+                            top: "5rem",
+                            left: "43rem",
+                          }}
+                        >
+                          <span
+                            onClick={handleAppointments}
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              margin: "1rem",
+                            }}
+                          >
+                            <p>List of Appointment</p>
+                          </span>
+
+                          <span
+                            onClick={handleAddAppointment}
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              margin: "1rem",
+                            }}
+                          >
+                            <p>Book Appointment</p>
+                          </span>
+                        </div>
+                      )}
+
+                      {visibleItem1 === index && (
+                        <div
+                          className=" w-[7%] mt-[5rem] ml-[-3rem]"
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "flex-start",
+                            borderRadius: "1rem",
+                            boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
+                            position: "absolute",
+                            top: "5rem",
+                            left: "73.2rem",
+                          }}
+                        >
+                          <span
+                            onClick={handleDoctors}
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              margin: "1rem",
+                            }}
+                          >
+                            <p>Doctor</p>
+                          </span>
+                          <span
+                            onClick={handlePatients}
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              margin: "1rem",
+                            }}
+                          >
+                            <p>Patient</p>
+                          </span>
+
+                          <span
+                            onClick={handleNews}
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              margin: "1rem",
+                            }}
+                          >
+                            <p>News</p>
+                          </span>
+                        </div>
+                      )}
+
+                      {visibleItem2 === index && (
+                        <div
+                          className=" w-[7%] mt-[5rem] ml-[-3rem]"
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "flex-start",
+                            borderRadius: "1rem",
+                            boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
+                            width: "18rem",
+                            position: "absolute",
+                            top: "5rem",
+                            left: "60.2rem",
+                          }}
+                        >
+                          <span
+                            onClick={handleCheckins}
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              margin: "1rem",
+                            }}
+                          >
+                            <p>List of Examination</p>
+                          </span>
+
+                          <span
+                            onClick={handleAddCheckin}
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              margin: "1rem",
+                            }}
+                          >
+                            <p>Add check-in</p>
+                          </span>
+                        </div>
+                      )}
                     </NavLink>
                   </li>
                 );

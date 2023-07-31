@@ -9,13 +9,13 @@ import DoctorInfoMedicalHistory from "./doctorinfoContent/MedicalHistory";
 import axios from "axios";
 import { localPort, publicPort } from "../../../components/url/link";
 import { useEffect } from "react";
+import DetailedInformationForPatient from "./doctorinfoContent/DetailedInformationForPatient";
 
-const tabButtons = ["DETAILED INFORMATION", "SCHEDULE", "MEDICAL HISTORY"];
+const tabButtons = ["DETAILED INFORMATION", "MEDICAL HISTORY"];
 
-function DoctorInformationContent({ docId, role }) {
+function PatientInformationContent({ docId }) {
   const [type, setType] = useState(tabButtons[0]);
   const [showComponentC, setShowComponentC] = useState(true);
-  const [showComponentD, setShowComponentD] = useState(false);
   const [showComponentE, setShowComponentE] = useState(false);
   const [doct, setDoct] = useState({});
   const [imageData, setImageData] = useState(null);
@@ -26,8 +26,11 @@ function DoctorInformationContent({ docId, role }) {
   useEffect(() => {
     const doc = async () => {
       try {
-        const response = await axios.get(publicPort + `api/${docId}`);
+        const response = await axios.get(
+          publicPort + `patient/profile?email=${docId}`
+        );
         setDoct(response.data);
+        setInfor(response.data);
         console.log(response.data);
       } catch (error) {
         console.log(error);
@@ -35,7 +38,6 @@ function DoctorInformationContent({ docId, role }) {
     };
     doc();
   }, [docId]);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -74,12 +76,10 @@ function DoctorInformationContent({ docId, role }) {
 
     fetchImage();
   }, [infor.avatar]);
-
   const handleClick = (data) => {
     setType(data);
     setShowComponentC(data === tabButtons[0]);
-    setShowComponentD(data === tabButtons[1]);
-    setShowComponentE(data === tabButtons[2]);
+    setShowComponentE(data === tabButtons[1]);
   };
 
   return (
@@ -98,11 +98,7 @@ function DoctorInformationContent({ docId, role }) {
           <span className="text-[60px]">
             <MdKeyboardArrowRight />
           </span>
-          <span className="font-bold mt-[6px]">Doctor</span>
-          <span className="text-[60px]">
-            <MdKeyboardArrowRight />
-          </span>
-          <span className="font-bold mt-[6px]">{doct?.specialty?.name}</span>
+          <span className="font-bold mt-[6px]">Patient</span>
         </div>
         <div className="absolute top-[40%] left-[20%] ">
           <h1 className="text-gradientLeft text-4xl font-bold">{doct.name}</h1>
@@ -128,19 +124,14 @@ function DoctorInformationContent({ docId, role }) {
               </div>
             ))}
           </div>
-          <div className="w-[30%]">
-            <button className="bg-gradientLeft h-[50px] w-[120px] rounded-3xl text-secondary">
-              Book
-            </button>
-          </div>
+          <div className="w-[30%]"></div>
         </div>
       </div>
       <div>
-        {showComponentC && <DoctorInfoDetailedInformation doct={doct} />}
-        {showComponentD && <DoctorInfoSchedule doct={doct} />}
+        {showComponentC && <DetailedInformationForPatient doct={doct} />}
         {showComponentE && <DoctorInfoMedicalHistory doct={doct} />}
       </div>
     </div>
   );
 }
-export default DoctorInformationContent;
+export default PatientInformationContent;

@@ -178,7 +178,7 @@ function RolesContent({ role, mail }) {
           </div>
         </div>
       </div>
-      <div className=" min-h-[550px]">
+      <div style={{height: "auto"}}>
         <div>
           <table className="w-[100%]">
             <thead className="h-[100px]">

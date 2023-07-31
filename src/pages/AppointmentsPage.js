@@ -43,7 +43,7 @@ const AppointmentsPage = () => {
         )}
       </div>
       <div className="pt-[80px] pl-[190px] text-7xl font-bold py-[20px] bg-white">
-        <h1>Appointments</h1>
+        <h1>List of Appointments</h1>
       </div>
       <div className="bg-white" style={{ padding: "5% 12%" }}>
         <AppointmentsContent role={role} mail={mail}></AppointmentsContent>

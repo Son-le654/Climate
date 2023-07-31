@@ -39,47 +39,40 @@ function MedicalHistoryContent({ email, role }) {
   for (let i = 1; i <= Math.ceil(listOrigin.length / itemsPerPage); i++) {
     pageNumbers.push(i);
   }
+  useEffect(() => {
+    setListData(listOrigin?.slice(indexOfFirstItem, indexOfLastItem));
+  }, [itemsPerPage, currentPage]);
+
   const navigate = useNavigate();
   useEffect(() => {
     // console.log(email);
     if (email == undefined) {
       setMail(email);
     }
-    let r;
-    let m;
 
-    const storedName = localStorage.getItem("token");
-    try {
-      const decoded = jwtDecode(storedName);
-      const role = decoded.roles[0].authority;
-      r = role;
-      setRol(role);
-      setMail(decoded.sub);
-      m = decoded.sub;
-      // console.log(decoded.sub);
-    } catch (error) {
-      console.log(error);
-    }
     const listApp = async () => {
       try {
         let response;
         let response1;
-        if (role == "DOCTOR") {
+        console.log(role);
+        console.log(email);
+        if (role.name == "DOCTOR") {
           response = await axios.get(
-            publicPort + `api/internal-accounts/search-email?email=${m}`
+            publicPort + `api/internal-accounts/search-email?email=${email}`
           );
-
+          console.log(response.data.id);
           response1 = await axios.get(
             publicPort + `medicalrecord/listByDoctorId?id=${response.data.id}`
           );
+          console.log(response1.data);
         } else if (role == "USER") {
-          response = await axios.get(publicPort + `patient/profile?email=${m}`);
+          response = await axios.get(
+            publicPort + `patient/profile?email=${email}`
+          );
 
           response1 = await axios.get(
             publicPort + `medicalrecord/listByPatientId?id=${response.data.id}`
           );
-        } else {
-          response1 = await axios.get(publicPort + `medicalrecord/list`);
         }
         // console.log(response1.data);
         setListOrigin(response1.data);
@@ -91,26 +84,9 @@ function MedicalHistoryContent({ email, role }) {
     listApp();
   }, [Email, rol]);
 
-  useEffect(() => {
-    setListData(listOrigin?.slice(indexOfFirstItem, indexOfLastItem));
-  }, [itemsPerPage, currentPage]);
-
   const handleDetails = (checkin) => {
+    console.log(checkin);
     navigate("/medicaldetails", { state: { checkin } });
-  };
-
-  const handleSearchInputChange = (event) => {
-    let searchInput = event.target.value;
-    if (searchInput === "") {
-      setListData(listOrigin);
-    } else {
-      const filteredList = listOrigin?.filter((item) =>
-        item.checkin?.patientName
-          ?.toLowerCase()
-          .includes(searchInput.toLowerCase())
-      );
-      setListData(filteredList);
-    }
   };
   return (
     <div className="bg-white">
@@ -120,11 +96,7 @@ function MedicalHistoryContent({ email, role }) {
         </div>
         <div className="h-[50px] w-[50%] flex justify-end items-center">
           <div className="border-[1px] border-[#dddddd]  w-[40%] h-[40px] flex items-center justify-center rounded-3xl cursor-pointer">
-            <input
-              onChange={handleSearchInputChange}
-              className="w-[80%] h-[100%]"
-              placeholder="Search "
-            />
+            <input className="w-[80%] h-[100%]" placeholder="Search Patient" />
             <span className="font-medium text-[#dddddd] w-[10%] text-[30px]">
               <GoSearch />
             </span>

@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DoctorList from "./DoctorListContentComponent/DoctorList";
 import DoctorSearch from "./DoctorListContentComponent/DoctorSearch";
 import DoctorSpecialty from "./DoctorListContentComponent/DoctorSpecialty";
 import DoctorUserful from "./DoctorListContentComponent/DoctorUserful";
+import axios from "axios";
+import { publicPort } from "components/url/link";
+import PatientList from "./DoctorListContentComponent/PatientList";
+import PatientSearch from "./DoctorListContentComponent/PatientSearch";
 
-function DoctorContent({ docList, role }) {
+function PatientContentForAll() {
   const [searchspec, setsearchspec] = useState({
     spc: "",
   });
@@ -14,6 +18,23 @@ function DoctorContent({ docList, role }) {
   const [searchname, setsearchname] = useState({
     sn: "",
   });
+
+  const [docList, setdocList] = useState();
+
+  useEffect(() => {
+    const listApp = async () => {
+      try {
+        let response;
+
+        response = await axios.get(publicPort + "patient/list");
+        setdocList(response.data);
+        // console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    listApp();
+  }, []);
 
   const handleSearchInputChange = (event) => {
     const { name, value } = event.target;
@@ -59,25 +80,15 @@ function DoctorContent({ docList, role }) {
     <div className="flex w-[100%]">
       <div className="w-[75%] mr-[25px]">
         <div>
-          <DoctorSearch
-            handleChangeName={handleChangeName}
+          <PatientSearch
             handleSearchInputChange={handleSearchInputChange}
           />
         </div>
         <div className="pt-16 bg-[#fff]">
-          <DoctorList
-            role={role}
-            docList={docList}
-            searchspec={searchspec}
-            searchlocation={searchlocation}
-            searchname={searchname}
-          />
+          <PatientList docList={docList} searchname={searchname} />
         </div>
       </div>
       <div className="w-[25%] mt-[90px]">
-        <div>
-          <DoctorSpecialty />
-        </div>
         <div className="pt-[30px]">
           <DoctorUserful />
         </div>
@@ -85,4 +96,4 @@ function DoctorContent({ docList, role }) {
     </div>
   );
 }
-export default DoctorContent;
+export default PatientContentForAll;
