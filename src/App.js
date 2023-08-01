@@ -42,7 +42,6 @@ import EditProfile from "pages/EditProfile";
 import ProfilePage from "pages/ProfilePage";
 import NewsPage from "guest/NewsPage";
 import ProfilePageForStaff from "pages/ProfilePageForStaff";
-import EditProfileContentForStaff from "module/profile/EditProfileContentForStaff";
 import MedicalRecordDetails from "pages/doctor/MedicalRecordDetails";
 import PatientsPage from "pages/PatientsPage";
 import DoctorsPage from "pages/DoctorsPage";
@@ -51,6 +50,7 @@ import ListOfAppointment from "../src/pages/ListOfAppointment";
 import ListOfDoctor from "./pages/doctor/ListOfDoctor";
 import AdminPages from "pages/AdminPages";
 import DoctorInformationdetail from "pages/doctor/DoctorInformationdetail";
+import EditProfileDoctor from "pages/doctor/EditProfileDoctor";
 
 function App() {
   const storedName = localStorage.getItem("token");
@@ -160,16 +160,13 @@ function App() {
       <Route path="/medicalhistory" element={<MedicalHistory />}></Route>
       <Route path="/listofdoctor" element={<ListOfDoctor />}></Route>
       <Route path="/doctorinformationdetail" element={<DoctorInformationdetail />}></Route>
+      <Route path="/editprofilefordoctor" element={<EditProfileDoctor />}></Route>
 
 
       <Route path="/profilepage" element={<ProfilePage />}></Route>
       <Route path="/editprofile" element={<EditProfile />}></Route>
 
       <Route path="/profilepagestaff" element={<ProfilePageForStaff />}></Route>
-      <Route
-        path="/editprofilestaff"
-        element={<EditProfileContentForStaff />}
-      ></Route>
       <Route path="/newspage" element={<NewsPage />}></Route>
       <Route path="/listofappointment" element={<ListOfAppointment />}></Route>
       <Route path="/adminpages" element={<AdminPages />}></Route>
