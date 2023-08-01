@@ -48,7 +48,9 @@ import PatientsPage from "pages/PatientsPage";
 import DoctorsPage from "pages/DoctorsPage";
 import InternalAccountsPage from "pages/InternalAccountsPage";
 import ListOfAppointment from "../src/pages/ListOfAppointment";
-import AdminPages from "../src/pages/AdminPages";
+import ListOfDoctor from "./pages/doctor/ListOfDoctor";
+import AdminPages from "pages/AdminPages";
+import DoctorInformationdetail from "pages/doctor/DoctorInformationdetail";
 
 function App() {
   const storedName = localStorage.getItem("token");
@@ -152,13 +154,13 @@ function App() {
 
       <Route path="/schedules" element={<SchedulesPage />}></Route>
       <Route path="/calendar" element={<MyCalendar />}></Route>
-      <Route
-        path="/appointmentdetails"
-        element={<AppointmentDetails />}
-      ></Route>
+      <Route path="/appointmentdetails" element={<AppointmentDetails />}></Route>
       <Route path="/checindetails" element={<CheckinDetails />}></Route>
       <Route path="/medicaldetails" element={<MedicalRecordDetails />}></Route>
       <Route path="/medicalhistory" element={<MedicalHistory />}></Route>
+      <Route path="/listofdoctor" element={<ListOfDoctor />}></Route>
+      <Route path="/doctorinformationdetail" element={<DoctorInformationdetail />}></Route>
+
 
       <Route path="/profilepage" element={<ProfilePage />}></Route>
       <Route path="/editprofile" element={<EditProfile />}></Route>

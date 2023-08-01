@@ -27,7 +27,7 @@ const HomeContentService = () => {
 
   return (
     <div className="bg-white">
-      <div className="flex items-center gap-[141px] justify-between max-w-[1156px] mx-auto">
+      <div className="flex items-center gap-[141px] justify-between max-w-[1156px] mx-auto h-[620px]">
         <div className="flex flex-col w-[590px]">
           <div>
             <span className="text-[32px] font-bold">
@@ -59,13 +59,13 @@ const HomeContentService = () => {
                 style={
                   type === tabButton
                     ? {
-                        color: "#ffff",
-                        backgroundColor: "#3681f8",
-                      }
+                      color: "#ffff",
+                      backgroundColor: "#3681f8",
+                    }
                     : {
-                        borderColor: "#5562f7",
-                        color: "#5562f7",
-                      }
+                      borderColor: "#5562f7",
+                      color: "#5562f7",
+                    }
                 }
                 onClick={() => setType(tabButton)}
               >
