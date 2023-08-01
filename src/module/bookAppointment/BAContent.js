@@ -347,7 +347,16 @@ const BAContent = () => {
   const nextSpec = () => {
     setShowSysptom(false);
     setShowSpec(true);
+    setDoctor();
+    setSpec();
   };
+
+  useEffect(() => {
+    if (showSpec == true) {
+      setDoctor();
+      setSpec();
+    }
+  }, [showSpec]);
 
   useEffect(() => {
     setNumberOfSym(symtomArr.length);
@@ -734,7 +743,7 @@ const BAContent = () => {
 
             <div className="mt-[3.2rem] shadow-md p-[3.6rem_2.6rem] rounded-[3.2rem]">
               <div className="grid grid-cols-3 gap-[4rem]">
-                {symtomArr.length <= 0 ? (
+              {symtomArr.length <= 0 ? (
                   <></>
                 ) : symtomArr.length > 2 ? (
                   <Booking
@@ -746,6 +755,11 @@ const BAContent = () => {
                       ";" +
                       "......"
                     }
+                  ></Booking>
+                ) : symtomArr.length == 2 ? (
+                  <Booking
+                    icon={<IconSysptomvl />}
+                    value={symtomArr[0].name + "; " + symtomArr[1].name}
                   ></Booking>
                 ) : (
                   <Booking

@@ -288,6 +288,8 @@ const BAContentGuest = () => {
   const nextSpec = () => {
     setShowSysptom(false);
     setShowSpec(true);
+    setDoctor();
+    setSpec();
   };
 
   useEffect(() => {
@@ -590,6 +592,11 @@ const BAContentGuest = () => {
                       ";" +
                       "......"
                     }
+                  ></Booking>
+                ) : symtomArr.length == 2 ? (
+                  <Booking
+                    icon={<IconSysptomvl />}
+                    value={symtomArr[0].name + "; " + symtomArr[1].name}
                   ></Booking>
                 ) : (
                   <Booking

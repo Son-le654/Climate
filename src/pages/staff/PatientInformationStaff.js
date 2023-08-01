@@ -1,9 +1,6 @@
 import HomeHeaderService from "../../module/home/HomeHeaderService";
-import DoctorInformationContentstaff from "../../module/staff/doctorinformation/DoctorInformationContent";
 import Footer from "../../module/home/Footer";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { localPort, publicPort } from "../../components/url/link";
 import { useLocation, useNavigate } from "react-router";
 import React from "react";
 import PatientInformationContent from "module/staff/doctorinformation/PatientInformationContent";
