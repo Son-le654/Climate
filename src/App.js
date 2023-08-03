@@ -178,13 +178,14 @@ function App() {
 
       <Route path="/schedules" element={<SchedulesPage />}></Route>
       <Route path="/calendar" element={<MyCalendar />}></Route>
-      <Route
-        path="/appointmentdetails"
-        element={<AppointmentDetails />}
-      ></Route>
+      <Route path="/appointmentdetails" element={<AppointmentDetails />}></Route>
       <Route path="/checindetails" element={<CheckinDetails />}></Route>
       <Route path="/medicaldetails" element={<MedicalRecordDetails />}></Route>
       <Route path="/medicalhistory" element={<MedicalHistory />}></Route>
+      <Route path="/listofdoctor" element={<ListOfDoctor />}></Route>
+      <Route path="/doctorinformationdetail" element={<DoctorInformationdetail />}></Route>
+      <Route path="/editprofilefordoctor" element={<EditProfileDoctor />}></Route>
+
 
       <Route path="/profilepage" element={<ProfilePage />}></Route>
       <Route path="/editprofile" element={<EditProfile />}></Route>
@@ -200,10 +201,6 @@ function App() {
       <Route path="/createsymptom" element={<CreateNewSymptom />}></Route>
 
       <Route path="/profilepagestaff" element={<ProfilePageForStaff />}></Route>
-      <Route
-        path="/editprofilestaff"
-        element={<EditProfileContentForStaff />}
-      ></Route>
       <Route path="/newspage" element={<NewsPage />}></Route>
       <Route path="/listofappointment" element={<ListOfAppointment />}></Route>
       <Route path="/adminpages" element={<AdminPages />}></Route>

@@ -7,7 +7,7 @@ import FeaturedSeliderSevirce from "./part/FeaturedSeliderSevirce";
 import LatestNewService from "./part/LatestNewService";
 import { publicPort } from "../../components/url/link";
 import jwtDecode from "jwt-decode";
-
+import SolutionContent from "./ContentService/SolutionContent";
 const HomeContentServiceStaff = () => {
   const tabButtons = ["In-Person", "E - consultations"];
   const [type, setType] = useState("In-Person");
@@ -55,7 +55,7 @@ const HomeContentServiceStaff = () => {
 
   return (
     <div className="bg-white">
-      <div className="flex items-center gap-[141px] justify-between max-w-[1156px] mx-auto">
+      <div className="flex items-center gap-[141px] justify-between max-w-[1156px] mx-auto h-[620px]">
         <div className="flex flex-col w-[590px]">
           <div>
             <span className="text-[32px] font-bold">Hello,</span>
@@ -138,6 +138,7 @@ const HomeContentServiceStaff = () => {
       <div className="bg-[#e2edff] pb-[80px] pt-[40px]">
         <div className="max-w-[1156px] mx-auto">
           {/* <HomeDoctorLookupSevirce></HomeDoctorLookupSevirce> */}
+          <SolutionContent />
         </div>
       </div>
       <div className="max-w-[1156px] mx-auto pt-[70px]">

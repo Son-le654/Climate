@@ -1,13 +1,13 @@
-import HomeHeaderService from "../module/home/HomeHeaderService";
-import Footer from "../module/home/Footer";
-import EditProfileContent from "../module/profile/EditProfileContent";
+import HomeHeaderService from "../../module/home/HomeHeaderService";
+import Footer from "../../module/home/Footer";
+import EditProfileContentForDoctor from "../../module/profile/EditProfileContentForDoctor";
 import jwtDecode from "jwt-decode";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
 import HomeHeaderServiceNurse from "module/home/HomeHeaderServiceNurse";
 
-function EditProfile() {
+function EditProfileDoctor() {
   const navigate = useNavigate();
   const [role, setRole] = useState("");
   const [mail, setMail] = useState("");
@@ -33,7 +33,7 @@ function EditProfile() {
   }, []);
 
   return (
-    <div className="w-[100%] min-h-[1000px] bg-white ">
+    <div className="w-[100%] min-h-[1000px] bg-white">
       <div className="w-[100%] flex justify-center">
         <div className="w-[80%] min-h-[1000px] bg-white">
           <div className="bg-white">
@@ -49,15 +49,14 @@ function EditProfile() {
             <h1 className="text-[40px] font-bold"> Edit Profile</h1>
           </div>
           <div className="bg-white">
-            <EditProfileContent />
+            <EditProfileContentForDoctor />
           </div>
         </div>
       </div>
       <div className="bg-white">
         <Footer />
       </div>
-
     </div>
   );
 }
-export default EditProfile;
+export default EditProfileDoctor;
