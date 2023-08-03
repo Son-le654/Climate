@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { BsFillPeopleFill } from "react-icons/bs";
-import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 
 // Tạo một mảng gồm 20 object để có đủ dữ liệu để cuộn lăn chuột
 const listOrigin = [
@@ -25,7 +23,6 @@ const listOrigin = [
   { id: 10002, nameSepcial: "Dr. Melissa Martinez", online: 36, examination: 134 },
   { id: 10002, nameSepcial: "Dr. Melissa Martinez", online: 28, examination: 134 },
 ];
-
 const additionalList = [
   { id: 10003, nameSepcial: "Dr. John Smith", online: 15, examination: 120 },
   { id: 10004, nameSepcial: "Dr. Emily Johnson", online: 25, examination: 98 },
@@ -101,11 +98,15 @@ function AdminContentInfor() {
               </div>
               <div className="w-[40%]">
                 <div className="flex w-[100%]">
-                  <div className="w-[50%] flex justify-center">
-                    <h5 className="text-[16px] font-light text-[#75a2cf]">Online Visits</h5>
+                  <div className="w-[50%]  flex justify-center">
+                    <h5 className="text-[16px] font-light text-[#75a2cf]">
+                      Book appointment
+                    </h5>
                   </div>
-                  <div className="w-[50%] flex justify-center">
-                    <h5 className="text-[16px] font-light text-[#75a2cf]">Examination</h5>
+                  <div className="w-[50%]  flex justify-center">
+                    <h5 className="text-[16px] font-light text-[#75a2cf]">
+                      Check-in
+                    </h5>
                   </div>
                 </div>
               </div>

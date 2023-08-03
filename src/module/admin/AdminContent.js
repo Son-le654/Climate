@@ -4,8 +4,6 @@ import AdminContentSpecialty from "./Content/AdminContentSpecialty"
 import AdminContentInfor from "./Content/AdminContentInfor"
 
 
-
-
 function AdminContent() {
     return (
         <div className="w-[100%]  h-[100%] flex">

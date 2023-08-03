@@ -26,7 +26,6 @@ import VerifyRegisterForgot from "../src/pages/forgotpassword/VerifyRegisterForg
 import ChooseNewPassword from "../src/pages/forgotpassword/ChooseNewPassword";
 import AppointmentDetails from "../src/pages/doctor/AppointmentDetails";
 import MedicalHistory from "../src/pages/doctor/MedicalHistory";
-
 import AppointmentDetailsPageForNurse from "./pages/AppointmentDetailsPageForNurse";
 import SchedulesPage from "./pages/SchedulesPage";
 import React from "react";
@@ -39,6 +38,7 @@ import CheckinDetails from "pages/doctor/CheckinDetails";
 import UpdateAppointmentPage from "pages/UpdateAppointmentPage";
 import AppointmentConfirmUpdatePage from "pages/AppointmentConfirmUpdatePage";
 import EditProfile from "pages/EditProfile";
+import FaqPage from "pages/FaqPage";
 import ProfilePage from "pages/ProfilePage";
 import NewsPage from "guest/NewsPage";
 import ProfilePageForStaff from "pages/ProfilePageForStaff";
@@ -47,9 +47,25 @@ import PatientsPage from "pages/PatientsPage";
 import DoctorsPage from "pages/DoctorsPage";
 import InternalAccountsPage from "pages/InternalAccountsPage";
 import ListOfAppointment from "../src/pages/ListOfAppointment";
+import AdminPages from "./pages/admin/AdminPages";
+import EditLocation from "pages/EditLocation";
+import CreateNewInternalAcc from "pages/admin/CreateNewInternalAcc";
+import CreateNewLocation from "pages/admin/CreateNewLocation";
+import CreateNewRole from "pages/admin/CreateNewRole";
+import CreateNewSpec from "pages/admin/CreateNewSpec";
+import CreateNewSymptom from "pages/admin/CreateNewSymptom";
+import EditRole from "pages/admin/EditRole";
+import EditSpec from "pages/admin/EditSpec";
+import EditSymptom from "pages/admin/EditSymptom";
+import InternalAccountsPage from "pages/admin/InternalAccountsPage";
+import LocationsPage from "pages/admin/LocationsPage";
+import RolesPage from "pages/admin/RolesPage";
+import SpecialtiesPage from "pages/admin/SpecialtiesPage";
+import SymptomsPage from "pages/admin/SymptomsPage";
+import ListDoctorPageForAll from "pages/ListDoctorPageForAll";
+import ListPatientPageForAll from "pages/ListPatientPageForAll";
+import PatientInformationStaff from "pages/staff/PatientInformationStaff";
 import ListOfDoctor from "./pages/doctor/ListOfDoctor";
-import AdminPages from "pages/AdminPages";
-import DoctorInformationdetail from "pages/doctor/DoctorInformationdetail";
 import EditProfileDoctor from "pages/doctor/EditProfileDoctor";
 
 function App() {
@@ -165,6 +181,7 @@ function App() {
 
       <Route path="/profilepage" element={<ProfilePage />}></Route>
       <Route path="/editprofile" element={<EditProfile />}></Route>
+      <Route path="/faq" element={<FaqPage />}></Route>
 
       <Route path="/profilepagestaff" element={<ProfilePageForStaff />}></Route>
       <Route path="/newspage" element={<NewsPage />}></Route>
