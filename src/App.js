@@ -199,7 +199,10 @@ function App() {
       <Route path="/createspec" element={<CreateNewSpec />}></Route>
       <Route path="/createrole" element={<CreateNewRole />}></Route>
       <Route path="/createsymptom" element={<CreateNewSymptom />}></Route>
-
+      <Route
+        path="/editprofilestaff"
+        element={<EditProfileContentForStaff />}
+      ></Route>
       <Route path="/profilepagestaff" element={<ProfilePageForStaff />}></Route>
       <Route path="/newspage" element={<NewsPage />}></Route>
       <Route path="/listofappointment" element={<ListOfAppointment />}></Route>
