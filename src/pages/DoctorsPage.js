@@ -6,7 +6,7 @@ import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import HomeHeaderService from "module/home/HomeHeaderService";
 import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
-import DoctorsContent from "module/appointments/DoctorsContent";
+import DoctorsContent from "module/doctors/DoctorsContent";
 
 const DoctorsPage = () => {
   const navigate = useNavigate();
@@ -44,7 +44,7 @@ const DoctorsPage = () => {
         )}
       </div>
       <div className="pt-[80px] pl-[190px] text-7xl font-bold py-[20px] bg-white">
-        <h1>Doctor list</h1>
+        <h1>List of Doctors</h1>
       </div>
       <div className="bg-white" style={{ padding: "5% 12%" }}>
         <DoctorsContent role={role} mail={mail}></DoctorsContent>

@@ -1,13 +1,10 @@
+// @ts-nocheck
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { localPort, publicPort } from "../../components/url/link";
+import { publicPort } from "../../components/url/link";
 import { BiSearch } from "react-icons/bi";
-import { MdKeyboardArrowRight } from "react-icons/md";
-import { MdKeyboardArrowLeft } from "react-icons/md";
-import { useRef } from "react";
-import Slider from "react-slick";
 import { useNavigate } from "react-router-dom";
-import { AiOutlinePlusCircle } from "react-icons/ai";
+import jwtDecode from "jwt-decode";
 
 function AppointmentsContent({ role, mail }) {
   const [sortedObjects, setSortedObjects] = useState([]);
@@ -17,6 +14,8 @@ function AppointmentsContent({ role, mail }) {
   const [listData, setListData] = useState([]);
   const [listOrigin, setListOrigin] = useState([]);
   const navigate = useNavigate();
+  const [Email, setMail] = useState();
+  const [rol, setRol] = useState();
   const listtitle = [
     {
       id: 1,
@@ -57,19 +56,39 @@ function AppointmentsContent({ role, mail }) {
   const currentItems = listOrigin.slice(indexOfFirstItem, indexOfLastItem);
 
   useEffect(() => {
+    // console.log(mail);
+    if (mail == undefined) {
+      setMail(mail);
+    }
+    let r;
+    let m;
+
+    const storedName = localStorage.getItem("token");
+    try {
+      const decoded = jwtDecode(storedName);
+      const role = decoded.roles[0].authority;
+      r = role;
+      setRol(role);
+      setMail(decoded.sub);
+      m = decoded.sub;
+      // console.log(decoded.sub);
+    } catch (error) {
+      console.log(error);
+    }
+
     const listApp = async () => {
       try {
         let response;
         let response1;
         let id;
-        if (role == "USER") {
+        if (r == "USER") {
           response1 = await axios.get(
-            publicPort + `patient/profile?email=${mail}`
+            publicPort + `patient/profile?email=${m}`
           );
-          console.log(response1.data);
+          // console.log(response1.data);
           id = response1.data.id;
 
-          console.log(id);
+          // console.log(id);
           response = await axios.get(
             publicPort + `appointment/listBypaintedId?painted_id=${id}`
           );
@@ -77,26 +96,35 @@ function AppointmentsContent({ role, mail }) {
           setListData(response.data);
         } else {
           response = await axios.get(publicPort + "appointment/list");
-          setListOrigin(response.data);
-          setListData(response.data);
+          const sortedData = response.data.sort((a, b) => {
+            // Convert commandFlag values to numbers for comparison (assuming they are strings).
+            const commandFlagA = Number(a.commandFlag);
+            const commandFlagB = Number(b.commandFlag);
+      
+            if (commandFlagA !== commandFlagB) {
+              // Sort by 'commandFlag' in ascending order.
+              return commandFlagA - commandFlagB;
+            } else {
+              // If 'commandFlag' is the same, sort by 'examDate' in ascending order.
+              const examDateA = new Date(a.examDate);
+              const examDateB = new Date(b.examDate);
+              return examDateA - examDateB;
+            }
+          });
+
+          setListOrigin(sortedData);
+          setListData(sortedData);
         }
       } catch (error) {
         console.log(error);
       }
     };
     listApp();
-  }, [mail, role]);
+  }, [Email, rol]);
 
   useEffect(() => {
     setListData(listOrigin.slice(indexOfFirstItem, indexOfLastItem));
   }, [itemsPerPage, currentPage]);
-
-  //   useEffect(() => {
-  //     const sorted = listOrigin.sort(
-  //       (a, b) => new Date(b.registerTime) - new Date(a.registerTime)
-  //     );
-  //     setSortedObjects(sorted);
-  //   }, [listOrigin]);
 
   function handlePageClick(event, pageNumber) {
     event.preventDefault();
@@ -142,7 +170,7 @@ function AppointmentsContent({ role, mail }) {
     navigate("/appointmentdetailsfornurse", { state: { appointment } });
   };
   const handleCheckin = (appointment) => {
-    console.log(appointment);
+    // console.log(appointment);
     navigate("/checkin", { state: { appointment } });
   };
   const handleAddNewAppointment = () => {
@@ -217,23 +245,21 @@ function AppointmentsContent({ role, mail }) {
           </div>
         </div>
       </div>
-      <div className=" min-h-[550px]">
-        <table>
-          <thead className="h-[100px]">
-            <tr className="text-[30px]">
-              {listtitle.map((data) => (
-                <th
-                  key={data.id}
-                  className=" text-[#8d8b8b] w-[1%] text-center"
-                >
-                  {data.title}
-                </th>
-              ))}
-            </tr>
-          </thead>
-        </table>
+      <div className="">
         <div>
           <table className="w-[100%]">
+            <thead className="h-[100px]">
+              <tr className="text-[30px]">
+                {listtitle.map((data) => (
+                  <th
+                    key={data.id}
+                    className=" text-[#8d8b8b] w-[1%] text-center"
+                  >
+                    {data.title}
+                  </th>
+                ))}
+              </tr>
+            </thead>
             <tbody className="w-[100%] h-[200px]">
               {listData.map((listD) => (
                 <tr
@@ -293,14 +319,6 @@ function AppointmentsContent({ role, mail }) {
         </div>
       </div>
       <div className="" style={{ textAlign: "center" }}>
-        {/* <button className="button text-[30px] w-10 h-10 bg-gradientLeft mr-[30px]">
-          <MdKeyboardArrowLeft className="ml-[2px]" />
-        </button>
-
-        <button className="button text-[30px] w-10 h-10 bg-gradientLeft">
-          <MdKeyboardArrowRight className="ml-[3px]" />
-        </button> */}
-
         <div>
           {pageNumbers.map((pageNumber) => (
             <button

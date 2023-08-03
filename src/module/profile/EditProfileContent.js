@@ -68,7 +68,7 @@ function EditProfileContent() {
       bD: "",
     },
   ]);
-  const [address, setAddress] = useState([
+  const [addresss, setAddresss] = useState([
     {
       adr: "",
     },
@@ -83,7 +83,7 @@ function EditProfileContent() {
       avt: "",
     },
   ]);
-  const [phone, setPhone] = useState([
+  const [phonee, setPhonee] = useState([
     {
       pnum: "",
     },
@@ -128,11 +128,11 @@ function EditProfileContent() {
     }
     if (name === "adr") {
       const newAdress = {
-        ...address,
+        ...addresss,
         [name]: value,
       };
       console.log("set Adress");
-      setAddress(newAdress);
+      setAddresss(newAdress);
     }
     if (name === "gd") {
       const newGender = {
@@ -152,11 +152,11 @@ function EditProfileContent() {
     }
     if (name === "pnum") {
       const newPhone = {
-        ...phone,
+        ...phonee,
         [name]: value,
       };
       console.log("set phone");
-      setPhone(newPhone);
+      setPhonee(newPhone);
     }
     if (name === "bY") {
       const newYear = {
@@ -207,10 +207,10 @@ function EditProfileContent() {
             setFullName({ fname: profile.name });
             setEmailp({ emp: profile.email });
             setBirthDay({ bday: profile.birthDate });
-            setAddress({ adr: profile.address });
+            setAddresss({ adr: profile.address });
             setGender({ gd: profile.gender });
             setAvatar({ avt: profile.avatar });
-            setPhone({ pnum: profile.phone });
+            setPhonee({ pnum: profile.phone });
 
             const [year, month, day] = profile.birthDate.split("/");
             console.log(year); // Output: "2021"
@@ -270,12 +270,12 @@ function EditProfileContent() {
     profileSave.name = fullName.fname;
     profileSave.email = emailP.emp;
     profileSave.birthdate = year.bY + "/" + month.bM + "/" + date.bD;
-    profileSave.address = address.adr;
+    profileSave.address = addresss.adr;
     profileSave.gender = gender.gd;
     profileSave.avatar = avatar.avt;
     // profileSave.avatar = selectedFile;
 
-    profileSave.phone = phone.pnum;
+    profileSave.phone = phonee.pnum;
 
     console.log(profileSave);
     const formData = new FormData();
@@ -284,6 +284,7 @@ function EditProfileContent() {
     formData.append("patient", JSON.stringify(profileSave)); // Thêm thông tin bệnh nhân vào formData
 
     var response;
+    console.log(formData);
     response = await axios.post(
       publicPort + "patient/updateprofile",
       formData,
@@ -326,7 +327,7 @@ function EditProfileContent() {
         <div className=" flex justify-start w-[100%]">
           <div className="h-[70px] w-[80%] border-[1px] rounded-2xl border-[#c5c4c4] flex">
             <input
-            disabled={true}
+              disabled={true}
               placeholder="Email"
               value={emailP.emp}
               name="emp"
@@ -396,7 +397,7 @@ function EditProfileContent() {
               <input
                 placeholder="Phone number"
                 onChange={handleChangeName}
-                value={phone.pnum}
+                value={phonee.pnum}
                 name="pnum"
                 className="w-[80%] h-[100%] ml-[10px] text-[20px] "
               />
@@ -412,7 +413,7 @@ function EditProfileContent() {
               <input
                 placeholder="Address"
                 onChange={handleChangeName}
-                value={address.adr}
+                value={addresss.adr}
                 name="adr"
                 className="w-[80%] h-[100%] ml-[10px] text-[20px] "
               />
@@ -448,7 +449,7 @@ function EditProfileContent() {
                 type="file"
                 accept="image/*"
                 onChange={handleFileChange}
-                className="w-[80%] h-[100%] ml-[10px] text-[20px] "
+                className="w-[80%] pt-[1.5rem] h-[100%] ml-[10px] text-[20px] "
               />
               {/* {selectedFile && <p>Selected file: {selectedFile.name}</p>} */}
             </div>

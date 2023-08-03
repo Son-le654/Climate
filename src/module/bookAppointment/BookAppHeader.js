@@ -1,7 +1,6 @@
 import React from "react";
 import Logo from "../../components/Logo/Logo";
 import { NavLink, useNavigate } from "react-router-dom";
-import Button from "../../components/button/Button";
 
 const bookappointment = [
   {

@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Header from "../../components/header/Header";
 import IconSpecialty from "../../icon/IconSpecialty";
-import SelectCard from "./part/SelectCardSymtom";
 import IconClinic from "../../icon/IconClinic";
 import IconDoctor from "../../icon/IconDoctor";
 import ButtonIcon from "../../components/button/ButtonIcon";
 import IconCal from "../../icon/IconCal";
-import Calendar from "react-calendar";
 import CreatePortalSpecialty from "../../components/createPortal/CreatePortalSpecialty";
 import InputInfo from "../../components/input/InputInfo";
 import IconPen from "../../icon/IconPen";
@@ -27,9 +25,7 @@ import SelectCardSpec from "./part/SelectCardSpec";
 import SelectCardDoctor from "./part/SelectCardDoctor";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
-import { bool, number } from "prop-types";
 import IconSearch from "../../icon/IconSearch";
-import IconRight from "../../icon/IconRight";
 import { publicPort } from "../../components/url/link";
 
 const hoursList = [
@@ -109,12 +105,9 @@ const CIContent = () => {
   const [check, setCheck] = useState();
 
   useEffect(() => {
-    // console.log(" checkin" + location.state);
     const check_in = location?.state?.appointment;
-    // console.log(check_in);
     setCheck(check_in);
     if (check_in) {
-      // console.log(check_in.bookPlace);
       setFullName({ fname: check_in.patientName });
       if (check_in.patient != null) {
         setIdCard({ idC: check_in.patient.id });
@@ -126,15 +119,11 @@ const CIContent = () => {
       setPhone({ pnum: check_in.phone });
       setDescription({ ds: check_in.note });
       setSelectedCheckbox(check_in.gender);
-      // changePlaceList(check_in.bookPlace);
-      // changeSpecList(check_in.speciatly);
-      // changeDoctorList(check_in);
     }
   }, [check]);
 
   const handleCheckboxChange = (event) => {
     setSelectedCheckbox(event.target.value);
-    // console.log(event.target.value);
   };
 
   const [numberOfSym, setNumberOfSym] = useState(0);
@@ -211,13 +200,6 @@ const CIContent = () => {
         }
       };
       sche();
-      // hoursList.map((item) => {
-      //   const time = item.from + " - " + item.to;
-      //   console.log(time);
-      //   console.log(scheOfDoc);
-      //   // console.log(scheOfDoc.examTime);
-      //   // console.log(time == scheOfDoc.examTime);
-      // })
     }
     // Your code here
   }, [doctor, value]);
@@ -358,24 +340,16 @@ const CIContent = () => {
   };
 
   const changeSymtomList = (item) => {
-    // console.log("enter change symptom");
-    // console.log(item);
     if (symtomArr.includes(item)) {
-      // console.log("include");
       deleteSymtomItem(item);
     } else {
-      // console.log("none, add");
       addSymtomItem(item);
     }
-    // console.log(item);
-    // addSymtomItem(item)
   };
 
   //////////////////////////////////// spec
   const addSpecItem = (item) => {
     setSpec(item);
-    // console.log(item);
-    // console.log(spec);
     setShowSpec(false);
     setShowDoctor(true);
   };
@@ -581,19 +555,7 @@ const CIContent = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex items-center gap-[0.8rem]">
-                {/* <input
-                  onChange={handleCheckboxForeign}
-                  id="foreigner"
-                  className="w-[1.6rem] h-[1.6rem]"
-                  type="checkbox"
-                  name="gender"
-                  value="foreigner"
-                />
-                <label htmlFor="foreigner" className="font-semibold">
-                  Book for a foreigner
-                </label> */}
-              </div>
+              <div className="flex items-center gap-[0.8rem]"></div>
             </div>
           </div>
         </div>

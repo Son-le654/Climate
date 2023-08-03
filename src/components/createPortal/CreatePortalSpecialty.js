@@ -1,23 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { CSSTransition } from "react-transition-group";
-import Popup from "../propup/Popup";
 import PopupSpec from "../propup/PopupSpec";
 import axios from "axios";
 import { publicPort } from "../url/link";
-// const list = [
-//   { id: 1, specialty: "Dental", symtom: "toothache, halitosis" },
-//   { id: 2, specialty: "General suraery", symtom: "cough, sneeze, runny nose, fever, general examination" },
-//   { id: 3, specialty: "Otorhinolaryngology", symtom: "sneeze, runny nose, difficulty swallowing" },
-//   { id: 4, specialty: "Internal Medicine", symtom: "chest pain, shortness of breath" },
-//   { id: 5, specialty: "Internal Gastroenterology", symtom: "stomach-ache, flatulence, undigested, anorexia, heartburn, liver problems" },
-//   { id: 6, specialty: "Musculoskeletal", symtom: "shoulder pain, arthritis, muscle pain, sprains, dislocation, neck pain" },
-//   { id: 7, specialty: "Eyes specialist", symtom: "blurred eyes, red eyes" },
-//   { id: 8, specialty: "Neurology", symtom: "headache, temple pain, anxiety disorders, High Blood Pressure" },
-//   { id: 9, specialty: "Infectious diseases", symtom: "dengue, COVID" },
-//   { id: 10, specialty: "Dermatology", symtom: "skin rash, itchy skin" },
-//   { id: 11, specialty: "Obstetrics and Gynecology", symtom: "pregnant ,irregular menstruation, erectile dysfunction, lower abdomen pain" },
-// ];
+
 const CreatePortalSpecialty = ({
   visible,
   onClose,
@@ -30,7 +17,6 @@ const CreatePortalSpecialty = ({
   const [specList, setSpecList] = useState([]);
   const [listOrigin, setListOrigin] = useState([]);
   const [specListSearch, setSpecListSearch] = useState([]);
-  const [selectedSpec, setSelectedSpec] = useState();
 
   useEffect(() => {
     const specs = async () => {
@@ -48,7 +34,7 @@ const CreatePortalSpecialty = ({
   useEffect(() => {
     if (checkinSpec != undefined) {
       const places = async () => {
-        console.log(checkinSpec);
+        // console.log(checkinSpec);
         const response = await axios.get(publicPort + "spec/list");
         const findItemByName = (name) => {
           return response.data.find((item) => item.name === name);
@@ -71,7 +57,6 @@ const CreatePortalSpecialty = ({
     const newArr = [];
     if (symtomArr.length > 0) {
       symtomArr.map((item) => {
-        console.log(item);
         listOrigin.map((item1) => {
           if (item1.id === item.specialty.id) {
             if (newArr.includes(item1.name) !== true) {

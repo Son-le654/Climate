@@ -1,14 +1,10 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { localPort, publicPort } from "../../components/url/link";
+import { publicPort } from "../../components/url/link";
 import { BiSearch } from "react-icons/bi";
-import { MdKeyboardArrowRight } from "react-icons/md";
-import { MdKeyboardArrowLeft } from "react-icons/md";
-import { useRef } from "react";
-import Slider from "react-slick";
 import { useNavigate } from "react-router-dom";
 
-function PatientsContent({ role, mail }) {
+function DoctorsContent({ role, mail }) {
   const [sortedObjects, setSortedObjects] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
@@ -23,22 +19,18 @@ function PatientsContent({ role, mail }) {
     },
     {
       id: 2,
-      title: "Patient Name",
+      title: "Doctor Name",
     },
     {
       id: 3,
-      title: "Email",
+      title: "Specialty",
     },
     {
       id: 4,
-      title: "Gender",
+      title: "Location",
     },
     {
       id: 5,
-      title: "Phone",
-    },
-    {
-      id: 6,
       title: "View Details",
     },
   ];
@@ -54,10 +46,10 @@ function PatientsContent({ role, mail }) {
         let response1;
         let id;
 
-        response = await axios.get(publicPort + "patient/list");
+        response = await axios.get(publicPort + "api/doctors");
         setListOrigin(response.data);
         setListData(response.data);
-        console.log(response.data);
+        // console.log(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -121,6 +113,11 @@ function PatientsContent({ role, mail }) {
     console.log(appointment);
     // navigate("/appointmentdetailsfornurse", { state: { appointment } });
   };
+  const view_detail = (item) => {
+    const id = item.id;
+    console.log(id);
+    navigate("/doctorinformation", { state: { id } });
+  };
   const handleCheckin = (appointment) => {
     console.log(appointment);
     // navigate("/checkin", { state: { appointment } });
@@ -140,22 +137,20 @@ function PatientsContent({ role, mail }) {
         </div>
       </div>
       <div className=" min-h-[550px]">
-        <table>
-          <thead className="h-[100px]">
-            <tr className="text-[30px]">
-              {listtitle.map((data) => (
-                <th
-                  key={data.id}
-                  className=" text-[#8d8b8b] w-[1%] text-center"
-                >
-                  {data.title}
-                </th>
-              ))}
-            </tr>
-          </thead>
-        </table>
         <div>
           <table className="w-[100%]">
+            <thead className="h-[100px]">
+              <tr className="text-[30px]">
+                {listtitle.map((data) => (
+                  <th
+                    key={data.id}
+                    className=" text-[#8d8b8b] w-[1%] text-center"
+                  >
+                    {data.title}
+                  </th>
+                ))}
+              </tr>
+            </thead>
             <tbody className="w-[100%] h-[200px]">
               {listData.map((listD) => (
                 <tr
@@ -165,17 +160,23 @@ function PatientsContent({ role, mail }) {
                   key={listD.id}
                 >
                   <td className="w-[10%]">{listD.id}</td>
-                  <td className="w-[13%]">{listD.name}</td>
-                  <td className="w-[13%]">{listD.email}</td>
-                  <td className="w-[13%]">{listD.gender}</td>
-                  <td className="w-[13%]">{listD.phone}</td>
+                  <td className="w-[15%]  ">{listD.name}</td>
+                  <td className="w-[12%]">
+                    <p>{listD.specialty.name}</p>
+                  </td>
+                  <td className="w-[12%]">
+                    <p>
+                      {listD.workingPlace.name} -{" "}
+                      {listD.workingPlace.description}
+                    </p>
+                  </td>
 
                   <td className="pb-[10px] pt-[10px]  w-[13%]">
                     <button
                       className="w-[80%] h-[40px] bg-gradientLeft rounded-3xl text-white "
-                      onClick={() => handleDetail(listD)}
+                      onClick={() => view_detail(listD)}
                     >
-                      View Detail
+                      View
                     </button>
                   </td>
                 </tr>
@@ -215,4 +216,4 @@ function PatientsContent({ role, mail }) {
     </div>
   );
 }
-export default PatientsContent;
+export default DoctorsContent;

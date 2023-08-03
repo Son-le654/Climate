@@ -61,15 +61,12 @@ function DetailedInformation({ doct }) {
             </div>
             <hr className="w-[90%] ml-5 text-[rgb(212,212,212)]" />
             <div {...getCollapseProps()}>
-              {Listdata.map((data) => (
                 <div
                   className=" text-[13px] justify-around w-[100%] ml-2 font-light p-[10px]"
-                  key={data.id}
                   style={{ lineHeight: "35px" }}
                 >
-                  {data.name}
+                  {doct.introduct}
                 </div>
-              ))}
             </div>
           </div>
           <div className="mb-[20px]">

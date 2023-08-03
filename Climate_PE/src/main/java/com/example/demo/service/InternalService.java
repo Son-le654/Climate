@@ -42,6 +42,7 @@ public class InternalService implements UserDetailsService {
 	public List<InternalAccount> findAllDoctor() {
 		return internalRepository.findAllDoctor();
 	}
+
 	public List<InternalAccount> findAllDoctorForAdmin() {
 		return internalRepository.findAllDoctorForAdmin();
 	}
@@ -91,7 +92,9 @@ public class InternalService implements UserDetailsService {
 	public Optional<InternalAccount> findById(Integer id) {
 		return internalRepository.findById(id);
 	}
-
+	public String findByIdUsingName(int id) {
+		return internalRepository.getAccByIdWithnameDoctor(id);
+	}
 	public InternalAccount findByName(String doctorName, String location) {
 		return internalRepository.findDoctor(doctorName, location);
 	}
@@ -111,4 +114,11 @@ public class InternalService implements UserDetailsService {
 			return Optional.of(internalRepository.findAllDoctor());
 		}
 	}
+
+	public String blockAccount(InternalAccount c) {
+		c.setCommandFlag(2);
+		internalRepository.save(c);
+		return "success";
+	}
+
 }

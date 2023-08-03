@@ -1,8 +1,4 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { AiOutlinePlusCircle } from "react-icons/ai";
-import { BsFillFileTextFill } from "react-icons/bs";
-import { publicPort } from "../../../components/url/link";
 import { useNavigate } from "react-router-dom";
 import React from "react";
 
@@ -37,7 +33,7 @@ function MedicalRecordDetailsContent({ checkin, role }) {
   const [showMedicalSummary, setShowMedicalSummary] = useState(true);
 
   return (
-    <div>
+    <div className="pt-[5rem]">
       <div className="flex w-[100%] items-center pb-[30px]">
         <div className=" w-[70%]  text-6xl font-bold">
           <h1>Checked-in and Medical Record Details</h1>
@@ -113,11 +109,7 @@ function MedicalRecordDetailsContent({ checkin, role }) {
               <div className="pt-3 flex">
                 <span className="w-[35%]">Patient ID</span>
                 <span className="w-[65%]">
-                  {checkin != undefined
-                    ? checkin.checkin != undefined
-                      ? checkin.checkin.patient.id
-                      : ""
-                    : ""}
+                  {checkin != undefined ? checkin?.checkin?.patient?.id : ""}
                 </span>
               </div>
               <div className="pt-3 flex">

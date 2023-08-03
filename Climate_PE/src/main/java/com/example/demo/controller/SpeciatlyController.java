@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.entity.Location;
 import com.example.demo.entity.Specialty;
+import com.example.demo.repository.SpeciatlyRepository;
 import com.example.demo.service.SpeciatlyService;
 
 @RestController
@@ -24,6 +27,8 @@ public class SpeciatlyController {
 
 	@Autowired
 	private SpeciatlyService service;
+	@Autowired
+	private SpeciatlyRepository repository;
 
 	@PostMapping("/save")
 	public String save(@RequestBody Specialty specialty) {
@@ -41,7 +46,7 @@ public class SpeciatlyController {
 	public List<Specialty> getAll() {
 		return service.findAll();
 	}
-	
+
 	@GetMapping("/listadmin")
 	public List<Specialty> getAllForAdmin() {
 		return service.findAllForAdmin();
@@ -54,6 +59,25 @@ public class SpeciatlyController {
 			return ResponseEntity.ok().body(specialty.get());
 		} else {
 			return ResponseEntity.notFound().build();
+		}
+	}
+
+	@GetMapping("/block")
+	public String blockLocation(@RequestParam(value = "id") String id) {
+		System.out.println(id);
+		Specialty acc = null;
+		int idc = Integer.parseInt(id);
+		acc = repository.getSpById(idc);
+		if (acc != null) {
+			String result = service.blockSpec(acc);
+			if (result.equals("success")) {
+
+				return "Block success";
+			} else {
+				return "Block fail";
+			}
+		} else {
+			return "Not found specialty in system";
 		}
 	}
 }

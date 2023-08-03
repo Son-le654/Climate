@@ -1,7 +1,6 @@
 import React from "react";
 import Logo from "../../components/Logo/Logo";
 import { NavLink, useNavigate } from "react-router-dom";
-import Button from "../../components/button/Button";
 
 const bookappointment = [
   {
@@ -21,12 +20,8 @@ const bookappointment = [
   },
 ];
 const BookAppHeaderGuest = () => {
-  // console.log('====================================');
-  // console.log(myData);
-  // console.log('====================================');
   const navigate = useNavigate();
   return (
-
     <div className="max-w-[1156px] gap-[46px] mx-auto flex items-center pt-[45px]">
       <div>
         <Logo></Logo>
@@ -44,18 +39,17 @@ const BookAppHeaderGuest = () => {
                     >
                       {item.title}
                     </NavLink>
-
                   </li>
-
                 </>
               );
             })}
         </ul>
       </nav>
-      <div className="flex items-center gap-8" style={{marginLeft: "36rem"}}>
-
+      <div
+        className="flex items-center gap-8"
+        style={{ marginLeft: "36rem" }}
+      ></div>
     </div>
-    </div >
   );
 };
 

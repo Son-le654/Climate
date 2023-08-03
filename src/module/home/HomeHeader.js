@@ -11,14 +11,29 @@ const HomeNav = [
     title: "Home",
   },
   {
-    id: 2,
-    to: "/faq",
-    title: "FAQ",
+    id: 4,
+    to: "",
+    title: "Function",
   },
   {
     id: 4,
     to: "/About",
     title: "About",
+  },
+  {
+    id: 2,
+    to: "/faq",
+    title: "FAQ",
+  },
+  {
+    id: 2,
+    to: "/newspage",
+    title: "News",
+  },
+  {
+    id: 2,
+    to: "/book_appointment_guest",
+    title: "Book Visist",
   },
 ];
 const HomeHeader = ({ storedName }) => {
@@ -26,8 +41,8 @@ const HomeHeader = ({ storedName }) => {
   const handleLogout = () => {
     //log out here
     localStorage.removeItem("token");
-    navigate("/login-user")
-  }
+    navigate("/login-user");
+  };
   return (
     <header className="max-w-[1156px] gap-[46px] mx-auto flex items-center pt-[45px]">
       <div>
@@ -50,27 +65,31 @@ const HomeHeader = ({ storedName }) => {
                 );
               })}
             <>
-              {(storedName !== null) ?
+              {storedName !== null ? (
                 <li>
                   <NavLink to={"/book_appointment"}>Book Appointment</NavLink>
                 </li>
-                :
-                <><li>
-                <NavLink to={"/book_appointment_guest"}>Book Appointment</NavLink>
-              </li></>
-              }
+              ) : (
+                <>
+                  <li>
+                    <NavLink to={"/book_appointment_guest"}>
+                      Book Appointment
+                    </NavLink>
+                  </li>
+                </>
+              )}
             </>
           </ul>
         </nav>
         <div className="flex items-center gap-8">
-          {(storedName !== null) ?
+          {storedName !== null ? (
             <Button
               onClick={handleLogout}
               className="!p-[10px_40px] rounded-lg text-[18px]"
             >
               Logout
             </Button>
-            :
+          ) : (
             <Button
               onClick={() => {
                 navigate("/login-user");
@@ -79,7 +98,7 @@ const HomeHeader = ({ storedName }) => {
             >
               Login
             </Button>
-          }
+          )}
           <div className="flex gap-2">
             <div className="w-[50px] h-[35px]">
               <img src={EnsignVN} alt="" />

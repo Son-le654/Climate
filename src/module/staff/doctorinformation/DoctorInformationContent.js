@@ -12,29 +12,68 @@ import { useEffect } from "react";
 
 const tabButtons = ["DETAILED INFORMATION", "SCHEDULE", "MEDICAL HISTORY"];
 
-function DoctorInformationContent({ docId }) {
+function DoctorInformationContent({ docId, role }) {
   const [type, setType] = useState(tabButtons[0]);
   const [showComponentC, setShowComponentC] = useState(true);
   const [showComponentD, setShowComponentD] = useState(false);
   const [showComponentE, setShowComponentE] = useState(false);
   const [doct, setDoct] = useState({});
-  console.log("doc info conteint: " + docId);
-  const response = axios.get(publicPort + `api/1`);
-  console.log(response.data);
+  const [imageData, setImageData] = useState(null);
+  const [infor, setInfor] = useState({
+    avatar: "",
+  });
 
-  // useEffect(() => {
-  //   console.log("Enter useEffect with id: " + docId);
-  //   const doc = async () => {
-  //     try {
-  //       const response = await axios.get(publicPort + `api/${docId}`);
-  //       setDoct(response.data);
-  //       console.log(response.data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   doc();
-  // }, [docId]);
+  useEffect(() => {
+    const doc = async () => {
+      try {
+        const response = await axios.get(publicPort + `api/${docId}`);
+        setDoct(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    doc();
+  }, [docId]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(publicPort + `users/getUserInfo`);
+        setInfor(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchImage = async () => {
+      if (infor.avatar) {
+        try {
+          const response = await axios.get(
+            publicPort + `images/${infor.avatar}`,
+            {
+              responseType: "blob", // set thành kiểu blob
+            }
+          );
+
+          // Đọc dữ liệu hình ảnh và chuyển đổi nó thành chuỗi base64
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            setImageData(reader.result);
+          };
+          reader.readAsDataURL(response.data);
+        } catch (error) {
+          console.error("Error fetching image:", error);
+        }
+      }
+    };
+
+    fetchImage();
+  }, [infor.avatar]);
 
   const handleClick = (data) => {
     setType(data);
@@ -48,7 +87,7 @@ function DoctorInformationContent({ docId }) {
       <div className="w-[77%] h-[220px] ml-[170px] mt-[80px] relative">
         <img src={Background} alt="Background" className="rounded-3xl" />
         <img
-          src={doct.Avatar}
+          src={imageData}
           alt="Avatar"
           className="rounded-3xl h-[170px] w-[15%] absolute top-[12%] left-[2%]"
         />
@@ -63,7 +102,7 @@ function DoctorInformationContent({ docId }) {
           <span className="text-[60px]">
             <MdKeyboardArrowRight />
           </span>
-          <span className="font-bold mt-[6px]">Cardiac Catheterization</span>
+          <span className="font-bold mt-[6px]">{doct?.specialty?.name}</span>
         </div>
         <div className="absolute top-[40%] left-[20%] ">
           <h1 className="text-gradientLeft text-4xl font-bold">{doct.name}</h1>
@@ -77,9 +116,9 @@ function DoctorInformationContent({ docId }) {
                   style={
                     type === data
                       ? {
-                        color: "#5562f7",
-                        textUnderlineOffset: "#3681f8",
-                      }
+                          color: "#5562f7",
+                          textUnderlineOffset: "#3681f8",
+                        }
                       : {}
                   }
                   onClick={() => handleClick(data)}
@@ -98,8 +137,8 @@ function DoctorInformationContent({ docId }) {
       </div>
       <div>
         {showComponentC && <DoctorInfoDetailedInformation doct={doct} />}
-        {showComponentD && <DoctorInfoSchedule />}
-        {showComponentE && <DoctorInfoMedicalHistory />}
+        {showComponentD && <DoctorInfoSchedule doct={doct} />}
+        {showComponentE && <DoctorInfoMedicalHistory doct={doct} />}
       </div>
     </div>
   );

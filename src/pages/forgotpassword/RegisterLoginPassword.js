@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { localPort, publicPort } from "../../components/url/link";
 import { async } from "q";
+import React from "react";
 
 function RegisterLoginPassword() {
   const navigate = useNavigate();

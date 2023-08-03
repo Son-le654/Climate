@@ -22,13 +22,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.DTO.ApiResponse;
+import com.example.demo.DTO.CountResult;
+import com.example.demo.DTO.CheckinDataDto;
 import com.example.demo.DTO.InternalAccountDTO;
 import com.example.demo.DTO.LoginRequest;
 import com.example.demo.entity.InternalAccount;
 import com.example.demo.entity.Specialty;
+import com.example.demo.repository.InternalRepository;
+import com.example.demo.service.AppointmentService;
+import com.example.demo.service.CheckinService;
 import com.example.demo.service.InternalService;
 import com.example.demo.service.JwtResponse;
 import com.example.demo.service.JwtTokenUtil;
+import com.example.demo.service.MedicalRecordService;
 import com.example.demo.service.SpeciatlyService;
 
 @RestController
@@ -40,6 +46,14 @@ public class InternalController {
 
 	@Autowired
 	private InternalService internalService;
+
+	@Autowired
+	private CheckinService checkinService;
+
+	@Autowired
+	private MedicalRecordService medicalRecordService;
+	@Autowired
+	private InternalRepository repository;
 
 	@Autowired
 	private SpeciatlyService speciatlyService;
@@ -62,7 +76,10 @@ public class InternalController {
 		}
 		Optional<InternalAccount> interacc = doctorService.findByEmail(email);
 		if (!interacc.isPresent()) {
-			return ResponseEntity.ok("Not found accout.");
+			return ResponseEntity.ok("Not found account.");
+		}
+		if (interacc.get().getCommandFlag() == 2) {
+			return ResponseEntity.ok("You have no permission to login.");
 		}
 		final UserDetails userDetails = internalService.loadUserByUsername(email);
 		final String token = jwtTokenUtil.generateToken(userDetails);
@@ -98,10 +115,30 @@ public class InternalController {
 		}
 	}
 
+	@GetMapping("/block")
+	public String blockAccount(@RequestParam(value = "id") String id) {
+		System.out.println(id);
+		InternalAccount acc = null;
+		int idc = Integer.parseInt(id);
+		acc = repository.getAccById(idc);
+		if (acc != null) {
+			String result = internalService.blockAccount(acc);
+			if (result.equals("success")) {
+
+				return "Block success";
+			} else {
+				return "Block fail";
+			}
+		} else {
+			return "Not found account in system";
+		}
+	}
+
 	@GetMapping(value = "/doctors")
 	public List<InternalAccount> listAccDoctor() {
 		return internalService.findAllDoctor();
 	}
+
 	@GetMapping(value = "/doctorsForAdmin")
 	public List<InternalAccount> listAccDoctorForAdmin() {
 		return internalService.findAllDoctorForAdmin();
@@ -149,4 +186,46 @@ public class InternalController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("No doctor information found"));
 		}
 	}
+
+	@GetMapping("/count-in-current-month")
+	public CountResult getCountOfRecordsInCurrentMonth() {
+		int online = medicalRecordService.countRecordsInCurrentMonth();
+		int completed = checkinService.countCommandFlag2ForCurrentMonth();
+		int cancel = checkinService.countCommandFlag3ForCurrentMonth();
+		int result = online + completed + cancel;
+		double percentageOnline = (double) online / result * 100;
+		double percentageCompleted = (double) completed / result * 100;
+		double percentageCancel = (double) cancel / result * 100;
+		return new CountResult(percentageOnline, percentageCompleted, percentageCancel);
+	}
+
+	@GetMapping("/countByDoctorOfData")
+	public List<CheckinDataDto> countCheckinsByDoctor() {
+		List<Object[]> countCheckinsByDoctor = checkinService.countCheckinsByDoctor();
+		List<CheckinDataDto> checkinDataList = new ArrayList<>();
+
+        // Converting the list of arrays to a list of CheckinData objects
+        for (Object[] objArray : countCheckinsByDoctor) {
+        	CheckinDataDto checkinData = new CheckinDataDto();
+        	CheckinDataDto checkinDatacomple = new CheckinDataDto();
+        	 String doctorIdStr = (String) objArray[0];
+             Long count = (Long) objArray[1];
+            
+             // Parse the doctorId as an Integer
+             Integer doctorId = Integer.parseInt(doctorIdStr);
+        	String doctorName = internalService.findByIdUsingName(doctorId);
+        	 Long countcomplete = medicalRecordService.countOccurrencesByDoctorId(doctorIdStr);
+            checkinData.setName(doctorName);
+            checkinData.setNumber(count);
+            checkinData.setType("Check-in");
+            checkinDataList.add(checkinData);
+            checkinDatacomple.setType("Completed");
+            checkinDatacomple.setName(doctorName);
+            checkinDatacomple.setNumber(countcomplete);
+            checkinDataList.add(checkinDatacomple);
+        }
+		return checkinDataList;
+
+	}
+
 }

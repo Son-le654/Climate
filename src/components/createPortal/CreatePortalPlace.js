@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { CSSTransition } from "react-transition-group";
-import Popup from "../propup/Popup";
 import PopupPlace from "../propup/PopupPlace";
 import axios from "axios";
 import { publicPort } from "../url/link";
-// const list = [
-//   { id: 1, place: "Da Nang" },
-//   { id: 2, place: "Hue " },
-//   { id: 3, place: "Quang Nam" },
-//   { id: 4, place: "Quang Tri" },
-// ];
+
 const CreatePortalPlace = ({
   visible,
   onClose,
@@ -20,7 +14,6 @@ const CreatePortalPlace = ({
 }) => {
   const [placeList, setPlaceList] = useState();
   const [listOrigin, setListOrigin] = useState();
-  const [place, setPlace] = useState(checkinplace);
 
   useEffect(() => {
     const places = async () => {
@@ -38,16 +31,13 @@ const CreatePortalPlace = ({
   useEffect(() => {
     if (checkinplace != undefined) {
       const places = async () => {
-        // console.log(checkinplace);
         const response = await axios.get(publicPort + "location/list");
         const findItemByName = (name) => {
           return response.data.find(
             (item) => item.name + " - " + item.description === name
           );
         };
-        // console.log(place);
         const selectedItem = findItemByName(checkinplace);
-        // console.log(selectedItem);
         changePlaceList(selectedItem);
       };
       places();

@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { localPort, publicPort } from "../../../components/url/link";
 import { useNavigate } from "react-router";
+import React from "react";
 
 function VerifyRegisterContent({ email }) {
   const navigate = useNavigate();
@@ -51,7 +52,7 @@ function VerifyRegisterContent({ email }) {
     );
     console.log(response);
   };
-  
+
   const verifyOTP = async () => {
     console.log(otp.Votp);
     if (otp.Votp != undefined && otp.Votp != "") {

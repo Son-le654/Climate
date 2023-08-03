@@ -1,9 +1,51 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import IconClose from "../../icon/IconClose";
 import IconSearch from "../../icon/IconSearch";
 import { Link } from "react-router-dom";
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  listAll,
+  list,
+} from "firebase/storage";
+import { storage } from "../url/firebase";
+import { v4 } from "uuid";
 
-const PopupDoctor = ({ header, describe, handleClose, listData, changeDoctorList, handleSearchInputChange, doctor }) => {
+
+const PopupDoctor = ({
+  header,
+  describe,
+  handleClose,
+  listData,
+  changeDoctorList,
+  handleSearchInputChange,
+  doctor,
+}) => {
+  const [avatarUrl, setAvatarUrl] = useState(null);
+
+  // Hàm lấy URL của avatar
+  const getAvatarUrl = async (imageName) => {
+    try {
+      const storageRef = ref(storage, `${imageName}`); // No need to concatenate the image name with v4() here
+    const url = await getDownloadURL(storageRef);
+    return url;
+    } catch (error) {
+      console.error('Error getting avatar URL: ', error);
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    // Lấy URL của avatar khi component render
+    if (listData.length > 0) {
+      const avatarName = listData[0].avatar; // Chọn một avatar bất kỳ từ listData
+      getAvatarUrl(avatarName)
+        .then((url) => {
+          setAvatarUrl(url);
+        });
+    }
+  }, [listData]);
   return (
     <div className="p-[3.2rem_7.4rem] rounded-[1.6rem] bg-white">
       <div className="flex items-center justify-between w-full">
@@ -29,41 +71,44 @@ const PopupDoctor = ({ header, describe, handleClose, listData, changeDoctorList
         <div className="overflow-auto gap-[0.8rem] max-h-[40rem] mt-[2.4rem]">
           {listData.length > 0 &&
             listData.map((item) => {
-              return (
-                (doctor ===item) ?
-                  <div
-                    onClick={() => changeDoctorList(item)}
-                    key={item.id}
-                    className="shadow-md text-success justify-between flex items-center font-semibold text-[2rem] p-[2.7rem_4.7rem] rounded-[1.6rem] cursor-pointer"
-                    style={{ border: "1px solid green", marginBottom: "1rem" }}
-                  >
+              return doctor === item ? (
+                <div
+                onClick={async () => {
+                  const avatarUrl = await getAvatarUrl(item.avatar);
+                  setAvatarUrl(avatarUrl);
+                  changeDoctorList(item);
+                }}
+                key={item.id}
+                className="shadow-md text-success justify-between flex items-center font-semibold text-[2rem] p-[2.7rem_4.7rem] rounded-[1.6rem] cursor-pointer"
+                style={{ border: "1px solid green", marginBottom: "1rem" }}
+              >               
                     <div className="flex items-center gap-[3.2rem]">
-                      <div className="w-[5.7rem] h-[5.7rem] overflow-hidden rounded-full">
-                        <img src={item.avatar} alt="" />
-                      </div>
-                      <span className="font-semibold text-[2rem]">
-                        {item.name}
-                      </span>
+                    <div className="w-[5.7rem] h-[5.7rem] overflow-hidden rounded-full">
+                      <img src={avatarUrl} alt="" />
                     </div>
-                    <Link className="text-gradient">info</Link>
+                    <span className="font-semibold text-[2rem]">
+                      {item.name}
+                    </span>
                   </div>
-                  :
-                  <div
-                    onClick={() => changeDoctorList(item)}
-                    key={item.id}
-                    className="shadow-md justify-between flex items-center font-semibold text-[2rem] p-[2.7rem_4.7rem] rounded-[1.6rem] cursor-pointer"
-                    style={{ marginBottom: "1rem" }}
-                  >
-                    <div className="flex items-center gap-[3.2rem]">
-                      <div className="w-[5.7rem] h-[5.7rem] overflow-hidden rounded-full">
-                        <img src={item.avatar} alt="" />
-                      </div>
-                      <span className="font-semibold text-[2rem]">
-                        {item.name}
-                      </span>
+                  <Link className="text-gradient">info</Link>
+                </div>
+              ) : (
+                <div
+                  onClick={() => changeDoctorList(item)}
+                  key={item.id}
+                  className="shadow-md justify-between flex items-center font-semibold text-[2rem] p-[2.7rem_4.7rem] rounded-[1.6rem] cursor-pointer"
+                  style={{ marginBottom: "1rem" }}
+                >
+                  <div className="flex items-center gap-[3.2rem]">
+                    <div className="w-[5.7rem] h-[5.7rem] overflow-hidden rounded-full">
+                      <img src={avatarUrl} alt="" />
                     </div>
-                    <Link className="text-gradient">info</Link>
+                    <span className="font-semibold text-[2rem]">
+                      {item.name}
+                    </span>
                   </div>
+                  <Link className="text-gradient">info</Link>
+                </div>
               );
             })}
         </div>

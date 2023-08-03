@@ -30,8 +30,6 @@ function AdminContentSpecialty() {
     { id: 20, nameSepcial: "Intensive Care - Emergency 20", count: 28 },
   ];
 
-
-
   return (
     <div className="w-[100%] h-[100%] rounded-3xl bg-white shadow-lg">
       <div className="w-[100%] rounded-3xl h-[35px] flex justify-center">
@@ -41,18 +39,15 @@ function AdminContentSpecialty() {
       <div className="overflow-y-scroll h-[400px] w-[100%]  flex justify-center">
         <div className="w-[90%]">
           {listOrigin.map((data) => (
-            <div
-              className="flex w-[100%] h-[28px]"
-              key={data.id}
-            >
+            <div className="flex w-[100%] h-[28px]" key={data.id}>
               <div className="w-[75%]  ">
-                <h5 className="text-[16px] font-light">
-                  {data.nameSepcial}
-                </h5>
+                <h5 className="text-[16px] font-light">{data.nameSepcial}</h5>
               </div>
               <div className="w-[25%] ">
                 <div className="flex items-center justify-center">
-                  <span className="text-[18px] font-light pr-3">{data.count}</span>
+                  <span className="text-[18px] font-light pr-3">
+                    {data.count}
+                  </span>
                   <span className="text-[18px]">
                     <BsFillPeopleFill />
                   </span>

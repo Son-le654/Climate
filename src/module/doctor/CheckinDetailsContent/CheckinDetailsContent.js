@@ -19,6 +19,8 @@ function CheckinDetailsContent({ checkin, role }) {
   };
   // console.log(appointment);
   //
+
+  const [check, setCheck] = useState();
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
 
   useEffect(() => {
@@ -29,12 +31,21 @@ function CheckinDetailsContent({ checkin, role }) {
     return () => clearInterval(interval);
   }, []);
 
-  // useEffect(() => {
-  //   console.log(role);
-  //   if (role != "DOCTOR") {
-  //     navigate("/checkin-list");
-  //   }
-  // },[role])
+  useEffect(() => {
+    const listApp = async () => {
+      try {
+        let response1;
+        if (checkin != undefined) {
+          response1 = await axios.get(publicPort + `api/${checkin.doctorId}`);
+        }
+        // console.log(response1.data);
+        setCheck(response1.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    listApp();
+  }, [checkin]);
 
   const [showConfirmCancel, setshowConfirmCancel] = useState(false);
   const [showConfirmApprove, setshowConfirmApprove] = useState(false);
@@ -54,7 +65,7 @@ function CheckinDetailsContent({ checkin, role }) {
   };
 
   const StartExamining = async () => {
-    console.log(checkin);
+    // console.log(checkin);
     const response = await axios.put(
       publicPort +
         `checkin/commandFlag?checkinid=${checkin.id}&command=examining`
@@ -181,8 +192,8 @@ function CheckinDetailsContent({ checkin, role }) {
   const handleChangeInput = (event) => {
     const { name, value } = event.target;
 
-    console.log(name);
-    console.log(value);
+    // console.log(name);
+    // console.log(value);
 
     if (name == "Cprocess") {
       const newprocess = { ...clinicProcess, [name]: value };
@@ -343,6 +354,10 @@ function CheckinDetailsContent({ checkin, role }) {
                     : ""}
                 </span>
               </div> */}
+              <div className="pt-3 flex">
+                <span className="w-[35%]">Doctor name</span>
+                <span className="">{check != undefined ? check.name : ""}</span>
+              </div>
               <div className="pt-3 flex">
                 <span className="w-[35%]">Specialty</span>
                 <span className="">

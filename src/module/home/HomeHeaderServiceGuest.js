@@ -17,9 +17,28 @@ const HomeNav = [
   },
   {
     id: 2,
-    // to: "/faq",
     to: "",
-    title: "Records",
+    title: "Function",
+  },
+  {
+    id: 3,
+    to: "/About",
+    title: "About",
+  },
+  {
+    id: 4,
+    to: "/faq",
+    title: "FAQ",
+  },
+  {
+    id: 5,
+    to: "/newspage",
+    title: "News",
+  },
+  {
+    id: 6,
+    to: "/book_appointment_guest",
+    title: "Book Visist",
   },
 ];
 
@@ -66,9 +85,6 @@ const HomeHeaderServiceGuest = () => {
                   </li>
                 );
               })}
-            <li>
-              <NavLink to={"/book_appointment_guest"}>Book Appointment</NavLink>
-            </li>
           </ul>
         </nav>
       </div>

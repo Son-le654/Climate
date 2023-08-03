@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import LayoutSign from "../layout/LayoutSign";
-import Input from "../components/input/Input";
 import Button from "../components/button/Button";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../components/Logo/Logo";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import InputUsername from "../components/input/InputUsername";
 import InputPassword from "../components/input/InputPassword";
-import { contextType } from "react-datetime";
-import { localPort, publicPort } from "../components/url/link";
+import { publicPort } from "../components/url/link";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -50,8 +48,11 @@ const LoginPage = () => {
       email: username,
       password: password,
     });
-    console.log(response);
-
+    // console.log(response);
+    if (response.data == "You have no permission to login.") {
+      alert("You have no permission to login.");
+      return;
+    }
     if (response.data.token === undefined) {
       alert("Incorrect email or password.");
     }

@@ -17,6 +17,7 @@ public class AppointmentDTO {
 	private String description;
 	private String paitent_name;
 	private String register_time;
+	private String email;
 
 	public AppointmentDTO() {
 		// TODO Auto-generated constructor stub
@@ -61,6 +62,14 @@ public class AppointmentDTO {
 		this.description = description;
 		this.paitent_name = paitent_name;
 		this.register_time = register_time;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getIdA() {

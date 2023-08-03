@@ -9,7 +9,6 @@ function AppointmentConfirmationContent({ appointment }) {
   const tabButtons1 = "Return to previous";
   const tabButtons2 = "Appointment confirmation";
 
-  const [type, setType] = useState("Appointment confirmation");
   const navigate = useNavigate();
 
   const [datas, setDatas] = useState([
@@ -40,7 +39,6 @@ function AppointmentConfirmationContent({ appointment }) {
       console.log(error);
     }
   }, []);
-  console.log(appointment);
   const confirm = async () => {
     console.log(appointment);
     var response;
@@ -55,31 +53,14 @@ function AppointmentConfirmationContent({ appointment }) {
     console.log(response);
 
     if (response.data === "success") {
+      alert(
+        "Thank you for your appointment, please wait for a call to confirm this appointment."
+      );
       navigate("/appointments");
     } else {
       window.alert(response.data);
     }
   };
-  // const [formattedDate, setFormatDate] = useState();
-  // useEffect(() => {
-  //   if (appointment != undefined) {
-  //     // Get the offset between UTC and your local time zone in minutes
-  //     const offsetMinutes = appointment.bookDate.getTimezoneOffset();
-
-  //     // Convert the original date to your local time zone
-  //     const localDate = new Date(
-  //       appointment.bookDate.getTime() - offsetMinutes * 60 * 1000
-  //     );
-
-  //     // Format the local date as a string with the desired format
-  //     const formattedDate = localDate
-  //       .toISOString()
-  //       .slice(0, 10)
-  //       .replace(/-/g, "/");
-
-  //     setFormatDate(formattedDate);
-  //   }
-  // }, [appointment]);
 
   const goBack = () => {
     navigate("/book_appointment");

@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import HomeHeaderServiceNurse from "../module/home/HomeHeaderServiceNurse";
-import AppointmentsContent from "../module/appointments/AppointmentsContent";
 import Footer from "../module/home/Footer";
 import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
-import HomeHeaderService from "module/home/HomeHeaderService";
 import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
-import PatientsContent from "module/appointments/PatientsContent";
+import HomeHeaderServiceAdmin from "module/home/HomeHeaderServiceAdmin";
+import PatientsContent from "module/admin/accountmanagement/PatientsContent";
 
 const PatientsPage = () => {
   const navigate = useNavigate();
@@ -39,12 +38,14 @@ const PatientsPage = () => {
           <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
         ) : role == "NURSE" ? (
           <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
+        ) : role == "ADMIN" ? (
+          <HomeHeaderServiceAdmin></HomeHeaderServiceAdmin>
         ) : (
           <></>
         )}
       </div>
       <div className="pt-[80px] pl-[190px] text-7xl font-bold py-[20px] bg-white">
-        <h1>Patient list</h1>
+        <h1>List of Patients</h1>
       </div>
       <div className="bg-white" style={{ padding: "5% 12%" }}>
         <PatientsContent role={role} mail={mail}></PatientsContent>

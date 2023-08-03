@@ -1,23 +1,19 @@
-import { NavLink, useNavigate } from "react-router-dom";
-import React, { useEffect, useRef, useState } from "react";
-import Slider from "react-slick";
-import { FaQq, FaHospital } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { FaHospital } from "react-icons/fa";
 import { IoIosSchool } from "react-icons/io";
-import { MdKeyboardArrowRight } from "react-icons/md";
-import { MdKeyboardArrowLeft } from "react-icons/md";
-import { event } from "jquery";
 
-// const settings = {
-//   // dots: true,
-//   infinite: true,
-//   speed: 500,
-//   slidesToShow: 1,
-//   slidesToScroll: 1,
-// };
-
-export default function DoctorList({ docList }) {
+export default function DoctorList({
+  docList,
+  searchspec,
+  searchlocation,
+  searchname,
+  role,
+}) {
   const navigate = useNavigate();
   const [listOrigin, setListOrigin] = useState(docList);
+  const [specList, setSpecList] = useState(docList);
+  const [searchList, setSearchList] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
 
@@ -25,18 +21,91 @@ export default function DoctorList({ docList }) {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   useEffect(() => {
     setListOrigin(docList);
+    setSpecList(docList);
   }, [docList]);
   console.log(listOrigin);
   console.log(docList);
 
   useEffect(() => {
-    setListOrigin(docList.slice(indexOfFirstItem, indexOfLastItem));
+    if (searchspec != undefined && searchlocation != undefined) {
+      const places = async () => {
+        // console.log(checkinSpec);
+        // const response = await axios.get(publicPort + "spec/list");
+        const findItemByName = (name, name1) => {
+          // return response.data.find((item) => item.name === name);
+          if (name.spc == "" && name1.lo == "") {
+            return listOrigin;
+          } else if (name.spc == "" && name1.lo != "") {
+            return listOrigin.filter(
+              (item1) => item1.workingPlace.id == name1.lo
+            );
+          } else if (name.spc != "" && name1.lo == "") {
+            return listOrigin.filter((item) => item.specialty.id == name.spc);
+          } else {
+            return listOrigin
+              .filter((item) => item.specialty.id == name.spc)
+              .filter((item1) => item1.workingPlace.id == name1.lo);
+          }
+        };
+        // console.log(place);
+        // console.log(searchspec);
+        const selectedItem = findItemByName(searchspec, searchlocation);
+        // console.log(selectedItem);
+        setSpecList(selectedItem);
+      };
+      places();
+    }
+  }, [searchspec, searchlocation]);
+
+  useEffect(() => {
+    if (searchname != undefined) {
+      const places = async () => {
+        // console.log(checkinSpec);
+        // const response = await axios.get(publicPort + "spec/list");
+        const findItemByName = (name) => {
+          // return response.data.find((item) => item.name === name);
+          if (name.sn == "") {
+            return listOrigin;
+          } else {
+            return listOrigin.filter((item) =>
+              item.name.toLowerCase().includes(searchname.sn.toLowerCase())
+            );
+          }
+        };
+        // console.log(place);
+        console.log(searchspec);
+        const selectedItem = findItemByName(searchname);
+        // console.log(selectedItem);
+        setSpecList(selectedItem);
+      };
+      places();
+    }
+  }, [searchname]);
+
+  useEffect(() => {
+    setSpecList(docList?.slice(indexOfFirstItem, indexOfLastItem));
   }, [itemsPerPage, currentPage]);
+
+  const handleSearchInputChange = (event) => {
+    let searchInput = event.target.value;
+    if (searchInput === "") {
+      setSpecList(listOrigin);
+    } else {
+      const filteredList = listOrigin.filter((item) =>
+        item.name.toLowerCase().includes(searchInput.toLowerCase())
+      );
+      setSpecList(filteredList);
+    }
+  };
 
   const view_detail = (item) => {
     const id = item.id;
     console.log(id);
-    navigate("/doctorinformation", { state: { id } });
+    if (role != "USER") {
+      navigate("/informationdoctorstaff", { state: { id } });
+    } else {
+      navigate("/doctorinformation", { state: { id } });
+    }
   };
 
   const book_appointment = (item) => {
@@ -55,14 +124,14 @@ export default function DoctorList({ docList }) {
   }
 
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(docList.length / itemsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(docList?.length / itemsPerPage); i++) {
     pageNumbers.push(i);
   }
 
   return (
     <div>
       <div>
-        {listOrigin.map((data) => (
+        {specList?.map((data) => (
           <div
             key={data.id}
             className=" w-[100%] h-[150px] mb-[20px] rounded-[15px]"
@@ -91,7 +160,9 @@ export default function DoctorList({ docList }) {
                   </a>
                 </div>
                 <div>
-                  <span className="text-lg font-light">{data.introduct}</span>
+                  <span className="text-lg font-light">
+                    {data.specialty.name}
+                  </span>
                   <span className=" text-lg text-gradientLeft cursor-pointer">
                     <p onClick={() => view_detail(data)}> Read more</p>
                   </span>
@@ -112,7 +183,7 @@ export default function DoctorList({ docList }) {
       </div>
       <div className="" style={{ textAlign: "center" }}>
         <div>
-          {pageNumbers.map((pageNumber) => (
+          {pageNumbers?.map((pageNumber) => (
             <button
               key={pageNumber}
               onClick={(event) => handlePageClick(event, pageNumber)}

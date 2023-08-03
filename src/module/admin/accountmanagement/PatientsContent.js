@@ -1,15 +1,10 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { localPort, publicPort } from "../../components/url/link";
 import { BiSearch } from "react-icons/bi";
-import { MdKeyboardArrowRight } from "react-icons/md";
-import { MdKeyboardArrowLeft } from "react-icons/md";
-import { useRef } from "react";
-import Slider from "react-slick";
 import { useNavigate } from "react-router-dom";
+import { publicPort } from "components/url/link";
 
-function InternalAccountsContent({ role, mail }) {
-  const [sortedObjects, setSortedObjects] = useState([]);
+function PatientsContent({ role, mail }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [statusFilter, setStatusFilter] = useState("All");
@@ -23,7 +18,7 @@ function InternalAccountsContent({ role, mail }) {
     },
     {
       id: 2,
-      title: "Staff Name",
+      title: "Patient Name",
     },
     {
       id: 3,
@@ -31,15 +26,15 @@ function InternalAccountsContent({ role, mail }) {
     },
     {
       id: 4,
-      title: "Specialty",
+      title: "Gender",
     },
     {
       id: 5,
-      title: "Role",
+      title: "Phone",
     },
     {
       id: 6,
-      title: "Action",
+      title: "View Details",
     },
   ];
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -53,8 +48,11 @@ function InternalAccountsContent({ role, mail }) {
         let response;
         let response1;
         let id;
-
-        response = await axios.get(publicPort + "api/list");
+        if (role == "ADMIN") {
+          response = await axios.get(publicPort + "patient/listadmin");
+        } else {
+          response = await axios.get(publicPort + "patient/list");
+        }
         setListOrigin(response.data);
         setListData(response.data);
         console.log(response.data);
@@ -68,13 +66,6 @@ function InternalAccountsContent({ role, mail }) {
   useEffect(() => {
     setListData(listOrigin.slice(indexOfFirstItem, indexOfLastItem));
   }, [itemsPerPage, currentPage]);
-
-  //   useEffect(() => {
-  //     const sorted = listOrigin.sort(
-  //       (a, b) => new Date(b.registerTime) - new Date(a.registerTime)
-  //     );
-  //     setSortedObjects(sorted);
-  //   }, [listOrigin]);
 
   function handlePageClick(event, pageNumber) {
     event.preventDefault();
@@ -116,43 +107,42 @@ function InternalAccountsContent({ role, mail }) {
       setListData(filteredList);
     }
   };
-  const view_detail = (item) => {
-    const id = item.id;
-    console.log(id);
-    navigate("/doctorinformation", { state: { id } });
-  };
-  const handleAddNewAccount = () => {
-    // navigate("/checkin", { state: { appointment } });
+
+  const handleDetail = (appointment) => {
+    console.log(appointment);
+    // navigate("/appointmentdetailsfornurse", { state: { appointment } });
   };
   const handleInternal = () => {
-    // navigate("/checkin", { state: { appointment } });
+    navigate("/internals");
   };
   const handleExternal = () => {
-    // navigate("/checkin", { state: { appointment } });
+    navigate("/patients");
   };
   return (
     <div className="bg-white p-5 rounded-2xl shadow-2xl w-[100%] min-h-[500px]">
-      <div>
-        <span
-          className={
-            "ml-[50px] font-bold text-3xl mr-[100px] text-gradientLeft "
-          }
-          onClick={handleInternal}
-        >
-          ITERNAL
-        </span>
-        <span
-          className={
-            statusFilter === "0"
-              ? "font-bold text-3xl mr-[100px] text-gradientLeft "
-              : "font-bold text-3xl mr-[100px] text-[#c5c4c4]"
-          }
-          onClick={handleExternal}
-        >
-          EXTERNAL
-        </span>
-      </div>
-      <div className="w-[100%] h-[50px] flex justify-between mb-[5rem]">
+      {role == "ADMIN" ? (
+        <>
+          <div>
+            <span
+              className={
+                "ml-[50px] font-bold text-3xl mr-[100px] text-[#c5c4c4]"
+              }
+              onClick={handleInternal}
+            >
+              ITERNAL
+            </span>
+            <span
+              className={"font-bold text-3xl mr-[100px] text-gradientLeft "}
+              onClick={handleExternal}
+            >
+              EXTERNAL
+            </span>
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
+      <div className="w-[100%] h-[50px]">
         <div className="mt-[40px] h-[50px] w-[30%] border-[1px] rounded-2xl flex border-[#c5c4c4] ml-[10px]">
           <button className="w-[15%]">
             <BiSearch className="text-[25px] ml-[13px] text-[#c5c4c4]" />
@@ -163,37 +153,22 @@ function InternalAccountsContent({ role, mail }) {
             onChange={handleSearchInputChange}
           />
         </div>
-        <div className="h-[50px] w-[50%] flex justify-end items-center pt-[8rem]">
-          <div
-            className="  w-[40%] h-[40px] flex items-center justify-center rounded-3xl cursor-pointer"
-            onClick={handleAddNewAccount}
-          >
-            {/* <span className="w-[10%] text-[30px] text-gradientLeft ]">
-              <AiOutlinePlusCircle />
-            </span> */}
-            <span className="font-medium underline text-success ">
-              Add new appointment
-            </span>
-          </div>
-        </div>
       </div>
-      <div className=" min-h-[550px]">
-        <table>
-          <thead className="h-[100px]">
-            <tr className="text-[30px]">
-              {listtitle.map((data) => (
-                <th
-                  key={data.id}
-                  className=" text-[#8d8b8b] w-[1%] text-center"
-                >
-                  {data.title}
-                </th>
-              ))}
-            </tr>
-          </thead>
-        </table>
+      <div className="">
         <div>
           <table className="w-[100%]">
+            <thead className="h-[100px]">
+              <tr className="text-[30px]">
+                {listtitle.map((data) => (
+                  <th
+                    key={data.id}
+                    className=" text-[#8d8b8b] w-[1%] text-center"
+                  >
+                    {data.title}
+                  </th>
+                ))}
+              </tr>
+            </thead>
             <tbody className="w-[100%] h-[200px]">
               {listData.map((listD) => (
                 <tr
@@ -203,23 +178,17 @@ function InternalAccountsContent({ role, mail }) {
                   key={listD.id}
                 >
                   <td className="w-[10%]">{listD.id}</td>
-                  <td className="w-[15%]  ">{listD.name}</td>
-                  <td className="w-[15%]  ">{listD.email}</td>
-                  <td className="w-[12%]">
-                    <p>
-                      {listD.specialty != undefined ? listD.specialty.name : ""}
-                    </p>
-                  </td>
-                  <td className="w-[12%]">
-                    <p>{listD.role.name}</p>
-                  </td>
+                  <td className="w-[13%]">{listD.name}</td>
+                  <td className="w-[13%]">{listD.email}</td>
+                  <td className="w-[13%]">{listD.gender}</td>
+                  <td className="w-[13%]">{listD.phone}</td>
 
                   <td className="pb-[10px] pt-[10px]  w-[13%]">
                     <button
                       className="w-[80%] h-[40px] bg-gradientLeft rounded-3xl text-white "
-                      onClick={() => view_detail(listD)}
+                      onClick={() => handleDetail(listD)}
                     >
-                      View
+                      View Detail
                     </button>
                   </td>
                 </tr>
@@ -229,14 +198,6 @@ function InternalAccountsContent({ role, mail }) {
         </div>
       </div>
       <div className="" style={{ textAlign: "center" }}>
-        {/* <button className="button text-[30px] w-10 h-10 bg-gradientLeft mr-[30px]">
-          <MdKeyboardArrowLeft className="ml-[2px]" />
-        </button>
-
-        <button className="button text-[30px] w-10 h-10 bg-gradientLeft">
-          <MdKeyboardArrowRight className="ml-[3px]" />
-        </button> */}
-
         <div>
           {pageNumbers.map((pageNumber) => (
             <button
@@ -259,4 +220,4 @@ function InternalAccountsContent({ role, mail }) {
     </div>
   );
 }
-export default InternalAccountsContent;
+export default PatientsContent;

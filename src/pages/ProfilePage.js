@@ -47,7 +47,7 @@ function ProfilePage() {
           <h1 className="text-[40px] font-bold"> My Profile</h1>
         </div>
         <div className="bg-white">
-          <ProfileContent mail={mail} />
+          <ProfileContent mail={mail} role={role} />
         </div>
         <div className="bg-white">
           <Footer />

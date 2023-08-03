@@ -1,22 +1,23 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { publicPort } from "../../components/url/link";
+import { localPort, publicPort } from "../../components/url/link";
 import { BiSearch } from "react-icons/bi";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { useRef } from "react";
 import Slider from "react-slick";
 import { useNavigate } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 
-function CheckinListContent({ email, role }) {
+function SchedulesContent({ email, role }) {
   const [sortedObjects, setSortedObjects] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [statusFilter, setStatusFilter] = useState("All");
   const [mail, setMail] = useState(email);
+  const [rol, setRol] = useState();
   const [listData, setListData] = useState([]);
   const [listOrigin, setListOrigin] = useState([]);
-  const [doct, setDoct] = useState();
   const navigate = useNavigate();
   const listtitle = [
     {
@@ -32,9 +33,13 @@ function CheckinListContent({ email, role }) {
       title: "Date",
     },
     {
-      id: 5,
-      title: "Status",
+      id: 4,
+      title: "Time",
     },
+    // {
+    //   id: 5,
+    //   title: "Status",
+    // },
     {
       id: 6,
       title: "View Details",
@@ -45,41 +50,50 @@ function CheckinListContent({ email, role }) {
   const [inputValue, setInputValue] = useState("");
   const currentItems = listOrigin.slice(indexOfFirstItem, indexOfLastItem);
 
+  // useEffect(() => {
+  //   setMail(email);
+  // });
+
   useEffect(() => {
-    console.log(mail);
+    // console.log(mail);
+    if (mail == undefined) {
+      setMail(email);
+    }
+    let r;
+    let m;
+
+    const storedName = localStorage.getItem("token");
+    try {
+      const decoded = jwtDecode(storedName);
+      const role = decoded.roles[0].authority;
+      r = role;
+      setRol(role);
+      setMail(decoded.sub);
+      m = decoded.sub;
+      // console.log(decoded.sub);
+    } catch (error) {
+      console.log(error);
+    }
+
     const listApp = async () => {
       try {
         let response;
-        let response1;
-        if (role == "DOCTOR") {
+        if (r == "DOCTOR") {
           response = await axios.get(
-            publicPort + `api/internal-accounts/search-email?email=${email}`
-          );
-
-          response1 = await axios.get(
-            publicPort + `checkin/listbydoctorid?doctorId=${response.data.id}`
-          );
-        } else if (role == "USER") {
-          response = await axios.get(
-            publicPort + `patient/profile?email=${email}`
-          );
-
-          response1 = await axios.get(
-            publicPort +
-              `checkin/listBypaintedId?painted_id=${response.data.id}`
+            publicPort + `schedule/listschedules?email=${m}`
           );
         } else {
-          response1 = await axios.get(publicPort + `checkin/list`);
+          response = await axios.get(publicPort + `schedule/list`);
         }
-        console.log(response1.data);
-        setListOrigin(response1.data);
-        setListData(response1.data);
+        // console.log(response.data);
+        setListOrigin(response.data);
+        setListData(response.data);
       } catch (error) {
         console.log(error);
       }
     };
     listApp();
-  }, [email, role]);
+  }, [email, rol]);
 
   useEffect(() => {
     setListData(listOrigin.slice(indexOfFirstItem, indexOfLastItem));
@@ -126,23 +140,20 @@ function CheckinListContent({ email, role }) {
     if (searchInput === "") {
       setListData(listOrigin);
     } else {
-      const filteredList = listOrigin.filter((item) =>
-        item.patientName.toLowerCase().includes(searchInput.toLowerCase())
+      const filteredList = listOrigin?.filter((item) =>
+        item.appointment?.patientName?.toLowerCase().includes(searchInput.toLowerCase())
       );
       setListData(filteredList);
     }
   };
 
-  const handleDetail = (checkin) => {
-    console.log(checkin);
-    navigate("/checindetails", { state: { checkin } });
-  };
-  const handleAddNewCheckin = () => {
-    navigate("/checkin");
+  const handleDetail = (appointment) => {
+    console.log(appointment);
+    navigate("/AppointmentDetails", { state: { appointment } });
   };
   return (
     <div className="bg-white p-5 rounded-2xl shadow-2xl w-[100%] min-h-[500px]">
-      <div>
+      {/* <div>
         <span
           className={
             statusFilter === "All"
@@ -165,16 +176,6 @@ function CheckinListContent({ email, role }) {
         </span>
         <span
           className={
-            statusFilter === "1"
-              ? "font-bold text-3xl mr-[100px] text-gradientLeft "
-              : "font-bold text-3xl mr-[100px] text-[#c5c4c4]"
-          }
-          onClick={() => handleFilter("1")}
-        >
-          EXAMINATING
-        </span>
-        <span
-          className={
             statusFilter === "2"
               ? "font-bold text-3xl mr-[100px] text-gradientLeft "
               : "font-bold text-3xl mr-[100px] text-[#c5c4c4]"
@@ -183,18 +184,8 @@ function CheckinListContent({ email, role }) {
         >
           COMPLETED
         </span>
-        <span
-          className={
-            statusFilter === "3"
-              ? "font-bold text-3xl mr-[100px] text-gradientLeft "
-              : "font-bold text-3xl mr-[100px] text-[#c5c4c4]"
-          }
-          onClick={() => handleFilter("3")}
-        >
-          CANCEL
-        </span>
-      </div>
-      <div className="w-[100%] h-[50px] flex justify-between mb-[5rem]">
+      </div> */}
+      <div className="w-[100%] h-[50px]">
         <div className="mt-[40px] h-[50px] w-[30%] border-[1px] rounded-2xl flex border-[#c5c4c4] ml-[10px]">
           <button className="w-[15%]">
             <BiSearch className="text-[25px] ml-[13px] text-[#c5c4c4]" />
@@ -205,40 +196,22 @@ function CheckinListContent({ email, role }) {
             onChange={handleSearchInputChange}
           />
         </div>
-        {role == "NURSE" ? (
-          <>
-            <div className="h-[50px] w-[50%] flex justify-end items-center pt-[8rem]">
-              <div
-                className="  w-[40%] h-[40px] flex items-center justify-center rounded-3xl cursor-pointer"
-                onClick={handleAddNewCheckin}
-              >
-                <span className="font-medium underline text-success ">
-                  Add new check-in
-                </span>
-              </div>
-            </div>
-          </>
-        ) : (
-          <></>
-        )}
       </div>
-      <div className=" min-h-[550px]">
-        <table>
-          <thead className="h-[100px]">
-            <tr className="text-[30px]">
-              {listtitle.map((data) => (
-                <th
-                  key={data.id}
-                  className=" text-[#8d8b8b] w-[1%] text-center"
-                >
-                  {data.title}
-                </th>
-              ))}
-            </tr>
-          </thead>
-        </table>
+      <div className="">
         <div>
           <table className="w-[100%]">
+            <thead className="h-[100px]">
+              <tr className="text-[30px]">
+                {listtitle.map((data) => (
+                  <th
+                    key={data.id}
+                    className=" text-[#8d8b8b] w-[1%] text-center"
+                  >
+                    {data.title}
+                  </th>
+                ))}
+              </tr>
+            </thead>
             <tbody className="w-[100%] h-[200px]">
               {listData.map((listD) => (
                 <tr
@@ -251,38 +224,36 @@ function CheckinListContent({ email, role }) {
                     {listD != undefined ? listD.id : ""}
                   </td>
                   <td className="w-[13%]">
-                    {listD != undefined ? listD.patientName : ""}
+                    {listD != undefined ? listD.appointment.patientName : ""}
                   </td>
                   <td className="w-[13%]">
                     <p className="ml-[20%]">
                       {listD != undefined ? listD.examDate : ""}
                     </p>
                   </td>
-
+                  <td className="w-[12%]">
+                    {listD != undefined ? listD.examTime : ""}
+                  </td>
                   {/* <td className="w-[12%]">
                     {listD != undefined ? listD.commandFlag : ""}
                   </td> */}
-                  <td className="w-[12%]">
+                  {/* <td className="w-[12%]">
                     <p
                       className={`w-[70%] h-[30px] rounded-2xl ml-[14%] pt-[3px] text-white ${
                         listD.commandFlag == "0"
-                          ? "bg-[#9747ff]"
-                          : listD.commandFlag == "1"
-                          ? "bg-[#6c87ae]"
+                          ? "bg-warning"
                           : listD.commandFlag == "2"
-                          ? "bg-success"
-                          : "bg-error"
+                          ? "bg-error"
+                          : "bg-success"
                       }`}
                     >
                       {listD.commandFlag == 0
-                        ? "Checked-in"
+                        ? "Pending"
                         : listD.commandFlag == 1
-                        ? "Examining"
-                        : listD.commandFlag == 2
-                        ? "Completed"
+                        ? "Approved"
                         : "Cancel"}
                     </p>
-                  </td>
+                  </td> */}
                   <td className="pb-[10px] pt-[10px]  w-[13%]">
                     <button
                       className="w-[80%] h-[40px] bg-gradientLeft rounded-3xl text-white "
@@ -328,4 +299,4 @@ function CheckinListContent({ email, role }) {
     </div>
   );
 }
-export default CheckinListContent;
+export default SchedulesContent;

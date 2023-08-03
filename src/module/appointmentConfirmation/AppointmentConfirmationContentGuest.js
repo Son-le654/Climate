@@ -9,7 +9,6 @@ function AppointmentConfirmationContentGuest({ appointment }) {
   const tabButtons1 = "Return to previous";
   const tabButtons2 = "Appointment confirmation";
 
-  const [type, setType] = useState("Appointment confirmation");
   const navigate = useNavigate();
 
   const [datas, setDatas] = useState([
@@ -40,19 +39,15 @@ function AppointmentConfirmationContentGuest({ appointment }) {
       console.log(error);
     }
   }, []);
-  console.log(appointment);
+  // console.log(appointment);
   const confirm = async () => {
-    console.log(appointment);
+    // console.log(appointment);
     var response;
     if (role == "NURSE") {
       response = await axios.post(
         publicPort + `appointment/bookapproveguest`,
         appointment
       );
-      // response = await axios.post(
-      //   publicPort + `appointment/bookapproveguest`,
-      //   appointment
-      // );
     } else {
       response = await axios.post(
         publicPort + `appointment/saveguest`,
@@ -64,30 +59,12 @@ function AppointmentConfirmationContentGuest({ appointment }) {
     if (response.data === "success" && role == "NURSE") {
       navigate("/appointments");
     } else {
+      alert(
+        "Thank you for your appointment, please wait for a call to confirm this appointment."
+      );
       navigate("/");
     }
   };
-
-  // const [formattedDate, setFormatDate] = useState();
-  // useEffect(() => {
-  //   if (appointment != undefined) {
-  //     // Get the offset between UTC and your local time zone in minutes
-  //     const offsetMinutes = appointment.bookDate.getTimezoneOffset();
-
-  //     // Convert the original date to your local time zone
-  //     const localDate = new Date(
-  //       appointment.bookDate.getTime() - offsetMinutes * 60 * 1000
-  //     );
-
-  //     // Format the local date as a string with the desired format
-  //     const formattedDate = localDate
-  //       .toISOString()
-  //       .slice(0, 10)
-  //       .replace(/-/g, "/");
-
-  //     setFormatDate(formattedDate);
-  //   }
-  // }, [appointment]);
 
   const goBack = () => {
     navigate("/book_appointment_guest");

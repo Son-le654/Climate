@@ -1,43 +1,43 @@
 import React from "react";
-import startImg from "../../../Images/Star.png";
 const listCmt = [
   {
     id: 1,
     comment:
       "As the first member to enter into operation and mark the presence of the Clinicmate Healthcare brand, Clinicmate plays a uniquely important role in the system's development. Each...",
-    photo: "https://demoda.vn/wp-content/uploads/2022/03/anh-anime-co-don-1.jpg",
-    fullname: "Clinicmate's Birthday: Breakthroughs with Special Professional Milestones",
-    title: "read more"
+    photo:
+      "https://demoda.vn/wp-content/uploads/2022/03/anh-anime-co-don-1.jpg",
+    fullname:
+      "Clinicmate's Birthday: Breakthroughs with Special Professional Milestones",
+    title: "read more",
   },
   {
     id: 2,
     comment:
       "Clinicmate collaborates with the International Liver Cancer Epidemiology Consortium (ILCEC) and the Asian Coordinating Council for Epidemiology (ACC) to organize the annual conference...",
-    photo: "https://demoda.vn/wp-content/uploads/2022/03/anh-anime-co-don-1.jpg",
-    fullname: "Clinicmate shares numerous scientific studies at the ACC & ILCEC Conference",
-    title: "read more"
+    photo:
+      "https://demoda.vn/wp-content/uploads/2022/03/anh-anime-co-don-1.jpg",
+    fullname:
+      "Clinicmate shares numerous scientific studies at the ACC & ILCEC Conference",
+    title: "read more",
   },
   {
     id: 3,
     comment:
       "Each year, over 9.6 million people die from cancer worldwide, surpassing the number of deaths from HIV/AIDS, malaria, and tuberculosis combined. It is estimated that by 2030, the number of deaths from cancer...",
-    photo: "https://demoda.vn/wp-content/uploads/2022/03/anh-anime-co-don-1.jpg",
-    fullname: "World Cancer Day on February 4th: Clinicmate commits to providing differentiated and effective care for cancer patients in Vietnam",
-    title: "read more"
+    photo:
+      "https://demoda.vn/wp-content/uploads/2022/03/anh-anime-co-don-1.jpg",
+    fullname:
+      "World Cancer Day on February 4th: Clinicmate commits to providing differentiated and effective care for cancer patients in Vietnam",
+    title: "read more",
   },
 ];
 const LatestNewService = () => {
   return (
     <div>
-      {
-        listCmt.length > 0 &&
+      {listCmt.length > 0 &&
         listCmt?.map((item) => {
           return (
-
-            <div
-              className="pb-[50px] bg-white  gap-8 "
-              key={item.id}
-            >
+            <div className="pb-[50px] bg-white  gap-8 " key={item.id}>
               <div className=" flex items-center gap-4">
                 <div className="w-[35%] h-[200px] rounded-[20px] overflow-hidden">
                   <img src={item.photo} alt="" />
@@ -58,9 +58,8 @@ const LatestNewService = () => {
               </div>
             </div>
           );
-        })
-      }
-    </div >
+        })}
+    </div>
   );
 };
 

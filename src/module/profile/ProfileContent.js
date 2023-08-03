@@ -15,9 +15,9 @@ import { publicPort } from "components/url/link";
 import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
-function ProfileContent({ mail }) {
+function ProfileContent({ mail, role }) {
   const [infor, setInfor] = useState({
-    avatar: "" 
+    avatar: "",
   });
   const [imageData, setImageData] = useState(null);
   const navigate = useNavigate();
@@ -43,7 +43,7 @@ function ProfileContent({ mail }) {
   }, []);
 
   useEffect(() => {
-    console.log(mail);
+    // console.log(mail);
     const storedName = localStorage.getItem("token");
     if (storedName == null) {
       navigate("/login-user");
@@ -60,10 +60,15 @@ function ProfileContent({ mail }) {
     const listApp = async () => {
       try {
         let response;
-
-        response = await axios.get(
-          publicPort + `patient/profile?email=${mail}`
-        );
+        if (role == "USER") {
+          response = await axios.get(
+            publicPort + `patient/profile?email=${mail}`
+          );
+        } else {
+          response = await axios.get(
+            publicPort + `api/internal-accounts/search-email?email=${mail}`
+          );
+        }
         console.log(response.data);
         setInfor(response.data);
       } catch (error) {
@@ -90,9 +95,12 @@ function ProfileContent({ mail }) {
     const fetchImage = async () => {
       if (infor.avatar) {
         try {
-          const response = await axios.get(publicPort + `images/${infor.avatar}`, {
-            responseType: "blob", // set thành kiểu blob
-          });
+          const response = await axios.get(
+            publicPort + `images/${infor.avatar}`,
+            {
+              responseType: "blob", // set thành kiểu blob
+            }
+          );
 
           // Đọc dữ liệu hình ảnh và chuyển đổi nó thành chuỗi base64
           const reader = new FileReader();
@@ -109,7 +117,6 @@ function ProfileContent({ mail }) {
     fetchImage();
   }, [infor.avatar]);
 
-
   const handleEditAccount = () => {
     navigate("/editprofile", { state: { mail } });
   };
@@ -117,6 +124,10 @@ function ProfileContent({ mail }) {
   const handleChangePass = () => {
     const email = mail;
     navigate("/choosenewpassword", { state: { email } });
+  };
+
+  const handleVerify = () => {
+    navigate("/verifyregister", { state: { mail } });
   };
 
   return (
@@ -137,9 +148,25 @@ function ProfileContent({ mail }) {
                   <h1 className="w-[100%] h-[30px] font-bold text-[20px] ">
                     {infor != undefined ? infor.name : ""}
                   </h1>
-                  <p className="w-[100%] h-[30px] text-[#9f9c9c] text-[15px] ">
-                    {infor != undefined ? infor.address : ""}
-                  </p>
+                  {role == "USER" ? (
+                    <p className="w-[100%] h-[30px] text-[#9f9c9c] text-[15px] ">
+                      {infor != undefined ? infor.address : ""}
+                    </p>
+                  ) : (
+                    <p className="w-[100%] h-[30px] text-[#9f9c9c] text-[15px] ">
+                      {infor != undefined && infor.role != undefined
+                        ? infor.role.name
+                        : ""}{" "}
+                      -{" "}
+                      {infor != undefined && infor.specialty != undefined
+                        ? infor.specialty.name
+                        : ""}{" "}
+                      -{" "}
+                      {infor != undefined && infor.workingPlace != undefined
+                        ? infor.workingPlace.name
+                        : ""}
+                    </p>
+                  )}
                 </div>
               </div>
               {mail == viewer ? (
@@ -298,7 +325,14 @@ function ProfileContent({ mail }) {
                       )}
                     </p>
                   </span>
-                  <MdKeyboardArrowRight className=" text-[30px] text-[#a4a0a0] w-[20%] cursor-pointer" />
+                  <MdKeyboardArrowRight
+                    onClick={() =>
+                      infor.commandFlag === 0 &&
+                      role === "USER" &&
+                      handleVerify()
+                    }
+                    className=" text-[30px] text-[#a4a0a0] w-[20%] cursor-pointer"
+                  />
                 </div>
               </div>
             </div>

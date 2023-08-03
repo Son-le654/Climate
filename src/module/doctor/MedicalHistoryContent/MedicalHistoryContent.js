@@ -1,58 +1,10 @@
 import axios from "axios";
 import { publicPort } from "components/url/link";
+import jwtDecode from "jwt-decode";
 import React, { useEffect, useState } from "react";
 import { GoSearch } from "react-icons/go";
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-
-const listData = [
-  {
-    id: 1,
-    month: "February",
-    day: "13th",
-    name: "Nguyen Quang Hung",
-    phone: "0817411132",
-    type: "Nutrition",
-    time: "10:30, 12/06/2023",
-  },
-  {
-    id: 2,
-    month: "February",
-    day: "13th",
-    name: "Nguyen Quang Hung",
-    phone: "0817411132",
-    type: "Nutrition",
-    time: "10:30, 12/06/2023",
-  },
-
-  {
-    id: 3,
-    month: "February",
-    day: "13th",
-    name: "Nguyen Quang Hung",
-    phone: "0817411132",
-    type: "Nutrition",
-    time: "10:30, 12/06/2023",
-  },
-  {
-    id: 4,
-    month: "February",
-    day: "13th",
-    name: "Nguyen Quang Hung",
-    phone: "0817411132",
-    type: "Nutrition",
-    time: "10:30, 12/06/2023",
-  },
-  {
-    id: 5,
-    month: "February",
-    day: "13th",
-    name: "Nguyen Quang Hung",
-    phone: "0817411132",
-    type: "Nutrition",
-    time: "10:30, 12/06/2023",
-  },
-];
 
 function MedicalHistoryContent({ email, role }) {
   const [listData, setListData] = useState([]);
@@ -61,6 +13,17 @@ function MedicalHistoryContent({ email, role }) {
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+  const [Email, setMail] = useState();
+  const [rol, setRol] = useState();
+  // const [time, settime] = useState();
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     settime(1); // reload the component after 1 second
+  //   }, 1000);
+
+  //   return () => clearTimeout(timer); // clear the timer on unmount
+  // }, []);
 
   function handlePageClick(event, pageNumber) {
     event.preventDefault();
@@ -78,31 +41,47 @@ function MedicalHistoryContent({ email, role }) {
   }
   const navigate = useNavigate();
   useEffect(() => {
+    // console.log(email);
+    if (email == undefined) {
+      setMail(email);
+    }
+    let r;
+    let m;
+
+    const storedName = localStorage.getItem("token");
+    try {
+      const decoded = jwtDecode(storedName);
+      const role = decoded.roles[0].authority;
+      r = role;
+      setRol(role);
+      setMail(decoded.sub);
+      m = decoded.sub;
+      // console.log(decoded.sub);
+    } catch (error) {
+      console.log(error);
+    }
     const listApp = async () => {
       try {
         let response;
         let response1;
         if (role == "DOCTOR") {
           response = await axios.get(
-            publicPort + `api/internal-accounts/search-email?email=${email}`
+            publicPort + `api/internal-accounts/search-email?email=${m}`
           );
 
           response1 = await axios.get(
             publicPort + `medicalrecord/listByDoctorId?id=${response.data.id}`
           );
         } else if (role == "USER") {
-          response = await axios.get(
-            publicPort + `patient/profile?email=${email}`
-          );
+          response = await axios.get(publicPort + `patient/profile?email=${m}`);
 
           response1 = await axios.get(
-            publicPort +
-              `medicalrecord/listByPatientId?id=${response.data.id}`
+            publicPort + `medicalrecord/listByPatientId?id=${response.data.id}`
           );
         } else {
           response1 = await axios.get(publicPort + `medicalrecord/list`);
         }
-        console.log(response1.data);
+        // console.log(response1.data);
         setListOrigin(response1.data);
         setListData(response1.data);
       } catch (error) {
@@ -110,10 +89,28 @@ function MedicalHistoryContent({ email, role }) {
       }
     };
     listApp();
-  }, [email, role]);
+  }, [Email, rol]);
+
+  useEffect(() => {
+    setListData(listOrigin?.slice(indexOfFirstItem, indexOfLastItem));
+  }, [itemsPerPage, currentPage]);
 
   const handleDetails = (checkin) => {
     navigate("/medicaldetails", { state: { checkin } });
+  };
+
+  const handleSearchInputChange = (event) => {
+    let searchInput = event.target.value;
+    if (searchInput === "") {
+      setListData(listOrigin);
+    } else {
+      const filteredList = listOrigin?.filter((item) =>
+        item.checkin?.patientName
+          ?.toLowerCase()
+          .includes(searchInput.toLowerCase())
+      );
+      setListData(filteredList);
+    }
   };
   return (
     <div className="bg-white">
@@ -123,7 +120,11 @@ function MedicalHistoryContent({ email, role }) {
         </div>
         <div className="h-[50px] w-[50%] flex justify-end items-center">
           <div className="border-[1px] border-[#dddddd]  w-[40%] h-[40px] flex items-center justify-center rounded-3xl cursor-pointer">
-            <input className="w-[80%] h-[100%]" placeholder="Search Patient" />
+            <input
+              onChange={handleSearchInputChange}
+              className="w-[80%] h-[100%]"
+              placeholder="Search "
+            />
             <span className="font-medium text-[#dddddd] w-[10%] text-[30px]">
               <GoSearch />
             </span>
@@ -173,16 +174,7 @@ function MedicalHistoryContent({ email, role }) {
           </div>
         ))}
       </div>
-      <div className="" style={{ textAlign: "center" }}>
-        <button className="button text-[30px] w-10 h-10 bg-gradientLeft mr-[30px]">
-          {/*  */}
-          <MdKeyboardArrowLeft className="ml-[2px]" />
-        </button>
-        <button className="button text-[30px] w-10 h-10 bg-gradientLeft">
-          {/*  */}
-          <MdKeyboardArrowRight className="ml-[3px]" />
-        </button>
-      </div>
+
       <div className="" style={{ textAlign: "center" }}>
         {/* <button className="button text-[30px] w-10 h-10 bg-gradientLeft mr-[30px]">
           <MdKeyboardArrowLeft className="ml-[2px]" />

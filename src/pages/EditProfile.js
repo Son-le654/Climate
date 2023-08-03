@@ -56,6 +56,7 @@ function EditProfile() {
       <div className="bg-white">
         <Footer />
       </div>
+
     </div>
   );
 }

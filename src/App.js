@@ -120,6 +120,10 @@ function App() {
       <Route path="/patients" element={<PatientsPage />}></Route>
       <Route path="/doctors" element={<DoctorsPage />}></Route>
       <Route path="/internals" element={<InternalAccountsPage />}></Route>
+      <Route path="/locations" element={<LocationsPage />}></Route>
+      <Route path="/symptoms" element={<SymptomsPage />}></Route>
+      <Route path="/specs" element={<SpecialtiesPage />}></Route>
+      <Route path="/roles" element={<RolesPage />}></Route>
       <Route
         path="/appointmentConfirmation"
         element={<AppointmentConfirmation />}
@@ -142,13 +146,19 @@ function App() {
       ></Route>
       <Route path="/about" element={<About />}></Route>
       <Route path="/listDoctor" element={<ListDoctor />}></Route>
-      <Route path="/doctorinformation" element={<DoctorInformation />}></Route>
+      <Route path="/listDoctorForAll" element={<ListDoctorPageForAll />}></Route>
+      <Route path="/listPatientForAll" element={<ListPatientPageForAll />}></Route>
       <Route path="/verifyregister" element={<VerifyRegister />}></Route>
       <Route path="/test" element={<SampleDateSort />}></Route>
+      <Route path="/doctorinformation" element={<DoctorInformation />}></Route>
       {/* staff */}
       <Route
         path="/informationdoctorstaff"
         element={<DoctorInformationStaff />}
+      ></Route>
+      <Route
+        path="/informationpatientstaff"
+        element={<PatientInformationStaff />}
       ></Route>
       {/* Forgot password */}
       <Route
@@ -194,7 +204,6 @@ function App() {
       <Route path="/newspage" element={<NewsPage />}></Route>
       <Route path="/listofappointment" element={<ListOfAppointment />}></Route>
       <Route path="/adminpages" element={<AdminPages />}></Route>
-
     </Routes>
   );
 }

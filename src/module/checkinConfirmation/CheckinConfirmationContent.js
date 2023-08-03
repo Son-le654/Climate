@@ -9,7 +9,6 @@ function CheckinConfirmationContent({ checkin }) {
   const tabButtons1 = "Return to previous";
   const tabButtons2 = "Check-in confirmation";
 
-  const [type, setType] = useState("Appointment confirmation");
   const navigate = useNavigate();
 
   const [datas, setDatas] = useState([
@@ -45,7 +44,6 @@ function CheckinConfirmationContent({ checkin }) {
     console.log(checkin);
     var response;
     if (role == "NURSE") {
-      // response = await axios.post(publicPort + `checkin/save11`, checkin);
       response = await axios.post(publicPort + `checkin/save`, checkin);
     }
     console.log(response);
@@ -56,26 +54,6 @@ function CheckinConfirmationContent({ checkin }) {
       alert(response.data);
     }
   };
-  // const [formattedDate, setFormatDate] = useState();
-  // useEffect(() => {
-  //   if (checkin != undefined) {
-  //     // Get the offset between UTC and your local time zone in minutes
-  //     const offsetMinutes = checkin.bookDate.getTimezoneOffset();
-
-  //     // Convert the original date to your local time zone
-  //     const localDate = new Date(
-  //       checkin.bookDate.getTime() - offsetMinutes * 60 * 1000
-  //     );
-
-  //     // Format the local date as a string with the desired format
-  //     const formattedDate = localDate
-  //       .toISOString()
-  //       .slice(0, 10)
-  //       .replace(/-/g, "/");
-
-  //     setFormatDate(formattedDate);
-  //   }
-  // }, [checkin]);
 
   const goBack = () => {
     navigate("/checkin");

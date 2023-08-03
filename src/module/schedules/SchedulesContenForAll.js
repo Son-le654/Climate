@@ -9,7 +9,7 @@ import Slider from "react-slick";
 import { useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 
-function SchedulesContent({ email, role }) {
+function SchedulesContenForAll({ email, role }) {
   const [sortedObjects, setSortedObjects] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
@@ -55,36 +55,19 @@ function SchedulesContent({ email, role }) {
   // });
 
   useEffect(() => {
-    console.log(mail);
+    // console.log(mail);
     if (mail == undefined) {
       setMail(email);
     }
-    let r;
-    let m;
-
-    const storedName = localStorage.getItem("token");
-    try {
-      const decoded = jwtDecode(storedName);
-      const role = decoded.roles[0].authority;
-      r = role;
-      setRol(role);
-      setMail(decoded.sub);
-      m = decoded.sub;
-      console.log(decoded.sub);
-    } catch (error) {
-      console.log(error);
-    }
+   
 
     const listApp = async () => {
       try {
         let response;
-        if (r == "DOCTOR") {
           response = await axios.get(
-            publicPort + `schedule/listschedules?email=${m}`
+            publicPort + `schedule/listschedules?email=${mail}`
           );
-        } else {
-          response = await axios.get(publicPort + `schedule/list`);
-        }
+        
         setListOrigin(response.data);
         setListData(response.data);
       } catch (error) {
@@ -92,7 +75,7 @@ function SchedulesContent({ email, role }) {
       }
     };
     listApp();
-  }, [email, rol]);
+  }, [email, role]);
 
   useEffect(() => {
     setListData(listOrigin.slice(indexOfFirstItem, indexOfLastItem));
@@ -152,7 +135,7 @@ function SchedulesContent({ email, role }) {
   };
   return (
     <div className="bg-white p-5 rounded-2xl shadow-2xl w-[100%] min-h-[500px]">
-      <div>
+      {/* <div>
         <span
           className={
             statusFilter === "All"
@@ -183,7 +166,7 @@ function SchedulesContent({ email, role }) {
         >
           COMPLETED
         </span>
-      </div>
+      </div> */}
       <div className="w-[100%] h-[50px]">
         <div className="mt-[40px] h-[50px] w-[30%] border-[1px] rounded-2xl flex border-[#c5c4c4] ml-[10px]">
           <button className="w-[15%]">
@@ -196,23 +179,21 @@ function SchedulesContent({ email, role }) {
           />
         </div>
       </div>
-      <div className=" min-h-[550px]">
-        <table>
-          <thead className="h-[100px]">
-            <tr className="text-[30px]">
-              {listtitle.map((data) => (
-                <th
-                  key={data.id}
-                  className=" text-[#8d8b8b] w-[1%] text-center"
-                >
-                  {data.title}
-                </th>
-              ))}
-            </tr>
-          </thead>
-        </table>
+      <div className="">
         <div>
           <table className="w-[100%]">
+            <thead className="h-[100px]">
+              <tr className="text-[30px]">
+                {listtitle.map((data) => (
+                  <th
+                    key={data.id}
+                    className=" text-[#8d8b8b] w-[1%] text-center"
+                  >
+                    {data.title}
+                  </th>
+                ))}
+              </tr>
+            </thead>
             <tbody className="w-[100%] h-[200px]">
               {listData.map((listD) => (
                 <tr
@@ -300,4 +281,4 @@ function SchedulesContent({ email, role }) {
     </div>
   );
 }
-export default SchedulesContent;
+export default SchedulesContenForAll;
