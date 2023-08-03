@@ -65,8 +65,6 @@ import SymptomsPage from "pages/admin/SymptomsPage";
 import ListDoctorPageForAll from "pages/ListDoctorPageForAll";
 import ListPatientPageForAll from "pages/ListPatientPageForAll";
 import PatientInformationStaff from "pages/staff/PatientInformationStaff";
-import ListOfDoctor from "./pages/doctor/ListOfDoctor";
-import EditProfileDoctor from "pages/doctor/EditProfileDoctor";
 
 function App() {
   const storedName = localStorage.getItem("token");
