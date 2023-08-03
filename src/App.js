@@ -179,7 +179,16 @@ function App() {
 
       <Route path="/profilepage" element={<ProfilePage />}></Route>
       <Route path="/editprofile" element={<EditProfile />}></Route>
-      <Route path="/faq" element={<FaqPage />}></Route>
+      <Route path="/editlocation" element={<EditLocation />}></Route>
+      <Route path="/editspec" element={<EditSpec />}></Route>
+      <Route path="/editrole" element={<EditRole />}></Route>
+      <Route path="/editsymptom" element={<EditSymptom />}></Route>
+
+      <Route path="/createacc" element={<CreateNewInternalAcc />}></Route>
+      <Route path="/createlocation" element={<CreateNewLocation />}></Route>
+      <Route path="/createspec" element={<CreateNewSpec />}></Route>
+      <Route path="/createrole" element={<CreateNewRole />}></Route>
+      <Route path="/createsymptom" element={<CreateNewSymptom />}></Route>
 
       <Route path="/profilepagestaff" element={<ProfilePageForStaff />}></Route>
       <Route path="/newspage" element={<NewsPage />}></Route>

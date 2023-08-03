@@ -1,28 +1,29 @@
-import React, { useEffect, useState } from "react";
-import HomeHeaderServiceNurse from "../module/home/HomeHeaderServiceNurse";
-import AppointmentsContent from "../module/appointments/AppointmentsContent";
+import HomeHeaderService from "../module/home/HomeHeaderService";
 import Footer from "../module/home/Footer";
+import EditProfileContent from "../module/profile/EditProfileContent";
 import jwtDecode from "jwt-decode";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import HomeHeaderService from "module/home/HomeHeaderService";
 import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
+import HomeHeaderServiceNurse from "module/home/HomeHeaderServiceNurse";
 
-const AppointmentsPage = () => {
+function EditProfile() {
   const navigate = useNavigate();
   const [role, setRole] = useState("");
-  const [mail, setmail] = useState("");
+  const [mail, setMail] = useState("");
 
   useEffect(() => {
     const storedName = localStorage.getItem("token");
     if (storedName == null) {
-      navigate("/login");
+      navigate("/login-user");
     } else {
       try {
         const decoded = jwtDecode(storedName);
         const role = decoded.roles[0].authority;
+        const mal = decoded.sub;
+        setMail(mal);
         setRole(role);
-        setmail(decoded.sub);
-        // if (role !== 'NURSE') {
+        // if (role !== 'USER') {
         //   navigate("/")
         // }
       } catch (error) {
@@ -32,26 +33,30 @@ const AppointmentsPage = () => {
   }, []);
 
   return (
-    <>
+    <div className="w-[100%] min-h-[1000px] bg-white ">
+      <div className="w-[100%] flex justify-center">
+        <div className="w-[80%] min-h-[1000px] bg-white">
+          <div className="bg-white">
+            {role == "USER" ? (
+              <HomeHeaderService></HomeHeaderService>
+            ) : role == "NURSE" ? (
+              <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
+            ) : (
+              <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
+            )}
+          </div>
+          <div className="w-[100%] h-[200px] flex items-center">
+            <h1 className="text-[40px] font-bold"> Edit Profile</h1>
+          </div>
+          <div className="bg-white">
+            <EditProfileContent />
+          </div>
+        </div>
+      </div>
       <div className="bg-white">
-        {role == "DOCTOR" ? (
-          <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
-        ) : role == "NURSE" ? (
-          <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
-        ) : (
-          <HomeHeaderService></HomeHeaderService>
-        )}
+        <Footer />
       </div>
-      <div className="pt-[80px] pl-[190px] text-7xl font-bold py-[20px] bg-white">
-        <h1>Appointments</h1>
-      </div>
-      <div className="bg-white" style={{ padding: "5% 12%" }}>
-        <AppointmentsContent role={role} mail={mail}></AppointmentsContent>
-      </div>
-      <div>
-        <Footer></Footer>
-      </div>
-    </>
+    </div>
   );
-};
-export default AppointmentsPage;
+}
+export default EditProfile;
