@@ -2,7 +2,7 @@ import AdminContentCurveChart from "./Content/AdminContentCurveChart"
 import AdminContentRow from "./Content/AdminContentRow"
 import AdminContentSpecialty from "./Content/AdminContentSpecialty"
 import AdminContentInfor from "./Content/AdminContentInfor"
-
+import React from "react";
 
 function AdminContent() {
     return (
