@@ -26,6 +26,7 @@ import VerifyRegisterForgot from "../src/pages/forgotpassword/VerifyRegisterForg
 import ChooseNewPassword from "../src/pages/forgotpassword/ChooseNewPassword";
 import AppointmentDetails from "../src/pages/doctor/AppointmentDetails";
 import MedicalHistory from "../src/pages/doctor/MedicalHistory";
+
 import AppointmentDetailsPageForNurse from "./pages/AppointmentDetailsPageForNurse";
 import SchedulesPage from "./pages/SchedulesPage";
 import React from "react";
@@ -38,14 +39,13 @@ import CheckinDetails from "pages/doctor/CheckinDetails";
 import UpdateAppointmentPage from "pages/UpdateAppointmentPage";
 import AppointmentConfirmUpdatePage from "pages/AppointmentConfirmUpdatePage";
 import EditProfile from "pages/EditProfile";
-import FaqPage from "pages/FaqPage";
 import ProfilePage from "pages/ProfilePage";
 import NewsPage from "guest/NewsPage";
 import ProfilePageForStaff from "pages/ProfilePageForStaff";
+import EditProfileContentForStaff from "module/profile/EditProfileContentForStaff";
 import MedicalRecordDetails from "pages/doctor/MedicalRecordDetails";
 import PatientsPage from "pages/PatientsPage";
 import DoctorsPage from "pages/DoctorsPage";
-import InternalAccountsPage from "pages/InternalAccountsPage";
 import ListOfAppointment from "../src/pages/ListOfAppointment";
 import AdminPages from "./pages/admin/AdminPages";
 import EditLocation from "pages/EditLocation";

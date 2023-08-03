@@ -53,10 +53,128 @@ function AdminContentInfor() {
   const [showList1, setShowList1] = useState(true);
   const [showList2, setShowList2] = useState(false);
 
-  const handleShowList1 = () => {
-    setShowList1(true);
-    setShowList2(false);
-  };
+  const listOrigin = [
+    {
+      id: 10002,
+      nameSepcial: "Dr. Melissa Martinez",
+      online: 11,
+      examination: 134,
+    },
+    {
+      id: 10002,
+      nameSepcial: "Dr. Melissa Martinez",
+      online: 20,
+      examination: 134,
+    },
+    {
+      id: 10002,
+      nameSepcial: "Dr. Melissa Martinez",
+      online: 35,
+      examination: 134,
+    },
+    {
+      id: 10002,
+      nameSepcial: "Dr. Melissa Martinez",
+      online: 18,
+      examination: 134,
+    },
+    {
+      id: 10002,
+      nameSepcial: "Dr. Melissa Martinez",
+      online: 30,
+      examination: 134,
+    },
+    {
+      id: 10002,
+      nameSepcial: "Dr. Melissa Martinez ",
+      online: 14,
+      examination: 134,
+    },
+    {
+      id: 10002,
+      nameSepcial: "Dr. Melissa Martinez ",
+      online: 25,
+      examination: 134,
+    },
+    {
+      id: 10002,
+      nameSepcial: "Dr. Melissa Martinez ",
+      online: 12,
+      examination: 134,
+    },
+    {
+      id: 10002,
+      nameSepcial: "Dr. Melissa Martinez ",
+      online: 38,
+      examination: 134,
+    },
+    {
+      id: 10002,
+      nameSepcial: "Dr. Melissa Martinez",
+      online: 29,
+      examination: 134,
+    },
+    {
+      id: 10002,
+      nameSepcial: "Dr. Melissa Martinez",
+      online: 17,
+      examination: 134,
+    },
+    {
+      id: 10002,
+      nameSepcial: "Dr. Melissa Martinez",
+      online: 32,
+      examination: 134,
+    },
+    {
+      id: 10002,
+      nameSepcial: "Dr. Melissa Martinez",
+      online: 22,
+      examination: 134,
+    },
+    {
+      id: 10002,
+      nameSepcial: "Dr. Melissa Martinez",
+      online: 19,
+      examination: 134,
+    },
+    {
+      id: 10002,
+      nameSepcial: "Dr. Melissa Martinez",
+      online: 40,
+      examination: 134,
+    },
+    {
+      id: 10002,
+      nameSepcial: "Dr. Melissa Martinez",
+      online: 13,
+      examination: 134,
+    },
+    {
+      id: 10002,
+      nameSepcial: "Dr. Melissa Martinez",
+      online: 26,
+      examination: 134,
+    },
+    {
+      id: 10002,
+      nameSepcial: "Dr. Melissa Martinez",
+      online: 10,
+      examination: 134,
+    },
+    {
+      id: 10002,
+      nameSepcial: "Dr. Melissa Martinez",
+      online: 36,
+      examination: 134,
+    },
+    {
+      id: 10002,
+      nameSepcial: "Dr. Melissa Martinez",
+      online: 28,
+      examination: 134,
+    },
+  ];
 
   const handleShowList2 = () => {
     setShowList1(false);
@@ -87,7 +205,7 @@ function AdminContentInfor() {
         </div>
         <div className="flex justify-center h-[50px] items-center">
           <div className="w-[100%]">
-            <div className="flex w-[100%]">
+            <div className="flex w-[100%] ">
               <div className="w-[60%] flex">
                 <div className="w-[45%] flex justify-center">
                   <h5 className="text-[#75a2cf]">ID</h5>
