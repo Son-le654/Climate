@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import imgDoctor from "../../Images/imgAdmin.png";
+import imgDoctor from "../../Images/Doctor2.png";
 import HomeDoctorLookupSevirce from "./part/HomeDoctorLookupSevirce";
 import InformationCatalogueService from "./part/InformationCatalogueService";
 import { useNavigate } from "react-router-dom";

@@ -14,19 +14,19 @@ const ServicePage = () => {
   const [role, setRole] = useState("");
   const navigate = useNavigate();
   const storedName = localStorage.getItem("token");
-  // useEffect(() => {
-  //   if (storedName == null) {
-  //     navigate("/login-user");
-  //   } else {
-  //     try {
-  //       const decoded = jwtDecode(storedName);
-  //       const rol = decoded.roles[0].authority;
-  //       setRole(rol);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (storedName == null) {
+      navigate("/login-user");
+    } else {
+      try {
+        const decoded = jwtDecode(storedName);
+        const rol = decoded.roles[0].authority;
+        setRole(rol);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, []);
   return (
     <>
       <div className="bg-white">
