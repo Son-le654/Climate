@@ -42,7 +42,7 @@ function SolutionContent() {
                                 <span className="text-[35px] w-[15%] h-[40px] bg-[#e4e5ed] flex justify-center items-center rounded-full text-[#efac72]"><BsCalendar3 /></span>
                             </div>
                             <div className="w-[100%] h-[50px] flex items-center">
-                                <h1 className="text-[20px] font-bold">Service</h1>
+                                <h1 className="text-[20px] font-bold">Internal</h1>
                             </div>
                             <div className="w-[100%] h-[130px] ">
                                 <p className="text-[15px] w-[75%]">The appointment management feature in the clinic management application allows users and staff to efficiently manage appointments.</p>

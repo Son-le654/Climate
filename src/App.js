@@ -42,7 +42,7 @@ import EditProfile from "pages/EditProfile";
 import ProfilePage from "pages/ProfilePage";
 import NewsPage from "guest/NewsPage";
 import ProfilePageForStaff from "pages/ProfilePageForStaff";
-import EditProfileContentForStaff from "module/profile/EditProfileContentForStaff";
+
 import MedicalRecordDetails from "pages/doctor/MedicalRecordDetails";
 import PatientsPage from "pages/PatientsPage";
 import DoctorsPage from "pages/DoctorsPage";
@@ -65,6 +65,9 @@ import SymptomsPage from "pages/admin/SymptomsPage";
 import ListDoctorPageForAll from "pages/ListDoctorPageForAll";
 import ListPatientPageForAll from "pages/ListPatientPageForAll";
 import PatientInformationStaff from "pages/staff/PatientInformationStaff";
+import DoctorInformationdetail from "pages/doctor/DoctorInformationdetail";
+import EditProfileDoctor from "pages/doctor/EditProfileDoctor";
+import ListOfDoctor from "pages/doctor/ListOfDoctor";
 
 function App() {
   const storedName = localStorage.getItem("token");
@@ -199,10 +202,7 @@ function App() {
       <Route path="/createspec" element={<CreateNewSpec />}></Route>
       <Route path="/createrole" element={<CreateNewRole />}></Route>
       <Route path="/createsymptom" element={<CreateNewSymptom />}></Route>
-      <Route
-        path="/editprofilestaff"
-        element={<EditProfileContentForStaff />}
-      ></Route>
+
       <Route path="/profilepagestaff" element={<ProfilePageForStaff />}></Route>
       <Route path="/newspage" element={<NewsPage />}></Route>
       <Route path="/listofappointment" element={<ListOfAppointment />}></Route>
