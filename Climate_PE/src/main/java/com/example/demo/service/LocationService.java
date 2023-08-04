@@ -31,7 +31,9 @@ public class LocationService {
 	public Optional<Location> findById(Integer id) {
 		return repository.findById(id);
 	}
-
+	public Location findByIdAcc(String location) {
+		return repository.findLocate(location);
+	}
 	public String blockLocation(Location c) {
 		c.setCommandFlag(2);
 		repository.save(c);

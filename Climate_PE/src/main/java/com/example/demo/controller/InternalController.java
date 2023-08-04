@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -20,9 +21,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.DTO.ApiResponse;
 import com.example.demo.DTO.CountResult;
+import com.example.demo.DTO.CreateAccountDTO;
 import com.example.demo.DTO.CheckinDataDto;
 import com.example.demo.DTO.InternalAccountDTO;
 import com.example.demo.DTO.LoginRequest;
@@ -36,6 +39,8 @@ import com.example.demo.service.JwtResponse;
 import com.example.demo.service.JwtTokenUtil;
 import com.example.demo.service.MedicalRecordService;
 import com.example.demo.service.SpeciatlyService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("/api")
@@ -91,6 +96,22 @@ public class InternalController {
 		System.out.println("enter save: " + account.toString());
 		internalService.save(account);
 		return "success";
+	}
+
+	@PostMapping(value = "/createinter", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public String createinter(@RequestParam("internal") String internalJson,
+			@RequestParam(value = "fileData", required = false) MultipartFile fileData) {
+		CreateAccountDTO account = null;
+		try {
+			ObjectMapper objectMapper = new ObjectMapper();
+			account = objectMapper.readValue(internalJson, CreateAccountDTO.class);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+			return "Invalid JSON data for patient.";
+		}
+		String result = internalService.createprofile(account, fileData);
+
+		return result;
 	}
 
 	@PutMapping("/update")
@@ -204,26 +225,26 @@ public class InternalController {
 		List<Object[]> countCheckinsByDoctor = checkinService.countCheckinsByDoctor();
 		List<CheckinDataDto> checkinDataList = new ArrayList<>();
 
-        // Converting the list of arrays to a list of CheckinData objects
-        for (Object[] objArray : countCheckinsByDoctor) {
-        	CheckinDataDto checkinData = new CheckinDataDto();
-        	CheckinDataDto checkinDatacomple = new CheckinDataDto();
-        	 String doctorIdStr = (String) objArray[0];
-             Long count = (Long) objArray[1];
-            
-             // Parse the doctorId as an Integer
-             Integer doctorId = Integer.parseInt(doctorIdStr);
-        	String doctorName = internalService.findByIdUsingName(doctorId);
-        	 Long countcomplete = medicalRecordService.countOccurrencesByDoctorId(doctorIdStr);
-            checkinData.setName(doctorName);
-            checkinData.setNumber(count);
-            checkinData.setType("Check-in");
-            checkinDataList.add(checkinData);
-            checkinDatacomple.setType("Completed");
-            checkinDatacomple.setName(doctorName);
-            checkinDatacomple.setNumber(countcomplete);
-            checkinDataList.add(checkinDatacomple);
-        }
+		// Converting the list of arrays to a list of CheckinData objects
+		for (Object[] objArray : countCheckinsByDoctor) {
+			CheckinDataDto checkinData = new CheckinDataDto();
+			CheckinDataDto checkinDatacomple = new CheckinDataDto();
+			String doctorIdStr = (String) objArray[0];
+			Long count = (Long) objArray[1];
+
+			// Parse the doctorId as an Integer
+			Integer doctorId = Integer.parseInt(doctorIdStr);
+			String doctorName = internalService.findByIdUsingName(doctorId);
+			Long countcomplete = medicalRecordService.countOccurrencesByDoctorId(doctorIdStr);
+			checkinData.setName(doctorName);
+			checkinData.setNumber(count);
+			checkinData.setType("Check-in");
+			checkinDataList.add(checkinData);
+			checkinDatacomple.setType("Completed");
+			checkinDatacomple.setName(doctorName);
+			checkinDatacomple.setNumber(countcomplete);
+			checkinDataList.add(checkinDatacomple);
+		}
 		return checkinDataList;
 
 	}
