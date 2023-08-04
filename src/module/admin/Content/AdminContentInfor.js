@@ -175,6 +175,11 @@ function AdminContentInfor() {
       examination: 134,
     },
   ];
+  const handleShowList1 = () => {
+    setShowList1(true);
+    setShowList2(false);
+  };
+
   const handleShowList2 = () => {
     setShowList1(false);
     setShowList2(true);
@@ -187,7 +192,7 @@ function AdminContentInfor() {
         <div className="flex w-[100%]">
           <div className="w-[50%] flex justify-center">
             <button
-              onClick={handleShowList2}
+              onClick={handleShowList1}
               className={`bg-[#5463f7] text-[#e6efff] text-[20px] rounded-2xl h-[50px] w-[70%] ${showList1 ? "bg-gradientLeft" : "bg-white"}`}
             >
               {tabButtons1}

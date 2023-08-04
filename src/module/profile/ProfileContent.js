@@ -120,6 +120,9 @@ function ProfileContent({ mail, role }) {
   const handleEditAccount = () => {
     navigate("/editprofile", { state: { mail } });
   };
+  const handleEditAccountStaff = () => {
+    navigate("/editprofilefordoctor", { state: { mail } });
+  };
 
   const handleChangePass = () => {
     const email = mail;
@@ -170,14 +173,23 @@ function ProfileContent({ mail, role }) {
                 </div>
               </div>
               {mail == viewer ? (
-                <div className="w-[20%] flex justify-end">
-                  <span>
-                    <BsPencilSquare
-                      onClick={handleEditAccount}
-                      className="text-[20px] text-gradientLeft cursor-pointer mt-[30px]"
-                    />
-                  </span>
-                </div>
+                role == "USER" ?
+                  <div className="w-[20%] flex justify-end">
+                    <span>
+                      <BsPencilSquare
+                        onClick={handleEditAccount}
+                        className="text-[20px] text-gradientLeft cursor-pointer mt-[30px]"
+                      />
+                    </span>
+                  </div> :
+                  <div className="w-[20%] flex justify-end">
+                    <span>
+                      <BsPencilSquare
+                        onClick={handleEditAccountStaff}
+                        className="text-[20px] text-gradientLeft cursor-pointer mt-[30px]"
+                      />
+                    </span>
+                  </div>
               ) : (
                 <></>
               )}
