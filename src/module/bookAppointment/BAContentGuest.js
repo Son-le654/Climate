@@ -293,6 +293,13 @@ const BAContentGuest = () => {
   };
 
   useEffect(() => {
+    if (showSpec == true) {
+      setDoctor();
+      setSpec();
+    }
+  }, [showSpec]);
+  
+  useEffect(() => {
     setNumberOfSym(symtomArr.length);
   }, [symtomArr]);
 
