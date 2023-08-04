@@ -69,6 +69,8 @@ import DoctorInformationdetail from "pages/doctor/DoctorInformationdetail";
 import EditProfileDoctor from "pages/doctor/EditProfileDoctor";
 import ListOfDoctor from "pages/doctor/ListOfDoctor";
 import FaqPage from "pages/FaqPage";
+import Successfull from "pages/Successfull";
+
 
 function App() {
   const storedName = localStorage.getItem("token");
@@ -197,6 +199,7 @@ function App() {
       <Route path="/editspec" element={<EditSpec />}></Route>
       <Route path="/editrole" element={<EditRole />}></Route>
       <Route path="/editsymptom" element={<EditSymptom />}></Route>
+      <Route path="/successfull" element={<Successfull />}></Route>
 
       <Route path="/createacc" element={<CreateNewInternalAcc />}></Route>
       <Route path="/createlocation" element={<CreateNewLocation />}></Route>

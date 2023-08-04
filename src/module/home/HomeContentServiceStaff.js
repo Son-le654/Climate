@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import imgDoctor from "../../Images/Doctor2.png";
+import imgAdmin from "../../Images/imgAdmin.png";
+import imgDoctor from "../../Images/imgDoctor.png";
+import imgNurseStaff from "../../Images/imgNurseStaff.png";
 import HomeDoctorLookupSevirce from "./part/HomeDoctorLookupSevirce";
 import InformationCatalogueService from "./part/InformationCatalogueService";
 import { useNavigate } from "react-router-dom";
@@ -134,7 +136,14 @@ const HomeContentServiceStaff = () => {
           </div>
         </div>
         <div className="w-[46%]">
-          <img src={imgDoctor} style={{ marginLeft: "96px" }} alt="" />
+
+          {role == "ADMIN" ?
+            <img src={imgAdmin} style={{ marginLeft: "96px" }} alt="" />
+            : role == "DOCTOR" ?
+              <img src={imgDoctor} style={{ marginLeft: "96px" }} alt="" />
+              :
+              <img src={imgNurseStaff} style={{ marginLeft: "96px" }} alt="" />
+          }
         </div>
       </div>
       <div className="bg-[#e2edff] pb-[80px] pt-[40px]">
