@@ -430,8 +430,31 @@ const BAContent = () => {
   };
 
   const bookAppointment = async () => {
+    if (
+      fullName.fname === undefined ||
+      phone.pnum === undefined ||
+      idCard.idC === undefined ||
+      birthday.bday === undefined ||
+      selectedCheckbox === "" ||
+      place === undefined ||
+      spec === undefined ||
+      doctor === undefined ||
+      value === undefined ||
+      hour === ""
+    ) {
+      alert("Please fill all field");
+      return;
+    }
+    if (phone.pnum == undefined || phone.pnum.length != 10) {
+      alert("Phone number must be 10 numbers");
+      return;
+    }
+    if (idCard.idC == undefined || idCard.idC.length != 12) {
+      alert("Identity number must be 12 numbers");
+      return;
+    }
+
     // console.log("Enter book");
-    registers.name = fullName.fname;
     registers.name = fullName.fname;
     registers.phone = phone.pnum;
     registers.idC = idCard.idC;
@@ -460,21 +483,6 @@ const BAContent = () => {
 
     const currentDate = new Date();
     // console.log(registers);
-
-    if (
-      registers.name === undefined ||
-      registers.phone === undefined ||
-      registers.idC === undefined ||
-      registers.birthday === undefined ||
-      registers.gender === "" ||
-      registers.bookPlace === "" ||
-      registers.bookTime === "" ||
-      registers.spec === "" ||
-      registers.doctor === ""
-    ) {
-      alert("Please fill all field");
-      return;
-    }
 
     const bdatee = new Date(registers.birthday);
     if (bdatee > currentDate) {
@@ -743,7 +751,7 @@ const BAContent = () => {
 
             <div className="mt-[3.2rem] shadow-md p-[3.6rem_2.6rem] rounded-[3.2rem]">
               <div className="grid grid-cols-3 gap-[4rem]">
-              {symtomArr.length <= 0 ? (
+                {symtomArr.length <= 0 ? (
                   <></>
                 ) : symtomArr.length > 2 ? (
                   <Booking
