@@ -222,28 +222,28 @@ function CreateNewInternalContent() {
     // profileSave.avatar = selectedFile;
 
     console.log(profileSave);
-    // const formData = new FormData();
+     const formData = new FormData();
 
-    // formData.append("fileData", selectedFile); // Thêm file vào formData
-    // formData.append("patient", JSON.stringify(profileSave)); // Thêm thông tin bệnh nhân vào formData
+    formData.append("fileData", selectedFile); // Thêm file vào formData
+    formData.append("internal", JSON.stringify(profileSave)); // Thêm thông tin bệnh nhân vào formData
 
-    // var response;
-    // response = await axios.post(
-    //   publicPort + "patient/updateprofile", //thay doi api save
-    //   formData,
-    //   {
-    //     headers: {
-    //       "Content-Type": "multipart/form-data", // Đặt header để server hiểu là gửi dữ liệu dạng multipart/form-data
-    //     },
-    //   }
-    // );
-    // console.log(response);
+    var response;
+    response = await axios.post(
+      publicPort + "api/createinter", //thay doi api save
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data", // Đặt header để server hiểu là gửi dữ liệu dạng multipart/form-data
+        },
+      }
+    );
+    console.log(response);
 
-    // if (response.data === "Update success") {
-    //   navigate("/profilepage");
-    // } else {
-    //   window.alert(response.data);
-    // }
+    if (response.data === "Create success") {
+      navigate("/internals");
+    } else {
+      window.alert(response.data);
+    }
   };
   return (
     <div className="w-[100%] min-h-[1000px] bg-white">

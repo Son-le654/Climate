@@ -14,9 +14,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.DTO.CreateAccountDTO;
+import com.example.demo.DTO.PatientDTO;
 import com.example.demo.entity.InternalAccount;
+import com.example.demo.entity.Patient;
 import com.example.demo.entity.Role;
 import com.example.demo.repository.InternalRepository;
 
@@ -25,6 +30,18 @@ public class InternalService implements UserDetailsService {
 
 	@Autowired
 	private InternalRepository internalRepository;
+	
+	@Autowired
+	private ImageService imageService;
+	
+	@Autowired
+	private RoleService service;
+	@Autowired
+	private SpeciatlyService speciatlyService;
+	
+	@Autowired
+	private LocationService locationService;
+
 
 	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Role role) {
 		return Collections.singleton(new SimpleGrantedAuthority(role.getName()));
@@ -120,5 +137,26 @@ public class InternalService implements UserDetailsService {
 		internalRepository.save(c);
 		return "success";
 	}
-
+	public String createprofile(CreateAccountDTO internalAccount, MultipartFile fileData) {	
+		InternalAccount account = new InternalAccount();
+		account.setEmail(internalAccount.getEmail());
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String hashedPassword = passwordEncoder.encode(internalAccount.getPassword());
+		account.setPassword(hashedPassword);
+		account.setName(internalAccount.getName());
+		account.setRole(service.findByIdac(Integer.parseInt(internalAccount.getRole())));
+		account.setSpecialty(speciatlyService.findByIdAcc(Integer.parseInt(internalAccount.getSpecialty())));
+		account.setWorkingPlace(locationService.findByIdAcc(internalAccount.getLocation()));
+		if (fileData != null) {
+			String avartar = imageService.uploadImage(fileData);
+			if (!avartar.equals("Cannot upload file")) {
+				account.setAvatar(avartar);
+			}
+			if (avartar.equals("Cannot upload file")) {
+				return "Update no success";
+			}
+		}
+		internalRepository.save(account);
+		return "Create success";
+	}
 }

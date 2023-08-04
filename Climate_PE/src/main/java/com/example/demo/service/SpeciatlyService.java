@@ -40,6 +40,9 @@ public class SpeciatlyService {
 	public Optional<Specialty> findById(Integer id) {
 		return repository.findById(id);
 	}
+	public Specialty findByIdAcc(int id) {
+		return repository.getSpById(id);
+	}
 
 	public String blockSpec(Specialty c) {
 		c.setCommandFlag(2);
