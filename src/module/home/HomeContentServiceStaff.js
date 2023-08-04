@@ -138,7 +138,13 @@ const HomeContentServiceStaff = () => {
       <div className="bg-[#e2edff] pb-[80px] pt-[40px]">
         <div className="max-w-[1156px] mx-auto">
           {/* <HomeDoctorLookupSevirce></HomeDoctorLookupSevirce> */}
-          <SolutionContent />
+          {role == "ADMIN" ?
+            <SolutionContent />
+            : role == "DOCTOR" ?
+              <></>
+              :
+              <></>
+          }
         </div>
       </div>
       <div className="max-w-[1156px] mx-auto pt-[70px]">
