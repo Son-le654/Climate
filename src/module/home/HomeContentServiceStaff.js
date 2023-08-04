@@ -8,6 +8,8 @@ import LatestNewService from "./part/LatestNewService";
 import { publicPort } from "../../components/url/link";
 import jwtDecode from "jwt-decode";
 import SolutionContent from "./ContentService/SolutionContent";
+import SolutionContentDoctor from "./ContentService/SolutionContentDoctor";
+import SolutionContentNurse from "./ContentService/SolutionContentNurse";
 const HomeContentServiceStaff = () => {
   const tabButtons = ["In-Person", "E - consultations"];
   const [type, setType] = useState("In-Person");
@@ -141,9 +143,9 @@ const HomeContentServiceStaff = () => {
           {role == "ADMIN" ?
             <SolutionContent />
             : role == "DOCTOR" ?
-              <></>
+              <SolutionContentDoctor />
               :
-              <></>
+              <SolutionContentNurse />
           }
         </div>
       </div>
@@ -171,7 +173,7 @@ const HomeContentServiceStaff = () => {
           <LatestNewService />
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

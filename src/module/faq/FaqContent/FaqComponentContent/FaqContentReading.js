@@ -1,17 +1,11 @@
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import React, { useState } from "react";
 import { useCollapse } from "react-collapsed";
-import FaqContentAccount from './FaqComponentContent/FaqContentAccount';
-import FaqContentAppointment from './FaqComponentContent/FaqContentAppointment';
-import FaqContentCreating from './FaqComponentContent/FaqContentCreating';
-import FaqContentReading from './FaqComponentContent/FaqContentReading';
-import FaqContentViewing from './FaqComponentContent/FaqContentViewing';
+import { BsFillInfoCircleFill } from "react-icons/bs";
 
-
-function FaqContent() {
-    //staff
-    const [isIcon, setIsicon] = useState(false);
-    const [isExpanded, setExpanded] = useState(true);
+function FaqContentAccount() {
+    const [isIcon, setIsicon] = useState(true);
+    const [isExpanded, setExpanded] = useState(false);
     const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded });
 
     function handleOnClick() {
@@ -20,15 +14,16 @@ function FaqContent() {
     }
     return (
         <div>
-            <div className="w-[100%] rounded-3xl">
+            <div className="w-[100%] rounded-3xl bg-white">
                 <div className="w-[100%] flex  h-[70px]">
                     <div className="w-[70%] rounded-3xl h-[35px]">
                         {isExpanded ? (
                             <div className="h-[100px] w-[100%] cursor-pointer ">
                                 <div className="w-[100%] flex">
-                                    <div className="w-[50%]">
-                                        <h1 className="text-[25px] text-gradientLeft" >
-                                            About ClinicMate
+                                    <div className="w-[100%]">
+                                        <h1 className="text-[25px]   text-gradientLeft" >
+                                            Feature: Reading news from CLINICMATE.IO.VN
+
                                         </h1>
                                     </div>
                                 </div>
@@ -36,9 +31,9 @@ function FaqContent() {
                         ) : (
                             <div className="h-[100px] w-[100%] cursor-pointer ">
                                 <div className="w-[100%] flex">
-                                    <div className="w-[50%]">
-                                        <h1 className="text-[25px]   text-gradientLeft" >
-                                            About ClinicMate
+                                    <div className="w-[100%]">
+                                        <h1 className="text-[25px]  text-gradientLeft" >
+                                            Feature: Reading news from CLINICMATE.IO.VN
                                         </h1>
                                     </div>
                                 </div>
@@ -86,6 +81,7 @@ function FaqContent() {
                                 <div className="w-[100%] min-h-[100px]  flex justify-center">
                                     <p className="text-[21px] font-light w-[95%] ml-[15px]">
                                         In version 1.0, Clinicmate has 9 basic features: registration and login, news reading, calling Clinicmate hospitals, appointment booking and reminders, viewing examination results and medical history at Vinmec, Clinicmate customer health code, and viewing general health examination results. In subsequent versions, Clinicmate will have many other notable features.
+
                                     </p>
                                 </div>
                             </div>
@@ -103,28 +99,8 @@ function FaqContent() {
                     </div>
                 </div>
             </div>
-            <div className="w-[100%] rounded-3xl">
-                <FaqContentAccount />
-            </div>
-            <div className="w-[100%] rounded-3xl">
-                <FaqContentReading />
-            </div>
-            <div className="w-[100%] rounded-3xl">
-                <FaqContentAppointment />
-            </div>
-            <div className="w-[100%] rounded-3xl">
-                <FaqContentCreating />
-            </div>
-            <div className="w-[100%] rounded-3xl">
-                <FaqContentViewing />
-            </div>
-            <div className='w-[100%] min-h-[200px] '>
-                <p className="text-[18px] w-[95%]">
-                    In case you cannot find the information you need, please contact us via the email address hello@clinicmate.io.vn or any hotline number of the Clinicmate private clinic system. We are always ready to serve and listen to your feedback and suggestions.
-                </p>
-            </div>
         </div>
     );
 };
 
-export default FaqContent
+export default FaqContentAccount

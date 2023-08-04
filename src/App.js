@@ -68,6 +68,7 @@ import PatientInformationStaff from "pages/staff/PatientInformationStaff";
 import DoctorInformationdetail from "pages/doctor/DoctorInformationdetail";
 import EditProfileDoctor from "pages/doctor/EditProfileDoctor";
 import ListOfDoctor from "pages/doctor/ListOfDoctor";
+import FaqPage from "pages/FaqPage";
 
 function App() {
   const storedName = localStorage.getItem("token");
@@ -207,8 +208,8 @@ function App() {
       <Route path="/newspage" element={<NewsPage />}></Route>
       <Route path="/listofappointment" element={<ListOfAppointment />}></Route>
       <Route path="/adminpages" element={<AdminPages />}></Route>
+      <Route path="/faq" element={<FaqPage />}></Route>
     </Routes>
   );
 }
-
 export default App;
