@@ -39,7 +39,7 @@ function EditProfileContentForDoctor() {
   };
   return (
     <div className="w-[100%] min-h-[1200px] ">
-      <div className="w-[100%] min-h-[900px] bg-white flex ">
+      <div className="w-[100%] min-h-[30%] bg-white flex ">
         <div className="w-[60%] ">
           <div className="w-[95%] h-[120px] mb-[10px] ">
             <div className="w-[90%] h-[50px]">
@@ -137,40 +137,9 @@ function EditProfileContentForDoctor() {
                 </div>
               </div>
             </div>
-            <div className="w-[100%] h-[120px] mb-[10px]">
-              <div className="w-[100%] h-[50px]">
-                <h1 className=" text-[25px] font-bold">
-                  Specialty
-                </h1>
-              </div>
-              <div className=" flex justify-start w-[100%]">
-                <div className="h-[70px] w-[95%] border-[1px] rounded-2xl border-[#c5c4c4] flex">
-                  <input
-                    placeholder="Intensive Care - Emergency"
-                    className="w-[80%] h-[100%] ml-[10px] text-[20px] "
-                  />
-
-                </div>
-              </div>
-            </div>
-            <div className="w-[100%] h-[120px] mb-[10px]">
-              <div className="w-[100%] h-[50px]">
-                <h1 className=" text-[25px] font-bold">
-                  Roles and permissions
-                </h1>
-              </div>
-              <div className=" flex justify-start w-[100%]">
-                <div className="h-[70px] w-[95%] border-[1px] rounded-2xl border-[#c5c4c4] flex">
-                  <input
-                    placeholder="Doctor"
-                    className="w-[80%] h-[100%] ml-[10px] text-[20px] "
-                  />
-                </div>
-              </div>
-            </div>
           </div>
         </div>
-        <div className="w-[40%] h-[780px]">
+        <div className="w-[40%] h-[40%]">
           <div className=" w-[100%] h-[150px]  mb-[10px] ">
             <div className="font-medium w-[100%] h-[150px]">
               <h1 className="h-[48px] text-[20px] font-bold">Introduction</h1>
@@ -219,33 +188,40 @@ function EditProfileContentForDoctor() {
               </div>
             </div>
           </div>
-          <div className="w-[95%] h-[120px] mb-[10px]">
-            <div className="w-[90%] h-[30px] mb-[15px]">
-              <h1 className=" text-[20px] font-bold">Book, Research Work</h1>
-            </div>
-            <div className=" flex justify-start w-[100%]">
-              <div className="h-[70px] w-[100%] border-[1px] rounded-2xl border-[#c5c4c4]">
-                <input
-                  className="w-[90%] h-[100%] ml-[10px] text-[20px] "
-                />
-              </div>
-            </div>
-          </div>
-          <div className="w-[95%] h-[120px] mb-[10px]">
-            <div className="w-[90%] h-[30px] mb-[15px]">
-              <h1 className=" text-[20px] font-bold">Languages</h1>
-            </div>
-            <div className=" flex justify-start w-[100%]">
-              <div className="h-[70px] w-[100%] border-[1px] rounded-2xl border-[#c5c4c4]">
-                <input
-                  className="w-[90%] h-[100%] ml-[10px] text-[20px] "
-                />
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       <div>
+      <div className="w-[100%] h-[120px] mb-[10px]">
+              <div className="w-[100%] h-[50px]">
+                <h1 className=" text-[25px] font-bold">
+                  Specialty
+                </h1>
+              </div>
+              <div className=" flex justify-start w-[100%]">
+                <div className="h-[70px] w-[98%] border-[1px] rounded-2xl border-[#c5c4c4] flex">
+                  <input
+                    placeholder="Intensive Care - Emergency"
+                    className="w-[80%] h-[100%] ml-[10px] text-[20px] "
+                  />
+
+                </div>
+              </div>
+            </div>
+            <div className="w-[100%] h-[120px] mb-[10px]">
+              <div className="w-[100%] h-[50px]">
+                <h1 className=" text-[25px] font-bold">
+                  Roles and permissions
+                </h1>
+              </div>
+              <div className=" flex justify-start w-[100%]">
+                <div className="h-[70px] w-[98%] border-[1px] rounded-2xl border-[#c5c4c4] flex">
+                  <input
+                    placeholder="Doctor"
+                    className="w-[80%] h-[100%] ml-[10px] text-[20px] "
+                  />
+                </div>
+              </div>
+            </div>
         <div className="w-[100%] h-[120px] mb-[10px]">
           <div className="w-[100%] h-[50px]">
             <h1 className=" text-[25px] font-bold">Choose an image</h1>
