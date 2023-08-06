@@ -393,6 +393,29 @@ const CIContent = () => {
   };
 
   const bookAppointment = async () => {
+
+    if (
+      fullName.fname === undefined ||
+      phone.pnum === undefined ||
+      birthday.bday === undefined ||
+      selectedCheckbox === "" ||
+      place === undefined ||
+      spec === undefined ||
+      doctor === undefined
+    ) {
+      alert("Please fill all field");
+      return;
+    }
+
+    if (phone.pnum == undefined || phone.pnum.length != 10) {
+      alert("Phone number must be 10 numbers");
+      return;
+    }
+    if (idCard.idC != undefined && idCard.idC.length != 12) {
+      alert("Identity number must be 12 numbers");
+      return;
+    }
+
     registers.name = fullName.fname;
     registers.phone = phone.pnum;
     registers.idC = idCard.idC;
@@ -410,18 +433,6 @@ const CIContent = () => {
 
     const currentDate = new Date();
     // console.log("log: " + registers);
-    if (
-      registers.name === undefined ||
-      registers.phone === undefined ||
-      registers.birthday === undefined ||
-      registers.gender === "" ||
-      registers.bookPlace === "" ||
-      registers.spec === "" ||
-      registers.doctor === ""
-    ) {
-      alert("Please fill all field");
-      return;
-    }
 
     const bdatee = new Date(registers.birthday);
     if (bdatee > currentDate) {

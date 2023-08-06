@@ -288,7 +288,16 @@ const BAContentGuest = () => {
   const nextSpec = () => {
     setShowSysptom(false);
     setShowSpec(true);
+    setDoctor();
+    setSpec();
   };
+
+  useEffect(() => {
+    if (showSpec == true) {
+      setDoctor();
+      setSpec();
+    }
+  }, [showSpec]);
 
   useEffect(() => {
     setNumberOfSym(symtomArr.length);
@@ -358,6 +367,25 @@ const BAContentGuest = () => {
   };
 
   const bookAppointment = async () => {
+    if (
+      fullName.fname === undefined ||
+      phone.pnum === undefined ||
+      birthday.bday === undefined ||
+      selectedCheckbox === "" ||
+      place === undefined ||
+      spec === undefined ||
+      doctor === undefined ||
+      value === undefined ||
+      hour === ""
+    ) {
+      alert("Please fill all field");
+      return;
+    }
+
+    if (phone.pnum == undefined || phone.pnum.length != 10) {
+      alert("Phone number must be 10 numbers");
+      return;
+    }
     registers.name = fullName.fname;
     registers.phone = phone.pnum;
     registers.birthday = birthday.bday;
@@ -385,19 +413,6 @@ const BAContentGuest = () => {
 
     const currentDate = new Date();
 
-    if (
-      registers.name === undefined ||
-      registers.phone === undefined ||
-      registers.birthday === undefined ||
-      registers.gender === "" ||
-      registers.bookPlace === "" ||
-      registers.bookTime === "" ||
-      registers.spec === "" ||
-      registers.doctor === ""
-    ) {
-      alert("Please fill all field");
-      return;
-    }
     const bdatee = new Date(registers.birthday);
     if (bdatee > currentDate) {
       alert("Birthdate is not valid");
@@ -590,6 +605,11 @@ const BAContentGuest = () => {
                       ";" +
                       "......"
                     }
+                  ></Booking>
+                ) : symtomArr.length == 2 ? (
+                  <Booking
+                    icon={<IconSysptomvl />}
+                    value={symtomArr[0].name + "; " + symtomArr[1].name}
                   ></Booking>
                 ) : (
                   <Booking

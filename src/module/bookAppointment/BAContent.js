@@ -347,7 +347,16 @@ const BAContent = () => {
   const nextSpec = () => {
     setShowSysptom(false);
     setShowSpec(true);
+    setDoctor();
+    setSpec();
   };
+
+  useEffect(() => {
+    if (showSpec == true) {
+      setDoctor();
+      setSpec();
+    }
+  }, [showSpec]);
 
   useEffect(() => {
     setNumberOfSym(symtomArr.length);
@@ -421,8 +430,31 @@ const BAContent = () => {
   };
 
   const bookAppointment = async () => {
+    if (
+      fullName.fname === undefined ||
+      phone.pnum === undefined ||
+      idCard.idC === undefined ||
+      birthday.bday === undefined ||
+      selectedCheckbox === "" ||
+      place === undefined ||
+      spec === undefined ||
+      doctor === undefined ||
+      value === undefined ||
+      hour === ""
+    ) {
+      alert("Please fill all field");
+      return;
+    }
+    if (phone.pnum == undefined || phone.pnum.length != 10) {
+      alert("Phone number must be 10 numbers");
+      return;
+    }
+    if (idCard.idC == undefined || idCard.idC.length != 12) {
+      alert("Identity number must be 12 numbers");
+      return;
+    }
+
     // console.log("Enter book");
-    registers.name = fullName.fname;
     registers.name = fullName.fname;
     registers.phone = phone.pnum;
     registers.idC = idCard.idC;
@@ -451,21 +483,6 @@ const BAContent = () => {
 
     const currentDate = new Date();
     // console.log(registers);
-
-    if (
-      registers.name === undefined ||
-      registers.phone === undefined ||
-      registers.idC === undefined ||
-      registers.birthday === undefined ||
-      registers.gender === "" ||
-      registers.bookPlace === "" ||
-      registers.bookTime === "" ||
-      registers.spec === "" ||
-      registers.doctor === ""
-    ) {
-      alert("Please fill all field");
-      return;
-    }
 
     const bdatee = new Date(registers.birthday);
     if (bdatee > currentDate) {
@@ -746,6 +763,11 @@ const BAContent = () => {
                       ";" +
                       "......"
                     }
+                  ></Booking>
+                ) : symtomArr.length == 2 ? (
+                  <Booking
+                    icon={<IconSysptomvl />}
+                    value={symtomArr[0].name + "; " + symtomArr[1].name}
                   ></Booking>
                 ) : (
                   <Booking

@@ -141,7 +141,7 @@ function SchedulesContent({ email, role }) {
       setListData(listOrigin);
     } else {
       const filteredList = listOrigin?.filter((item) =>
-        item.appointment?.patientName?.toLowerCase().includes(searchInput.toLowerCase())
+        item.examDate.includes(searchInput)
       );
       setListData(filteredList);
     }
@@ -191,7 +191,7 @@ function SchedulesContent({ email, role }) {
             <BiSearch className="text-[25px] ml-[13px] text-[#c5c4c4]" />
           </button>
           <input
-            placeholder="Search"
+            placeholder="Search examination date"
             className="w-[83%] h-[100%] "
             onChange={handleSearchInputChange}
           />

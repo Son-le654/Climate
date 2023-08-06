@@ -114,7 +114,7 @@ function MedicalHistoryContent({ email, role }) {
   };
   return (
     <div className="bg-white">
-      <div className="flex w-[100%] items-center pb-[30px]">
+      <div className="flex w-[100%] items-center pb-[30px] mt-[5rem]">
         <div className=" w-[50%]  text-6xl font-bold">
           <h1>Medical History</h1>
         </div>

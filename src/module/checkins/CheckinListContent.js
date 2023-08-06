@@ -192,7 +192,7 @@ function CheckinListContent({ email, role }) {
           }
           onClick={() => handleFilter("0")}
         >
-          INCOME
+          CHECKIN
         </span>
         <span
           className={

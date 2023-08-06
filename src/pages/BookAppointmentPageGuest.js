@@ -19,7 +19,7 @@ const BookAppointmentPageGuest = () => {
   }, []);
   return (
     <div className="bg-white">
-      {role == "" ? (
+      {/* {role == "" ? (
         <BookAppHeaderGuest></BookAppHeaderGuest>
       ) : role == "NURSE" ? (
         <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
@@ -27,7 +27,8 @@ const BookAppointmentPageGuest = () => {
         <BookAppHeader></BookAppHeader>
       ) : (
         <></>
-      )}
+      )} */}
+      <BookAppHeader></BookAppHeader>
 
       <div>
         <Outlet></Outlet>
