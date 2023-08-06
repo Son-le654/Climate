@@ -9,7 +9,9 @@ import { useNavigate } from "react-router-dom";
 function EditProfileContent() {
   const tabButtons1 = "Cancel ";
   const tabButtons2 = "Save profile";
+  // @ts-ignore
   const [active, setActive] = useState(false);
+  // @ts-ignore
   const [selectedStaff, setSelectedStaff] = useState(null);
   const navigate = useNavigate();
   const [staffs] = useState([
@@ -88,6 +90,11 @@ function EditProfileContent() {
       pnum: "",
     },
   ]);
+
+  const handleCancel = () => {
+    // Go back to the previous page
+    window.history.back();
+  };
 
   const handleChangeName = (event) => {
     const { name, value } = event.target;
@@ -193,7 +200,9 @@ function EditProfileContent() {
       } else {
         try {
           const decoded = jwtDecode(storedName);
+          // @ts-ignore
           const role = decoded.roles[0].authority;
+          // @ts-ignore
           const mal = decoded.sub;
           response = await axios.get(
             publicPort + `patient/profile?email=${mal}`
@@ -203,21 +212,29 @@ function EditProfileContent() {
           const profile = response.data;
           if (profile != undefined) {
             console.log(profile);
+            // @ts-ignore
             setIdCard({ idC: profile.id });
+            // @ts-ignore
             setFullName({ fname: profile.name });
+            // @ts-ignore
             setEmailp({ emp: profile.email });
+            // @ts-ignore
             setBirthDay({ bday: profile.birthDate });
+            // @ts-ignore
             setAddresss({ adr: profile.address });
+            // @ts-ignore
             setGender({ gd: profile.gender });
+            // @ts-ignore
             setAvatar({ avt: profile.avatar });
+            // @ts-ignore
             setPhonee({ pnum: profile.phone });
 
             const [year, month, day] = profile.birthDate.split("/");
-            console.log(year); // Output: "2021"
-            console.log(month); // Output: "01"
-            console.log(day);
+            // @ts-ignore
             setYear({ bY: year });
+            // @ts-ignore
             setMonth({ bM: month });
+            // @ts-ignore
             setDate({ bD: day });
           }
         } catch (error) {
@@ -228,6 +245,7 @@ function EditProfileContent() {
     listApp();
   }, []);
 
+  // @ts-ignore
   const handleSelectChange = (event) => {
     const selectID = parseInt(event.target.value);
     const selected = staffs.find((staff) => staff.id === selectID);
@@ -266,15 +284,24 @@ function EditProfileContent() {
   };
   const handleSave = async () => {
     console.log("Enter save");
+    // @ts-ignore
     profileSave.id = idCard.idC;
+    // @ts-ignore
     profileSave.name = fullName.fname;
+    // @ts-ignore
     profileSave.email = emailP.emp;
-    profileSave.birthdate = year.bY + "/" + month.bM + "/" + date.bD;
+    // @ts-ignore
+    let monthString = month.bM < 10 ? "0" + month.bM : month.bM.toString();
+    profileSave.birthdate = year.bY + "/" + monthString + "/" + date.bD;
+    // @ts-ignore
     profileSave.address = addresss.adr;
+    // @ts-ignore
     profileSave.gender = gender.gd;
+    // @ts-ignore
     profileSave.avatar = avatar.avt;
     // profileSave.avatar = selectedFile;
 
+    // @ts-ignore
     profileSave.phone = phonee.pnum;
 
     console.log(profileSave);
@@ -313,6 +340,7 @@ function EditProfileContent() {
             <input
               placeholder="Full name"
               onChange={handleChangeName}
+              // @ts-ignore
               value={fullName.fname}
               name="fname"
               className="w-[90%] h-[100%] ml-[10px] text-[20px] "
@@ -329,6 +357,7 @@ function EditProfileContent() {
             <input
               disabled={true}
               placeholder="Email"
+              // @ts-ignore
               value={emailP.emp}
               name="emp"
               className="w-[80%] h-[100%] ml-[10px] text-[20px] "
@@ -344,7 +373,8 @@ function EditProfileContent() {
           <div className="w-[15%] ">
             <select
               className="h-[70px]  pl-[20px] bg-white text-[20px] border-[1px] rounded-[10px] border-[#c5c4c4]"
-              value={month.bM}
+              // @ts-ignore
+              value={parseInt(month.bM, 10)}
               name="bM"
               onChange={handleChangeName}
             >
@@ -360,6 +390,7 @@ function EditProfileContent() {
               placeholder="Day"
               onChange={handleChangeName}
               name="bD"
+              // @ts-ignore
               value={date.bD}
               className="w-[80%] h-[100%] ml-[10px] text-[20px] "
             />
@@ -368,6 +399,7 @@ function EditProfileContent() {
             <input
               placeholder="Year"
               onChange={handleChangeName}
+              // @ts-ignore
               value={year.bY}
               name="bY"
               className="w-[80%] h-[100%] ml-[10px] text-[20px] "
@@ -377,6 +409,7 @@ function EditProfileContent() {
             <select
               className="h-[70px] w-[68%] pl-[20px] bg-white text-[20px] border-[1px] rounded-[10px] border-[#c5c4c4]"
               onChange={handleChangeName}
+              // @ts-ignore
               value={gender.gd}
               name="gd"
             >
@@ -397,6 +430,7 @@ function EditProfileContent() {
               <input
                 placeholder="Phone number"
                 onChange={handleChangeName}
+                // @ts-ignore
                 value={phonee.pnum}
                 name="pnum"
                 className="w-[80%] h-[100%] ml-[10px] text-[20px] "
@@ -413,6 +447,7 @@ function EditProfileContent() {
               <input
                 placeholder="Address"
                 onChange={handleChangeName}
+                // @ts-ignore
                 value={addresss.adr}
                 name="adr"
                 className="w-[80%] h-[100%] ml-[10px] text-[20px] "
@@ -432,6 +467,7 @@ function EditProfileContent() {
                 disabled={true}
                 placeholder="ID Card"
                 onChange={handleChangeName}
+                // @ts-ignore
                 value={idCard.idC}
                 name="idC"
                 className="w-[80%] h-[100%] ml-[10px] text-[20px] "
@@ -470,6 +506,7 @@ function EditProfileContent() {
                 borderColor: "#5562f7",
                 color: "#5562f7",
               }}
+              onClick={handleCancel}
             >
               {tabButtons1}
             </button>

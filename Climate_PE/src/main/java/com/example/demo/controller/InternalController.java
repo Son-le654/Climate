@@ -29,6 +29,7 @@ import com.example.demo.DTO.CreateAccountDTO;
 import com.example.demo.DTO.CheckinDataDto;
 import com.example.demo.DTO.InternalAccountDTO;
 import com.example.demo.DTO.LoginRequest;
+import com.example.demo.DTO.PatientDTO;
 import com.example.demo.entity.InternalAccount;
 import com.example.demo.entity.Specialty;
 import com.example.demo.repository.InternalRepository;
@@ -107,12 +108,28 @@ public class InternalController {
 			account = objectMapper.readValue(internalJson, CreateAccountDTO.class);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
-			return "Invalid JSON data for patient.";
+			return "Invalid JSON data for internal.";
 		}
 		String result = internalService.createprofile(account, fileData);
 
 		return result;
 	}
+	@PostMapping(value = "/updateprofile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public String update(@RequestParam("internal") String internalJson,
+			@RequestParam(value = "fileData", required = false) MultipartFile fileData) {
+        // Convert thông tin bệnh nhân từ JSON thành đối tượng PatientDTO
+		CreateAccountDTO account = null;
+		try {
+			ObjectMapper objectMapper = new ObjectMapper();
+			account = objectMapper.readValue(internalJson, CreateAccountDTO.class);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+			return "Invalid JSON data for internal.";
+		}
+		String result = internalService.updateprofile(account, fileData);
+
+        return result;
+    }
 
 	@PutMapping("/update")
 	public String update(@RequestBody InternalAccount account) {

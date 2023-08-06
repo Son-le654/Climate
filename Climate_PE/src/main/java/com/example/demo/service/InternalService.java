@@ -30,18 +30,17 @@ public class InternalService implements UserDetailsService {
 
 	@Autowired
 	private InternalRepository internalRepository;
-	
+
 	@Autowired
 	private ImageService imageService;
-	
+
 	@Autowired
 	private RoleService service;
 	@Autowired
 	private SpeciatlyService speciatlyService;
-	
+
 	@Autowired
 	private LocationService locationService;
-
 
 	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Role role) {
 		return Collections.singleton(new SimpleGrantedAuthority(role.getName()));
@@ -109,9 +108,11 @@ public class InternalService implements UserDetailsService {
 	public Optional<InternalAccount> findById(Integer id) {
 		return internalRepository.findById(id);
 	}
+
 	public String findByIdUsingName(int id) {
 		return internalRepository.getAccByIdWithnameDoctor(id);
 	}
+
 	public InternalAccount findByName(String doctorName, String location) {
 		return internalRepository.findDoctor(doctorName, location);
 	}
@@ -137,7 +138,11 @@ public class InternalService implements UserDetailsService {
 		internalRepository.save(c);
 		return "success";
 	}
-	public String createprofile(CreateAccountDTO internalAccount, MultipartFile fileData) {	
+
+	public String createprofile(CreateAccountDTO internalAccount, MultipartFile fileData) {
+		if (checkEmailExists(internalAccount.getEmail()) > 0) {
+			return "Email is exits.";
+		}
 		InternalAccount account = new InternalAccount();
 		account.setEmail(internalAccount.getEmail());
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -158,5 +163,47 @@ public class InternalService implements UserDetailsService {
 		}
 		internalRepository.save(account);
 		return "Create success";
+	}
+
+	public String updateprofile(CreateAccountDTO internalAccount, MultipartFile fileData) {
+		if (checkIDExists(Integer.parseInt(internalAccount.getId())) == null) {
+			return "Internal not exists";
+		}
+		InternalAccount account = checkIDExists(Integer.parseInt(internalAccount.getId()));
+		account.setEmail(internalAccount.getEmail());
+		account.setName(internalAccount.getName());
+		account.setBirthDate(internalAccount.getBirthdate());
+		account.setPhone(internalAccount.getPhone());
+		account.setIntroduct(internalAccount.getIntroduct());
+		account.setGender(internalAccount.getGender());
+		account.setEducation(internalAccount.getEducation());
+		account.setYearOfExp(Integer.parseInt(internalAccount.getYearOfExp()));
+		account.setRole(service.findByIdac(Integer.parseInt(internalAccount.getRole())));
+		account.setSpecialty(speciatlyService.findByIdAcc(Integer.parseInt(internalAccount.getSpecialty())));
+		account.setWorkingPlace(locationService.findByIdAcc(internalAccount.getLocation()));
+		account.setAvatar(internalAccount.getAvatar());
+		if (fileData != null) {
+			String avartar = imageService.uploadImage(fileData);
+
+			if (!avartar.equals("Cannot upload file")) {
+				if (!account.isAvatarEmptyOrNull()) {
+					imageService.deleteImage(internalAccount.getAvatar());
+				}
+				account.setAvatar(avartar);
+			}
+			if (avartar.equals("Cannot upload file")) {
+				return "Update no success";
+			}
+		}
+		internalRepository.save(account);
+		return "Update success";
+	}
+	
+	private InternalAccount checkIDExists(int id) {
+		return internalRepository.getAccById(id);
+	}
+	
+	private int checkEmailExists(String email) {
+		return internalRepository.getAccByEmailWithnameDoctor(email);
 	}
 }
