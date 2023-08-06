@@ -98,6 +98,21 @@ function CheckinListContent({ email, role }) {
         } else {
           response1 = await axios.get(publicPort + `checkin/list`);
         }
+        const sortedData = response1.data.sort((a, b) => {
+          // Convert commandFlag values to numbers for comparison (assuming they are strings).
+          const commandFlagA = Number(a.commandFlag);
+          const commandFlagB = Number(b.commandFlag);
+    
+          if (commandFlagA !== commandFlagB) {
+            // Sort by 'commandFlag' in ascending order.
+            return commandFlagA - commandFlagB;
+          } else {
+            // If 'commandFlag' is the same, sort by 'examDate' in ascending order.
+            const examDateA = new Date(a.examDate);
+            const examDateB = new Date(b.examDate);
+            return examDateA - examDateB;
+          }
+        });
         // console.log(response1.data);
         setListOrigin(response1.data);
         setListData(response1.data);
