@@ -36,6 +36,9 @@ public interface InternalRepository extends JpaRepository<InternalAccount, Integ
 	
 	@Query("SELECT ia FROM InternalAccount ia JOIN ia.specialty s WHERE ia.name LIKE %:name% and ia.commandFlag = 0 AND ia.role.name = 'DOCTOR'")
 	InternalAccount findDoctorByName(@Param("name") String name);
+	
+	@Query("SELECT ia FROM InternalAccount ia JOIN ia.specialty s WHERE ia.name LIKE %:name%")
+	InternalAccount findInterByName(@Param("name") String name);
 
 	@Query("SELECT ia FROM InternalAccount ia JOIN ia.specialty s WHERE ia.name LIKE %:name% and ia.commandFlag = 0 AND ia.role.name = 'DOCTOR'")
 	Optional<List<InternalAccount>> findByName(@Param(value = "name") String name);
@@ -48,4 +51,7 @@ public interface InternalRepository extends JpaRepository<InternalAccount, Integ
 	
 	@Query("SELECT ia.name FROM InternalAccount ia WHERE ia.id = :id")
 	String getAccByIdWithnameDoctor(@Param(value = "id") int id);
+	
+	@Query("SELECT COUNT(*) FROM InternalAccount ia WHERE LOWER(ia.email) = LOWER(:email)")
+	int getAccByEmailWithnameDoctor(@Param(value = "email") String email);
 }

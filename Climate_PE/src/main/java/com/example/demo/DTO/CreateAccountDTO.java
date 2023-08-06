@@ -3,6 +3,7 @@ package com.example.demo.DTO;
 import com.example.demo.entity.Role;
 
 public class CreateAccountDTO {
+	private String id;
 	private String name;
 	private String email;
 	private String password;
@@ -10,6 +11,12 @@ public class CreateAccountDTO {
 	private String specialty;
 	private String location;
 	private String avatar;
+	private String yearOfExp;
+	private String introduct;
+	private String education;
+	private String birthdate;
+	private String gender;
+	private String phone;
 
 	public CreateAccountDTO() {
 	}
@@ -70,6 +77,59 @@ public class CreateAccountDTO {
 		this.location = location;
 	}
 
+	public String getYearOfExp() {
+		return yearOfExp;
+	}
+
+	public void setYearOfExp(String yearOfExp) {
+		this.yearOfExp = yearOfExp;
+	}
+
+	public String getIntroduct() {
+		return introduct;
+	}
+
+	public void setIntroduct(String introduct) {
+		this.introduct = introduct;
+	}
+
+	public String getEducation() {
+		return education;
+	}
+
+	public void setEducation(String education) {
+		this.education = education;
+	}
+
+	public String getBirthdate() {
+		return birthdate;
+	}
+	public void setBirthdate(String birthdate) {
+		this.birthdate = birthdate;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 	public CreateAccountDTO(String name, String email, String password, String role, String specialty, String location,
 			String avatar) {
 		super();
@@ -81,5 +141,27 @@ public class CreateAccountDTO {
 		this.location = location;
 		this.avatar = avatar;
 	}
+
+	public CreateAccountDTO(String id, String name, String email, String password, String role, String specialty,
+			String location, String avatar, String yearOfExp, String introduct, String education, String birthdate,
+			String gender, String phone) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.role = role;
+		this.specialty = specialty;
+		this.location = location;
+		this.avatar = avatar;
+		this.yearOfExp = yearOfExp;
+		this.introduct = introduct;
+		this.education = education;
+		this.birthdate = birthdate;
+		this.gender = gender;
+		this.phone = phone;
+	}
+	
+	
 
 }
