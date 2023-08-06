@@ -64,6 +64,9 @@ function DetailedInformationForPatient({ doct }) {
               </div>
             </div>
           </div>
+          <div className="mb-[20px]">
+            <PhoneNumber doct={doct.phone} />
+          </div>
         </div>
         <div className="w-[30%] mr-[5%] ml-[5%] ">
           <div className="mb-[20px]">
@@ -72,9 +75,7 @@ function DetailedInformationForPatient({ doct }) {
           <div className="mb-[20px]">
             <BirthDay doct={doct.birthDate} />
           </div>
-          <div className="mb-[20px]">
-            <PhoneNumber doct={doct.phone} />
-          </div>
+          
         </div>
         <div className="w-[30%]">
           <div className="mb-[20px]">
