@@ -70,7 +70,7 @@ import EditProfileDoctor from "pages/doctor/EditProfileDoctor";
 import ListOfDoctor from "pages/doctor/ListOfDoctor";
 import FaqPage from "pages/FaqPage";
 import Successfull from "pages/Successfull";
-
+import EditInternal from "pages/EditInternal";
 
 function App() {
   const storedName = localStorage.getItem("token");
@@ -152,8 +152,14 @@ function App() {
       ></Route>
       <Route path="/about" element={<About />}></Route>
       <Route path="/listDoctor" element={<ListDoctor />}></Route>
-      <Route path="/listDoctorForAll" element={<ListDoctorPageForAll />}></Route>
-      <Route path="/listPatientForAll" element={<ListPatientPageForAll />}></Route>
+      <Route
+        path="/listDoctorForAll"
+        element={<ListDoctorPageForAll />}
+      ></Route>
+      <Route
+        path="/listPatientForAll"
+        element={<ListPatientPageForAll />}
+      ></Route>
       <Route path="/verifyregister" element={<VerifyRegister />}></Route>
       <Route path="/test" element={<SampleDateSort />}></Route>
       <Route path="/doctorinformation" element={<DoctorInformation />}></Route>
@@ -184,20 +190,29 @@ function App() {
 
       <Route path="/schedules" element={<SchedulesPage />}></Route>
       <Route path="/calendar" element={<MyCalendar />}></Route>
-      <Route path="/appointmentdetails" element={<AppointmentDetails />}></Route>
+      <Route
+        path="/appointmentdetails"
+        element={<AppointmentDetails />}
+      ></Route>
       <Route path="/checindetails" element={<CheckinDetails />}></Route>
       <Route path="/medicaldetails" element={<MedicalRecordDetails />}></Route>
       <Route path="/medicalhistory" element={<MedicalHistory />}></Route>
       <Route path="/listofdoctor" element={<ListOfDoctor />}></Route>
-      <Route path="/doctorinformationdetail" element={<DoctorInformationdetail />}></Route>
-      <Route path="/editprofilefordoctor" element={<EditProfileDoctor />}></Route>
-
+      <Route
+        path="/doctorinformationdetail"
+        element={<DoctorInformationdetail />}
+      ></Route>
+      <Route
+        path="/editprofilefordoctor"
+        element={<EditProfileDoctor />}
+      ></Route>
 
       <Route path="/profilepage" element={<ProfilePage />}></Route>
       <Route path="/editprofile" element={<EditProfile />}></Route>
       <Route path="/editlocation" element={<EditLocation />}></Route>
       <Route path="/editspec" element={<EditSpec />}></Route>
       <Route path="/editrole" element={<EditRole />}></Route>
+      <Route path="/editinternal" element={<EditInternal />}></Route>
       <Route path="/editsymptom" element={<EditSymptom />}></Route>
       <Route path="/successfull" element={<Successfull />}></Route>
 

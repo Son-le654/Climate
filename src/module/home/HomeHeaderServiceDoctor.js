@@ -26,9 +26,6 @@ const HomeNav = [
 
 const MENU_ITEMS = [
   {
-    title: "Account",
-  },
-  {
     title: "Profile",
   },
   {
