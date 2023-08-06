@@ -22,4 +22,7 @@ public interface LocationRepository extends JpaRepository<Location, Integer> {
 
 	@Query("SELECT ia FROM Location ia WHERE ia.id = :id")
 	Location getLoById(@Param(value = "id") int id);
+	
+	@Query("select i from Location i where  CONCAT(i.name, ' - ', i.description) = :location")
+	Location findLocate(@Param(value = "location") String location);
 }

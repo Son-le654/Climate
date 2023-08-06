@@ -42,7 +42,7 @@ import EditProfile from "pages/EditProfile";
 import ProfilePage from "pages/ProfilePage";
 import NewsPage from "guest/NewsPage";
 import ProfilePageForStaff from "pages/ProfilePageForStaff";
-import EditProfileContentForStaff from "module/profile/EditProfileContentForStaff";
+
 import MedicalRecordDetails from "pages/doctor/MedicalRecordDetails";
 import PatientsPage from "pages/PatientsPage";
 import DoctorsPage from "pages/DoctorsPage";
@@ -65,6 +65,12 @@ import SymptomsPage from "pages/admin/SymptomsPage";
 import ListDoctorPageForAll from "pages/ListDoctorPageForAll";
 import ListPatientPageForAll from "pages/ListPatientPageForAll";
 import PatientInformationStaff from "pages/staff/PatientInformationStaff";
+import DoctorInformationdetail from "pages/doctor/DoctorInformationdetail";
+import EditProfileDoctor from "pages/doctor/EditProfileDoctor";
+import ListOfDoctor from "pages/doctor/ListOfDoctor";
+import FaqPage from "pages/FaqPage";
+import Successfull from "pages/Successfull";
+
 
 function App() {
   const storedName = localStorage.getItem("token");
@@ -178,13 +184,14 @@ function App() {
 
       <Route path="/schedules" element={<SchedulesPage />}></Route>
       <Route path="/calendar" element={<MyCalendar />}></Route>
-      <Route
-        path="/appointmentdetails"
-        element={<AppointmentDetails />}
-      ></Route>
+      <Route path="/appointmentdetails" element={<AppointmentDetails />}></Route>
       <Route path="/checindetails" element={<CheckinDetails />}></Route>
       <Route path="/medicaldetails" element={<MedicalRecordDetails />}></Route>
       <Route path="/medicalhistory" element={<MedicalHistory />}></Route>
+      <Route path="/listofdoctor" element={<ListOfDoctor />}></Route>
+      <Route path="/doctorinformationdetail" element={<DoctorInformationdetail />}></Route>
+      <Route path="/editprofilefordoctor" element={<EditProfileDoctor />}></Route>
+
 
       <Route path="/profilepage" element={<ProfilePage />}></Route>
       <Route path="/editprofile" element={<EditProfile />}></Route>
@@ -192,6 +199,7 @@ function App() {
       <Route path="/editspec" element={<EditSpec />}></Route>
       <Route path="/editrole" element={<EditRole />}></Route>
       <Route path="/editsymptom" element={<EditSymptom />}></Route>
+      <Route path="/successfull" element={<Successfull />}></Route>
 
       <Route path="/createacc" element={<CreateNewInternalAcc />}></Route>
       <Route path="/createlocation" element={<CreateNewLocation />}></Route>
@@ -200,15 +208,11 @@ function App() {
       <Route path="/createsymptom" element={<CreateNewSymptom />}></Route>
 
       <Route path="/profilepagestaff" element={<ProfilePageForStaff />}></Route>
-      <Route
-        path="/editprofilestaff"
-        element={<EditProfileContentForStaff />}
-      ></Route>
       <Route path="/newspage" element={<NewsPage />}></Route>
       <Route path="/listofappointment" element={<ListOfAppointment />}></Route>
       <Route path="/adminpages" element={<AdminPages />}></Route>
+      <Route path="/faq" element={<FaqPage />}></Route>
     </Routes>
   );
 }
-
 export default App;

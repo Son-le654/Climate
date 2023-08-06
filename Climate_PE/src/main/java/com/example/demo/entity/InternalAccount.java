@@ -109,6 +109,20 @@ public class InternalAccount {
 		this.commandFlag = 0;
 		this.registerTime = timeNow();
 	}
+	public InternalAccount(String email, String password, String name, Location workingPlace, Role role, Specialty specialty) {
+		super();
+		this.email = email;
+		this.password = password;
+		this.name = name;
+		this.workingPlace = workingPlace;
+		this.role = role;
+		this.specialty = specialty;
+
+		// 0: create, 1: block
+		this.commandFlag = 0;
+		this.registerTime = timeNow();
+	}
+
 
 	public String timeNow() {
 		LocalDateTime currentDateTime = LocalDateTime.now();
@@ -269,5 +283,9 @@ public class InternalAccount {
 				+ introduct + ", registerTime=" + registerTime + ", workingPlace=" + workingPlace + ", role=" + role
 				+ ", specialty=" + specialty + ", schedule=" + schedule + "]";
 	}
+	 public boolean isAvatarEmptyOrNull() {
+	        String avatar = getAvatar();
+	        return avatar == null || avatar.isEmpty();
+	    }
 
 }

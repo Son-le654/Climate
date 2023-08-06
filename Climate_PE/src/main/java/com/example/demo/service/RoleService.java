@@ -40,6 +40,10 @@ public class RoleService {
 	public Optional<Role> findById(Integer id) {
 		return repository.findById(id);
 	}
+	
+	public Role findByIdac(int id) {
+		return repository.getRoById(id);
+	}
 	public String blockRole(Role c) {
 		c.setCommandFlag(2);
 		repository.save(c);

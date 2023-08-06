@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import imgDoctor from "../../Images/Doctor2.png";
+import imgAdmin from "../../Images/imgAdmin.png";
+import imgDoctor from "../../Images/imgDoctor.png";
+import imgNurseStaff from "../../Images/imgNurseStaff.png";
 import HomeDoctorLookupSevirce from "./part/HomeDoctorLookupSevirce";
 import InformationCatalogueService from "./part/InformationCatalogueService";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +9,9 @@ import FeaturedSeliderSevirce from "./part/FeaturedSeliderSevirce";
 import LatestNewService from "./part/LatestNewService";
 import { publicPort } from "../../components/url/link";
 import jwtDecode from "jwt-decode";
-
+import SolutionContent from "./ContentService/SolutionContent";
+import SolutionContentDoctor from "./ContentService/SolutionContentDoctor";
+import SolutionContentNurse from "./ContentService/SolutionContentNurse";
 const HomeContentServiceStaff = () => {
   const tabButtons = ["In-Person", "E - consultations"];
   const [type, setType] = useState("In-Person");
@@ -55,7 +59,7 @@ const HomeContentServiceStaff = () => {
 
   return (
     <div className="bg-white">
-      <div className="flex items-center gap-[141px] justify-between max-w-[1156px] mx-auto">
+      <div className="flex items-center gap-[141px] justify-between max-w-[1156px] mx-auto h-[620px]">
         <div className="flex flex-col w-[590px]">
           <div>
             <span className="text-[32px] font-bold">Hello,</span>
@@ -132,12 +136,26 @@ const HomeContentServiceStaff = () => {
           </div>
         </div>
         <div className="w-[46%]">
-          <img src={imgDoctor} style={{ marginLeft: "96px" }} alt="" />
+
+          {role == "ADMIN" ?
+            <img src={imgAdmin} style={{ marginLeft: "96px" }} alt="" />
+            : role == "DOCTOR" ?
+              <img src={imgDoctor} style={{ marginLeft: "96px" }} alt="" />
+              :
+              <img src={imgNurseStaff} style={{ marginLeft: "96px" }} alt="" />
+          }
         </div>
       </div>
       <div className="bg-[#e2edff] pb-[80px] pt-[40px]">
         <div className="max-w-[1156px] mx-auto">
           {/* <HomeDoctorLookupSevirce></HomeDoctorLookupSevirce> */}
+          {role == "ADMIN" ?
+            <SolutionContent />
+            : role == "DOCTOR" ?
+              <SolutionContentDoctor />
+              :
+              <SolutionContentNurse />
+          }
         </div>
       </div>
       <div className="max-w-[1156px] mx-auto pt-[70px]">
@@ -164,7 +182,7 @@ const HomeContentServiceStaff = () => {
           <LatestNewService />
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

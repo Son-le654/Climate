@@ -58,13 +58,13 @@ const HomeContentService = () => {
                 style={
                   type === tabButton
                     ? {
-                        color: "#ffff",
-                        backgroundColor: "#3681f8",
-                      }
+                      color: "#ffff",
+                      backgroundColor: "#3681f8",
+                    }
                     : {
-                        borderColor: "#5562f7",
-                        color: "#5562f7",
-                      }
+                      borderColor: "#5562f7",
+                      color: "#5562f7",
+                    }
                 }
                 onClick={() => setType(tabButton)}
               >
