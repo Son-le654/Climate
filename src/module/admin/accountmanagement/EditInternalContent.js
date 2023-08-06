@@ -100,6 +100,11 @@ function CreateNewInternalContent({ item }) {
       avt: "",
     },
   ]);
+  const [status, setStatus] = useState([
+    {
+      sT: "",
+    },
+  ]);
 
   useEffect(() => {
     if (item != undefined) {
@@ -109,6 +114,7 @@ function CreateNewInternalContent({ item }) {
       setroleI({ rlI: item.role });
       setspecialtyD({ splD: item.specialty });
       setworkPlc({ wpc: item.workingPlace });
+      setStatus({ sT: item.commandFlag });
     }
   }, [item]);
 
@@ -226,12 +232,18 @@ function CreateNewInternalContent({ item }) {
     specialty: "",
     location: "",
     avatar: "",
+    commandFlag: "",
   };
+  const [flags] = useState([
+    { id: "0", value: "Active" },
+    { id: "2", value: "Block" },
+  ]);
 
   const handleSave = async () => {
     console.log(roleI.rlI);
     console.log(specialtyD.splD);
     console.log(workPlc.wpc);
+    console.log(status.sT);
 
     // console.log("Enter save");
     // profileSave.name = fullName.fname;
@@ -400,6 +412,30 @@ function CreateNewInternalContent({ item }) {
                       {location.name} - {location.description}
                     </option>
                   ))}
+              </select>
+            </div>
+          </div>
+        </div>
+        <div className="w-[100%] h-[120px] mb-[10px]">
+          <div className="w-[100%] h-[50px]">
+            <h1 className=" text-[25px] font-bold">Status</h1>
+          </div>
+          <div className=" flex justify-start w-[100%]">
+            <div className="h-[60px] w-[20%] border-[1px] rounded-2xl border-[#c5c4c4] flex">
+              <select
+                className="h-[60px] w-[100%] pl-[10px] bg-white text-[20px] border-[1px] rounded-[10px] border-[#c5c4c4]"
+                value={status.sT}
+                name="sT"
+                onChange={handleChangeName}
+              >
+                <option selected={true} disabled={true}>
+                  -- Choose Status --
+                </option>
+                {flags.map((staff) => (
+                  <option className="" key={staff.id} value={staff.id}>
+                    {staff.value}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
