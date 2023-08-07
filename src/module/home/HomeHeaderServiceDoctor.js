@@ -102,7 +102,7 @@ const HomeHeaderServiceDoctor = () => {
   };
 
   const handleCheckins = () => {
-    window.location.href = "/checkin-list";
+    window.location.href = "/examination-list";
   };
 
   const handlePatients = () => {
@@ -170,7 +170,7 @@ const HomeHeaderServiceDoctor = () => {
                               margin: "1rem",
                             }}
                           >
-                            <p>List of Appointment</p>
+                            <p>List of Schedule</p>
                           </span>
                           <span
                             onClick={handleCheckins}
@@ -188,7 +188,7 @@ const HomeHeaderServiceDoctor = () => {
 
                       {visibleItem1 === index && (
                         <div
-                          className=" w-[7%] mt-[5rem] ml-[-3rem]"
+                          className=" w-[8%] mt-[5rem] ml-[-3rem]"
                           style={{
                             display: "flex",
                             flexDirection: "column",

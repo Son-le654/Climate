@@ -14,11 +14,11 @@ public interface RoleRepository extends JpaRepository<Role, Integer> {
 
 	@Query("select c from Role c ")
 	List<Role> findAllForAdmin();
-	
+
 	@Query("select c from Role c where c.commandFlag = 0")
 	List<Role> findAll();
 
 	@Query("SELECT ia FROM Role ia WHERE ia.id = :id")
 	Role getRoById(@Param(value = "id") int id);
-	
+
 }
