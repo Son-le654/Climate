@@ -116,7 +116,7 @@ function App() {
       <Route element={<CheckinPage />}>
         <Route path="/checkin" element={<CIContent></CIContent>}></Route>
       </Route>
-      <Route path="/checkin-list" element={<CheckinListPage />}></Route>
+      <Route path="/examination-list" element={<CheckinListPage />}></Route>
 
       <Route path="/register" element={<Register />}></Route>
       <Route path="/login" element={<LoginPage />}></Route>

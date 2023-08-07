@@ -42,35 +42,66 @@ const HomeContentServiceStaff = () => {
   //     clearInterval(interval);
   //   };
   // }, [type, tabButtons]);
+  const handlelocations = () => {
+    navigate("/locations");
+  };
 
-  const handleSchedule = () => {
+  const handleInternals = () => {
+    navigate("/internals");
+  };
+  const handleAppointments = () => {
+    navigate("/appointments");
+  };
+
+  const handleSchedules = () => {
     navigate("/schedules");
   };
-  const handleCheckinList = () => {
-    navigate("/checkin-list");
-  };
-
-  const handleAddAppointment = () => {
-    navigate("/book_appointment");
-  };
-  const handleAddCheckin = () => {
+  const handleCheckin = () => {
     navigate("/checkin");
   };
 
+  const handlebookappointment = () => {
+    navigate("/book_appointment");
+  };
+  const handleExamination = () => {
+    navigate("/examination-list");
+  };
   return (
     <div className="bg-white">
       <div className="flex items-center gap-[141px] justify-between max-w-[1156px] mx-auto h-[620px]">
         <div className="flex flex-col w-[590px]">
           <div>
-            <span className="text-[32px] font-bold">Hello,</span>
-            <span className="text-[32px] mt-6 text-[#fff0] ml-[10px] font-bold bg-clip-text w-max bg-gradient-to-tr from-gradientLeft to-gradientRight">
+            <div className="text-[32px] font-bold">Hello,</div>
+            <div className="text-[32px] text-[#fff0] font-bold bg-clip-text w-max bg-gradient-to-tr from-gradientLeft to-gradientRight">
               {role} {nameInter}
-            </span>
+            </div>
           </div>
-          <span className="mt-2 text-textColor2">
-            Anesthesiology and Pain Management
-          </span>
-          <p className="mt-8 text-textColor2">introduction</p>
+          {role == "ADMIN" ?
+            <div>
+              <span className="mt-3 font-bold text-[17px] text-black1">
+                Administrator Role
+              </span>
+              <p className="mt-8 text-textColor2">The administrator undertakes various responsibilities such as managing user accounts, system security, software installation and configuration, troubleshooting technical issues, generating reports and statistics, and ensuring the smooth and effective functioning of the system. </p>
+            </div>
+            : role == "DOCTOR" ?
+              <div>
+                <span className="mt-3 font-bold text-[17px] text-black1">
+                  Anesthesiology and Pain Management
+                </span>
+                <p className="mt-8 text-textColor2">Doctor Carlos has 23 years of experience in treating cardiovascular diseases.
+                  Currently, he works as a Cardiologist at the Department of Internal Medicine and Outpatient Clinic at Clinicmate Clinic in Da Nang.
+                </p>
+              </div>
+              :
+              <div>
+                <span className="mt-3 font-bold text-[17px] text-black1">
+                  Instant and Future Appointment Booking
+                </span>
+                <p className="mt-8 text-textColor2">Doctor Carlos has 23 years of experience in treating cardiovascular diseases.
+                  Instant Appointment Booking addresses urgent medical requirements, ensuring prompt access to healthcare services. On the other hand, Future Appointment Booking supports planned medical visits and offers convenience for patients who prefer to schedule appointments for a specific date in the future.
+                </p>
+              </div>
+          }
           <div
             style={{
               display: "flex",
@@ -78,7 +109,7 @@ const HomeContentServiceStaff = () => {
               paddingTop: "20px",
             }}
           >
-            {role == "NURSE" ? (
+            {role == "ADMIN" ?
               <>
                 <button
                   className="border-[3px] rounded-2xl h-[50px] pl-[30px] pr-[30px] w-[40%] mr-[35px]"
@@ -88,9 +119,10 @@ const HomeContentServiceStaff = () => {
                     // borderColor: "#5562f7",
                     // color: "#5562f7",
                   }}
-                  onClick={handleAddCheckin}
+
+                  onClick={handlelocations}
                 >
-                  New Check-in
+                  Internal
                 </button>
                 <button
                   className="border-[3px] rounded-2xl h-[50px] pl-[30px] pr-[30px] w-[40%] mr-[35px]"
@@ -100,39 +132,69 @@ const HomeContentServiceStaff = () => {
                     // borderColor: "#5562f7",
                     color: "#5562f7",
                   }}
-                  onClick={handleAddAppointment}
+                  onClick={handleInternals}
                 >
-                  New appointment
+                  Account
                 </button>
               </>
-            ) : (
-              <>
-                <button
-                  className="border-[3px] rounded-2xl h-[50px] pl-[30px] pr-[30px] w-[40%] mr-[35px]"
-                  style={{
-                    color: "#ffff",
-                    backgroundColor: "#3681f8",
-                    // borderColor: "#5562f7",
-                    // color: "#5562f7",
-                  }}
-                  onClick={handleSchedule}
-                >
-                  Schedule List
-                </button>
-                <button
-                  className="border-[3px] rounded-2xl h-[50px] pl-[30px] pr-[30px] w-[40%] mr-[35px]"
-                  style={{
-                    // color: "#ffff",
-                    // backgroundColor: "#3681f8",
-                    // borderColor: "#5562f7",
-                    color: "#5562f7",
-                  }}
-                  onClick={handleCheckinList}
-                >
-                  Waiting list
-                </button>
-              </>
-            )}
+              : role == "DOCTOR" ?
+                <>
+                  <button
+                    className="border-[3px] rounded-2xl h-[50px] pl-[30px] pr-[30px] w-[40%] mr-[35px]"
+                    style={{
+                      color: "#ffff",
+                      backgroundColor: "#3681f8",
+                      // borderColor: "#5562f7",
+                      // color: "#5562f7",
+                    }}
+
+                    onClick={handleSchedules}
+                  >
+                    My Appointment
+                  </button>
+                  <button
+                    className="border-[3px] rounded-2xl h-[50px] pl-[30px] pr-[30px] w-[40%] mr-[35px]"
+                    style={{
+                      // color: "#ffff",
+                      // backgroundColor: "#3681f8",
+                      // borderColor: "#5562f7",
+                      color: "#5562f7",
+                    }}
+                    onClick={handleExamination}
+                  >
+                    My Examination
+                  </button>
+                </>
+                :
+                <>
+                  <button
+                    className="border-[3px] rounded-2xl h-[50px] pl-[30px] pr-[30px] w-[40%] mr-[35px]"
+                    style={{
+                      color: "#ffff",
+                      backgroundColor: "#3681f8",
+                      // borderColor: "#5562f7",
+                      // color: "#5562f7",
+                    }}
+
+                    onClick={handleCheckin}
+                  >
+                    Check-in
+                  </button>
+                  <button
+                    className="border-[3px] rounded-2xl h-[50px] w-[40%] mr-[35px]"
+                    style={{
+                      // color: "#ffff",
+                      // backgroundColor: "#3681f8",
+                      // borderColor: "#5562f7",
+                      color: "#5562f7",
+                    }}
+                    onClick={handlebookappointment}
+                  >
+                    Book Appointment
+                  </button>
+                </>
+            }
+
           </div>
         </div>
         <div className="w-[46%]">
