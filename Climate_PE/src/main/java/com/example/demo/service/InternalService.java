@@ -158,13 +158,29 @@ public class InternalService implements UserDetailsService {
 				account.setAvatar(avartar);
 			}
 			if (avartar.equals("Cannot upload file")) {
-				return "Update no success";
+				return "Create no success";
 			}
 		}
 		internalRepository.save(account);
 		return "Create success";
 	}
+	
+	public String updateinter(CreateAccountDTO internalAccount) {
+		if (checkIDExists(Integer.parseInt(internalAccount.getId())) == null) {
+			return "Internal not exists";
+		}
+		InternalAccount account = checkIDExists(Integer.parseInt(internalAccount.getId()));
+		account.setEmail(internalAccount.getEmail());
+		account.setName(internalAccount.getName());
+		account.setRole(service.findByIdac(Integer.parseInt(internalAccount.getRole())));
+		account.setSpecialty(speciatlyService.findByIdAcc(Integer.parseInt(internalAccount.getSpecialty())));
+		account.setWorkingPlace(locationService.findByIdAcc(internalAccount.getLocation()));
+		account.setCommandFlag(Integer.parseInt(internalAccount.getCommandFlag()));
+		internalRepository.save(account);
+		return "Update success";
+	}
 
+	
 	public String updateprofile(CreateAccountDTO internalAccount, MultipartFile fileData) {
 		if (checkIDExists(Integer.parseInt(internalAccount.getId())) == null) {
 			return "Internal not exists";

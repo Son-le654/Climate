@@ -130,7 +130,21 @@ public class InternalController {
 
         return result;
     }
+	@PostMapping(value = "/updateinter", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public String editInter(@RequestParam("internal") String internalJson) {
+		CreateAccountDTO account = null;
+		try {
+			ObjectMapper objectMapper = new ObjectMapper();
+			account = objectMapper.readValue(internalJson, CreateAccountDTO.class);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+			return "Invalid JSON data for internal.";
+		}
+		String result = internalService.updateinter(account);
 
+		return result;
+	}
+	
 	@PutMapping("/update")
 	public String update(@RequestBody InternalAccount account) {
 		System.out.println("enter save: " + account.toString());
