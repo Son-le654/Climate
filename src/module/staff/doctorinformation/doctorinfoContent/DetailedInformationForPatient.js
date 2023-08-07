@@ -75,7 +75,6 @@ function DetailedInformationForPatient({ doct }) {
           <div className="mb-[20px]">
             <BirthDay doct={doct.birthDate} />
           </div>
-          
         </div>
         <div className="w-[30%]">
           <div className="mb-[20px]">

@@ -5,7 +5,27 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
 function EditProfileContentForDoctor() {
+  const [role, setRole] = useState("");
+
+  useEffect(() => {
+    const storedName = localStorage.getItem("token");
+    if (storedName == null) {
+      navigate("/login-user");
+    } else {
+      try {
+        const decoded = jwtDecode(storedName);
+        const role = decoded.roles[0].authority;
+        setRole(role);
+        // if (role !== 'USER') {
+        //   navigate("/")
+        // }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, []);
   const tabButtons1 = "Cancel ";
   const tabButtons2 = "Save profile";
   // @ts-ignore
@@ -68,7 +88,9 @@ function EditProfileContentForDoctor() {
             // @ts-ignore
             setBirthDay({ bday: profile.birthDate });
             // @ts-ignore
-            setworkPlc({ wpc: `${profile.workingPlace.name} - ${profile.workingPlace.description}` });
+            setworkPlc({
+              wpc: `${profile.workingPlace.name} - ${profile.workingPlace.description}`,
+            });
             // @ts-ignore
             setGender({ gd: profile.gender });
             // @ts-ignore
@@ -76,11 +98,11 @@ function EditProfileContentForDoctor() {
             // @ts-ignore
             setPhonee({ pnum: profile.phone });
             // @ts-ignore
-            setEducation({ pedu: profile.education })
+            setEducation({ pedu: profile.education });
             // @ts-ignore
-            setExperience({ exp: profile.yearOfExp })
+            setExperience({ exp: profile.yearOfExp });
             // @ts-ignore
-            setIntroduct({ pin: profile.introduct })
+            setIntroduct({ pin: profile.introduct });
             const [year, month, day] = profile.birthDate.split("/");
             // @ts-ignore
             setYear({ bY: year });
@@ -89,9 +111,9 @@ function EditProfileContentForDoctor() {
             // @ts-ignore
             setDate({ bD: day });
             // @ts-ignore
-            setroleI({rlI: profile.role});
+            setroleI({ rlI: profile.role });
             // @ts-ignore
-            setspecialtyD({splD: profile.specialty});
+            setspecialtyD({ splD: profile.specialty });
           }
         } catch (error) {
           console.log(error);
@@ -269,8 +291,6 @@ function EditProfileContentForDoctor() {
       setEmailp(newMail);
     }
 
-  
-
     if (name === "rlI") {
       const newrlI = {
         ...roleI,
@@ -380,7 +400,7 @@ function EditProfileContentForDoctor() {
     phone: "",
     education: "",
     yearOfExp: "",
-    introduct: ""
+    introduct: "",
   };
   const handleSave = async () => {
     console.log("Enter save");
@@ -415,7 +435,7 @@ function EditProfileContentForDoctor() {
     // profileSave.avatar = selectedFile;
 
     console.log(profileSave);
-     const formData = new FormData();
+    const formData = new FormData();
 
     formData.append("fileData", selectedFile); // Thêm file vào formData
     formData.append("internal", JSON.stringify(profileSave)); // Thêm thông tin bệnh nhân vào formData
@@ -433,7 +453,7 @@ function EditProfileContentForDoctor() {
     console.log(response);
 
     if (response.data === "Update success") {
-      navigate("/internals");
+      navigate("/profilepage");
     } else {
       window.alert(response.data);
     }
@@ -462,7 +482,9 @@ function EditProfileContentForDoctor() {
           </div>
           <div className="w-[100%] h-[120px] mb-[10px]">
             <div className="w-[100%] h-[50px]">
-              <h1 className=" text-[25px] font-bold">Email for communication</h1>
+              <h1 className=" text-[25px] font-bold">
+                Email for communication
+              </h1>
             </div>
             <div className=" flex justify-start w-[100%]">
               <div className="h-[70px] w-[95%] border-[1px] rounded-2xl border-[#c5c4c4] flex">
@@ -531,7 +553,6 @@ function EditProfileContentForDoctor() {
                     name="pnum"
                     className="w-[80%] h-[100%] ml-[10px] text-[20px] "
                   />
-
                 </div>
               </div>
             </div>
@@ -541,28 +562,41 @@ function EditProfileContentForDoctor() {
               </div>
               <div className=" flex justify-start w-[100%]">
                 <div className="h-[70px] w-[95%] border-[1px] rounded-2xl border-[#c5c4c4] flex">
-                  <select
-                    className="h-[70px] w-[100%] pl-[20px] bg-white text-[20px] border-[1px] rounded-[10px] border-[#c5c4c4]"
-                    onChange={handleChangeName}
-                    // @ts-ignore
-                    value={workPlc.wpc}
-                    name="wpc"
-                  >
-                    <option selected={true} disabled={true}>
-                      -- Select Location --
-                    </option>
-                    {sysLocation != undefined &&
+                  {role == "ADMIN" ? (
+                    <select
+                      className="h-[70px] w-[100%] pl-[20px] bg-white text-[20px] border-[1px] rounded-[10px] border-[#c5c4c4]"
+                      onChange={handleChangeName}
                       // @ts-ignore
-                      sysLocation.map((location) => (
-                        <option
-                          className=""
-                          key={location.id}
-                          value={location.maless}
-                        >
-                          {location.name} - {location.description}
-                        </option>
-                      ))}
-                  </select>
+                      value={workPlc.wpc}
+                      name="wpc"
+                    >
+                      <option selected={true} disabled={true}>
+                        -- Select Location --
+                      </option>
+                      {sysLocation != undefined &&
+                        // @ts-ignore
+                        sysLocation.map((location) => (
+                          <option
+                            className=""
+                            key={location.id}
+                            value={location.maless}
+                          >
+                            {location.name} - {location.description}
+                          </option>
+                        ))}
+                    </select>
+                  ) : (
+                    <div className="h-[70px] w-[100%] border-[1px] rounded-2xl border-[#c5c4c4] flex">
+                      <input
+                        placeholder="phone"
+                        disabled={true}
+                        // @ts-ignore
+                        value={workPlc.wpc}
+                        name="pnum"
+                        className="w-[80%] h-[100%] ml-[10px] text-[20px] "
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -586,7 +620,9 @@ function EditProfileContentForDoctor() {
           </div>
           <div className=" w-[100%] h-[150px] mb-[10px] ">
             <div className="font-medium w-[100%] h-[150px]">
-              <h1 className="h-[48px] text-[20px] font-bold">Education Background</h1>
+              <h1 className="h-[48px] text-[20px] font-bold">
+                Education Background
+              </h1>
               <div className="w-[100%] h-[100px] border-[1px] border-[#dddddd] rounded-3xl flex">
                 <div className="w-[1%]"></div>
                 <textarea
@@ -643,61 +679,84 @@ function EditProfileContentForDoctor() {
       <div>
         <div className="w-[100%] h-[120px] mb-[10px]">
           <div className="w-[100%] h-[50px]">
-            <h1 className=" text-[25px] font-bold">
-              Specialty
-            </h1>
+            <h1 className=" text-[25px] font-bold">Specialty</h1>
           </div>
           <div className=" flex justify-start w-[100%]">
-            <select
-              className="h-[70px] w-[98%] pl-[20px] bg-white text-[20px] border-[1px] rounded-[10px] border-[#c5c4c4]"
-              onChange={handleChangeName}
-              // @ts-ignore
-              value={specialtyD.splD}
-              name="splD"
-            >
-              <option selected={true} disabled={true}>
-                -- Select Specialty --
-              </option>
-              {sysSpec != undefined &&
+            {role == "ADMIN" ? (
+              <select
+                className="h-[70px] w-[98%] pl-[20px] bg-white text-[20px] border-[1px] rounded-[10px] border-[#c5c4c4]"
+                onChange={handleChangeName}
                 // @ts-ignore
-                sysSpec.map((specialty) => (
-                  <option
-                    className=""
-                    key={specialty.id}
-                    value={specialty.id}
-                  >
-                    {specialty.name}
-                  </option>
-                ))}
-            </select>
+                value={specialtyD.splD}
+                name="splD"
+              >
+                <option selected={true} disabled={true}>
+                  -- Select Specialty --
+                </option>
+                {sysSpec != undefined &&
+                  // @ts-ignore
+                  sysSpec.map((specialty) => (
+                    <option
+                      className=""
+                      key={specialty.id}
+                      value={specialty.id}
+                    >
+                      {specialty.name}
+                    </option>
+                  ))}
+              </select>
+            ) : (
+              <div className="h-[70px] w-[100%] border-[1px] rounded-2xl border-[#c5c4c4] flex">
+                <input
+                  placeholder="specialty"
+                  disabled={true}
+                  // @ts-ignore
+                  value={specialtyD.splD.name}
+                  name="splD"
+                  className="w-[80%] h-[100%] ml-[10px] text-[20px] "
+                />
+              </div>
+            )}
           </div>
         </div>
         <div className="w-[100%] h-[120px] mb-[10px]">
           <div className="w-[100%] h-[50px]">
-            <h1 className=" text-[25px] font-bold">
-              Roles and permissions
-            </h1>
+            <h1 className=" text-[25px] font-bold">Roles and permissions</h1>
           </div>
           <div className=" flex justify-start w-[100%]">
             <div className="h-[70px] w-[98%] border-[1px] rounded-2xl border-[#c5c4c4] flex">
-              <select
-                className="h-[70px] w-[100%] pl-[20px] bg-white text-[20px] border-[1px] rounded-[10px] border-[#c5c4c4]"
-                name="rlI"
-                // @ts-ignore
-                value={roleI.rlI}
-                onChange={handleChangeName}
-              >
-                <option selected={true} disabled={true}>
-                  -- Select Role --
-                </option>
-                {sysRole != undefined &&
+              {role == "ADMIN" ? (
+                <select
+                  className="h-[70px] w-[100%] pl-[20px] bg-white text-[20px] border-[1px] rounded-[10px] border-[#c5c4c4]"
+                  name="rlI"
                   // @ts-ignore
-                  sysRole.map((role) => (
-                    <option className="" key={role.id} value={role.id}>
-                      {role.name}
-                    </option>
-                  ))}
-              </select>
+                  value={roleI.rlI}
+                  onChange={handleChangeName}
+                >
+                  <option selected={true} disabled={true}>
+                    -- Select Role --
+                  </option>
+                  {sysRole != undefined &&
+                    // @ts-ignore
+                    sysRole.map((role) => (
+                      <option className="" key={role.id} value={role.id}>
+                        {role.name}
+                      </option>
+                    ))}
+                </select>
+              ) : (
+                <div className="h-[70px] w-[100%] border-[1px] rounded-2xl border-[#c5c4c4] flex">
+                  <input
+                    placeholder="phone"
+                    disabled={true}
+                    // @ts-ignore
+                    name="rlI"
+                    // @ts-ignore
+                    value={roleI.rlI.name}
+                    className="w-[80%] h-[100%] ml-[10px] text-[20px] "
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -723,7 +782,7 @@ function EditProfileContentForDoctor() {
             display: "flex",
             justifyContent: "start",
             paddingTop: "20px",
-            marginBottom: "2%"
+            marginBottom: "2%",
           }}
         >
           <button

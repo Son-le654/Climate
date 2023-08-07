@@ -59,10 +59,14 @@ function AppointmentConfirmationContentGuest({ appointment }) {
     if (response.data === "success" && role == "NURSE") {
       navigate("/appointments");
     } else {
-      alert(
-        "Thank you for your appointment, please wait for a call to confirm this appointment."
-      );
-      navigate("/");
+      // alert(
+      //   "Thank you for your appointment, please wait for a call to confirm this appointment."
+      // );
+      if (role == "NURSE") {
+        navigate("/");
+      } else {
+        navigate("/successfull");
+      }
     }
   };
 

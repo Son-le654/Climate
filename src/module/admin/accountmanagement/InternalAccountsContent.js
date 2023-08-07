@@ -113,9 +113,9 @@ function InternalAccountsContent({ role, mail }) {
   const handleExternal = () => {
     navigate("/patients");
   };
-  const handleEdit = (id) => {
-    // navigate("/internals");
-    console.log("edit " + id);
+  const handleEdit = (item) => {
+    navigate("/editinternal", { state: { item } });
+    // console.log("edit " + id);
   };
   const handleDelete = async (id) => {
     // navigate("/patients");
@@ -240,7 +240,7 @@ function InternalAccountsContent({ role, mail }) {
                         }}
                       >
                         <span
-                          onClick={() => handleEdit(listD.id)}
+                          onClick={() => handleEdit(listD)}
                           style={{
                             display: "flex",
                             flexDirection: "row",
