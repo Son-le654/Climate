@@ -60,7 +60,7 @@ const LatestNewService = () => {
             <div className="pb-[50px] bg-white  gap-8 " key={item.id}>
               <div className=" flex items-center gap-4">
                 <div className="w-[35%] h-[200px] rounded-[20px] overflow-hidden">
-                  <img src={item.photo} alt="" />
+                  <img src={item.avatar} alt="" />
                 </div>
                 <div className="flex flex-col gap-1 w-[90%] pl-[96px] mt-[10px]">
                   <span className="font-bold text-black2 text-[20px]">
@@ -71,7 +71,7 @@ const LatestNewService = () => {
                   </span>
                   <div className="flex items-center gap-[2px]">
                     <div className="w-[50px] h-[50px] rounded-full overflow-hidden">
-                      <img src={item.avatar} alt="avatar" />
+                      {/* <img src={item.avatar} alt="avatar" /> */}
                     </div>
                     <span className="font-medium text-black2 text-[20px] ml-[10px]">
                       {item.creatby}

@@ -72,7 +72,7 @@ function CheckinDetailsContent({ checkin, role }) {
     );
     console.log(response);
     if (response.data === "CommandFlag updated successfully.") {
-      navigate("/checkin-list");
+      navigate("/examination-list");
     } else {
       alert(response.data);
     }
@@ -84,14 +84,14 @@ function CheckinDetailsContent({ checkin, role }) {
     );
     console.log(response);
     if (response.data === "CommandFlag updated successfully.") {
-      navigate("/checkin-list");
+      navigate("/examination-list");
     } else {
       alert(response.data);
     }
   };
 
   const goBack = () => {
-    navigate("/checkin-list");
+    navigate("/examination-list");
   };
 
   const formattedDateTime = currentDateTime
@@ -182,7 +182,7 @@ function CheckinDetailsContent({ checkin, role }) {
 
       console.log(response);
       if (response.data === "Medical record created successfully.") {
-        navigate("/checkin-list");
+        navigate("/examination-list");
       } else {
         alert(response.data);
       }

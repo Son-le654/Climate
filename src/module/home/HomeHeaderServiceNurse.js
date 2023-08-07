@@ -105,7 +105,7 @@ const HomeHeaderServiceNurse = () => {
     window.location.href = "/book_appointment";
   };
   const handleCheckins = () => {
-    window.location.href = "/checkin-list";
+    window.location.href = "/examination-list";
   };
   const handleAddCheckin = () => {
     window.location.href = "/checkin";

@@ -72,7 +72,7 @@ const HomeHeaderService = () => {
     window.location.href = "/listofappointment";
   };
   const handleCheckins = () => {
-    window.location.href = "/checkin-list";
+    window.location.href = "/examination-list";
   };
   const handleMedicalHistory = () => {
     window.location.href = "/medicalhistory";
