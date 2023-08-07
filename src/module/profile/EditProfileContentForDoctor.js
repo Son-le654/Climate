@@ -711,7 +711,7 @@ function EditProfileContentForDoctor() {
                   placeholder="specialty"
                   disabled={true}
                   // @ts-ignore
-                  value={specialtyD.splD.name}
+                  value={specialtyD?.splD?.name}
                   name="splD"
                   className="w-[80%] h-[100%] ml-[10px] text-[20px] "
                 />
@@ -752,7 +752,7 @@ function EditProfileContentForDoctor() {
                     // @ts-ignore
                     name="rlI"
                     // @ts-ignore
-                    value={roleI.rlI.name}
+                    value={roleI?.rlI?.name}
                     className="w-[80%] h-[100%] ml-[10px] text-[20px] "
                   />
                 </div>
