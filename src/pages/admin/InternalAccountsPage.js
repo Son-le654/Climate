@@ -38,7 +38,7 @@ const InternalAccountsPage = () => {
         <HomeHeaderServiceAdmin></HomeHeaderServiceAdmin>
       </div>
       <div className="pt-[80px] pl-[190px] text-7xl font-bold py-[20px] bg-white">
-        <h1>Internal account list</h1>
+        <h1>Internal Account List</h1>
       </div>
       <div className="bg-white" style={{ padding: "5% 12%" }}>
         <InternalAccountsContent
