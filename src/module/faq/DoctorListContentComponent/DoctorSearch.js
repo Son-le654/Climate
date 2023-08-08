@@ -60,7 +60,7 @@ function DoctorSearch({ handleChangeName, handleSearchInputChange }) {
           </select>
         </div>
 
-        <div className="w-[31%] h-[50px] bg-[#fff] rounded-3xl border border-[#d8d7da] p-4 flex items-center justify-center mr-[20px] text-[#828282]">
+        <div className="w-[35%] h-[50px] bg-[#fff] rounded-3xl border border-[#d8d7da] p-4 flex items-center justify-center mr-[20px] text-[#828282]">
           <div className="text-5xl">
             <FaBuilding />
           </div>

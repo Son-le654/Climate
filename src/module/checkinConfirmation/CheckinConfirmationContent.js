@@ -49,7 +49,7 @@ function CheckinConfirmationContent({ checkin }) {
     console.log(response);
 
     if (response.data === "success") {
-      navigate("/service");
+      navigate("/examination-list");
     } else {
       alert(response.data);
     }

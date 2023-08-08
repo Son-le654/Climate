@@ -24,7 +24,7 @@ function CheckinListContent({ email, role }) {
   const listtitle = [
     {
       id: 1,
-      title: "No",
+      title: "Check-in number",
     },
     {
       id: 2,
@@ -187,7 +187,7 @@ function CheckinListContent({ email, role }) {
     return hour.substring(0, 5);
   };
   return (
-    <div className="bg-white p-5 rounded-2xl shadow-2xl w-[100%] min-h-[500px]">
+    <div className="bg-white p-5 rounded-2xl shadow-2xl w-[100%] min-h-[500px] pt-[5rem]">
       <div>
         <span
           className={
