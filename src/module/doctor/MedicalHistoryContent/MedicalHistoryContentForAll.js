@@ -88,6 +88,18 @@ function MedicalHistoryContent({ email, role }) {
     console.log(checkin);
     navigate("/medicaldetails", { state: { checkin } });
   };
+  const [searchInput, setInputValue] = useState("");
+  const handleSearchInputChange = (event) => {
+    let searchInput = event.target.value;
+    setInputValue(searchInput);
+    if (searchInput === "") {
+      setListData(listOrigin);
+    } else {
+      const filteredList = listOrigin.filter((item) => item.id == searchInput);
+      setListData(filteredList);
+    }
+  };
+
   return (
     <div className="bg-white">
       <div className="flex w-[100%] items-center pb-[30px]">
@@ -96,7 +108,7 @@ function MedicalHistoryContent({ email, role }) {
         </div>
         <div className="h-[50px] w-[50%] flex justify-end items-center">
           <div className="border-[1px] border-[#dddddd]  w-[40%] h-[40px] flex items-center justify-center rounded-3xl cursor-pointer">
-            <input className="w-[80%] h-[100%]" placeholder="Search Patient" />
+            <input onChange={handleSearchInputChange} className="w-[80%] h-[100%]" placeholder="Search Patient" />
             <span className="font-medium text-[#dddddd] w-[10%] text-[30px]">
               <GoSearch />
             </span>

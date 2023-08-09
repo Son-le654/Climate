@@ -3,6 +3,7 @@ import NewsPageContent from "module/guest/NewsPageContent/NewsPageContent";
 import Footer from "module/home/Footer";
 import HomeHeaderService from "module/home/HomeHeaderService";
 import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
+import HomeHeaderServiceGuest from "module/home/HomeHeaderServiceGuest";
 import HomeHeaderServiceNurse from "module/home/HomeHeaderServiceNurse";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,24 +13,24 @@ function NewsPage() {
   const [role, setRole] = useState("");
   const [mail, setmail] = useState("");
 
-  useEffect(() => {
-    const storedName = localStorage.getItem("token");
-    if (storedName == null) {
-      navigate("/login");
-    } else {
-      try {
-        const decoded = jwtDecode(storedName);
-        const role = decoded.roles[0].authority;
-        setRole(role);
-        setmail(decoded.sub);
-        // if (role !== 'NURSE') {
-        //   navigate("/")
-        // }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  }, []);
+  // useEffect(() => {
+  //   const storedName = localStorage.getItem("token");
+  //   if (storedName == null) {
+  //     navigate("/login");
+  //   } else {
+  //     try {
+  //       const decoded = jwtDecode(storedName);
+  //       const role = decoded.roles[0].authority;
+  //       setRole(role);
+  //       setmail(decoded.sub);
+  //       // if (role !== 'NURSE') {
+  //       //   navigate("/")
+  //       // }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  // }, []);
   return (
     <div>
       <div className="bg-white">
@@ -37,8 +38,10 @@ function NewsPage() {
           <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
         ) : role == "NURSE" ? (
           <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
-        ) : (
+        ) : role == "USER" ? (
           <HomeHeaderService></HomeHeaderService>
+        ) : (
+          <HomeHeaderServiceGuest></HomeHeaderServiceGuest>
         )}
       </div>
       <div className="w-[100%] h-[130px] bg-white flex items-center">
