@@ -17,6 +17,7 @@ public class CreateAccountDTO {
 	private String birthdate;
 	private String gender;
 	private String phone;
+	private String commandFlag;
 
 	public CreateAccountDTO() {
 	}
@@ -27,6 +28,12 @@ public class CreateAccountDTO {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getCommandFlag() {
+		return commandFlag;
+	}
+	public void setCommandFlag(String commandFlag) {
+		this.commandFlag = commandFlag;
 	}
 
 	public String getEmail() {
@@ -144,7 +151,7 @@ public class CreateAccountDTO {
 
 	public CreateAccountDTO(String id, String name, String email, String password, String role, String specialty,
 			String location, String avatar, String yearOfExp, String introduct, String education, String birthdate,
-			String gender, String phone) {
+			String gender, String phone, String commandFlag) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -160,6 +167,7 @@ public class CreateAccountDTO {
 		this.birthdate = birthdate;
 		this.gender = gender;
 		this.phone = phone;
+		this.commandFlag = commandFlag;
 	}
 	
 	

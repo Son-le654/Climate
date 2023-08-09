@@ -8,7 +8,8 @@ import { useNavigate } from "react-router-dom";
 function CreateNewInternalContent({ item }) {
   const tabButtons1 = "Cancel ";
   const tabButtons2 = "Save account";
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState([{ id: 0, month: "ACTIVE" },
+  { id: 2, month: "BLOCK" },]);
   const [selectedStaff, setSelectedStaff] = useState(null);
   const navigate = useNavigate();
   const [staffs] = useState([
@@ -26,6 +27,11 @@ function CreateNewInternalContent({ item }) {
     { id: 12, month: "December" },
   ]);
 
+  const handleCancel = () => {
+    // Go back to the previous page
+    window.history.back();
+  };
+  
   const [males] = useState([
     { id: "male", maless: "male" },
     { id: "female", maless: "female" },
@@ -69,16 +75,6 @@ function CreateNewInternalContent({ item }) {
       emp: "",
     },
   ]);
-  const [password, setpassword] = useState([
-    {
-      pwd: "",
-    },
-  ]);
-  const [passwordCnfm, setpasswordCnfm] = useState([
-    {
-      pwdC: "",
-    },
-  ]);
   const [roleI, setroleI] = useState([
     {
       rlI: "",
@@ -111,8 +107,8 @@ function CreateNewInternalContent({ item }) {
       setIdU({ iU: item.id });
       setFullName({ fname: item.name });
       setEmailp({ emp: item.email });
-      setroleI({ rlI: item.role });
-      setspecialtyD({ splD: item.specialty });
+      setroleI({ rlI: item?.role?.id });
+      setspecialtyD({ splD: item?.specialty?.id });
       setworkPlc({ wpc: item.workingPlace });
       setStatus({ sT: item.commandFlag });
     }
@@ -142,24 +138,6 @@ function CreateNewInternalContent({ item }) {
       setEmailp(newMail);
     }
 
-    if (name === "pwd") {
-      const newpwd = {
-        ...password,
-        [name]: value,
-      };
-      console.log("set password");
-      setpassword(newpwd);
-    }
-
-    if (name === "pwdC") {
-      const newpwdC = {
-        ...passwordCnfm,
-        [name]: value,
-      };
-      console.log("set password confirm");
-      setpasswordCnfm(newpwdC);
-    }
-
     if (name === "rlI") {
       const newrlI = {
         ...roleI,
@@ -187,26 +165,16 @@ function CreateNewInternalContent({ item }) {
       setworkPlc(newwpc);
     }
 
-    if (name === "avt") {
-      const newAvt = {
-        ...avatar,
+    if (name === "sT") {
+      const newST = {
+        ...status,
         [name]: value,
       };
       console.log("set avatar");
-      setAvatar(newAvt);
+      setStatus(newST);
     }
   };
 
-  const handleSelectChange = (event) => {
-    const selectID = parseInt(event.target.value);
-    const selected = staffs.find((staff) => staff.id === selectID);
-    setSelectedStaff(selected);
-    if (selectID !== 0) {
-      setActive(true);
-    } else {
-      setActive(false);
-    }
-  };
 
   const [selectedFile, setSelectedFile] = useState(null);
 
@@ -227,12 +195,11 @@ function CreateNewInternalContent({ item }) {
     id: "",
     name: "",
     email: "",
-    password: "",
     role: "",
     specialty: "",
     location: "",
     avatar: "",
-    commandFlag: "",
+    commandFlag: ""
   };
   const [flags] = useState([
     { id: "0", value: "Active" },
@@ -246,38 +213,38 @@ function CreateNewInternalContent({ item }) {
     console.log(status.sT);
 
     // console.log("Enter save");
-    // profileSave.name = fullName.fname;
-    // profileSave.email = emailP.emp;
-    // profileSave.password = password.pwd;
-    // profileSave.role = roleI.rlI;
-    // profileSave.specialty = specialtyD.splD;
-    // profileSave.location = workPlc.wpc;
-    // profileSave.avatar = avatar.avt;
+    profileSave.id = idU.iU;
+     profileSave.name = fullName.fname;
+     profileSave.email = emailP.emp;
+     profileSave.role = roleI.rlI;
+     profileSave.specialty = specialtyD.splD;
+     profileSave.location = `${workPlc.wpc.name} - ${workPlc.wpc.description}`
+     profileSave.commandFlag = status.sT;
     // // profileSave.avatar = selectedFile;
 
-    // console.log(profileSave);
-    // const formData = new FormData();
+     console.log(profileSave);
+     const formData = new FormData();
 
-    // formData.append("fileData", selectedFile); // Thêm file vào formData
-    // formData.append("internal", JSON.stringify(profileSave)); // Thêm thông tin bệnh nhân vào formData
+     formData.append("fileData", selectedFile); // Thêm file vào formData
+     formData.append("internal", JSON.stringify(profileSave)); // Thêm thông tin bệnh nhân vào formData
 
-    // var response;
-    // response = await axios.post(
-    //   publicPort + "api/createinter", //thay doi api save
-    //   formData,
-    //   {
-    //     headers: {
-    //       "Content-Type": "multipart/form-data", // Đặt header để server hiểu là gửi dữ liệu dạng multipart/form-data
-    //     },
-    //   }
-    // );
-    // console.log(response);
+     var response;
+     response = await axios.post(
+       publicPort + "api/updateinter", //thay doi api save
+       formData,
+       {
+         headers: {
+          "Content-Type": "multipart/form-data", // Đặt header để server hiểu là gửi dữ liệu dạng multipart/form-data
+        },
+      }
+    );
+    console.log(response);
 
-    // if (response.data === "Create success") {
-    //   navigate("/internals");
-    // } else {
-    //   window.alert(response.data);
-    // }
+    if (response.data === "Update success") {
+      navigate("/internals");
+    } else {
+      window.alert(response.data);
+    }
   };
   return (
     <div className="w-[100%] min-h-[1000px] bg-white">
@@ -344,7 +311,7 @@ function CreateNewInternalContent({ item }) {
                 className="h-[70px] w-[100%] pl-[20px] bg-white text-[20px] border-[1px] rounded-[10px] border-[#c5c4c4]"
                 name="rlI"
                 onChange={handleChangeName}
-                value={roleI?.rlI?.id}
+                value={roleI.rlI}
               >
                 <option selected={true} disabled={true}>
                   -- Select Role --
@@ -367,7 +334,7 @@ function CreateNewInternalContent({ item }) {
                 className="h-[70px] w-[68%] pl-[20px] bg-white text-[20px] border-[1px] rounded-[10px] border-[#c5c4c4]"
                 onChange={handleChangeName}
                 name="splD"
-                value={specialtyD?.splD?.id}
+                value={specialtyD.splD}
               >
                 <option selected={true} disabled={true}>
                   -- Select Specialty --
@@ -431,9 +398,9 @@ function CreateNewInternalContent({ item }) {
                 <option selected={true} disabled={true}>
                   -- Choose Status --
                 </option>
-                {flags.map((staff) => (
-                  <option className="" key={staff.id} value={staff.id}>
-                    {staff.value}
+                {flags.map((active) => (
+                  <option className="" key={active.id} value={active.id}>
+                    {active.value}
                   </option>
                 ))}
               </select>
@@ -471,6 +438,7 @@ function CreateNewInternalContent({ item }) {
                 borderColor: "#5562f7",
                 color: "#5562f7",
               }}
+              onClick={handleCancel}
             >
               {tabButtons1}
             </button>
