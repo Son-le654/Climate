@@ -36,7 +36,7 @@ function CheckinDetails() {
     const check = location?.state?.checkin;
     console.log(checkin);
     if (check == undefined) {
-      navigate("/checkin-list");
+      navigate("/examination-list");
     } else {
       setcheckin(check);
     }
