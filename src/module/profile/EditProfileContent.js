@@ -413,6 +413,9 @@ function EditProfileContent() {
               value={gender.gd}
               name="gd"
             >
+              <option className="" selected={true} disabled={true}>
+                -- Select gender --
+              </option>
               {males.map((male) => (
                 <option className="" key={male.id} value={male.maless}>
                   {male.maless}
