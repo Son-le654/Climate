@@ -83,6 +83,7 @@ function App() {
         const expiredAt = decoded.exp;
         if (expiredAt < Date.now() / 1000) {
           localStorage.removeItem("token");
+          window.location.reload();
         }
       } catch (error) {
         console.log(error);

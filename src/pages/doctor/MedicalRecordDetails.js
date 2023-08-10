@@ -6,6 +6,8 @@ import HomeHeaderServiceDoctor from "../../module/home/HomeHeaderServiceDoctor";
 import React from "react";
 import HomeHeaderServiceNurse from "module/home/HomeHeaderServiceNurse";
 import MedicalRecordDetailsContent from "module/doctor/CheckinDetailsContent/MedicalRecordDetailsContent";
+import HomeHeaderService from "module/home/HomeHeaderService";
+import HomeHeaderServiceAdmin from "module/home/HomeHeaderServiceAdmin";
 function MedicalRecordDetails() {
   const navigate = useNavigate();
   const storedName = localStorage.getItem("token");
@@ -43,10 +45,14 @@ function MedicalRecordDetails() {
   return (
     <div>
       <div className="bg-white">
-        {role == "DOCTOR" ? (
-          <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
-        ) : (
+        {role == "USER" ? (
+          <HomeHeaderService></HomeHeaderService>
+        ) : role == "NURSE" ? (
           <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
+        ) : role == "ADMIN" ? (
+          <HomeHeaderServiceAdmin></HomeHeaderServiceAdmin>
+        ) : (
+          <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
         )}
       </div>
 
