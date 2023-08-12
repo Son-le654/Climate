@@ -96,8 +96,7 @@ public class PatientController {
 		if (result.equals("Create success")) {
 			try {
 				String OTP = generateOneTimePassword(request.getEmail());
-				MailDetail m = new MailDetail(request.getEmail(), "OTP",
-						"The OTP is : " + OTP + ". This OTP will be expired after 2 minutes");
+				MailDetail m = new MailDetail(request.getEmail(), "OTP Verification", OTP);
 				mailService.sendMail(m);
 			} catch (UnsupportedEncodingException | MessagingException e) {
 				// TODO Auto-generated catch block
@@ -117,24 +116,24 @@ public class PatientController {
 
 	}
 
-	 @PostMapping(value = "/updateprofile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	    public ResponseEntity<?> update(@RequestParam("patient") String patientJson,
-	    		@RequestParam(value = "fileData", required = false) MultipartFile fileData) {
-	        // Convert thông tin bệnh nhân từ JSON thành đối tượng PatientDTO
-	        PatientDTO patientDTO = null;
-	        try {
-	            ObjectMapper objectMapper = new ObjectMapper();
-	            patientDTO = objectMapper.readValue(patientJson, PatientDTO.class);
-	        } catch (JsonProcessingException e) {
-	            e.printStackTrace();
-	            return ResponseEntity.badRequest().body("Invalid JSON data for patient.");
-	        }
+	@PostMapping(value = "/updateprofile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<?> update(@RequestParam("patient") String patientJson,
+			@RequestParam(value = "fileData", required = false) MultipartFile fileData) {
+		// Convert thông tin bệnh nhân từ JSON thành đối tượng PatientDTO
+		PatientDTO patientDTO = null;
+		try {
+			ObjectMapper objectMapper = new ObjectMapper();
+			patientDTO = objectMapper.readValue(patientJson, PatientDTO.class);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body("Invalid JSON data for patient.");
+		}
 
-	        // Tiến hành xử lý thông tin bệnh nhân và fileData
-	        String result = service.updateprofile(patientDTO, fileData);
+		// Tiến hành xử lý thông tin bệnh nhân và fileData
+		String result = service.updateprofile(patientDTO, fileData);
 
-	        return ResponseEntity.ok(result);
-	    }
+		return ResponseEntity.ok(result);
+	}
 
 	@GetMapping("/resend")
 	public String resendOTP(@RequestParam("email") String email) {
@@ -151,8 +150,7 @@ public class PatientController {
 		// resend new otp
 		try {
 			String OTP = generateOneTimePassword(email);
-			MailDetail m = new MailDetail(email, "OTP",
-					"The OTP is : " + OTP + ". This OTP will be expired after 2 minutes");
+			MailDetail m = new MailDetail(email, "OTP Verification", OTP);
 			mailService.sendMail(m);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
@@ -323,11 +321,12 @@ public class PatientController {
 		}
 		return true;
 	}
-	
+
 	@GetMapping("/list")
 	public List<Patient> getAll() {
 		return service.findAll();
 	}
+
 	@GetMapping("/listadmin")
 	public List<Patient> getAllForAdmin() {
 		return service.findAllForAdmin();
