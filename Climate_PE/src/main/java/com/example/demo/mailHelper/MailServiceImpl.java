@@ -20,20 +20,56 @@ public class MailServiceImpl implements MailService {
 	@Value("${spring.mail.username}")
 	private String sender;
 
+//	@Override
+//	public String sendMail(MailDetail mailDetail) {
+//		try {
+//			// Creating a simple mail message object
+//			SimpleMailMessage mailMessage = new SimpleMailMessage();
+//
+//			// Setting up necessary details of mail
+//			mailMessage.setFrom(sender);
+//			mailMessage.setTo(mailDetail.getRecipient());
+//			mailMessage.setSubject(mailDetail.getSubject());
+//			mailMessage.setText(mailDetail.getMsgBody());
+//
+//			// Sending the email
+//			mailSender.send(mailMessage);
+//			return "sent success";
+//
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			return "Error while Sending email!!!";
+//		}
+//	}
+
 	@Override
 	public String sendMail(MailDetail mailDetail) {
 		try {
 			// Creating a simple mail message object
-			SimpleMailMessage mailMessage = new SimpleMailMessage();
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper mailMessage = new MimeMessageHelper(message, true);
+
+			String email = mailDetail.getRecipient();
+			String username = email.substring(0, email.indexOf('@'));
+
+			System.out.println("Username: " + username);
+
+			String template = getEmailTemplateResetPass(username, mailDetail.getMsgBody());
 
 			// Setting up necessary details of mail
+//			mailMessage.setFrom(sender);
+			String from = sender;
+			String to = mailDetail.getRecipient();
+			String subject = mailDetail.getSubject();
+
 			mailMessage.setFrom(sender);
 			mailMessage.setTo(mailDetail.getRecipient());
 			mailMessage.setSubject(mailDetail.getSubject());
-			mailMessage.setText(mailDetail.getMsgBody());
+			mailMessage.setText(template, true);
 
 			// Sending the email
-			mailSender.send(mailMessage);
+//			mailSender.send(from, to, subject, template);
+			mailSender.send(message);
 			return "sent success";
 
 		} catch (Exception e) {
@@ -68,6 +104,19 @@ public class MailServiceImpl implements MailService {
 			// TODO: handle exception
 			return "Error while Sending email!!!";
 		}
+	}
+
+	private static String getEmailTemplateResetPass(String recipientName, String otp) {
+		String template = "<html><body>";
+		template += "<h3>Dear " + recipientName + ", </h3>";
+		template += "<p>You've requested an OTP for your Clinicmate account. Please use the OTP below :</p>";
+		template += "<p><strong>OTP: " + otp + "</strong></p>";
+		template += "<p>Please use this OTP before 2 minutes. After that, OTP is not valid.</p>";
+		template += "<p>Best regards,</p>";
+		template += "<p>The Clinicmate Team</p>";
+		template += "</body></html>";
+
+		return template;
 	}
 
 }
