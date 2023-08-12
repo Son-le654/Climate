@@ -2,6 +2,16 @@ import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { FaHospital } from "react-icons/fa";
 import { IoIosSchool } from "react-icons/io";
+import { Link } from "react-router-dom";
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  listAll,
+  list,
+} from "firebase/storage";
+import { storage } from "../url/firebase";
+import { v4 } from "uuid";
 
 export default function DoctorList({
   docList,
@@ -127,13 +137,41 @@ export default function DoctorList({
   for (let i = 1; i <= Math.ceil(docList?.length / itemsPerPage); i++) {
     pageNumbers.push(i);
   }
+  const [avatarUrl, setAvatarUrl] = useState(null);
+  const getAvatarUrl = async (imageName) => {
+    try {
+      const storageRef = ref(storage, `${imageName}`); // No need to concatenate the image name with v4() here
+    const url = await getDownloadURL(storageRef);
+    return url;
+    } catch (error) {
+      console.error('Error getting avatar URL: ', error);
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    // Lấy URL của avatar khi component render
+    if (docList?.length  > 0) {
+      const avatarName = docList[0].avatar; // Chọn một avatar bất kỳ từ listData
+      getAvatarUrl(avatarName)
+        .then((url) => {
+          setAvatarUrl(url);
+        });
+    }
+  }, [docList]);
 
   return (
     <div>
       <div>
         {specList?.map((data) => (
+          
           <div
             key={data.id}
+            onClick={async () => {
+              const avatarUrl = await getAvatarUrl(data.avatar);
+              setAvatarUrl(avatarUrl);
+              docList(data);
+            }}
             className=" w-[100%] h-[150px] mb-[20px] rounded-[15px]"
           >
             <div
@@ -141,7 +179,7 @@ export default function DoctorList({
               key={data.id}
             >
               <div className="w-[15%] h-[120px] rounded-[15px] overflow-hidden mr-[30px] mt-2 ">
-                <img className="w-[100%]" src={data.avatar} alt="avatar" />
+                <img className="w-[100%]" src={avatarUrl} alt="avatar" />
               </div>
               <div className="w-[85%] pr-[20%]">
                 <h1 className="font-semibold">{data.name}</h1>
