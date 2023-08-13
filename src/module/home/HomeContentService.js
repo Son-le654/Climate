@@ -25,9 +25,9 @@ const HomeContentService = () => {
   }, [type, tabButtons]);
 
   return (
-    <div className="bg-white pt-[3rem]">
-      <div className="flex items-center gap-[141px] justify-between max-w-[1156px] mx-auto">
-        <div className="flex flex-col w-[590px]">
+    <div className="bg-white pt-[3rem] ">
+      <div className="flex items-center gap-[141px] justify-between max-w-[1156px] mx-auto h-[580px] ">
+        <div className="flex flex-col w-[590px] h-[300px] ">
           <div>
             <span className="text-[32px] font-bold">
               Book Appointments Online with Doctors for
@@ -101,7 +101,7 @@ const HomeContentService = () => {
             className="font-bold pb-[30px]"
             style={{ fontSize: "40px", marginTop: "100px" }}
           >
-            LatestNew
+            Latest News
           </h1>
           <LatestNewService />
         </div>
