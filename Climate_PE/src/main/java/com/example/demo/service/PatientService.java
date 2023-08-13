@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.DTO.PatientDTO;
+import com.example.demo.DTO.PatientData;
 import com.example.demo.DTO.RegisterRequest;
 import com.example.demo.entity.Location;
 import com.example.demo.entity.Patient;
@@ -34,6 +35,16 @@ public class PatientService implements UserDetailsService {
 	}
 
 	public User loadUserByUsername(String username) throws UsernameNotFoundException {
+
+		Patient painted = repository.findByEmail(username);
+		if (painted == null) {
+			throw new UsernameNotFoundException("Invalid email or password.");
+		}
+		return new org.springframework.security.core.userdetails.User(painted.getEmail(), painted.getPassword(),
+				mapRolesToAuthorities(painted.getRole()));
+
+	}
+	public User loadUserByUsernamegoogle(String username) throws UsernameNotFoundException {
 
 		Patient painted = repository.findByEmail(username);
 		if (painted == null) {
@@ -63,6 +74,21 @@ public class PatientService implements UserDetailsService {
 		Patient p = new Patient(request.getId(), request.getName(), request.getEmail(), hashedPassword,
 				request.getBirthdate());
 
+		repository.save(p);
+		return "Create success";
+	}
+	
+	public String registergoogle(PatientData loginRequest) {
+
+		if (checkNameExists(loginRequest.getDisplayName()) != null) {
+			return "Name already exists";
+		}
+		if (checkEmailExists(loginRequest.getEmail()) != null) {
+			return "Email already exists";
+		}
+		Patient p = new Patient();
+		p.setEmail(loginRequest.getEmail());
+		p.setName(loginRequest.getDisplayName());
 		repository.save(p);
 		return "Create success";
 	}

@@ -2,6 +2,9 @@ import React from "react";
 import EnsignAnh from "../../Images/anh.png";
 import FeedbackButton from "./componentAbout/FeedbackButton";
 import LatestNewAbout from "./componentAbout/LatestNewAbout";
+import imgAbout1 from "../../Images/Rectangle 1123.png"
+import imgAbout2 from "../../Images/Rectangle 1124.png"
+
 
 function AboutContent() {
   return (
@@ -78,7 +81,7 @@ function AboutContent() {
           className="w-[35%] h-[250px] rounded-[20px] overflow-hidden"
           style={{ margin: "40px auto" }}
         >
-          <img src="https://demoda.vn/wp-content/uploads/2022/03/anh-anime-co-don-1.jpg"></img>
+          <img src={imgAbout1}></img>
         </div>
         <div>
           <h1 className=" font-semibold text-4xl">Vision</h1>
@@ -98,7 +101,7 @@ function AboutContent() {
           className="w-[35%] h-[250px] rounded-[20px] overflow-hidden"
           style={{ margin: "40px auto" }}
         >
-          <img src="https://demoda.vn/wp-content/uploads/2022/03/anh-anime-co-don-1.jpg"></img>
+          <img src={imgAbout2}></img>
         </div>
         <div>
           <h1 className=" font-semibold pt-[15px] text-4xl">Core Values</h1>
