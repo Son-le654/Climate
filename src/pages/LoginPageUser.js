@@ -9,10 +9,6 @@ import InputUsername from "../components/input/InputUsername";
 import InputPassword from "../components/input/InputPassword";
 import { publicPort } from "../components/url/link";
 import { AiFillGoogleCircle } from "react-icons/ai";
-import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
-import { collection, addDoc } from 'firebase/firestore';
 
 const LoginPageUser = () => {
   const navigate = useNavigate();
@@ -65,58 +61,19 @@ const LoginPageUser = () => {
       navigate("/service", { state: { tokenn } });
     }
   };
-  const firebaseConfig = {
-    apiKey: "AIzaSyAHTSCNqDml61V3OGWWMB7gJJe5Xpg6MaU",
-    authDomain: "climates-48696.firebaseapp.com",
-    projectId: "climates-48696",
-    storageBucket: "climates-48696.appspot.com",
-    messagingSenderId: "13463981194",
-    appId: "1:13463981194:web:0185cfdc1d64c283d6b173",
-    measurementId: "G-8NG47L0MBF"
-  };
+  const handleLoginGoogle = async (event) => {
+    const response = await axios.get(publicPort + `login/google`);
+    console.log(response);
+    // if (response.data.token === undefined) {
+    //   alert("Incorrect email or password.");
+    // }
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
-  const db = getFirestore(app);
-
-  const handleGoogleLogin = async () => {
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      
-  
-       const usersCollection = collection(db, 'users');
-      // Tạo yêu cầu POST với thông tin người dùng đã đăng nhập
-      const postData = {
-        email: user.email,
-        displayName: user.displayName,
-        // Các thông tin khác cần truyền
-      };
-      
-  
-      // Sử dụng thư viện hoặc phương thức để thực hiện yêu cầu POST
-      const response = await axios.post(publicPort + `patient/logingoogle`, {
-        email: user.email,
-        displayName: user.displayName,
-      });
-      // console.log(response);
-  
-      if (response.data.token === undefined) {
-        alert("Incorrect email or password.");
-      }
-  
-      if (response.data.token.length > 0) {
-        const tokenn = response.data.token;
-        // console.log("true");
-        localStorage.setItem("token", response.data.token);
-        navigate("/service", { state: { tokenn } });
-      }
-  
-    } catch (error) {
-      console.error(error);
-    }
+    // if (response.data.token.length > 0) {
+    //   const tokenn = response.data.token;
+    //   console.log("true");
+    //   localStorage.setItem("token", response.data.token);
+    //   navigate("/service", { state: { tokenn } });
+    // }
   };
 
   return (
@@ -209,7 +166,7 @@ const LoginPageUser = () => {
             width: "100%",
             color: "red",
           }}
-          onClick={handleGoogleLogin}
+          onClick={handleLoginGoogle}
         ></AiFillGoogleCircle>
 
         <div

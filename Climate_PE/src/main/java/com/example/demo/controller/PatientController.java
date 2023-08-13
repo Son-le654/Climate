@@ -29,7 +29,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.DTO.LoginRequest;
 import com.example.demo.DTO.PatientDTO;
-import com.example.demo.DTO.PatientData;
 import com.example.demo.DTO.RegisterRequest;
 import com.example.demo.entity.InternalAccount;
 import com.example.demo.entity.Location;
@@ -85,22 +84,6 @@ public class PatientController {
 			return ResponseEntity.ok("Not found accout.");
 		}
 		final UserDetails userDetails = service.loadUserByUsername(email);
-		final String token = jwtTokenUtil.generateToken(userDetails);
-		return ResponseEntity.ok(new JwtResponse(token));
-	}
-	
-	@PostMapping(value = "/logingoogle")
-	public ResponseEntity<?> logingoogle(@RequestBody PatientData loginRequest) {
-		System.out.println("url: " + loginRequest.getEmail() + loginRequest.getDisplayName());
-		System.out.println("patient");
-		Optional<Patient> pantiacc = Optional.ofNullable(patientService.findByEmail(loginRequest.getEmail()));
-		if (!pantiacc.isPresent()) {
-			String result = service.registergoogle(loginRequest);
-			final UserDetails userDetails = service.loadUserByUsernamegoogle(loginRequest.getEmail());
-			final String token = jwtTokenUtil.generateToken(userDetails);
-			return ResponseEntity.ok(new JwtResponse(token));
-		}
-		final UserDetails userDetails = service.loadUserByUsername(loginRequest.getEmail());
 		final String token = jwtTokenUtil.generateToken(userDetails);
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
