@@ -1,6 +1,8 @@
 import React from "react";
 import Slider from "react-slick";
 import sliderimg from "../../../Images/Group 9547.png";
+import sliderimg1 from "../../../Images/Group8.png";
+import sliderimg2 from "../../../Images/Group2.png";
 import {
   ArrowNextSlider,
   ArrowPrevSlider,
@@ -10,16 +12,10 @@ const arrSlider = [
     url: sliderimg,
   },
   {
-    url: "https://png.pngtree.com/thumb_back/fw800/background/20191207/pngtree-white-christmas-background-with-3d-white-balls-glass-spheres-round-shapes-image_323487.jpg",
+    url: sliderimg1,
   },
   {
-    url: "https://www.shutterstock.com/image-vector/new-year-background-white-spruce-260nw-745112284.jpg",
-  },
-  {
-    url: "https://taimienphi.vn/tmp/cf/aut/hinh-nen-trang-dep-cho-may-tinh-dien-thoai-1.jpg",
-  },
-  {
-    url: "https://img.freepik.com/premium-photo/abstract-white-lines-background-minimal-dynamic-shape-3d-rendering_224530-2016.jpg",
+    url: sliderimg2,
   },
 ];
 const HomeSlider = () => {
@@ -54,7 +50,7 @@ const HomeSlider = () => {
         {arrSlider.length > 0 &&
           arrSlider.map((item, index) => {
             return (
-              <div key={index} className="w-full h-[420px]">
+              <div key={index} className="w-full">
                 <img className="object-cover" src={item.url} alt="" />
               </div>
             );

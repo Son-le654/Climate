@@ -1,3 +1,7 @@
+import imgAbout3 from "../../../Images/Rectangle 1127.png"
+import imgAbout4 from "../../../Images/Rectangle 1128.png"
+import imgAbout5 from "../../../Images/Rectangle 1129.png"
+
 import React from "react";
 const listCmt = [
   {
@@ -5,7 +9,7 @@ const listCmt = [
     comment:
       "As the first member to enter into operation and mark the presence of the Clinicmate Healthcare brand, Clinicmate plays a uniquely important role in the system's development. Each...",
     photo:
-      "https://demoda.vn/wp-content/uploads/2022/03/anh-anime-co-don-1.jpg",
+      imgAbout3,
     fullname:
       "Clinicmate's Birthday: Breakthroughs with Special Professional Milestones",
     title: "read more",
@@ -15,7 +19,7 @@ const listCmt = [
     comment:
       "Clinicmate collaborates with the International Liver Cancer Epidemiology Consortium (ILCEC) and the Asian Coordinating Council for Epidemiology (ACC) to organize the annual conference...",
     photo:
-      "https://demoda.vn/wp-content/uploads/2022/03/anh-anime-co-don-1.jpg",
+      imgAbout4,
     fullname:
       "Clinicmate shares numerous scientific studies at the ACC & ILCEC Conference",
     title: "read more",
@@ -25,7 +29,7 @@ const listCmt = [
     comment:
       "Each year, over 9.6 million people die from cancer worldwide, surpassing the number of deaths from HIV/AIDS, malaria, and tuberculosis combined. It is estimated that by 2030, the number of deaths from cancer...",
     photo:
-      "https://demoda.vn/wp-content/uploads/2022/03/anh-anime-co-don-1.jpg",
+      imgAbout5,
     fullname:
       "World Cancer Day on February 4th: Clinicmate commits to providing differentiated and effective care for cancer patients in Vietnam",
     title: "read more",
@@ -49,7 +53,7 @@ const LatestNewService = () => {
                   <span className="font-light italic text-[20px] text-black2 py-[5px]">
                     {item.comment}
                   </span>
-                  <div className="flex items-center gap-[2px]">
+                  <div className="flex items-center gap-[2px] cursor-pointer">
                     <span className="font-light text-gradientLeft text-[20px] pt-5 ">
                       {item.title}
                     </span>

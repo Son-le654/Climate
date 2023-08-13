@@ -8,7 +8,10 @@ import axios from "axios";
 import InputUsername from "../components/input/InputUsername";
 import InputPassword from "../components/input/InputPassword";
 import { publicPort } from "../components/url/link";
-import { AiFillGoogleCircle } from "react-icons/ai";
+import AiFillGoogleCircle from "../Images/mdigoogle.png";
+import AiFillFaceCircle from "../Images/bxl_facebook.png";
+import AiFillTwitterCircle from "../Images/uil_twitter.png";
+
 
 const LoginPageUser = () => {
   const navigate = useNavigate();
@@ -135,6 +138,43 @@ const LoginPageUser = () => {
               </Link>
             </div>
           </div>
+          <div className="flex items-center">
+            <div className="w-[40%]">
+              <hr className="text-[#c5bfbf]" />
+            </div>
+            <div className="w-[20%] flex justify-center text-[#c5bfbf]">
+              <p>Or</p>
+            </div>
+            <div className="w-[40%] text-[#c5bfbf]">
+              <hr />
+            </div>
+          </div>
+          <div className="flex justify-center w-[100%] ">
+            <div className="w-[50%] flex justify-center ">
+              <div className="w-[33%] flex justify-start">
+                <div
+                  onClick={handleLoginGoogle}
+                  className="w-[80%] h-[50px] bg-[#fdefef] flex justify-center items-center rounded-full cursor-pointer"
+                >
+                  <img src={AiFillGoogleCircle} className="w-[50%] h-[50%]" />
+                </div>
+              </div>
+              <div className="w-[33%] flex justify-center">
+                <div
+                  className="w-[80%] h-[50px] bg-[#e8f2fe] flex justify-center items-center rounded-full cursor-pointer"
+                >
+                  <img src={AiFillFaceCircle} className="w-[50%] h-[50%]" />
+                </div>
+              </div>
+              <div className="w-[33%] flex justify-end">
+                <div
+                  className="w-[80%] h-[50px] bg-[#e8f2fe] flex justify-center items-center rounded-full cursor-pointer"
+                >
+                  <img src={AiFillTwitterCircle} className="w-[50%] h-[50%]" />
+                </div>
+              </div>
+            </div>
+          </div>
           <Button
             // onClick={() => {
             //   navigate("/");
@@ -146,28 +186,6 @@ const LoginPageUser = () => {
             Login
           </Button>
         </form>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-          }}
-        >
-          OR
-        </div>
-        <AiFillGoogleCircle
-          style={{
-            // padding: "1rem",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "5rem",
-            width: "100%",
-            color: "red",
-          }}
-          onClick={handleLoginGoogle}
-        ></AiFillGoogleCircle>
 
         <div
           className="mt-[32px] flex items-center justify-center gap-1 "
