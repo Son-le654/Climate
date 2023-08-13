@@ -3,7 +3,7 @@ import DoctorInformationContent from "../module/doctorinformation/DoctorInformat
 import Footer from "../module/home/Footer";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { localPort, publicPort } from "../components/url/link";
+import {  publicPort } from "../components/url/link";
 import { useLocation, useNavigate } from "react-router";
 import React from "react";
 

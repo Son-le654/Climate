@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.DTO.LoginRequest;
 import com.example.demo.DTO.PatientDTO;
+import com.example.demo.DTO.PatientData;
 import com.example.demo.DTO.RegisterRequest;
 import com.example.demo.entity.InternalAccount;
 import com.example.demo.entity.Location;
@@ -87,6 +88,22 @@ public class PatientController {
 		final String token = jwtTokenUtil.generateToken(userDetails);
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
+	
+	@PostMapping(value = "/logingoogle")
+	public ResponseEntity<?> logingoogle(@RequestBody PatientData loginRequest) {
+		System.out.println("url: " + loginRequest.getEmail() + loginRequest.getDisplayName());
+		System.out.println("patient");
+		Optional<Patient> pantiacc = Optional.ofNullable(patientService.findByEmail(loginRequest.getEmail()));
+		if (!pantiacc.isPresent()) {
+			String result = service.registergoogle(loginRequest);
+			final UserDetails userDetails = service.loadUserByUsernamegoogle(loginRequest.getEmail());
+			final String token = jwtTokenUtil.generateToken(userDetails);
+			return ResponseEntity.ok(new JwtResponse(token));
+		}
+		final UserDetails userDetails = service.loadUserByUsername(loginRequest.getEmail());
+		final String token = jwtTokenUtil.generateToken(userDetails);
+		return ResponseEntity.ok(new JwtResponse(token));
+	}
 
 	@PostMapping(value = "/register")
 	public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
@@ -96,8 +113,7 @@ public class PatientController {
 		if (result.equals("Create success")) {
 			try {
 				String OTP = generateOneTimePassword(request.getEmail());
-				MailDetail m = new MailDetail(request.getEmail(), "OTP",
-						"The OTP is : " + OTP + ". This OTP will be expired after 2 minutes");
+				MailDetail m = new MailDetail(request.getEmail(), "OTP Verification", OTP);
 				mailService.sendMail(m);
 			} catch (UnsupportedEncodingException | MessagingException e) {
 				// TODO Auto-generated catch block
@@ -117,24 +133,24 @@ public class PatientController {
 
 	}
 
-	 @PostMapping(value = "/updateprofile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	    public ResponseEntity<?> update(@RequestParam("patient") String patientJson,
-	    		@RequestParam(value = "fileData", required = false) MultipartFile fileData) {
-	        // Convert thông tin bệnh nhân từ JSON thành đối tượng PatientDTO
-	        PatientDTO patientDTO = null;
-	        try {
-	            ObjectMapper objectMapper = new ObjectMapper();
-	            patientDTO = objectMapper.readValue(patientJson, PatientDTO.class);
-	        } catch (JsonProcessingException e) {
-	            e.printStackTrace();
-	            return ResponseEntity.badRequest().body("Invalid JSON data for patient.");
-	        }
+	@PostMapping(value = "/updateprofile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<?> update(@RequestParam("patient") String patientJson,
+			@RequestParam(value = "fileData", required = false) MultipartFile fileData) {
+		// Convert thông tin bệnh nhân từ JSON thành đối tượng PatientDTO
+		PatientDTO patientDTO = null;
+		try {
+			ObjectMapper objectMapper = new ObjectMapper();
+			patientDTO = objectMapper.readValue(patientJson, PatientDTO.class);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body("Invalid JSON data for patient.");
+		}
 
-	        // Tiến hành xử lý thông tin bệnh nhân và fileData
-	        String result = service.updateprofile(patientDTO, fileData);
+		// Tiến hành xử lý thông tin bệnh nhân và fileData
+		String result = service.updateprofile(patientDTO, fileData);
 
-	        return ResponseEntity.ok(result);
-	    }
+		return ResponseEntity.ok(result);
+	}
 
 	@GetMapping("/resend")
 	public String resendOTP(@RequestParam("email") String email) {
@@ -151,8 +167,7 @@ public class PatientController {
 		// resend new otp
 		try {
 			String OTP = generateOneTimePassword(email);
-			MailDetail m = new MailDetail(email, "OTP",
-					"The OTP is : " + OTP + ". This OTP will be expired after 2 minutes");
+			MailDetail m = new MailDetail(email, "OTP Verification", OTP);
 			mailService.sendMail(m);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
@@ -323,11 +338,12 @@ public class PatientController {
 		}
 		return true;
 	}
-	
+
 	@GetMapping("/list")
 	public List<Patient> getAll() {
 		return service.findAll();
 	}
+
 	@GetMapping("/listadmin")
 	public List<Patient> getAllForAdmin() {
 		return service.findAllForAdmin();
