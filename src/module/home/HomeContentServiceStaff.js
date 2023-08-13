@@ -239,7 +239,7 @@ const HomeContentServiceStaff = () => {
             className="font-bold pb-[30px]"
             style={{ fontSize: "40px", marginTop: "100px" }}
           >
-            LatestNew
+            Latest News
           </h1>
           <LatestNewService />
         </div>

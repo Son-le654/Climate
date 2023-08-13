@@ -1,26 +1,30 @@
 import React from "react";
 import startImg from "../../../Images/Star.png";
+import imgAva1 from "../../../Images/Ellipse 17.png"
+import imgAva2 from "../../../Images/Ellipse 18.png"
+import imgAva3 from "../../../Images/Ellipse 19.png"
+import imgAva4 from "../../../Images/Ellipse 20.png"
 const listCmt = [
   {
     id: 1,
     comment:
       "“Fast application, useful and secure linking feature to look up examination history”",
     avatar:
-      "https://demoda.vn/wp-content/uploads/2022/03/anh-anime-co-don-1.jpg",
+      imgAva1,
     fullname: "Ms. Tam Anh Le",
   },
   {
     id: 2,
     comment: "“Easy appointment. Smart application and utility for users”",
     avatar:
-      "https://demoda.vn/wp-content/uploads/2022/03/anh-anime-co-don-1.jpg",
+      imgAva2,
     fullname: "Mrs. Cam Tu Nguyen",
   },
   {
     id: 3,
     comment: "“Very convenient. Save a lot of time. Simple but effective”",
     avatar:
-      "https://demoda.vn/wp-content/uploads/2022/03/anh-anime-co-don-1.jpg",
+      imgAva3,
     fullname: "Mr. Quoc Phu Bui",
   },
   {
@@ -28,7 +32,7 @@ const listCmt = [
     comment:
       "“Beautiful interface. Waiting for the next versions. Thanks ClinicMate”",
     avatar:
-      "https://demoda.vn/wp-content/uploads/2022/03/anh-anime-co-don-1.jpg",
+      imgAva4,
     fullname: "Ms. Ha My Nguyen",
   },
 ];
