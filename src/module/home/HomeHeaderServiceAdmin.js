@@ -6,6 +6,8 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import AccountMenu from "../../Popper/menu/AccountMenu";
 import { CiLogin } from "react-icons/ci";
 import jwtDecode from "jwt-decode";
+import axios from "axios";
+import { publicPort } from "components/url/link";
 const HomeNav = [
   {
     id: 1,
@@ -51,17 +53,91 @@ const HomeHeaderServiceAdmin = () => {
   const storedName = localStorage.getItem("token");
   const [role, setRole] = useState("");
   const [nameuser, setNameUser] = useState("");
+  const [viewer, setViewer] = useState();
   useEffect(() => {
     try {
       const decoded = jwtDecode(storedName);
       const role = decoded.roles[0].authority;
+      const mal = decoded.sub;
       setRole(role);
       const nameuser = decoded.nameInternal;
       setNameUser(nameuser);
+
+      const listApp = async () => {
+        try {
+          let response;
+          if (role == "USER") {
+            response = await axios.get(
+              publicPort + `patient/profile?email=${mal}`
+            );
+          } else {
+            response = await axios.get(
+              publicPort + `api/internal-accounts/search-email?email=${mal}`
+            );
+          }
+          // console.log(response.data);
+          setViewer(response.data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      listApp();
     } catch (error) {
       console.log(error);
     }
   }, []);
+
+  useEffect(() => {
+    const fetchImage = async () => {
+      if (viewer?.avatar) {
+        try {
+          const response = await axios.get(
+            publicPort + `images/${viewer.avatar}`,
+            {
+              responseType: "blob", // set thành kiểu blob
+            }
+          );
+
+          // Đọc dữ liệu hình ảnh và chuyển đổi nó thành chuỗi base64
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            setImageData(reader.result);
+          };
+          reader.readAsDataURL(response.data);
+        } catch (error) {
+          console.error("Error fetching image:", error);
+        }
+      }
+    };
+
+    fetchImage();
+  }, [viewer?.avatar]);
+  const [imageData, setImageData] = useState(null);
+  useEffect(() => {
+    const fetchImage = async () => {
+      if (viewer?.avatar) {
+        try {
+          const response = await axios.get(
+            publicPort + `images/${viewer.avatar}`,
+            {
+              responseType: "blob", // set thành kiểu blob
+            }
+          );
+
+          // Đọc dữ liệu hình ảnh và chuyển đổi nó thành chuỗi base64
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            setImageData(reader.result);
+          };
+          reader.readAsDataURL(response.data);
+        } catch (error) {
+          console.error("Error fetching image:", error);
+        }
+      }
+    };
+
+    fetchImage();
+  }, [viewer]);
 
   return (
     <header className="max-w-[1156px] gap-[46px] mx-auto flex items-center pt-[45px]">
@@ -93,7 +169,7 @@ const HomeHeaderServiceAdmin = () => {
           >
             <img
               className=" absolute rounded-full w-[24px] h-[24px] top-[6px] left-[4px]"
-              src={EnsignAnh}
+              src={imageData}
             ></img>
             <div className="font-bold">{nameuser}</div>
             <div className="absolute top-[3px] left-[83%]">

@@ -24,6 +24,10 @@ const HomeContentService = () => {
     };
   }, [type, tabButtons]);
 
+  const handleBook = () => {
+    navigate("/book_appointment");
+  };
+
   return (
     <div className="bg-white pt-[3rem]">
       <div className="flex items-center gap-[141px] justify-between max-w-[1156px] mx-auto">
@@ -58,15 +62,15 @@ const HomeContentService = () => {
                 style={
                   type === tabButton
                     ? {
-                      color: "#ffff",
-                      backgroundColor: "#3681f8",
-                    }
+                        color: "#ffff",
+                        backgroundColor: "#3681f8",
+                      }
                     : {
-                      borderColor: "#5562f7",
-                      color: "#5562f7",
-                    }
+                        borderColor: "#5562f7",
+                        color: "#5562f7",
+                      }
                 }
-                onClick={() => setType(tabButton)}
+                onClick={handleBook}
               >
                 {tabButton}
               </button>

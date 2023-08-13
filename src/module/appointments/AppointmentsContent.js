@@ -19,7 +19,7 @@ function AppointmentsContent({ role, mail }) {
   const listtitle = [
     {
       id: 1,
-      title: "Appointment number",
+      title: "App-No",
     },
     {
       id: 2,
