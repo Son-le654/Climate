@@ -6,6 +6,7 @@ import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import HomeHeaderService from "module/home/HomeHeaderService";
 import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
+import HomeHeaderServiceAdmin from "module/home/HomeHeaderServiceAdmin";
 
 const AppointmentsPage = () => {
   const navigate = useNavigate();
@@ -38,6 +39,8 @@ const AppointmentsPage = () => {
           <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
         ) : role == "NURSE" ? (
           <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
+        ) : role == "ADMIN" ? (
+          <HomeHeaderServiceAdmin></HomeHeaderServiceAdmin>
         ) : (
           <HomeHeaderService></HomeHeaderService>
         )}
