@@ -13,6 +13,17 @@ import {
 import { storage } from "../url/firebase";
 import { v4 } from "uuid";
 
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  listAll,
+  list,
+} from "firebase/storage";
+
+import { v4 } from "uuid";
+import { storage } from "components/url/firebase";
+
 export default function DoctorList({
   docList,
   searchspec,
@@ -33,8 +44,33 @@ export default function DoctorList({
     setListOrigin(docList);
     setSpecList(docList);
   }, [docList]);
-  console.log(listOrigin);
-  console.log(docList);
+  // console.log(listOrigin);
+  // console.log(docList);
+
+  const [avatarUrl, setAvatarUrl] = useState(null);
+
+  // Hàm lấy URL của avatar
+  const getAvatarUrl = async (imageName) => {
+    try {
+      const storageRef = ref(storage, `${imageName}`); // No need to concatenate the image name with v4() here
+    const url = await getDownloadURL(storageRef);
+    return url;
+    } catch (error) {
+      console.error('Error getting avatar URL: ', error);
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    // Lấy URL của avatar khi component render
+    if (specList?.length > 0) {
+      const avatarName = specList[0].avatar; // Chọn một avatar bất kỳ từ listData
+      getAvatarUrl(avatarName)
+        .then((url) => {
+          setAvatarUrl(url);
+        });
+    }
+  }, [specList]);
 
   useEffect(() => {
     if (searchspec != undefined && searchlocation != undefined) {

@@ -7,6 +7,16 @@ import {
   FaTransgender,
 } from "react-icons/fa";
 import { IoIosSchool } from "react-icons/io";
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  listAll,
+  list,
+} from "firebase/storage";
+
+import { v4 } from "uuid";
+import { storage } from "components/url/firebase";
 
 export default function PatientList({ docList, searchname }) {
   const navigate = useNavigate();
@@ -24,6 +34,30 @@ export default function PatientList({ docList, searchname }) {
   }, [docList]);
   // console.log(listOrigin);
   // console.log(docList);
+
+  const [avatarUrl, setAvatarUrl] = useState(null);
+
+  // Hàm lấy URL của avatar
+  const getAvatarUrl = async (imageName) => {
+    try {
+      const storageRef = ref(storage, `${imageName}`); // No need to concatenate the image name with v4() here
+      const url = await getDownloadURL(storageRef);
+      return url;
+    } catch (error) {
+      console.error("Error getting avatar URL: ", error);
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    // Lấy URL của avatar khi component render
+    if (specList?.length > 0) {
+      const avatarName = specList[0].avatar; // Chọn một avatar bất kỳ từ listData
+      getAvatarUrl(avatarName).then((url) => {
+        setAvatarUrl(url);
+      });
+    }
+  }, [specList]);
 
   useEffect(() => {
     if (searchname != undefined) {
@@ -100,7 +134,7 @@ export default function PatientList({ docList, searchname }) {
               key={data.id}
             >
               <div className="w-[15%] h-[120px] rounded-[15px] overflow-hidden mr-[30px] mt-2 ">
-                <img className="w-[100%]" src={data.avatar} alt="avatar" />
+                <img className="w-[100%]" src={avatarUrl} alt="avatar" />
               </div>
               <div className="w-[85%] pr-[20%]">
                 <h1 className="font-semibold">{data.name}</h1>

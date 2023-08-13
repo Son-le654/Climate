@@ -24,7 +24,7 @@ function CheckinListContent({ email, role }) {
   const listtitle = [
     {
       id: 1,
-      title: "Check-in number",
+      title: "Ex-No",
     },
     {
       id: 2,
