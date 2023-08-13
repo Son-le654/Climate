@@ -8,18 +8,13 @@ import axios from "axios";
 import InputUsername from "../components/input/InputUsername";
 import InputPassword from "../components/input/InputPassword";
 import { publicPort } from "../components/url/link";
-<<<<<<< HEAD
-import AiFillGoogleCircle from "../Images/mdigoogle.png";
-import AiFillFaceCircle from "../Images/bxl_facebook.png";
-import AiFillTwitterCircle from "../Images/uil_twitter.png";
-
-=======
-import { AiFillGoogleCircle } from "react-icons/ai";
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { collection, addDoc } from 'firebase/firestore';
->>>>>>> ff26e17c396e78a965107dff12970ce1b3ce0a4c
+import AiFillGoogleCircle from "../Images/mdigoogle.png";
+import AiFillFaceCircle from "../Images/bxl_facebook.png";
+import AiFillTwitterCircle from "../Images/uil_twitter.png";
 
 const LoginPageUser = () => {
   const navigate = useNavigate();
@@ -92,35 +87,35 @@ const LoginPageUser = () => {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      
-  
-       const usersCollection = collection(db, 'users');
+
+
+      const usersCollection = collection(db, 'users');
       // Tạo yêu cầu POST với thông tin người dùng đã đăng nhập
       const postData = {
         email: user.email,
         displayName: user.displayName,
         // Các thông tin khác cần truyền
       };
-      
-  
+
+
       // Sử dụng thư viện hoặc phương thức để thực hiện yêu cầu POST
       const response = await axios.post(publicPort + `patient/logingoogle`, {
         email: user.email,
         displayName: user.displayName,
       });
       // console.log(response);
-  
+
       if (response.data.token === undefined) {
         alert("Incorrect email or password.");
       }
-  
+
       if (response.data.token.length > 0) {
         const tokenn = response.data.token;
         // console.log("true");
         localStorage.setItem("token", response.data.token);
         navigate("/service", { state: { tokenn } });
       }
-  
+
     } catch (error) {
       console.error(error);
     }
@@ -259,17 +254,17 @@ const LoginPageUser = () => {
         ></AiFillGoogleCircle>
 >>>>>>> ff26e17c396e78a965107dff12970ce1b3ce0a4c
 
-        <div
-          className="mt-[32px] flex items-center justify-center gap-1 "
-          style={{ marginTop: "1rem", marginBottom: "-2rem" }}
-        >
-          <span className="text-gray2">New User?</span>
-          <Link to="/register" className="text-textColor">
-            Sign up here!
-          </Link>
-        </div>
-      </div>
-    </LayoutSign>
+  <div
+    className="mt-[32px] flex items-center justify-center gap-1 "
+    style={{ marginTop: "1rem", marginBottom: "-2rem" }}
+  >
+    <span className="text-gray2">New User?</span>
+    <Link to="/register" className="text-textColor">
+      Sign up here!
+    </Link>
+  </div>
+      </div >
+    </LayoutSign >
   );
 };
 
