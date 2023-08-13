@@ -71,6 +71,10 @@ public class InternalService implements UserDetailsService {
 		System.out.println(account.toString());
 		String hashedPassword = BCrypt.hashpw(account.getPassword(), BCrypt.gensalt());
 		account.setPassword(hashedPassword);
+		if (account.getAvatar().equals(null)) {
+			account.setAvatar(
+					"paramedic-avatar-clipart-icon-illustration-for-doctor-and-ners-medical-service-vector.jpg");
+		}
 		return internalRepository.save(account);
 	}
 
@@ -164,7 +168,7 @@ public class InternalService implements UserDetailsService {
 		internalRepository.save(account);
 		return "Create success";
 	}
-	
+
 	public String updateinter(CreateAccountDTO internalAccount) {
 		if (checkIDExists(Integer.parseInt(internalAccount.getId())) == null) {
 			return "Internal not exists";
@@ -180,7 +184,6 @@ public class InternalService implements UserDetailsService {
 		return "Update success";
 	}
 
-	
 	public String updateprofile(CreateAccountDTO internalAccount, MultipartFile fileData) {
 		if (checkIDExists(Integer.parseInt(internalAccount.getId())) == null) {
 			return "Internal not exists";
@@ -214,11 +217,11 @@ public class InternalService implements UserDetailsService {
 		internalRepository.save(account);
 		return "Update success";
 	}
-	
+
 	private InternalAccount checkIDExists(int id) {
 		return internalRepository.getAccById(id);
 	}
-	
+
 	private int checkEmailExists(String email) {
 		return internalRepository.getAccByEmailWithnameDoctor(email);
 	}

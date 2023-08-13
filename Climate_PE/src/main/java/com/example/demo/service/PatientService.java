@@ -72,7 +72,7 @@ public class PatientService implements UserDetailsService {
 //		LocalDate date = LocalDate.parse(request.getBirthdate(), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
 
 		Patient p = new Patient(request.getId(), request.getName(), request.getEmail(), hashedPassword,
-				request.getBirthdate());
+				request.getBirthdate(), "1430453.png");
 
 		repository.save(p);
 		return "Create success";

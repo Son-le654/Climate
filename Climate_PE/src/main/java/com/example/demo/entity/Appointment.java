@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Column;
@@ -127,8 +128,14 @@ public class Appointment {
 
 	public String timeNow() {
 		LocalDateTime currentDateTime = LocalDateTime.now();
+
+		// Apply GMT +7 offset
+        ZoneOffset offset = ZoneOffset.ofHours(7);
+        LocalDateTime gmtPlus7DateTime = currentDateTime.plusHours(7).atOffset(offset).toLocalDateTime();
+		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss:SSS");
-		String formattedDateTime = currentDateTime.format(formatter);
+		String formattedDateTime = gmtPlus7DateTime.format(formatter);
+		
 		return formattedDateTime;
 	}
 

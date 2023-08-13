@@ -100,6 +100,18 @@ function MedicalHistoryContent({ email, role }) {
     }
   };
 
+  const formatDateToRight = (dateString) => {
+    let date = new Date(dateString);
+    let formattedDate = date.toLocaleString("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    console.log(formattedDate);
+    return formattedDate;
+  };
   return (
     <div className="bg-white">
       <div className="flex w-[100%] items-center pb-[30px]">
@@ -108,7 +120,11 @@ function MedicalHistoryContent({ email, role }) {
         </div>
         <div className="h-[50px] w-[50%] flex justify-end items-center">
           <div className="border-[1px] border-[#dddddd]  w-[40%] h-[40px] flex items-center justify-center rounded-3xl cursor-pointer">
-            <input onChange={handleSearchInputChange} className="w-[80%] h-[100%]" placeholder="Search Patient" />
+            <input
+              onChange={handleSearchInputChange}
+              className="w-[80%] h-[100%]"
+              placeholder="Search Patient"
+            />
             <span className="font-medium text-[#dddddd] w-[10%] text-[30px]">
               <GoSearch />
             </span>
@@ -144,7 +160,10 @@ function MedicalHistoryContent({ email, role }) {
                   <p className="text-[14px] text-[#9b9999]">
                     {checkin.checkin.speciatly}
                   </p>
-                  <p className="text-warning">{checkin.releaseTime}</p>
+                  <p className="text-warning">
+                    {" "}
+                    {formatDateToRight(checkin.releaseTime)}
+                  </p>
                 </div>
               </div>
             </div>
