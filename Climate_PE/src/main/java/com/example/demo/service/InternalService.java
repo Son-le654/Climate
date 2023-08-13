@@ -164,6 +164,9 @@ public class InternalService implements UserDetailsService {
 			if (avartar.equals("Cannot upload file")) {
 				return "Create no success";
 			}
+		} else {
+			account.setAvatar(
+					"paramedic-avatar-clipart-icon-illustration-for-doctor-and-ners-medical-service-vector.jpg");
 		}
 		internalRepository.save(account);
 		return "Create success";

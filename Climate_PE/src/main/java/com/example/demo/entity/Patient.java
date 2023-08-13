@@ -120,15 +120,16 @@ public class Patient implements Serializable {
 		this.commandFlag = 0;
 		this.registrationTime = timeNow();
 		this.role = "USER";
+		this.avatar = avatarDefault;
 
 	}
 
 	public String timeNow() {
 		LocalDateTime currentDateTime = LocalDateTime.now();
 		// Apply GMT +7 offset
-        ZoneOffset offset = ZoneOffset.ofHours(7);
-        LocalDateTime gmtPlus7DateTime = currentDateTime.plusHours(7).atOffset(offset).toLocalDateTime();
-		
+		ZoneOffset offset = ZoneOffset.ofHours(7);
+		LocalDateTime gmtPlus7DateTime = currentDateTime.plusHours(7).atOffset(offset).toLocalDateTime();
+
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss:SSS");
 		String formattedDateTime = gmtPlus7DateTime.format(formatter);
 		return formattedDateTime;
