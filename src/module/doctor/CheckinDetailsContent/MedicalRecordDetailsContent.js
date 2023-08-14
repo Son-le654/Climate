@@ -31,7 +31,18 @@ function MedicalRecordDetailsContent({ checkin, role }) {
 
   const navigate = useNavigate();
   const [showMedicalSummary, setShowMedicalSummary] = useState(true);
-
+  const formatDateToRight = (dateString) => {
+    let date = new Date(dateString);
+    let formattedDate = date.toLocaleString("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    console.log(formattedDate);
+    return formattedDate;
+  };
   return (
     <div className="pt-[5rem]">
       <div className="flex w-[100%] items-center pb-[30px]">
@@ -230,7 +241,11 @@ function MedicalRecordDetailsContent({ checkin, role }) {
                 <div className="w-[1%]"></div>
                 <input
                   disabled={true}
-                  value={checkin != undefined ? checkin.releaseTime : ""}
+                  value={
+                    checkin != undefined
+                      ? formatDateToRight(checkin.releaseTime)
+                      : ""
+                  }
                   className="w-[98%] h-[120px] pt-[20px] pl-[20px] text-[#42b874]"
                 />
               </div>

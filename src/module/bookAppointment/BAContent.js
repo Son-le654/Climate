@@ -28,6 +28,7 @@ import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import IconSearch from "../../icon/IconSearch";
 import { publicPort } from "../../components/url/link";
+import jwtDecode from "jwt-decode";
 
 const hoursList = [
   {
@@ -98,6 +99,38 @@ const hoursList = [
 ];
 
 const BAContent = () => {
+  const [role, setRole] = useState("");
+  const [patient, setPatient] = useState();
+
+  useEffect(() => {
+    const storedName = localStorage?.getItem("token");
+    let m;
+    try {
+      const decoded = jwtDecode(storedName);
+      const rol = decoded.roles[0].authority;
+      setRole(rol);
+      m = decoded.sub;
+      // if (role !== 'USER') {
+      //   navigate("/")
+      // }
+    } catch (error) {
+      console.log(error);
+    }
+    // console.log(role);
+    const listApp = async () => {
+      if (role == "USER") {
+        const response = await axios.get(
+          publicPort + `patient/profile?email=${m}`
+        );
+        // console.log(response.data);
+        setPatient(response.data);
+        setFullName({ fname: response.data.name });
+        setIdCard({ idC: response.data.id });
+      }
+    };
+    listApp();
+  }, [role]);
+
   const navigate = useNavigate();
   const [value, onChange] = useState();
   const [selectedCheckbox, setSelectedCheckbox] = useState("");
@@ -430,6 +463,8 @@ const BAContent = () => {
   };
 
   const bookAppointment = async () => {
+    console.log(fullName.fname);
+    console.log(idCard.idC);
     if (
       fullName.fname === undefined ||
       phone.pnum === undefined ||
@@ -620,22 +655,48 @@ const BAContent = () => {
               ) : (
                 <></>
               )}
+              {role == "USER" ? (
+                <>
+                  <InputInfo
+                    handleChangeName={handleChangeName}
+                    icon={<IconPen />}
+                    name={"fname"}
+                    placeholder="Your name"
+                    // value={patient?.name}
+                    value={fullName.fname}
+                    disabled={true}
+                  ></InputInfo>
+                  <InputInfo
+                    handleChangeName={handleChangeName}
+                    name={"idC"}
+                    type={"number"}
+                    icon={<IconSearch />}
+                    placeholder="Your ID card"
+                    // value={patient?.id}
+                    value={idCard.idC}
+                    disabled={true}
+                  ></InputInfo>
+                </>
+              ) : (
+                <>
+                  <InputInfo
+                    handleChangeName={handleChangeName}
+                    icon={<IconPen />}
+                    name={"fname"}
+                    placeholder="Your name"
+                    value={fullName.fname}
+                  ></InputInfo>
+                  <InputInfo
+                    handleChangeName={handleChangeName}
+                    name={"idC"}
+                    type={"number"}
+                    icon={<IconSearch />}
+                    placeholder="Your ID card"
+                    value={idCard.idC}
+                  ></InputInfo>
+                </>
+              )}
 
-              <InputInfo
-                handleChangeName={handleChangeName}
-                icon={<IconPen />}
-                name={"fname"}
-                placeholder="Your name"
-                value={fullName.fname}
-              ></InputInfo>
-              <InputInfo
-                handleChangeName={handleChangeName}
-                name={"idC"}
-                type={"number"}
-                icon={<IconSearch />}
-                placeholder="Your ID card"
-                value={idCard.idC}
-              ></InputInfo>
               <InputInfo
                 handleChangeName={handleChangeName}
                 name={"pnum"}
