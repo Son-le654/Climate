@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
 import javax.persistence.CascadeType;
@@ -75,8 +76,12 @@ public class Schedule {
 
 	public String timeNow() {
 		LocalDateTime currentDateTime = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-		String formattedDateTime = currentDateTime.format(formatter);
+		// Apply GMT +7 offset
+        ZoneOffset offset = ZoneOffset.ofHours(7);
+        LocalDateTime gmtPlus7DateTime = currentDateTime.plusHours(7).atOffset(offset).toLocalDateTime();
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss:SSS");
+		String formattedDateTime = gmtPlus7DateTime.format(formatter);
 		return formattedDateTime;
 	}
 

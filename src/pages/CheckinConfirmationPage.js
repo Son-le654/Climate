@@ -6,11 +6,15 @@ import { useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
 import React from "react";
 import CheckinConfirmationContent from "module/checkinConfirmation/CheckinConfirmationContent";
+import HomeHeaderServiceAdmin from "module/home/HomeHeaderServiceAdmin";
+import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
+import HomeHeaderServiceNurse from "module/home/HomeHeaderServiceNurse";
 
 const CheckinConfirmationPage = () => {
   const navigate = useNavigate();
   const storedName = localStorage.getItem("token");
   const [checkin, setCheckin] = useState();
+  const [role, setRole] = useState();
 
   useEffect(() => {
     if (storedName == null) {
@@ -18,10 +22,11 @@ const CheckinConfirmationPage = () => {
     } else {
       try {
         const decoded = jwtDecode(storedName);
-        const role = decoded.roles[0].authority;
+        const rol = decoded.roles[0].authority;
         // if (role !== 'USER') {
         //   navigate("/")
         // }
+        setRole(rol);
       } catch (error) {
         console.log(error);
       }
@@ -42,7 +47,15 @@ const CheckinConfirmationPage = () => {
   return (
     <div className="bg-white">
       <div className="bg-white">
-        <HomeHeaderService></HomeHeaderService>
+        {role == "USER" ? (
+          <HomeHeaderService></HomeHeaderService>
+        ) : role == "NURSE" ? (
+          <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
+        ) : role == "ADMIN" ? (
+          <HomeHeaderServiceAdmin></HomeHeaderServiceAdmin>
+        ) : (
+          <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
+        )}
       </div>
       <div className="pt-[80px] pl-[190px] text-6xl font-bold py-[20px]">
         <h1>Appointment Confirmation</h1>

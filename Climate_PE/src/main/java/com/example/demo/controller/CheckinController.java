@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.DTO.CheckinDTO;
 import com.example.demo.entity.Appointment;
 import com.example.demo.entity.Checkin;
+import com.example.demo.entity.Patient;
 import com.example.demo.service.CheckinService;
 import com.example.demo.service.InternalService;
+import com.example.demo.service.PatientService;
 
 @RestController
 @RequestMapping("/checkin")
@@ -32,6 +34,9 @@ public class CheckinController {
 
 	@Autowired
 	private InternalService internalService;
+
+	@Autowired
+	private PatientService patientService;
 
 	@PostMapping("/save")
 	public String save(@RequestBody CheckinDTO checkinDTO) {
@@ -127,6 +132,43 @@ public class CheckinController {
 		} catch (
 
 		Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred.");
+		}
+	}
+
+	@PutMapping("/updatepaidforckn")
+	public ResponseEntity<String> updatePatientID(@RequestParam("checkinId") String checkinId,
+			@RequestParam("email") String email) {
+		System.out.println(checkinId);
+		System.out.println(email);
+		int cknid = Integer.parseInt(checkinId);
+		try {
+			// Get the appointment by its ID
+			Optional<Checkin> optionalCheckin = checkinService.findById(cknid);
+			if (optionalCheckin.isPresent()) {
+				Checkin checkin = optionalCheckin.get();
+				// Update the commandFlag based on the input
+				if (checkin.getPatient() != null) {
+					return ResponseEntity.badRequest().body("This examination already belongs to someone else.");
+				} else {
+					Patient p = patientService.findByEmail(email);
+//					System.out.println(p);
+					if (p != null) {
+						checkin.setPatient(p);
+					} else {
+						return ResponseEntity.badRequest().body("Cannot find patient, please try again.");
+					}
+
+					// Save the updated appointment
+					checkinService.saveCheckin(checkin);
+
+					return ResponseEntity.ok("Updated successfully.");
+				}
+			} else {
+				return ResponseEntity.badRequest().body("Cannot find examination, please try again.");
+			}
+		} catch (Exception e) {
+			System.out.println(e);
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred.");
 		}
 	}

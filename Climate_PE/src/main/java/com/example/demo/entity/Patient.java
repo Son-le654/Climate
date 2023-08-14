@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -88,8 +89,8 @@ public class Patient implements Serializable {
 	}
 
 	// for update
-	public Patient(String id, String name, String email, String address, String phone, String gender,
-			String avatar, String birthDate) {
+	public Patient(String id, String name, String email, String address, String phone, String gender, String avatar,
+			String birthDate) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -106,10 +107,31 @@ public class Patient implements Serializable {
 //		this.role = "USER";
 	}
 
+	public Patient(String id, String name, String email, String password, String birthDate, String avatarDefault) {
+		// TODO Auto-generated constructor stub
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.birthDate = birthDate;
+
+		// 0: create, 1: verify, 2: block
+		this.commandFlag = 0;
+		this.registrationTime = timeNow();
+		this.role = "USER";
+		this.avatar = avatarDefault;
+
+	}
+
 	public String timeNow() {
 		LocalDateTime currentDateTime = LocalDateTime.now();
+		// Apply GMT +7 offset
+		ZoneOffset offset = ZoneOffset.ofHours(7);
+		LocalDateTime gmtPlus7DateTime = currentDateTime.plusHours(7).atOffset(offset).toLocalDateTime();
+
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss:SSS");
-		String formattedDateTime = currentDateTime.format(formatter);
+		String formattedDateTime = gmtPlus7DateTime.format(formatter);
 		return formattedDateTime;
 	}
 
@@ -227,6 +249,14 @@ public class Patient implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	@Override
+	public String toString() {
+		return "Patient [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", address="
+				+ address + ", phone=" + phone + ", gender=" + gender + ", avatar=" + avatar + ", birthDate="
+				+ birthDate + ", registrationTime=" + registrationTime + ", commandFlag=" + commandFlag + ", role="
+				+ role + "]";
 	}
 
 }

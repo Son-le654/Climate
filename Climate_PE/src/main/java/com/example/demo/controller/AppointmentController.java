@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.DTO.AppointmentDTO;
 import com.example.demo.entity.Appointment;
 import com.example.demo.entity.InternalAccount;
+import com.example.demo.entity.Patient;
 import com.example.demo.entity.Schedule;
 import com.example.demo.service.AppointmentService;
 import com.example.demo.service.InternalService;
+import com.example.demo.service.PatientService;
 import com.example.demo.service.ScheduleService;
 
 @RestController
@@ -31,6 +33,9 @@ public class AppointmentController {
 
 	@Autowired
 	private AppointmentService appointmentService;
+
+	@Autowired
+	private PatientService patientService;
 
 	@Autowired
 	private ScheduleService scheduleService;
@@ -210,6 +215,43 @@ public class AppointmentController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred.");
+		}
+	}
+
+	@PutMapping("/updatepaidforapp")
+	public ResponseEntity<String> updatePatientID(@RequestParam("appointmentId") String appointmentId,
+			@RequestParam("email") String email) {
+		System.out.println(appointmentId);
+		System.out.println(email);
+		int appid = Integer.parseInt(appointmentId);
+		try {
+			// Get the appointment by its ID
+			Optional<Appointment> optionalAppointment = appointmentService.findById(appid);
+			if (optionalAppointment.isPresent()) {
+				Appointment appointment = optionalAppointment.get();
+				// Update the commandFlag based on the input
+				if (appointment.getPatient() != null) {
+					return ResponseEntity.badRequest().body("This appointment already belongs to someone else.");
+				} else {
+					Patient p = patientService.findByEmail(email);
+//					System.out.println(p);
+					if (p != null) {
+						appointment.setPatient(p);
+					} else {
+						return ResponseEntity.badRequest().body("Cannot find patient, please try again.");
+					}
+
+					// Save the updated appointment
+					appointmentService.saveAppointment(appointment);
+
+					return ResponseEntity.ok("Updated successfully.");
+				}
+			} else {
+				return ResponseEntity.badRequest().body("Cannot find appointment, please try again.");
+			}
+		} catch (Exception e) {
+			System.out.println(e);
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred.");
 		}
 	}
