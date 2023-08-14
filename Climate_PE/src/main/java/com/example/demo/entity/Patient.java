@@ -251,4 +251,12 @@ public class Patient implements Serializable {
 		return serialVersionUID;
 	}
 
+	@Override
+	public String toString() {
+		return "Patient [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", address="
+				+ address + ", phone=" + phone + ", gender=" + gender + ", avatar=" + avatar + ", birthDate="
+				+ birthDate + ", registrationTime=" + registrationTime + ", commandFlag=" + commandFlag + ", role="
+				+ role + "]";
+	}
+
 }

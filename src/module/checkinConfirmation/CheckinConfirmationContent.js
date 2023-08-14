@@ -74,6 +74,10 @@ function CheckinConfirmationContent({ checkin }) {
                   <span className="w-[65%]">{data.form}</span>
                 </div>
               </div>
+              <div className="pt-3 flex">
+                <span className="w-[35%]">Examination Fee</span>
+                <span className="">300.000vnđ</span>
+              </div>
               <div className="pt-6">
                 <h1 className="text-[#4976f7] text-3xl font-semibold">
                   Patient

@@ -68,6 +68,9 @@ public class Checkin {
 
 	@Column(name = "GENDER")
 	private String gender;
+	
+	@Column(name = "MONEY")
+	private int money = 300000;
 
 	@ManyToOne
 	@JoinColumn(name = "PATIENT_ID")
