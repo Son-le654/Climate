@@ -20,5 +20,7 @@ public interface SpeciatlyRepository extends JpaRepository<Specialty, Integer> {
 	
 	@Query("SELECT ia FROM Specialty ia WHERE ia.id = :id")
 	Specialty getSpById(@Param(value = "id") int id);
-
+	
+	@Query("SELECT ia.id FROM Specialty ia WHERE ia.name = :name")
+	String getSepByName(@Param(value = "name") String name);
 }
