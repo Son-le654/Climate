@@ -154,4 +154,12 @@ public class CheckinService {
 	public List<Object[]> countCheckinsByDoctor() {
 		return repository.countCheckinsByDoctor();
 	}
+	
+	public List<Object[]> countCheckinsByDoctorAndSpecial() {
+		return repository.countCheckinsByDoctorAndSpecial();
+	}
+	public Long countAppointmentByDoctor(String doctorId) {
+		return repository.countAppointmentByDoctor(doctorId);
+	}
+
 }

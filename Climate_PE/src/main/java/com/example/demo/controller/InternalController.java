@@ -27,6 +27,7 @@ import com.example.demo.DTO.ApiResponse;
 import com.example.demo.DTO.CountResult;
 import com.example.demo.DTO.CreateAccountDTO;
 import com.example.demo.DTO.CheckinDataDto;
+import com.example.demo.DTO.CheckinDataDtoSpeAndDocTor;
 import com.example.demo.DTO.InternalAccountDTO;
 import com.example.demo.DTO.LoginRequest;
 import com.example.demo.DTO.PatientDTO;
@@ -69,6 +70,7 @@ public class InternalController {
 
 	@Autowired
 	private InternalService doctorService;
+	
 
 	@PostMapping(value = "/login")
 	public ResponseEntity<?> DoLogin(@RequestBody LoginRequest loginRequest) {
@@ -279,5 +281,31 @@ public class InternalController {
 		return checkinDataList;
 
 	}
+	@GetMapping("/countByDoctorOfApointment")
+	public List<CheckinDataDtoSpeAndDocTor> countByDoctorOfApointment() {
+		List<Object[]> countCheckinsByDoctor = checkinService.countCheckinsByDoctorAndSpecial();
+		List<CheckinDataDtoSpeAndDocTor> checkinDataList = new ArrayList<>();
 
+		// Converting the list of arrays to a list of CheckinData objects
+		for (Object[] objArray : countCheckinsByDoctor) {
+			CheckinDataDtoSpeAndDocTor checkinData = new CheckinDataDtoSpeAndDocTor();
+			String doctorIdStr = (String) objArray[0];
+			String special =(String) objArray[2];
+			// Parse the doctorId as an Integer
+			Integer doctorId = Integer.parseInt(doctorIdStr);
+			String doctorName = internalService.findByIdUsingName(doctorId);
+			Long countcomplete = medicalRecordService.countOccurrencesByDoctorId(doctorIdStr);
+			Long appoiment = checkinService.countAppointmentByDoctor(doctorIdStr);
+			String specialId = speciatlyService.findByName(special);
+			checkinData.setNameDoctor(doctorName);
+			checkinData.setExamination(countcomplete);
+			checkinData.setId(doctorIdStr);
+			checkinData.setNameSepcial(special);
+			checkinData.setOnline(appoiment);
+			checkinData.setIdspe(specialId);
+			checkinDataList.add(checkinData);
+		}
+		return checkinDataList;
+
+	}
 }

@@ -43,7 +43,11 @@ public class SpeciatlyService {
 	public Specialty findByIdAcc(int id) {
 		return repository.getSpById(id);
 	}
-
+	
+	public String findByName(String name) {
+		return repository.getSepByName(name);
+	}
+	
 	public String blockSpec(Specialty c) {
 		c.setCommandFlag(2);
 		repository.save(c);
