@@ -5,6 +5,7 @@ import GiBrokenBone from "../../../ImageService/GroupXray.png";
 import FaTooth from "../../../ImageService/dentalcare.png";
 import FaMicroscope from "../../../ImageService/Laboratory.png";
 import FaEye from "../../../ImageService/eyeEyeCare.png";
+import { useNavigate } from "react-router-dom";
 const listCmt = [
   {
     id: 1,
@@ -47,7 +48,12 @@ const listCmt = [
     fullname: "Eye care",
   },
 ];
+
 const InformationCatalogueService = () => {
+  const navigate = useNavigate();
+  const handleNewPage = () => {
+    navigate("/newspage");
+  };
   return (
     <div className="grid grid-cols-3 gap-10 py-[20px]">
       {listCmt.length > 0 &&
@@ -56,6 +62,7 @@ const InformationCatalogueService = () => {
             <div
               className="p-[32px] shadow-lg bg-white flex flex-col gap-8 rounded-[32px]"
               key={item.id}
+              onClick={handleNewPage}
             >
               <div className="w-[80px] h-[80px] overflow-hidden">
                 <img src={item.avatar} alt="" />
