@@ -47,5 +47,7 @@ public interface CheckinRepository extends JpaRepository<Checkin, Integer> {
     @Query("SELECT COUNT(c.appointmentId) FROM Checkin c where c.doctorId = :doctorId")
 	Long countAppointmentByDoctor(@Param("doctorId") String doctorId);
     
+    @Query("SELECT c FROM Checkin c where c.appointmentId = :appid")
+    Checkin findByAppId(@Param("appid") String appid);
 
 }

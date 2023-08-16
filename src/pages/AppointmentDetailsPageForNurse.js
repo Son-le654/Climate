@@ -6,6 +6,7 @@ import jwtDecode from "jwt-decode";
 import AppointmentDetailContent from "../module/appointmentConfirmation/AppointmentDetailContent";
 import HomeHeaderServiceNurse from "../module/home/HomeHeaderServiceNurse";
 import React from "react";
+import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
 
 const AppointmentDetailsPageForNurse = () => {
   const navigate = useNavigate();
@@ -44,7 +45,9 @@ const AppointmentDetailsPageForNurse = () => {
   return (
     <div className="bg-white">
       <div className="bg-white">
-        {role == "NURSE" ? (
+        {role == "DOCTOR" ? (
+          <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
+        ) : role == "NURSE" ? (
           <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
         ) : (
           <HomeHeaderService></HomeHeaderService>

@@ -39,9 +39,9 @@ function CheckinConfirmationContent({ checkin }) {
       console.log(error);
     }
   }, []);
-  console.log(checkin);
+  // console.log(checkin);
   const confirm = async () => {
-    console.log(checkin);
+    // console.log(checkin);
     var response;
     if (role == "NURSE") {
       response = await axios.post(publicPort + `checkin/save`, checkin);

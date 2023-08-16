@@ -25,5 +25,8 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
 			@Param(value = "examTime") String examTime);
 
 	List<Schedule> findByInaccountsEmailOrderByExamDateAscExamTimeAsc(String email);
+	
+	@Query("select i from Schedule i where i.appointment.id = :id")
+	Schedule findByAppId(@Param(value = "id") int id);
 
 }

@@ -20,6 +20,7 @@ import com.example.demo.DTO.CheckinDTO;
 import com.example.demo.entity.Appointment;
 import com.example.demo.entity.Checkin;
 import com.example.demo.entity.Patient;
+import com.example.demo.service.AppointmentService;
 import com.example.demo.service.CheckinService;
 import com.example.demo.service.InternalService;
 import com.example.demo.service.PatientService;
