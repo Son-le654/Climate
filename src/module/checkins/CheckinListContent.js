@@ -64,9 +64,9 @@ function CheckinListContent({ email, role }) {
     const storedName = localStorage.getItem("token");
     try {
       const decoded = jwtDecode(storedName);
-      const role = decoded.roles[0].authority;
-      r = role;
-      setRol(role);
+      const ro = decoded.roles[0].authority;
+      r = ro;
+      setRol(ro);
       setMail(decoded.sub);
       m = decoded.sub;
       // console.log(decoded.sub);
@@ -78,7 +78,7 @@ function CheckinListContent({ email, role }) {
       try {
         let response;
         let response1;
-        if (role == "DOCTOR") {
+        if (r == "DOCTOR") {
           response = await axios.get(
             publicPort + `api/internal-accounts/search-email?email=${m}`
           );
@@ -86,7 +86,7 @@ function CheckinListContent({ email, role }) {
           response1 = await axios.get(
             publicPort + `checkin/listbydoctorid?doctorId=${response.data.id}`
           );
-        } else if (role == "USER") {
+        } else if (r == "USER") {
           response = await axios.get(
             publicPort + `patient/profile?email=${m}`
           );
@@ -121,7 +121,7 @@ function CheckinListContent({ email, role }) {
       }
     };
     listApp();
-  }, [Email, rol]);
+  }, [Email, role]);
 
   useEffect(() => {
     setListData(listOrigin.slice(indexOfFirstItem, indexOfLastItem));

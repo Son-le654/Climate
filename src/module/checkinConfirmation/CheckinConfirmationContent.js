@@ -14,6 +14,7 @@ function CheckinConfirmationContent({ checkin }) {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const handleOptionChange = (option) => {
+    console.log(option);
     setSelectedOption(option);
   };
 
@@ -172,24 +173,30 @@ function CheckinConfirmationContent({ checkin }) {
             onChange={(e) => handleOptionChange(e.target.value)}
           >
             <option value="">Select a Payment Method</option>
-            <option value="1">TP Bank - Clicmate Medical Center - 54010000677622</option>
-            <option value="2">BIDV - Clicmate Medical Center - 54010000677622</option>
-            <option value="3">MOMO - Clicmate Medical Center - 0817411123</option>
+            <option value="1">
+              TP Bank - Clicmate Medical Center - 54010000677622
+            </option>
+            <option value="2">
+              BIDV - Clicmate Medical Center - 54010000677622
+            </option>
+            <option value="3">
+              MOMO - Clicmate Medical Center - 0817411123
+            </option>
           </select>
         </div>
       </div>
       <div className="selected-option mt-[10px]">
-        {selectedOption === '1' && (
+        {selectedOption === "1" && (
           <div className="w-[100%] h-[250px]">
             <img src={imgTP} />
           </div>
         )}
-        {selectedOption === '2' && (
+        {selectedOption === "2" && (
           <div className="w-[100%] h-[250px]">
             <img src={imgBI} />
           </div>
         )}
-        {selectedOption === '3' && (
+        {selectedOption === "3" && (
           <div className="w-[100%] h-[250px]">
             <img src={imgMO} />
           </div>
@@ -214,7 +221,11 @@ function CheckinConfirmationContent({ checkin }) {
             borderColor: "#5562f7",
             color: "#5562f7",
           }}
-          onClick={() => confirm()}
+          onClick={
+            selectedOption != "" && selectedOption != null
+              ? () => confirm()
+              : () => {}
+          }
         >
           {tabButtons2}
         </button>

@@ -249,13 +249,12 @@ function ProfileContent({ mail, role }) {
                 <div className="w-[10%] flex">
                   <img
                     className="rounded-[10px] w-[40px] h-[40px]"
-                    src={EnsignAnh}
+                    src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2xpbmljfGVufDB8fDB8fHww&w=1000&q=80"
                   ></img>
                 </div>
                 <div className="w-[90%]">
                   <p className="text-[14px]">
-                    Guide to declaring electronic health information through
-                    Clinicmate website
+                  Clinicmate Hospital Collaborates with Local Community to Provide Free Health Screenings an
                   </p>
                 </div>
               </div>
@@ -263,13 +262,12 @@ function ProfileContent({ mail, role }) {
                 <div className="w-[10%] flex">
                   <img
                     className="rounded-[10px] w-[40px] h-[40px]"
-                    src={EnsignAnh}
+                    src="https://medicosfamilyclinic.com/wp-content/uploads/2020/06/medical-clinic.jpg"
                   ></img>
                 </div>
                 <div className="w-[90%]">
                   <p className="text-[14px]">
-                    Guide to declaring electronic health information through
-                    Clinicmate website
+                  Clinicmate Hospital Expands Specialized Departments to Meet Growing Patient Needs
                   </p>
                 </div>
               </div>
