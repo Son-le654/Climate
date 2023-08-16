@@ -163,7 +163,7 @@ function MedicalHistoryContent({ email, role }) {
                 <h1 className="font-bold text-[#6c87ae]">
                   {checkin.checkin.patientName}
                 </h1>
-                <div className="pt-[10px]">
+                <div className="">
                   <p className="text-[14px] text-[#9b9999]">
                     {checkin.checkin.bookPlace}
                   </p>

@@ -8,7 +8,7 @@ import axios from "axios";
 import InputUsername from "../components/input/InputUsername";
 import InputPassword from "../components/input/InputPassword";
 import { publicPort } from "../components/url/link";
-import { AiFillGoogleCircle } from "react-icons/ai";
+import AiFillGoogleCircle from "../Images/gggogle.png";
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
@@ -85,35 +85,35 @@ const LoginPageUser = () => {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      
-  
-       const usersCollection = collection(db, 'users');
+
+
+      const usersCollection = collection(db, 'users');
       // Tạo yêu cầu POST với thông tin người dùng đã đăng nhập
       const postData = {
         email: user.email,
         displayName: user.displayName,
         // Các thông tin khác cần truyền
       };
-      
-  
+
+
       // Sử dụng thư viện hoặc phương thức để thực hiện yêu cầu POST
       const response = await axios.post(publicPort + `patient/logingoogle`, {
         email: user.email,
         displayName: user.displayName,
       });
       // console.log(response);
-  
+
       if (response.data.token === undefined) {
         alert("Incorrect email or password.");
       }
-  
+
       if (response.data.token.length > 0) {
         const tokenn = response.data.token;
         // console.log("true");
         localStorage.setItem("token", response.data.token);
         navigate("/service", { state: { tokenn } });
       }
-  
+
     } catch (error) {
       console.error(error);
     }
@@ -178,6 +178,17 @@ const LoginPageUser = () => {
               </Link>
             </div>
           </div>
+          <div className="flex items-center">
+            <div className="w-[40%]">
+              <hr className="text-[#c5bfbf]" />
+            </div>
+            <div className="w-[20%] flex justify-center text-[#c5bfbf]">
+              <p>Or</p>
+            </div>
+            <div className="w-[40%] text-[#c5bfbf]">
+              <hr />
+            </div>
+          </div>
           <Button
             // onClick={() => {
             //   navigate("/");
@@ -189,29 +200,21 @@ const LoginPageUser = () => {
             Login
           </Button>
         </form>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-          }}
-        >
-          OR
-        </div>
-        <AiFillGoogleCircle
-          style={{
-            // padding: "1rem",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "5rem",
-            width: "100%",
-            color: "red",
-          }}
+        <div className="w-[100%] h-[40px] bg-[#e2edff]  mt-3 rounded-full flex items-center cursor-pointer"
           onClick={handleGoogleLogin}
-        ></AiFillGoogleCircle>
+        >
+          <div
 
+            className="w-[30%] h-[40px] ml-1"
+          >
+            <img src={AiFillGoogleCircle} className="w-[30%] h-[100%]" />
+          </div>
+          <div className="w-[70%] flex justify-start">
+            <p>
+              Login with Google
+            </p>
+          </div>
+        </div>
         <div
           className="mt-[32px] flex items-center justify-center gap-1 "
           style={{ marginTop: "1rem", marginBottom: "-2rem" }}
@@ -227,3 +230,4 @@ const LoginPageUser = () => {
 };
 
 export default LoginPageUser;
+
