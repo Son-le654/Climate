@@ -36,7 +36,7 @@ const CheckinConfirmationPage = () => {
   const location = useLocation();
   useEffect(() => {
     const appointment = location?.state?.registers;
-    console.log(appointment);
+    // console.log(appointment);
     if (appointment == undefined) {
       navigate("/checkin");
     } else {
@@ -58,7 +58,7 @@ const CheckinConfirmationPage = () => {
         )}
       </div>
       <div className="pt-[80px] pl-[190px] text-6xl font-bold py-[20px]">
-        <h1>Appointment Confirmation</h1>
+        <h1>Examination Confirmation</h1>
       </div>
       <div style={{ padding: "3% 12%" }}>
         <CheckinConfirmationContent

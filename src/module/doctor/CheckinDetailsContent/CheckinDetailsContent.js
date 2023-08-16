@@ -68,7 +68,7 @@ function CheckinDetailsContent({ checkin, role }) {
     // console.log(checkin);
     const response = await axios.put(
       publicPort +
-        `checkin/commandFlag?checkinid=${checkin.id}&command=examining`
+      `checkin/commandFlag?checkinid=${checkin.id}&command=examining`
     );
     console.log(response);
     if (response.data === "CommandFlag updated successfully.") {
@@ -292,7 +292,7 @@ function CheckinDetailsContent({ checkin, role }) {
               </div>
               <div className="pt-3 flex">
                 <span className="w-[35%]">Examination Fee</span>
-                <span className="">300.000vnđ</span>
+                <span className="">300.000 VND</span>
               </div>
             </div>
             <div className="pt-6">

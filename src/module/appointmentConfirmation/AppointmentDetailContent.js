@@ -46,7 +46,7 @@ function AppointmentDetailContent({ appointment }) {
   }, [role]);
 
   const Approve = async () => {
-    console.log(appointment);
+    // console.log(appointment);
     const response = await axios.put(
       publicPort +
         `appointment/commandFlag?appointmentId=${appointment.id}&command=approve`

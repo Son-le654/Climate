@@ -35,6 +35,7 @@ public class CheckinService {
 	public String save(CheckinDTO checkinDTO) {
 		Patient p = null;
 		Appointment app = null;
+		Checkin ckn = null;
 
 //		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 //		LocalDateTime dateTime = LocalDateTime.parse(checkinDTO.getBookDate(), inputFormatter);
@@ -47,6 +48,11 @@ public class CheckinService {
 		if (checkinDTO.getIdC() != null && checkinDTO.getIdA() != null) {
 			p = patientRepository.findByID(checkinDTO.getIdC());
 			app = appointmentRepository.findByID(Integer.parseInt(checkinDTO.getIdA()));
+			ckn = repository.findByAppId(checkinDTO.getIdA());
+
+			if (ckn != null) {
+				return "Appointment already checked in system";
+			}
 
 			if (p == null || app == null) {
 				return "Patient or Appointment is not available in system";
@@ -81,7 +87,11 @@ public class CheckinService {
 		// for guess booking
 		if (checkinDTO.getIdC() == null && checkinDTO.getIdA() != null) {
 			app = appointmentRepository.findByID(Integer.parseInt(checkinDTO.getIdA()));
+			ckn = repository.findByAppId(checkinDTO.getIdA());
 
+			if (ckn != null) {
+				return "Appointment already checked in system";
+			}
 			if (app == null) {
 				return "Appointment is not available in system";
 			}
@@ -154,10 +164,11 @@ public class CheckinService {
 	public List<Object[]> countCheckinsByDoctor() {
 		return repository.countCheckinsByDoctor();
 	}
-	
+
 	public List<Object[]> countCheckinsByDoctorAndSpecial() {
 		return repository.countCheckinsByDoctorAndSpecial();
 	}
+
 	public Long countAppointmentByDoctor(String doctorId) {
 		return repository.countAppointmentByDoctor(doctorId);
 	}

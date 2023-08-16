@@ -7,27 +7,23 @@ const AsNavFor = (props) => {
   const ListHotNews = [
     {
       id: 1,
-      news: "Khai trương phòng khám Đa Khoa ClinicMate tại Đà Nẵng",
+      news: "Clinicmate Hospital Introduces New Telemedicine Services for Enhanced Patient Care",
     },
     {
       id: 2,
-      news: "Khai trương phòng khám Đa Khoa ClinicMate tại Đà Nẵng",
+      news: "Clinicmate Hospital Achieves Accreditation for Exceptional Healthcare Standards",
     },
     {
       id: 3,
-      news: "Khai trương phòng khám Đa Khoa ClinicMate tại Đà Nẵng",
+      news: "Clinicmate Hospital Launches Innovative Research Initiative to Advance Medical",
     },
     {
       id: 4,
-      news: "Khai trương phòng khám Đa Khoa ClinicMate tại Đà Nẵng",
+      news: "Clinicmate Hospital Expands Specialized Departments to Meet Growing Patient Needs",
     },
     {
       id: 5,
-      news: "Khai trương phòng khám Đa Khoa ClinicMate tại Đà Nẵng",
-    },
-    {
-      id: 6,
-      news: "Khai trương phòng khám Đa Khoa ClinicMate tại Đà Nẵng",
+      news: "Clinicmate Hospital Collaborates with Local Community to Provide Free Health Screenings",
     },
   ];
 

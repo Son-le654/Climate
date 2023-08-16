@@ -10,7 +10,7 @@ const listCmt = [
     comment:
       "As the first member to enter into operation and mark the presence of the Clinicmate Healthcare brand, Clinicmate plays a uniquely important role in the system's development. Each...",
     photo:
-      "https://demoda.vn/wp-content/uploads/2022/03/anh-anime-co-don-1.jpg",
+      "https://retailinsider.b-cdn.net/wp-content/uploads/2020/08/the-health-clinic-shoppers-exterior.jpg",
     fullname:
       "Clinicmate's Birthday: Breakthroughs with Special Professional Milestones",
     title: "read more",
@@ -20,7 +20,7 @@ const listCmt = [
     comment:
       "Clinicmate collaborates with the International Liver Cancer Epidemiology Consortium (ILCEC) and the Asian Coordinating Council for Epidemiology (ACC) to organize the annual conference...",
     photo:
-      "https://demoda.vn/wp-content/uploads/2022/03/anh-anime-co-don-1.jpg",
+      "https://sahyadrihospital.com/wp-content/uploads/2021/05/speciality-clinic.jpg",
     fullname:
       "Clinicmate shares numerous scientific studies at the ACC & ILCEC Conference",
     title: "read more",
@@ -30,27 +30,7 @@ const listCmt = [
     comment:
       "Each year, over 9.6 million people die from cancer worldwide, surpassing the number of deaths from HIV/AIDS, malaria, and tuberculosis combined. It is estimated that by 2030, the number of deaths from cancer...",
     photo:
-      "https://demoda.vn/wp-content/uploads/2022/03/anh-anime-co-don-1.jpg",
-    fullname:
-      "World Cancer Day on February 4th: Clinicmate commits to providing differentiated and effective care for cancer patients in Vietnam",
-    title: "read more",
-  },
-  {
-    id: 4,
-    comment:
-      "Each year, over 9.6 million people die from cancer worldwide, surpassing the number of deaths from HIV/AIDS, malaria, and tuberculosis combined. It is estimated that by 2030, the number of deaths from cancer...",
-    photo:
-      "https://demoda.vn/wp-content/uploads/2022/03/anh-anime-co-don-1.jpg",
-    fullname:
-      "World Cancer Day on February 4th: Clinicmate commits to providing differentiated and effective care for cancer patients in Vietnam",
-    title: "read more",
-  },
-  {
-    id: 4,
-    comment:
-      "Each year, over 9.6 million people die from cancer worldwide, surpassing the number of deaths from HIV/AIDS, malaria, and tuberculosis combined. It is estimated that by 2030, the number of deaths from cancer...",
-    photo:
-      "https://demoda.vn/wp-content/uploads/2022/03/anh-anime-co-don-1.jpg",
+      "https://img.freepik.com/free-photo/pediatrician-doctor-nurse-sitting-desk-medical-office-talking-with-child-healthcare-practitioner-specialist-medicine-providing-professional-radiographic-treatment-hospital-clinic_482257-6769.jpg",
     fullname:
       "World Cancer Day on February 4th: Clinicmate commits to providing differentiated and effective care for cancer patients in Vietnam",
     title: "read more",
@@ -139,7 +119,7 @@ function NewsPageContent() {
               </div>
               <div className="flex">
                 <div className="w-[50%] min-h-[300px]">
-                  <img src={vietnam} />
+                  <img src="https://thumbs.dreamstime.com/b/doctor-explain-to-patient-medical-clinic-hospital-healthcare-wellness-living-163682454.jpg" />
                 </div>
                 <div className="w-[40%] min-h-[260px] flex justify-center">
                   <div className="w-[80%] min-h-[30px]">

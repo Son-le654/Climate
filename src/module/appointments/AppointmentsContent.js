@@ -166,7 +166,7 @@ function AppointmentsContent({ role, mail }) {
   };
 
   const handleDetail = (appointment) => {
-    console.log(appointment);
+    // console.log(appointment);
     navigate("/appointmentdetailsfornurse", { state: { appointment } });
   };
   const handleCheckin = (appointment) => {

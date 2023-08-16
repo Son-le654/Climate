@@ -193,6 +193,13 @@ public class AppointmentController {
 					appointment.setCommandFlag(2);
 				} else if (command.equalsIgnoreCase("approve")) {
 					appointment.setCommandFlag(1);
+					Schedule scheduleCheck = new Schedule();
+					scheduleCheck = scheduleService.findByAppId(appointmentId);
+
+					if (scheduleCheck != null) {
+						return ResponseEntity.ok("This appointment already in schedule of doctor.");
+					}
+
 					Schedule schedule = new Schedule();
 					schedule.setExamDate(appointment.getExamDate());
 					schedule.setExamTime(appointment.getExamTime());
