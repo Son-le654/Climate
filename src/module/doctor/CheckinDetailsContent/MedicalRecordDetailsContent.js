@@ -47,7 +47,7 @@ function MedicalRecordDetailsContent({ checkin, role }) {
     <div className="pt-[5rem]">
       <div className="flex w-[100%] items-center pb-[30px]">
         <div className=" w-[70%]  text-6xl font-bold">
-          <h1>Checked-in and Medical Record Details</h1>
+          <h1>Medical Record Details</h1>
         </div>
       </div>
       <div className="bg-white p-5 rounded-3xl shadow-lg ">
@@ -59,7 +59,7 @@ function MedicalRecordDetailsContent({ checkin, role }) {
                 <span className="w-[35%]">Check-in status</span>
                 <span className="w-[65%]">
                   {checkin != undefined &&
-                  checkin.checkin.commandFlag == "0" ? (
+                    checkin.checkin.commandFlag == "0" ? (
                     <p
                       className={`w-[14%] h-[30px] rounded-2xl ml-[14%] pt-[3px] text-white ${"bg-[#9747ff]"}`}
                     >

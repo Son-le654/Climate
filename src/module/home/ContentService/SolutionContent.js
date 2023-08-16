@@ -25,7 +25,7 @@ function SolutionContent() {
         <div className="w-[100%] min-h-[700px] flex items-center">
             <div className="">
                 <div className="w-[100%] h-[100px] flex items-start text-[25px] font-bold">
-                    <h1>Quick Solution For Scheduling</h1>
+                    <h1>Quick Solution For Management</h1>
                 </div>
                 <div className="w-[100%] min-h-[400px]  flex justify-between">
                     <div className="w-[33%] min-h-[300px] flex justify-center"
@@ -40,7 +40,7 @@ function SolutionContent() {
                                     <h1 className="text-[20px] font-bold">Dashboard</h1>
                                 </div>
                                 <div className="w-[100%] h-[130px] ">
-                                    <p className="text-[18px] w-[80%]">The search feature in the clinic management application allows users to search and select doctors based on specific criteria.</p>
+                                    <p className="text-[18px] w-[100%]">A dashboard is a single-view interface that provides a snapshot of data from multiple sources, helping users track performance, make decisions, and improve efficiency.</p>
                                 </div>
                                 <div className="w-[100%] h-[70px] flex items-end ">
                                     <span className="text-gradientLeft">More</span>
@@ -61,7 +61,7 @@ function SolutionContent() {
                                     <h1 className="text-[20px] font-bold">Internal</h1>
                                 </div>
                                 <div className="w-[100%] h-[130px] ">
-                                    <p className="text-[18px] w-[80%]">The appointment management feature in the clinic management application allows users and staff to efficiently manage appointments.</p>
+                                    <p className="text-[18px] w-[100%]">Admin account can manage all internal information of the clinic, including general information, staff, patients, invoices, and reports.</p>
                                 </div>
                                 <div className="w-[100%] h-[70px] flex items-end">
                                     <span className="text-gradientLeft">More</span>
@@ -82,7 +82,7 @@ function SolutionContent() {
                                     <h1 className="text-[20px] font-bold">Account</h1>
                                 </div>
                                 <div className="w-[100%] h-[130px] ">
-                                    <p className="text-[18px] w-[80%]">Sending requests in the clinic management application allows users and patients to send requests to staff or doctors within the clinic.</p>
+                                    <p className="text-[18px] w-[100%]">The internal account and external account management feature allows admins to create, view, edit, and delete internal and external accounts of the clinic.</p>
                                 </div>
                                 <div className="w-[100%] h-[70px] flex items-end">
                                     <span className="text-gradientLeft">More</span>

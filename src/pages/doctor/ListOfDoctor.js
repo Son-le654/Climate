@@ -11,7 +11,7 @@ function ListOfDoctor() {
                         <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
                     </div>
                     <div className="w-[100%] h-[200px] flex items-center">
-                        <h1 className="text-[40px] font-bold"> List of Patients</h1>
+                        <h1 className="text-[40px] font-bold">List of Patients</h1>
                     </div>
                     <div className="bg-white">
                         <ListDoctorContent />
