@@ -5,7 +5,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 const bookappointment = [
   {
     id: 1,
-    to: "/service",
+    to: "/",
     title: "Home",
   },
   {
