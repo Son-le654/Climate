@@ -11,27 +11,22 @@ const HomeNav = [
     title: "Home",
   },
   {
-    id: 4,
-    to: "",
-    title: "Function",
-  },
-  {
-    id: 4,
+    id: 2,
     to: "/About",
     title: "About",
   },
   {
-    id: 2,
+    id: 3,
     to: "/faq",
     title: "FAQ",
   },
   {
-    id: 2,
+    id: 4,
     to: "/newspage",
     title: "News",
   },
   {
-    id: 2,
+    id: 5,
     to: "/book_appointment_guest",
     title: "Book Visist",
   },

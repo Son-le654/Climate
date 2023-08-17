@@ -16,11 +16,6 @@ const HomeNav = [
     title: "Home",
   },
   {
-    id: 2,
-    to: "",
-    title: "Function",
-  },
-  {
     id: 3,
     to: "/About",
     title: "About",
