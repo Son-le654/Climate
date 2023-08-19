@@ -28,6 +28,7 @@ function DoctorInformationContent({ docId, role }) {
       try {
         const response = await axios.get(publicPort + `api/${docId}`);
         setDoct(response.data);
+        setInfor(response.data);
         // console.log(response.data);
       } catch (error) {
         console.log(error);

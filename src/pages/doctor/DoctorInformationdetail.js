@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { localPort, publicPort } from "../../components/url/link";
 import { useLocation, useNavigate } from "react-router";
+import React from "react";
 
 function DoctorInformationdetail() {
   const navigate = useNavigate();

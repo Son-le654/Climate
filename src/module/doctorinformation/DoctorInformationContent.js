@@ -6,7 +6,7 @@ import Avatar from "../../Images/ava1134.png";
 import DoctorInfoDetailedInformation from "./doctorinfoContent/DetailedInformation";
 import DoctorInfoAssessment from "./doctorinfoContent/Assessment";
 import axios from "axios";
-import {  publicPort } from "../../components/url/link";
+import { publicPort } from "../../components/url/link";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -25,18 +25,20 @@ function DoctorInformationContent({ docId }) {
   const [type, setType] = useState(tabButtons[0]);
   const [showComponentC, setShowComponentC] = useState(true);
   const [showComponentD, setShowComponentD] = useState(false);
-  const [doct, setDoct] = useState({});
-  console.log("doc info conteint: " + docId);
-  const response = axios.get(publicPort + `api/1`);
-  console.log(response.data);
   const navigate = useNavigate();
+  const [doct, setDoct] = useState({});
+  const [imageData, setImageData] = useState(null);
+  const [infor, setInfor] = useState({
+    avatar: "",
+  });
 
   useEffect(() => {
-    console.log("Enter useEffect with id: " + docId);
+    // console.log("Enter useEffect with id: " + docId);
     const doc = async () => {
       try {
         const response = await axios.get(publicPort + `api/${docId}`);
         setDoct(response.data);
+        setInfor(response.data);
         console.log(response.data);
       } catch (error) {
         console.log(error);
@@ -44,50 +46,59 @@ function DoctorInformationContent({ docId }) {
     };
     doc();
   }, [docId]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(publicPort + `users/getUserInfo`);
+        setInfor(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchImage = async () => {
+      if (infor.avatar) {
+        try {
+          const response = await axios.get(
+            publicPort + `images/${infor.avatar}`,
+            {
+              responseType: "blob", // set thành kiểu blob
+            }
+          );
+
+          // Đọc dữ liệu hình ảnh và chuyển đổi nó thành chuỗi base64
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            setImageData(reader.result);
+          };
+          reader.readAsDataURL(response.data);
+        } catch (error) {
+          console.error("Error fetching image:", error);
+        }
+      }
+    };
+
+    fetchImage();
+  }, [infor.avatar]);
+  const book_appointment = (item) => {
+    console.log(item);
+    navigate("/book_appointment", { state: { item } });
+  };
   const handleClick = (data) => {
     setType(data);
     setShowComponentC(data === tabButtons[0]);
     setShowComponentD(data === tabButtons[1]);
   };
-
-  const book_appointment = (item) => {
-    console.log(item);
-    navigate("/book_appointment", { state: { item } });
-  };
-  const [avatarUrl, setAvatarUrl] = useState(null);
-  const getAvatarUrl = async (imageName) => {
-    try {
-      const storageRef = ref(storage, `${imageName}`); // No need to concatenate the image name with v4() here
-    const url = await getDownloadURL(storageRef);
-    return url;
-    } catch (error) {
-      console.error('Error getting avatar URL: ', error);
-      return null;
-    }
-  };
-
-  useEffect(() => {
-    // Lấy URL của avatar khi component render
-    if (docId?.length  > 0) {
-      const avatarName = docId[0].avatar; // Chọn một avatar bất kỳ từ listData
-      getAvatarUrl(avatarName)
-        .then((url) => {
-          setAvatarUrl(url);
-        });
-    }
-  }, [docId]);
-
   return (
-    <div className="bg-white"onClick={async () => {
-      const avatarUrl = await getAvatarUrl(doct.avatar);
-      setAvatarUrl(avatarUrl);
-      docId(doct);
-    }}>
-      <div className="w-[77%] h-[220px] ml-[170px] mt-[80px] relative" >
+    <div className="bg-white">
+      <div className="w-[77%] h-[220px] ml-[170px] mt-[80px] relative">
         <img src={Background} alt="Background" className="rounded-3xl" />
         <img
-          src={avatarUrl}
+          src={imageData}
           alt="Avatar"
           className="rounded-3xl h-[170px] w-[15%] absolute top-[12%] left-[2%]"
         />
@@ -102,7 +113,7 @@ function DoctorInformationContent({ docId }) {
           <span className="text-[60px]">
             <MdKeyboardArrowRight />
           </span>
-          <span className="font-bold mt-[6px]">Cardiac Catheterization</span>
+          <span className="font-bold mt-[6px]">{doct?.specialty?.name}</span>
         </div>
         <div className="absolute top-[40%] left-[20%] ">
           <h1 className="text-gradientLeft text-4xl font-bold">{doct.name}</h1>
