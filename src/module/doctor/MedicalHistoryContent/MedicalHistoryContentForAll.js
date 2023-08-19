@@ -54,8 +54,8 @@ function MedicalHistoryContent({ email, role }) {
       try {
         let response;
         let response1;
-        console.log(role);
-        console.log(email);
+        // console.log(role);
+        // console.log(email);
         if (role.name == "DOCTOR") {
           response = await axios.get(
             publicPort + `api/internal-accounts/search-email?email=${email}`
@@ -69,12 +69,12 @@ function MedicalHistoryContent({ email, role }) {
           response = await axios.get(
             publicPort + `patient/profile?email=${email}`
           );
-            console.log(response.data.id);
+            // console.log(response.data.id);
           response1 = await axios.get(
             publicPort + `medicalrecord/listByPatientId?id=${response.data.id}`
           );
         }
-        console.log(response1.data);
+        // console.log(response1.data);
         setListOrigin(response1.data);
         setListData(response1.data);
       } catch (error) {
