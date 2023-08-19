@@ -69,12 +69,12 @@ function MedicalHistoryContent({ email, role }) {
           response = await axios.get(
             publicPort + `patient/profile?email=${email}`
           );
-
+            console.log(response.data.id);
           response1 = await axios.get(
-            publicPort + `medicalrecord/listByPatientId?id=${response.data.id}`
+            publicPort + `medicalrecord/listByPatientId?id=197385934111`
           );
         }
-        // console.log(response1.data);
+        console.log(response1.data);
         setListOrigin(response1.data);
         setListData(response1.data);
       } catch (error) {

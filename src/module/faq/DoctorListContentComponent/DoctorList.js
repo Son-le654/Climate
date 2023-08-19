@@ -33,8 +33,8 @@ export default function DoctorList({
     setListOrigin(docList);
     setSpecList(docList);
   }, [docList]);
-  console.log(listOrigin);
-  console.log(docList);
+  // console.log(listOrigin);
+  // console.log(docList);
 
   useEffect(() => {
     if (searchspec != undefined && searchlocation != undefined) {
@@ -83,7 +83,7 @@ export default function DoctorList({
           }
         };
         // console.log(place);
-        console.log(searchspec);
+        // console.log(searchspec);
         const selectedItem = findItemByName(searchname);
         // console.log(selectedItem);
         setSpecList(selectedItem);
@@ -110,7 +110,7 @@ export default function DoctorList({
 
   const view_detail = (item) => {
     const id = item.id;
-    console.log(id);
+    // console.log(id);
     if (role != "USER") {
       navigate("/informationdoctorstaff", { state: { id } });
     } else {
@@ -170,7 +170,6 @@ export default function DoctorList({
             onClick={async () => {
               const avatarUrl = await getAvatarUrl(data.avatar);
               setAvatarUrl(avatarUrl);
-              docList(data);
             }}
             className=" w-[100%] h-[150px] mb-[20px] rounded-[15px]"
           >

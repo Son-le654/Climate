@@ -102,7 +102,7 @@ export default function PatientList({ docList, searchname }) {
 
   const view_detail = (item) => {
     const id = item.email;
-    console.log(id);
+    // console.log(id);
     navigate("/informationpatientstaff", { state: { id } });
   };
 

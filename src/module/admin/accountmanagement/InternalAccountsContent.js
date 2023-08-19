@@ -65,7 +65,7 @@ function InternalAccountsContent({ role, mail }) {
         response = await axios.get(publicPort + "api/list");
         setListOrigin(response.data);
         setListData(response.data);
-        console.log(response.data);
+        // console.log(response.data);
       } catch (error) {
         console.log(error);
       }

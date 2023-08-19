@@ -55,7 +55,7 @@ function PatientsContent({ role, mail }) {
         }
         setListOrigin(response.data);
         setListData(response.data);
-        console.log(response.data);
+        // console.log(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -109,8 +109,9 @@ function PatientsContent({ role, mail }) {
   };
 
   const handleDetail = (appointment) => {
-    console.log(appointment);
-    // navigate("/appointmentdetailsfornurse", { state: { appointment } });
+    const id = appointment.email;
+    // console.log(id);
+    navigate("/informationpatientstaff", { state: { id } });
   };
   const handleInternal = () => {
     navigate("/internals");
