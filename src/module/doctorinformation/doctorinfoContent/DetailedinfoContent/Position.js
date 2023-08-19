@@ -39,7 +39,7 @@ function Position({ doct }) {
   //     doc();
   //   },[]);
 
-  console.log(doct);
+  // console.log(doct);
   function handleOnClick() {
     setIsicon(!isIcon);
     setExpanded(!isExpanded);

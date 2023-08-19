@@ -26,7 +26,7 @@ function DetailedInformation({ doct }) {
   // const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded });
   const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded });
 
-  console.log("doc info", doct);
+  // console.log("doc info", doct);
 
   function handleOnClick() {
     setIsicon(!isIcon);
