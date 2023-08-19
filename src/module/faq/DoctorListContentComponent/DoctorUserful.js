@@ -6,26 +6,26 @@ const Listdata = [
   {
     id: 1,
     title:
-      "Guide to connecting Medical Profile and Video call on Clinicmate website",
-    img: "https://demoda.vn/wp-content/uploads/2022/03/anh-anime-co-don-1.jpg",
+      "Regular exercise reduces the risk of chronic diseases and improves mental well-being.",
+    img: "https://draxe.com/wp-content/uploads/2016/08/shutterstock_1758007151-1.jpg",
   },
   {
     id: 2,
     title:
-      "Guide to connecting Medical Profile and Video call on Clinicmate website",
-    img: "https://demoda.vn/wp-content/uploads/2022/03/anh-anime-co-don-1.jpg",
+      "A balanced diet rich in fruits, vegetables, and lean proteins supports overall health.",
+    img: "https://www.simplehealthnh.com/wp-content/uploads/2021/03/balancing-web.jpg",
   },
   {
     id: 3,
     title:
-      "Guide to connecting Medical Profile and Video call on Clinicmate website",
-    img: "https://demoda.vn/wp-content/uploads/2022/03/anh-anime-co-don-1.jpg",
+      "Prioritizing mental health through stress management and self-care is essential.",
+    img: "https://cdn.sketchbubble.com/pub/media/catalog/product/optimized1/6/1/616d9f89b27217be977cb70038a68bb6d7121e8d6d28ce03ad283e4d946f72b8/mental-health-for-teachers-mc-slide1_5.png",
   },
   {
     id: 4,
     title:
-      "Guide to connecting Medical Profile and Video call on Clinicmate website",
-    img: "https://demoda.vn/wp-content/uploads/2022/03/anh-anime-co-don-1.jpg",
+      "Adequate sleep boosts immune function and promotes optimal cognitive performance.",
+    img: "https://journals.physiology.org/cms/10.1152/physrev.00010.2018/asset/images/medium/z9j002192902r001.png",
   },
 ];
 
