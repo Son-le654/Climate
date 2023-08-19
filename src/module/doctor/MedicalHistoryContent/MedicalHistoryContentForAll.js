@@ -71,7 +71,7 @@ function MedicalHistoryContent({ email, role }) {
           );
             console.log(response.data.id);
           response1 = await axios.get(
-            publicPort + `medicalrecord/listByPatientId?id=197385934111`
+            publicPort + `medicalrecord/listByPatientId?id=${response.data.id}`
           );
         }
         console.log(response1.data);
