@@ -8,8 +8,10 @@ import { useNavigate } from "react-router-dom";
 function CreateNewInternalContent({ item }) {
   const tabButtons1 = "Cancel ";
   const tabButtons2 = "Save account";
-  const [active, setActive] = useState([{ id: 0, month: "ACTIVE" },
-  { id: 2, month: "BLOCK" },]);
+  const [active, setActive] = useState([
+    { id: 0, month: "ACTIVE" },
+    { id: 2, month: "BLOCK" },
+  ]);
   const [selectedStaff, setSelectedStaff] = useState(null);
   const navigate = useNavigate();
   const [staffs] = useState([
@@ -31,7 +33,7 @@ function CreateNewInternalContent({ item }) {
     // Go back to the previous page
     window.history.back();
   };
-  
+
   const [males] = useState([
     { id: "male", maless: "male" },
     { id: "female", maless: "female" },
@@ -175,7 +177,6 @@ function CreateNewInternalContent({ item }) {
     }
   };
 
-
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileChange = (event) => {
@@ -199,7 +200,7 @@ function CreateNewInternalContent({ item }) {
     specialty: "",
     location: "",
     avatar: "",
-    commandFlag: ""
+    commandFlag: "",
   };
   const [flags] = useState([
     { id: "0", value: "Active" },
@@ -214,26 +215,26 @@ function CreateNewInternalContent({ item }) {
 
     // console.log("Enter save");
     profileSave.id = idU.iU;
-     profileSave.name = fullName.fname;
-     profileSave.email = emailP.emp;
-     profileSave.role = roleI.rlI;
-     profileSave.specialty = specialtyD.splD;
-     profileSave.location = `${workPlc.wpc.name} - ${workPlc.wpc.description}`
-     profileSave.commandFlag = status.sT;
+    profileSave.name = fullName.fname;
+    profileSave.email = emailP.emp;
+    profileSave.role = roleI.rlI;
+    profileSave.specialty = specialtyD.splD;
+    profileSave.location = `${workPlc.wpc.name} - ${workPlc.wpc.description}`;
+    profileSave.commandFlag = status.sT;
     // // profileSave.avatar = selectedFile;
 
-     console.log(profileSave);
-     const formData = new FormData();
+    console.log(profileSave);
+    const formData = new FormData();
 
-     formData.append("fileData", selectedFile); // Thêm file vào formData
-     formData.append("internal", JSON.stringify(profileSave)); // Thêm thông tin bệnh nhân vào formData
+    formData.append("fileData", selectedFile); // Thêm file vào formData
+    formData.append("internal", JSON.stringify(profileSave)); // Thêm thông tin bệnh nhân vào formData
 
-     var response;
-     response = await axios.post(
-       publicPort + "api/updateinter", //thay doi api save
-       formData,
-       {
-         headers: {
+    var response;
+    response = await axios.post(
+      publicPort + "api/updateinter", //thay doi api save
+      formData,
+      {
+        headers: {
           "Content-Type": "multipart/form-data", // Đặt header để server hiểu là gửi dữ liệu dạng multipart/form-data
         },
       }
@@ -255,10 +256,7 @@ function CreateNewInternalContent({ item }) {
         <div className=" flex justify-start w-[100%]">
           <div className="h-[70px] w-[80%] border-[1px] rounded-2xl border-[#c5c4c4]">
             <input
-              // placeholder="Full name"
               disabled={true}
-              // onChange={handleChangeName}
-              // name="fname"
               value={item.id}
               className="w-[90%] h-[100%] ml-[10px] text-[20px] "
             />
@@ -274,8 +272,6 @@ function CreateNewInternalContent({ item }) {
             <input
               disabled={true}
               placeholder="Full name"
-              // onChange={handleChangeName}
-              // name="fname"
               value={item.name}
               className="w-[90%] h-[100%] ml-[10px] text-[20px] "
             />
@@ -289,9 +285,6 @@ function CreateNewInternalContent({ item }) {
         <div className=" flex justify-start w-[100%]">
           <div className="h-[70px] w-[80%] border-[1px] rounded-2xl border-[#c5c4c4] flex">
             <input
-              // onChange={handleChangeName}
-              // placeholder="Email"
-              // name="emp"
               value={item.email}
               disabled={true}
               className="w-[80%] h-[100%] ml-[10px] text-[20px] "
@@ -408,21 +401,6 @@ function CreateNewInternalContent({ item }) {
           </div>
         </div>
 
-        {/* <div className="w-[100%] h-[120px] mb-[10px]">
-          <div className="w-[100%] h-[50px]">
-            <h1 className=" text-[25px] font-bold">Avatar</h1>
-          </div>
-          <div className=" flex justify-start w-[100%]">
-            <div className="h-[70px] w-[80%] border-[1px] rounded-2xl border-[#c5c4c4] flex">
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleFileChange}
-                className="w-[80%] h-[100%] pt-[1.5rem] ml-[10px] text-[20px] "
-              />
-            </div>
-          </div>
-        </div> */}
         <div>
           <div
             style={{

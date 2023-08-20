@@ -2,12 +2,9 @@ import Background from "../../../Images/Rectangle1135.png";
 import React, { useState } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { FaHouseUser } from "react-icons/fa";
-import Avatar from "../../../Images/ava1134.png";
-import DoctorInfoDetailedInformation from "./doctorinfoContent/DetailedInformation";
-import DoctorInfoSchedule from "./doctorinfoContent/Schedule";
 import DoctorInfoMedicalHistory from "./doctorinfoContent/MedicalHistory";
 import axios from "axios";
-import { localPort, publicPort } from "../../../components/url/link";
+import { publicPort } from "../../../components/url/link";
 import { useEffect } from "react";
 import DetailedInformationForPatient from "./doctorinfoContent/DetailedInformationForPatient";
 

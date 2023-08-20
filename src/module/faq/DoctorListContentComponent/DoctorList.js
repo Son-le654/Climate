@@ -33,16 +33,11 @@ export default function DoctorList({
     setListOrigin(docList);
     setSpecList(docList);
   }, [docList]);
-  // console.log(listOrigin);
-  // console.log(docList);
 
   useEffect(() => {
     if (searchspec != undefined && searchlocation != undefined) {
       const places = async () => {
-        // console.log(checkinSpec);
-        // const response = await axios.get(publicPort + "spec/list");
         const findItemByName = (name, name1) => {
-          // return response.data.find((item) => item.name === name);
           if (name.spc == "" && name1.lo == "") {
             return listOrigin;
           } else if (name.spc == "" && name1.lo != "") {
@@ -57,10 +52,9 @@ export default function DoctorList({
               .filter((item1) => item1.workingPlace.id == name1.lo);
           }
         };
-        // console.log(place);
-        // console.log(searchspec);
+
         const selectedItem = findItemByName(searchspec, searchlocation);
-        // console.log(selectedItem);
+
         setSpecList(selectedItem);
       };
       places();
@@ -70,10 +64,7 @@ export default function DoctorList({
   useEffect(() => {
     if (searchname != undefined) {
       const places = async () => {
-        // console.log(checkinSpec);
-        // const response = await axios.get(publicPort + "spec/list");
         const findItemByName = (name) => {
-          // return response.data.find((item) => item.name === name);
           if (name.sn == "") {
             return listOrigin;
           } else {
@@ -82,10 +73,9 @@ export default function DoctorList({
             );
           }
         };
-        // console.log(place);
-        // console.log(searchspec);
+
         const selectedItem = findItemByName(searchname);
-        // console.log(selectedItem);
+
         setSpecList(selectedItem);
       };
       places();
@@ -141,22 +131,21 @@ export default function DoctorList({
   const getAvatarUrl = async (imageName) => {
     try {
       const storageRef = ref(storage, `${imageName}`); // No need to concatenate the image name with v4() here
-    const url = await getDownloadURL(storageRef);
-    return url;
+      const url = await getDownloadURL(storageRef);
+      return url;
     } catch (error) {
-      console.error('Error getting avatar URL: ', error);
+      console.error("Error getting avatar URL: ", error);
       return null;
     }
   };
 
   useEffect(() => {
     // Lấy URL của avatar khi component render
-    if (docList?.length  > 0) {
+    if (docList?.length > 0) {
       const avatarName = docList[0].avatar; // Chọn một avatar bất kỳ từ listData
-      getAvatarUrl(avatarName)
-        .then((url) => {
-          setAvatarUrl(url);
-        });
+      getAvatarUrl(avatarName).then((url) => {
+        setAvatarUrl(url);
+      });
     }
   }, [docList]);
 
@@ -164,7 +153,6 @@ export default function DoctorList({
     <div>
       <div>
         {specList?.map((data) => (
-          
           <div
             key={data.id}
             onClick={async () => {

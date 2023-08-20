@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, useNavigate, useLocation } from "react-router-dom";
-import BookAppHeaderGuest from "../module/bookAppointment/BookAppHeaderGuest";
+import { Outlet } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import BookAppHeader from "module/bookAppointment/BookAppHeader";
-import HomeHeaderServiceNurse from "module/home/HomeHeaderServiceNurse";
 
 const BookAppointmentPageGuest = () => {
   const [role, setRole] = useState("");
@@ -19,15 +17,6 @@ const BookAppointmentPageGuest = () => {
   }, []);
   return (
     <div className="bg-white">
-      {/* {role == "" ? (
-        <BookAppHeaderGuest></BookAppHeaderGuest>
-      ) : role == "NURSE" ? (
-        <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
-      ) : role == "USER" ? (
-        <BookAppHeader></BookAppHeader>
-      ) : (
-        <></>
-      )} */}
       <BookAppHeader></BookAppHeader>
 
       <div>

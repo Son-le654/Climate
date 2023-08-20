@@ -34,9 +34,6 @@ const HomePage = () => {
 
   return (
     <div className="bg-white">
-      {/* <HomeHeader storedName = {storedName}></HomeHeader> */}
-      {/* <Button onClick={() => filterSpec()}></Button> */}
-      {/* <HomeHeaderService></HomeHeaderService> */}
       {role == "" ? (
         <HomeHeaderServiceGuest></HomeHeaderServiceGuest>
       ) : role == "USER" ? (

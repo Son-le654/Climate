@@ -1,11 +1,7 @@
 import jwtDecode from "jwt-decode";
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
-import HomeHeaderServiceNurse from "module/home/HomeHeaderServiceNurse";
 import HomeHeaderServiceAdmin from "module/home/HomeHeaderServiceAdmin";
-import CreateNewInternalContent from "module/admin/accountmanagement/CreateNewInternalContent";
-import CreateNewLocationContent from "module/admin/locationmanagement/CreateNewLocationContent";
 import EditSymptomContent from "module/admin/symptommanagement/EditSymptomContent";
 import Footer from "module/home/Footer";
 

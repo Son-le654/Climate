@@ -124,7 +124,6 @@ const BAContent = () => {
         );
         // console.log(response.data);
         setPatient(response.data);
-        setFullName({ fname: response.data.name });
         setIdCard({ idC: response.data.id });
       }
     };
@@ -638,11 +637,20 @@ const BAContent = () => {
           visible={showDoctor}
           handleClose={() => setShowDoctor(false)}
         ></CreatePortalDoctor>
-        <h3 className="text-[32px] font-semibold text-gradient">Edit The Appointment</h3>
+        <h3 className="text-[32px] font-semibold text-gradient">
+          Edit The Appointment
+        </h3>
         <div className="mt-[10rem]">
           <Header number={1}>Booking person information</Header>
           <div className="mt-[4.4rem]">
             <div className="grid grid-cols-2 gap-x-[12.2rem] gap-y-[3rem]">
+              <InputInfo
+                handleChangeName={handleChangeName}
+                icon={<IconPen />}
+                name={"fname"}
+                placeholder="Your name"
+                value={fullName.fname}
+              ></InputInfo>
               {EAppointment != null ? (
                 <InputInfo
                   // handleChangeName={handleChangeName}
@@ -659,15 +667,6 @@ const BAContent = () => {
                 <>
                   <InputInfo
                     handleChangeName={handleChangeName}
-                    icon={<IconPen />}
-                    name={"fname"}
-                    placeholder="Your name"
-                    // value={patient?.name}
-                    value={fullName.fname}
-                    disabled={true}
-                  ></InputInfo>
-                  <InputInfo
-                    handleChangeName={handleChangeName}
                     name={"idC"}
                     type={"number"}
                     icon={<IconSearch />}
@@ -679,13 +678,6 @@ const BAContent = () => {
                 </>
               ) : (
                 <>
-                  <InputInfo
-                    handleChangeName={handleChangeName}
-                    icon={<IconPen />}
-                    name={"fname"}
-                    placeholder="Your name"
-                    value={fullName.fname}
-                  ></InputInfo>
                   <InputInfo
                     handleChangeName={handleChangeName}
                     name={"idC"}
@@ -879,7 +871,7 @@ const BAContent = () => {
               {hoursList.length > 0 &&
                 hoursList.map((item) =>
                   scheOfDoc != undefined &&
-                    scheOfDoc.includes(item.from + " - " + item.to) ? (
+                  scheOfDoc.includes(item.from + " - " + item.to) ? (
                     <div
                       style={{ width: "22rem", color: "red" }}
                       className={`p-[1.4rem_1.6rem] cursor-pointer border rounded-[0.8rem] border-textColor2 
@@ -893,9 +885,10 @@ const BAContent = () => {
                       onClick={() => addHour(item)}
                       style={{ width: "22rem" }}
                       className={`p-[1.4rem_1.6rem] cursor-pointer border rounded-[0.8rem] border-textColor2 
-                        ${hour.includes(item.from + " - " + item.to)
-                          ? "bg-gradient-to-tr from-gradientLeft to-gradientRight text-white"
-                          : ""
+                        ${
+                          hour.includes(item.from + " - " + item.to)
+                            ? "bg-gradient-to-tr from-gradientLeft to-gradientRight text-white"
+                            : ""
                         }`}
                       key={item.id}
                     >

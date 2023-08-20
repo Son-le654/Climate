@@ -20,28 +20,6 @@ public class MailServiceImpl implements MailService {
 	@Value("${spring.mail.username}")
 	private String sender;
 
-//	@Override
-//	public String sendMail(MailDetail mailDetail) {
-//		try {
-//			// Creating a simple mail message object
-//			SimpleMailMessage mailMessage = new SimpleMailMessage();
-//
-//			// Setting up necessary details of mail
-//			mailMessage.setFrom(sender);
-//			mailMessage.setTo(mailDetail.getRecipient());
-//			mailMessage.setSubject(mailDetail.getSubject());
-//			mailMessage.setText(mailDetail.getMsgBody());
-//
-//			// Sending the email
-//			mailSender.send(mailMessage);
-//			return "sent success";
-//
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			return "Error while Sending email!!!";
-//		}
-//	}
-
 	@Override
 	public String sendMail(MailDetail mailDetail) {
 		try {
@@ -57,7 +35,6 @@ public class MailServiceImpl implements MailService {
 			String template = getEmailTemplateResetPass(username, mailDetail.getMsgBody());
 
 			// Setting up necessary details of mail
-//			mailMessage.setFrom(sender);
 			String from = sender;
 			String to = mailDetail.getRecipient();
 			String subject = mailDetail.getSubject();
@@ -68,7 +45,6 @@ public class MailServiceImpl implements MailService {
 			mailMessage.setText(template, true);
 
 			// Sending the email
-//			mailSender.send(from, to, subject, template);
 			mailSender.send(message);
 			return "sent success";
 

@@ -39,11 +39,12 @@ public class MedicalRecordController {
 	public List<MedicalRecord> getAll() {
 		return service.findAll();
 	}
+
 	@GetMapping("/listByDoctorId")
 	public List<MedicalRecord> getAllByDoctorId(@RequestParam("id") String id) {
 		return service.findAllByDoctorId(id);
 	}
-	
+
 	@GetMapping("/listByPatientId")
 	public List<MedicalRecord> getAllByPatientId(@RequestParam("id") String id) {
 		return service.findAllByPatientId(id);
@@ -61,9 +62,7 @@ public class MedicalRecordController {
 
 	@PostMapping("/create")
 	public ResponseEntity<String> createMedicalRecord(@RequestBody MedicalRecordDTO medicalRecord) {
-//		if (service.findMedicalRecordByCheckinId(medicalRecord.getCheckin().getId()) != null) {
-//			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create medical record.");
-//		}
+//	
 		try {
 			service.createMedicalRecord(medicalRecord);
 			return ResponseEntity.ok("Medical record created successfully.");

@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
-import HomeHeaderService from "module/home/HomeHeaderService";
-import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
-import DoctorsContent from "module/doctors/DoctorsContent";
 import InternalAccountsContent from "module/admin/accountmanagement/InternalAccountsContent";
 import HomeHeaderServiceAdmin from "module/home/HomeHeaderServiceAdmin";
 import Footer from "module/home/Footer";

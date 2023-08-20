@@ -68,7 +68,7 @@ function CheckinDetailsContent({ checkin, role }) {
     // console.log(checkin);
     const response = await axios.put(
       publicPort +
-      `checkin/commandFlag?checkinid=${checkin.id}&command=examining`
+        `checkin/commandFlag?checkinid=${checkin.id}&command=examining`
     );
     console.log(response);
     if (response.data === "CommandFlag updated successfully.") {
@@ -275,11 +275,6 @@ function CheckinDetailsContent({ checkin, role }) {
                     </p>
                   )}
                 </span>
-                {/* <span className="w-[65%]">
-                  <p className={`w-[15%] min-h-[20px]`}>
-                    {checkin != undefined ? checkin.commandFlag : ""}
-                  </p>
-                </span> */}
               </div>
             </div>
             <div>
@@ -350,14 +345,7 @@ function CheckinDetailsContent({ checkin, role }) {
             </div>
             <div className="pt-6">
               <h1 className="text-[#4976f7] text-3xl font-semibold">Doctor</h1>
-              {/* <div className="pt-6 flex">
-                <span className="w-[35%]">Doctor</span>
-                <span className="w-[65%]">
-                  {checkin != undefined
-                    ? appointment.appointment.doctorName
-                    : ""}
-                </span>
-              </div> */}
+
               <div className="pt-3 flex">
                 <span className="w-[35%]">Doctor name</span>
                 <span className="">{check != undefined ? check.name : ""}</span>
@@ -374,14 +362,7 @@ function CheckinDetailsContent({ checkin, role }) {
                   {checkin != undefined ? checkin.examDate : ""}
                 </span>
               </div>
-              {/* <div className="pt-3 flex">
-                <span className="w-[35%]">Examination Time</span>
-                <span className="">
-                  {appointment != undefined
-                    ? appointment.appointment.examTime
-                    : ""}
-                </span>
-              </div> */}
+
               <div className="pt-3 flex">
                 <span className="w-[35%]">Location</span>
                 <span className="">

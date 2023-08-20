@@ -100,11 +100,6 @@ public class Patient implements Serializable {
 		this.gender = gender;
 		this.avatar = avatar;
 		this.birthDate = birthDate;
-//
-//		// 0: create, 1: verify, 2: block
-//		this.commandFlag = 0;
-//		this.registrationTime = timeNow();
-//		this.role = "USER";
 	}
 
 	public Patient(String id, String name, String email, String password, String birthDate, String avatarDefault) {

@@ -29,7 +29,6 @@ const Popup = ({ header, describe, handleClose, listData }) => {
             listData.map((item) => {
               return (
                 <div
-                  // onClick={() => addItem(item)}
                   key={item.id}
                   className="shadow-md font-semibold text-[2rem] p-[2.7rem_4.7rem] rounded-[1.6rem] cursor-pointer"
                 >

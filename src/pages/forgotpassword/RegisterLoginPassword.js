@@ -21,9 +21,7 @@ function RegisterLoginPassword() {
       setEnail(email.mail);
     }
   }, []);
-  //   const nextSendOTP = () => {
-  //     navigate("/verifyregisterforgot", { state: { email } });
-  //   };
+
   const backEnterEmail = () => {
     navigate("/registerenteremail");
   };

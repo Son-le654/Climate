@@ -17,21 +17,6 @@ const HomeDoctorLookupService = () => {
   const [specList, setSpecList] = useState([]);
   const [doctorName, setDoctorName] = useState("");
 
-  // const visibleItems = [
-  //   {
-  //     id: 1,
-  //     item: "Internal Medicine"
-  //   },
-  //   {
-  //     id: 2,
-  //     item: "Pediatrics"
-  //   },
-  //   {
-  //     id: 3,
-  //     item: "Obstetrics and Gynecology"
-  //   },
-  //   // Rest of the visibleItems data
-  // ];
   const handleChangeDoctorName = (event) => {
     const userinput = event.target.value;
     console.log(userinput);

@@ -44,15 +44,6 @@ public class CheckinController {
 		System.out.println(checkinDTO.getIdC());
 		System.out.println(checkinDTO.getIdA());
 
-		// validate
-//		if (appointmentDTO.getName() == "" || appointmentDTO.getPhone() == "" || appointmentDTO.getBirthday() == ""
-//				|| appointmentDTO.getGender() == "" || appointmentDTO.getBookPlace() == ""
-//				|| appointmentDTO.getSpec() == "" || appointmentDTO.getDoctorName() == ""
-//				|| appointmentDTO.getBookDate() == "" || appointmentDTO.getBookTime() == ""
-//				|| appointmentDTO.getIdC() == "") {
-//			return "Invalid data, please fill all data";
-//		}
-
 		String result = checkinService.save(checkinDTO);
 		if (result.equals("success")) {
 			return "success";

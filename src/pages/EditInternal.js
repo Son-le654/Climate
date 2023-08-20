@@ -1,14 +1,8 @@
-import HomeHeaderService from "../module/home/HomeHeaderService";
 import Footer from "../module/home/Footer";
-import EditProfileContent from "../module/profile/EditProfileContent";
 import jwtDecode from "jwt-decode";
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
-import HomeHeaderServiceNurse from "module/home/HomeHeaderServiceNurse";
 import HomeHeaderServiceAdmin from "module/home/HomeHeaderServiceAdmin";
-import CreateNewInternalContent from "module/admin/accountmanagement/CreateNewInternalContent";
-import EditLocationContent from "module/admin/locationmanagement/EditLocationContent";
 import EditInternalContent from "module/admin/accountmanagement/EditInternalContent";
 
 function EditLocation() {

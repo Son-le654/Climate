@@ -26,7 +26,7 @@ function DoctorContentForAll({ role }) {
 
         response = await axios.get(publicPort + "api/doctors");
         setdocList(response.data);
-        console.log(response.data);
+        // console.log(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -64,14 +64,6 @@ function DoctorContentForAll({ role }) {
       };
       setsearchlocation(newLoca);
     }
-
-    // if (name === "spc") {
-    //   const newSpc = {
-    //     ...spec,
-    //     [name]: value,
-    //   };
-    //   setSpec(newSpc);
-    // }
   };
 
   return (

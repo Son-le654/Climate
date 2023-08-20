@@ -23,11 +23,6 @@ const CheckinListPage = () => {
         const role = decoded.roles[0].authority;
         setRole(role);
         setEmail(decoded.sub);
-        // console.log(decoded.sub);
-        // console.log(decoded.sub);
-        // if (role !== "DOCTOR" && role !== "NURSE") {
-        //   navigate("/");
-        // }
       } catch (error) {
         console.log(error);
       }
@@ -48,7 +43,7 @@ const CheckinListPage = () => {
       <div className="pt-[95px] pl-[190px] text-7xl font-bold py-[20px] bg-white ">
         <h1>List of Examinations</h1>
       </div>
-      <div className="bg-white" style={{ padding: "5% 12%" }}>
+      <div className="bg-white" style={{ padding: "5% 8%" }}>
         <CheckinListContent email={email} role={role}></CheckinListContent>
       </div>
       <div>

@@ -47,7 +47,6 @@ const ServicePage = () => {
         ) : (
           <HomeContentServiceStaff></HomeContentServiceStaff>
         )}
-        {/* <HomeContentServiceStaff></HomeContentServiceStaff> */}
       </div>
       <div>
         <Footer></Footer>

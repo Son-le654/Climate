@@ -20,9 +20,6 @@ const bookappointment = [
   },
 ];
 const BookAppHeader = ({ storedName }) => {
-  // console.log('====================================');
-  // console.log(myData);
-  // console.log('====================================');
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -55,14 +52,6 @@ const BookAppHeader = ({ storedName }) => {
             })}
         </ul>
       </nav>
-      {/* <div className="flex items-center gap-8" style={{ marginLeft: "36rem" }}>
-        <Button
-          onClick={handleLogout}
-          className="!p-[10px_40px] rounded-lg text-[18px]"
-        >
-          Logout
-        </Button>
-      </div> */}
     </div>
   );
 };

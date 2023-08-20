@@ -31,17 +31,6 @@ const HomeContentServiceStaff = () => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     const currentIndex = tabButtons.indexOf(type);
-  //     const nextIndex = (currentIndex + 1) % tabButtons.length;
-  //     setType(tabButtons[nextIndex]);
-  //   }, 1000);
-
-  //   return () => {
-  //     clearInterval(interval);
-  //   };
-  // }, [type, tabButtons]);
   const handlelocations = () => {
     navigate("/locations");
   };
@@ -76,32 +65,47 @@ const HomeContentServiceStaff = () => {
               {role} {nameInter}
             </div>
           </div>
-          {role == "ADMIN" ?
+          {role == "ADMIN" ? (
             <div>
               <span className="mt-3 font-bold text-[17px] text-black1">
                 Administrator Role
               </span>
-              <p className="mt-8 text-textColor2">The administrator undertakes various responsibilities such as managing user accounts, system security, software installation and configuration, troubleshooting technical issues, generating reports and statistics, and ensuring the smooth and effective functioning of the system. </p>
+              <p className="mt-8 text-textColor2">
+                The administrator undertakes various responsibilities such as
+                managing user accounts, system security, software installation
+                and configuration, troubleshooting technical issues, generating
+                reports and statistics, and ensuring the smooth and effective
+                functioning of the system.{" "}
+              </p>
             </div>
-            : role == "DOCTOR" ?
-              <div>
-                <span className="mt-3 font-bold text-[17px] text-black1">
-                  Anesthesiology and Pain Management
-                </span>
-                <p className="mt-8 text-textColor2">Doctor Carlos has 23 years of experience in treating cardiovascular diseases.
-                  Currently, he works as a Cardiologist at the Department of Internal Medicine and Outpatient Clinic at Clinicmate Clinic in Da Nang.
-                </p>
-              </div>
-              :
-              <div>
-                <span className="mt-3 font-bold text-[17px] text-black1">
-                  Instant and Future Appointment Booking
-                </span>
-                <p className="mt-8 text-textColor2">Doctor Carlos has 23 years of experience in treating cardiovascular diseases.
-                  Instant Appointment Booking addresses urgent medical requirements, ensuring prompt access to healthcare services. On the other hand, Future Appointment Booking supports planned medical visits and offers convenience for patients who prefer to schedule appointments for a specific date in the future.
-                </p>
-              </div>
-          }
+          ) : role == "DOCTOR" ? (
+            <div>
+              <span className="mt-3 font-bold text-[17px] text-black1">
+                Anesthesiology and Pain Management
+              </span>
+              <p className="mt-8 text-textColor2">
+                Doctor Carlos has 23 years of experience in treating
+                cardiovascular diseases. Currently, he works as a Cardiologist
+                at the Department of Internal Medicine and Outpatient Clinic at
+                Clinicmate Clinic in Da Nang.
+              </p>
+            </div>
+          ) : (
+            <div>
+              <span className="mt-3 font-bold text-[17px] text-black1">
+                Instant and Future Appointment Booking
+              </span>
+              <p className="mt-8 text-textColor2">
+                Doctor Carlos has 23 years of experience in treating
+                cardiovascular diseases. Instant Appointment Booking addresses
+                urgent medical requirements, ensuring prompt access to
+                healthcare services. On the other hand, Future Appointment
+                Booking supports planned medical visits and offers convenience
+                for patients who prefer to schedule appointments for a specific
+                date in the future.
+              </p>
+            </div>
+          )}
           <div
             style={{
               display: "flex",
@@ -109,17 +113,14 @@ const HomeContentServiceStaff = () => {
               paddingTop: "20px",
             }}
           >
-            {role == "ADMIN" ?
+            {role == "ADMIN" ? (
               <>
                 <button
                   className="border-[3px] rounded-2xl h-[50px] pl-[30px] pr-[30px] w-[40%] mr-[35px]"
                   style={{
                     color: "#ffff",
                     backgroundColor: "#3681f8",
-                    // borderColor: "#5562f7",
-                    // color: "#5562f7",
                   }}
-
                   onClick={handlelocations}
                 >
                   Internal
@@ -127,9 +128,6 @@ const HomeContentServiceStaff = () => {
                 <button
                   className="border-[3px] rounded-2xl h-[50px] pl-[30px] pr-[30px] w-[40%] mr-[35px]"
                   style={{
-                    // color: "#ffff",
-                    // backgroundColor: "#3681f8",
-                    // borderColor: "#5562f7",
                     color: "#5562f7",
                   }}
                   onClick={handleInternals}
@@ -137,91 +135,75 @@ const HomeContentServiceStaff = () => {
                   Account
                 </button>
               </>
-              : role == "DOCTOR" ?
-                <>
-                  <button
-                    className="border-[3px] rounded-2xl h-[50px] pl-[30px] pr-[30px] w-[40%] mr-[35px]"
-                    style={{
-                      color: "#ffff",
-                      backgroundColor: "#3681f8",
-                      // borderColor: "#5562f7",
-                      // color: "#5562f7",
-                    }}
-
-                    onClick={handleSchedules}
-                  >
-                    My Appointment
-                  </button>
-                  <button
-                    className="border-[3px] rounded-2xl h-[50px] pl-[30px] pr-[30px] w-[40%] mr-[35px]"
-                    style={{
-                      // color: "#ffff",
-                      // backgroundColor: "#3681f8",
-                      // borderColor: "#5562f7",
-                      color: "#5562f7",
-                    }}
-                    onClick={handleExamination}
-                  >
-                    My Examination
-                  </button>
-                </>
-                :
-                <>
-                  <button
-                    className="border-[3px] rounded-2xl h-[50px] pl-[30px] pr-[30px] w-[40%] mr-[35px]"
-                    style={{
-                      color: "#ffff",
-                      backgroundColor: "#3681f8",
-                      // borderColor: "#5562f7",
-                      // color: "#5562f7",
-                    }}
-
-                    onClick={handleCheckin}
-                  >
-                    Check-in
-                  </button>
-                  <button
-                    className="border-[3px] rounded-2xl h-[50px] w-[40%] mr-[35px]"
-                    style={{
-                      // color: "#ffff",
-                      // backgroundColor: "#3681f8",
-                      // borderColor: "#5562f7",
-                      color: "#5562f7",
-                    }}
-                    onClick={handlebookappointment}
-                  >
-                    Book Appointment
-                  </button>
-                </>
-            }
-
+            ) : role == "DOCTOR" ? (
+              <>
+                <button
+                  className="border-[3px] rounded-2xl h-[50px] pl-[30px] pr-[30px] w-[40%] mr-[35px]"
+                  style={{
+                    color: "#ffff",
+                    backgroundColor: "#3681f8",
+                  }}
+                  onClick={handleSchedules}
+                >
+                  My Appointment
+                </button>
+                <button
+                  className="border-[3px] rounded-2xl h-[50px] pl-[30px] pr-[30px] w-[40%] mr-[35px]"
+                  style={{
+                    color: "#5562f7",
+                  }}
+                  onClick={handleExamination}
+                >
+                  My Examination
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  className="border-[3px] rounded-2xl h-[50px] pl-[30px] pr-[30px] w-[40%] mr-[35px]"
+                  style={{
+                    color: "#ffff",
+                    backgroundColor: "#3681f8",
+                  }}
+                  onClick={handleCheckin}
+                >
+                  Check-in
+                </button>
+                <button
+                  className="border-[3px] rounded-2xl h-[50px] w-[40%] mr-[35px]"
+                  style={{
+                    color: "#5562f7",
+                  }}
+                  onClick={handlebookappointment}
+                >
+                  Book Appointment
+                </button>
+              </>
+            )}
           </div>
         </div>
         <div className="w-[46%]">
-
-          {role == "ADMIN" ?
+          {role == "ADMIN" ? (
             <img src={imgAdmin} style={{ marginLeft: "96px" }} alt="" />
-            : role == "DOCTOR" ?
-              <img src={imgDoctor} style={{ marginLeft: "96px" }} alt="" />
-              :
-              <img src={imgNurseStaff} style={{ marginLeft: "96px" }} alt="" />
-          }
+          ) : role == "DOCTOR" ? (
+            <img src={imgDoctor} style={{ marginLeft: "96px" }} alt="" />
+          ) : (
+            <img src={imgNurseStaff} style={{ marginLeft: "96px" }} alt="" />
+          )}
         </div>
       </div>
       <div className="bg-[#e2edff] pb-[80px] pt-[40px]">
         <div className="max-w-[1156px] mx-auto">
-          {/* <HomeDoctorLookupSevirce></HomeDoctorLookupSevirce> */}
-          {role == "ADMIN" ?
+          {role == "ADMIN" ? (
             <SolutionContent />
-            : role == "DOCTOR" ?
-              <SolutionContentDoctor />
-              :
-              <SolutionContentNurse />
-          }
+          ) : role == "DOCTOR" ? (
+            <SolutionContentDoctor />
+          ) : (
+            <SolutionContentNurse />
+          )}
         </div>
       </div>
       <div className="max-w-[1156px] mx-auto pt-[70px]">
-        {/* <FeaturedComment></FeaturedComment> */}
         <div>
           <h1 className="pb-[50px] font-bold" style={{ fontSize: "40px" }}>
             Hot announcements
@@ -244,7 +226,7 @@ const HomeContentServiceStaff = () => {
           <LatestNewService />
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 

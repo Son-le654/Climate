@@ -113,37 +113,11 @@ const LoginPage = () => {
             placeholder="Password"
             control={control}
           ></InputPassword>
-          <div className="flex justify-between mt-[10px]">
-            {/* <div className="flex items-center gap-1 text-textColor">
-              <input
-                type="checkbox"
-                className="w-[16px] h-[16px] border border-textColor"
-              />
-              <label htmlFor="">Remember me</label>
-            </div> */}
-            {/* <div>
-              <Link to="/registerenteremail" className="text-gradientLeft">
-                Forgot Password?
-              </Link>
-            </div> */}
-          </div>
-          <Button
-            // onClick={() => {
-            //   navigate("/");
-            // }}
-
-            className="mt-8"
-            type="submit"
-          >
+          <div className="flex justify-between mt-[10px]"></div>
+          <Button className="mt-8" type="submit">
             Login
           </Button>
         </form>
-        {/* <div className="mt-[32px] flex items-center justify-center gap-1 ">
-          <span className="text-gray2">New User?</span>
-          <Link to="/register" className="text-textColor">
-            Sign up here!
-          </Link>
-        </div> */}
       </div>
     </LayoutSign>
   );

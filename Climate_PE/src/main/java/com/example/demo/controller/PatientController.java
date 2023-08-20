@@ -88,7 +88,7 @@ public class PatientController {
 		final String token = jwtTokenUtil.generateToken(userDetails);
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
-	
+
 	@PostMapping(value = "/logingoogle")
 	public ResponseEntity<?> logingoogle(@RequestBody PatientData loginRequest) {
 		System.out.println("url: " + loginRequest.getEmail() + loginRequest.getDisplayName());
