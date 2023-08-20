@@ -172,9 +172,6 @@ function SpecialtiesContent({ role, mail }) {
             className="  w-[40%] h-[40px] flex items-center justify-center rounded-3xl cursor-pointer"
             onClick={handleAddNewSpec}
           >
-            {/* <span className="w-[10%] text-[30px] text-gradientLeft ]">
-              <AiOutlinePlusCircle />
-            </span> */}
             <span className="font-medium underline text-success ">
               Add new specialty
             </span>

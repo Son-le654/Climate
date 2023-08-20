@@ -59,7 +59,7 @@ function MedicalRecordDetailsContent({ checkin, role }) {
                 <span className="w-[35%]">Check-in status</span>
                 <span className="w-[65%]">
                   {checkin != undefined &&
-                    checkin.checkin.commandFlag == "0" ? (
+                  checkin.checkin.commandFlag == "0" ? (
                     <p
                       className={`w-[14%] h-[30px] rounded-2xl ml-[14%] pt-[3px] text-white ${"bg-[#9747ff]"}`}
                     >
@@ -87,11 +87,6 @@ function MedicalRecordDetailsContent({ checkin, role }) {
                     </p>
                   )}
                 </span>
-                {/* <span className="w-[65%]">
-                  <p className={`w-[15%] min-h-[20px]`}>
-                    {checkin != undefined ? checkin.commandFlag : ""}
-                  </p>
-                </span> */}
               </div>
             </div>
             <div>
@@ -176,14 +171,7 @@ function MedicalRecordDetailsContent({ checkin, role }) {
                   {checkin != undefined ? checkin.checkin.examDate : ""}
                 </span>
               </div>
-              {/* <div className="pt-3 flex">
-                <span className="w-[35%]">Examination Time</span>
-                <span className="">
-                  {appointment != undefined
-                    ? appointment.appointment.examTime
-                    : ""}
-                </span>
-              </div> */}
+
               <div className="pt-3 flex">
                 <span className="w-[35%]">Location</span>
                 <span className="">

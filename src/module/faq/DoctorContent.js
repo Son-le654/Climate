@@ -45,14 +45,6 @@ function DoctorContent({ docList, role }) {
       };
       setsearchlocation(newLoca);
     }
-
-    // if (name === "spc") {
-    //   const newSpc = {
-    //     ...spec,
-    //     [name]: value,
-    //   };
-    //   setSpec(newSpc);
-    // }
   };
 
   return (

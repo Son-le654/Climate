@@ -16,14 +16,6 @@ function MedicalHistoryContent({ email, role }) {
 
   const [Email, setMail] = useState();
   const [rol, setRol] = useState();
-  // const [time, settime] = useState();
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     settime(1); // reload the component after 1 second
-  //   }, 1000);
-
-  //   return () => clearTimeout(timer); // clear the timer on unmount
-  // }, []);
 
   function handlePageClick(event, pageNumber) {
     event.preventDefault();
@@ -69,7 +61,7 @@ function MedicalHistoryContent({ email, role }) {
           response = await axios.get(
             publicPort + `patient/profile?email=${email}`
           );
-            // console.log(response.data.id);
+          // console.log(response.data.id);
           response1 = await axios.get(
             publicPort + `medicalrecord/listByPatientId?id=${response.data.id}`
           );
@@ -179,14 +171,6 @@ function MedicalHistoryContent({ email, role }) {
       </div>
 
       <div className="" style={{ textAlign: "center" }}>
-        {/* <button className="button text-[30px] w-10 h-10 bg-gradientLeft mr-[30px]">
-          <MdKeyboardArrowLeft className="ml-[2px]" />
-        </button>
-
-        <button className="button text-[30px] w-10 h-10 bg-gradientLeft">
-          <MdKeyboardArrowRight className="ml-[3px]" />
-        </button> */}
-
         <div>
           {pageNumbers.map((pageNumber) => (
             <button

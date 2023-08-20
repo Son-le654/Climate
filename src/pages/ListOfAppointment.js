@@ -22,9 +22,6 @@ function ListOfAppointment() {
         const role = decoded.roles[0].authority;
         setRole(role);
         setmail(decoded.sub);
-        // if (role !== 'NURSE') {
-        //   navigate("/")
-        // }
       } catch (error) {
         console.log(error);
       }

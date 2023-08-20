@@ -21,20 +21,6 @@ function DoctorInformationContent({ docId }) {
   const response = axios.get(publicPort + `api/1`);
   console.log(response.data);
 
-  // useEffect(() => {
-  //   console.log("Enter useEffect with id: " + docId);
-  //   const doc = async () => {
-  //     try {
-  //       const response = await axios.get(publicPort + `api/${docId}`);
-  //       setDoct(response.data);
-  //       console.log(response.data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   doc();
-  // }, [docId]);
-
   const handleClick = (data) => {
     setType(data);
     setShowComponentC(data === tabButtons[0]);
@@ -54,10 +40,14 @@ function DoctorInformationContent({ docId }) {
           <span className="text-[35px] mt-[6px] mr-[5px]">
             <AiFillMail />
           </span>
-          <span className="font-bold mt-[6px]">Mehrabbozorgi.business@gmail.com</span>
+          <span className="font-bold mt-[6px]">
+            Mehrabbozorgi.business@gmail.com
+          </span>
         </div>
         <div className="absolute top-[40%] left-[20%] ">
-          <h1 className="text-gradientLeft text-4xl font-bold">Dr. Nguyen Thuy Dung</h1>
+          <h1 className="text-gradientLeft text-4xl font-bold">
+            Dr. Nguyen Thuy Dung
+          </h1>
         </div>
         <div className="flex absolute top-[70%] left-[50%] w-[80%]">
           <div className="flex mt-[15px] justify-between w-[55%]  ">
@@ -68,9 +58,9 @@ function DoctorInformationContent({ docId }) {
                   style={
                     type === data
                       ? {
-                        color: "#5562f7",
-                        textUnderlineOffset: "#3681f8",
-                      }
+                          color: "#5562f7",
+                          textUnderlineOffset: "#3681f8",
+                        }
                       : {}
                   }
                   onClick={() => handleClick(data)}

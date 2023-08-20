@@ -10,11 +10,6 @@ import com.example.demo.entity.Schedule;
 
 public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
 
-//	@Query("select p FROM Appointment p where p.patient.id = :patient_id p.doctorName = :doctorName and "
-//	+ "p.examDate = :examDate and p.examTime = :examTime")
-//InternalAccount findOne (@Param("patient_id") String patient_id,@Param("doctorName") String doctorName,
-//	@Param("examDate") String examDate,@Param("examTime") String examTime);
-
 	List<Schedule> findAll();
 
 	@Query("select i from Schedule i where i.inaccounts.id = :id and i.examDate = :examDate")
@@ -25,7 +20,7 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
 			@Param(value = "examTime") String examTime);
 
 	List<Schedule> findByInaccountsEmailOrderByExamDateAscExamTimeAsc(String email);
-	
+
 	@Query("select i from Schedule i where i.appointment.id = :id")
 	Schedule findByAppId(@Param(value = "id") int id);
 

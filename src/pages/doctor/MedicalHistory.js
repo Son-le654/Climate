@@ -21,11 +21,6 @@ function MedicalHistory() {
         const role = decoded.roles[0].authority;
         setRole(role);
         setEmail(decoded.sub);
-        // console.log(decoded.sub);
-        // console.log(decoded.sub);
-        // if (role !== "DOCTOR" && role !== "NURSE") {
-        //   navigate("/");
-        // }
       } catch (error) {
         console.log(error);
       }

@@ -11,16 +11,7 @@ function DoctorInformationdetail() {
   const navigate = useNavigate();
   const location = useLocation();
   const [doctId, setDoctId] = useState();
-  // useEffect(() => {
-  //   console.log("id doctor" + location.state);
-  //   const docId = location?.state?.id;
-  //   console.log(docId);
-  //   if (docId == undefined) {
-  //     navigate("/service");
-  //   } else {
-  //     setDoctId(docId);
-  //   }
-  // }, []);
+
   return (
     <div className="bg-white">
       <div className="bg-white">

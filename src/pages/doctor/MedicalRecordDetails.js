@@ -22,9 +22,6 @@ function MedicalRecordDetails() {
         const decoded = jwtDecode(storedName);
         const rol = decoded.roles[0].authority;
         setrole(rol);
-        // if (role !== 'NURSE') {
-        //   navigate("/")
-        // }\
       } catch (error) {
         console.log(error);
       }

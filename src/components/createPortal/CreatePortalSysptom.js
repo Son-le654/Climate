@@ -39,14 +39,11 @@ const CreatePortalSysptom = ({
         const response = await axios.get(publicPort + "symptom/list");
 
         for (let i = 0; i < listOrigin.length; i++) {
-          // console.log(checkinsymptom);
           if (
             checkinsymptom
               .toLowerCase()
               .includes(response.data[i].name.toLowerCase())
           ) {
-            // console.log(response.data[i]);
-            // addSymptom(response.data[i]);
             changeSymtomList(response.data[i]);
           }
         }

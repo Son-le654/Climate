@@ -38,7 +38,6 @@ public class ScheduleController {
 		System.out.println("- " + id);
 		System.out.println("- " + date);
 		return service.findAllByInIdAndDate(id, date);
-//		return null;
 	}
 
 	@GetMapping("/listschedules")

@@ -37,13 +37,6 @@ public class CheckinService {
 		Appointment app = null;
 		Checkin ckn = null;
 
-//		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-//		LocalDateTime dateTime = LocalDateTime.parse(checkinDTO.getBookDate(), inputFormatter);
-//		ZoneId utcZone = ZoneId.of("UTC");
-//		ZonedDateTime zonedDateTime = ZonedDateTime.of(dateTime, utcZone);
-//		DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-//		String outputDateString = zonedDateTime.format(outputFormatter);
-
 		// for user and booking
 		if (checkinDTO.getIdC() != null && checkinDTO.getIdA() != null) {
 			p = patientRepository.findByID(checkinDTO.getIdC());

@@ -43,15 +43,8 @@ public class AppointmentService {
 		Patient p = null;
 		Schedule s = null;
 
-//		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-//		LocalDateTime dateTime = LocalDateTime.parse(appointmentDTO.getBookDate(), inputFormatter);
-//		ZoneId utcZone = ZoneId.of("UTC");
-//		ZonedDateTime zonedDateTime = ZonedDateTime.of(dateTime, utcZone);
-//		DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-//		String outputDateString = zonedDateTime.format(outputFormatter);
-
-		// check patient
 		p = patientRepository.findByIDAndName(appointmentDTO.getIdC(), appointmentDTO.getName());
+		p = patientRepository.findByID(appointmentDTO.getIdC());
 		if (p == null) {
 			return ("cannot find patient");
 		}
@@ -83,13 +76,7 @@ public class AppointmentService {
 	public String saveGuest(AppointmentDTO appointmentDTO) {
 		Appointment app = null;
 		Schedule s = null;
-//		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-//		LocalDateTime dateTime = LocalDateTime.parse(appointmentDTO.getBookDate(), inputFormatter);
-//		ZoneId utcZone = ZoneId.of("UTC");
-//		ZonedDateTime zonedDateTime = ZonedDateTime.of(dateTime, utcZone);
-//		DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-//		String outputDateString = zonedDateTime.format(outputFormatter);
-//		System.out.println("out put date: " + outputDateString);
+
 		// check schedule
 		s = scheduleRepository.findByInNameAndDateTime(appointmentDTO.getDoctorName(), appointmentDTO.getBookDate(),
 				appointmentDTO.getBookTime());
@@ -113,15 +100,8 @@ public class AppointmentService {
 		Patient p = null;
 		Schedule s = null;
 
-//		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-//		LocalDateTime dateTime = LocalDateTime.parse(appointmentDTO.getBookDate(), inputFormatter);
-//		ZoneId utcZone = ZoneId.of("UTC");
-//		ZonedDateTime zonedDateTime = ZonedDateTime.of(dateTime, utcZone);
-//		DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-//		String outputDateString = zonedDateTime.format(outputFormatter);
-
 		// check patient
-		p = patientRepository.findByIDAndName(appointmentDTO.getIdC(), appointmentDTO.getName());
+		p = patientRepository.findByID(appointmentDTO.getIdC());
 		if (p == null) {
 			return null;
 		}
@@ -153,13 +133,7 @@ public class AppointmentService {
 	public Appointment saveGuestNow(AppointmentDTO appointmentDTO) {
 		Appointment app = null;
 		Schedule s = null;
-//		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-//		LocalDateTime dateTime = LocalDateTime.parse(appointmentDTO.getBookDate(), inputFormatter);
-//		ZoneId utcZone = ZoneId.of("UTC");
-//		ZonedDateTime zonedDateTime = ZonedDateTime.of(dateTime, utcZone);
-//		DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-//		String outputDateString = zonedDateTime.format(outputFormatter);
-//		System.out.println("out put date: " + outputDateString);
+
 		// check schedule
 		s = scheduleRepository.findByInNameAndDateTime(appointmentDTO.getDoctorName(), appointmentDTO.getBookDate(),
 				appointmentDTO.getBookTime());

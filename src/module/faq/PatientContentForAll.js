@@ -66,23 +66,13 @@ function PatientContentForAll() {
       };
       setsearchlocation(newLoca);
     }
-
-    // if (name === "spc") {
-    //   const newSpc = {
-    //     ...spec,
-    //     [name]: value,
-    //   };
-    //   setSpec(newSpc);
-    // }
   };
 
   return (
     <div className="flex w-[100%]">
       <div className="w-[75%] mr-[25px]">
         <div>
-          <PatientSearch
-            handleSearchInputChange={handleSearchInputChange}
-          />
+          <PatientSearch handleSearchInputChange={handleSearchInputChange} />
         </div>
         <div className="pt-16 bg-[#fff]">
           <PatientList docList={docList} searchname={searchname} />

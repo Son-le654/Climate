@@ -32,8 +32,6 @@ export default function PatientList({ docList, searchname }) {
     setListOrigin(docList);
     setSpecList(docList);
   }, [docList]);
-  // console.log(listOrigin);
-  // console.log(docList);
 
   const [avatarUrl, setAvatarUrl] = useState(null);
 
@@ -62,10 +60,7 @@ export default function PatientList({ docList, searchname }) {
   useEffect(() => {
     if (searchname != undefined) {
       const places = async () => {
-        // console.log(checkinSpec);
-        // const response = await axios.get(publicPort + "spec/list");
         const findItemByName = (name) => {
-          // return response.data.find((item) => item.name === name);
           if (name.sn == "") {
             return listOrigin;
           } else {
@@ -74,10 +69,8 @@ export default function PatientList({ docList, searchname }) {
             );
           }
         };
-        // console.log(place);
-        // console.log(searchname);
+
         const selectedItem = findItemByName(searchname);
-        // console.log(selectedItem);
         setSpecList(selectedItem);
       };
       places();

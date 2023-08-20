@@ -100,7 +100,7 @@ function AppointmentsContent({ role, mail }) {
             // Convert commandFlag values to numbers for comparison (assuming they are strings).
             const commandFlagA = Number(a.commandFlag);
             const commandFlagB = Number(b.commandFlag);
-      
+
             if (commandFlagA !== commandFlagB) {
               // Sort by 'commandFlag' in ascending order.
               return commandFlagA - commandFlagB;
@@ -236,9 +236,6 @@ function AppointmentsContent({ role, mail }) {
             className="  w-[40%] h-[40px] flex items-center justify-center rounded-3xl cursor-pointer"
             onClick={handleAddNewAppointment}
           >
-            {/* <span className="w-[10%] text-[30px] text-gradientLeft ]">
-              <AiOutlinePlusCircle />
-            </span> */}
             <span className="font-medium underline text-success ">
               Add new appointment
             </span>

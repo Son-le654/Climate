@@ -169,16 +169,13 @@ function RolesContent({ role, mail }) {
             className="  w-[40%] h-[40px] flex items-center justify-center rounded-3xl cursor-pointer"
             onClick={handleAddNewRole}
           >
-            {/* <span className="w-[10%] text-[30px] text-gradientLeft ]">
-              <AiOutlinePlusCircle />
-            </span> */}
             <span className="font-medium underline text-success ">
               Add new role
             </span>
           </div>
         </div>
       </div>
-      <div style={{height: "auto"}}>
+      <div style={{ height: "auto" }}>
         <div>
           <table className="w-[100%]">
             <thead className="h-[100px]">

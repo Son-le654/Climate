@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useCollapse } from "react-collapsed";
 import { BsFillInfoCircleFill } from "react-icons/bs";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
@@ -9,10 +9,7 @@ import Specialtiess from "./DetailedinfoContent/Specialtiess";
 import Languages from "./DetailedinfoContent/Languages";
 import WorkPlace from "./DetailedinfoContent/WorkPlace";
 import Experience from "./DetailedinfoContent/Experience";
-import Sevirce from "./DetailedinfoContent/Sevirce";
 import Education from "./DetailedinfoContent/Education";
-import { localPort } from "../../../../components/url/link";
-import axios from "axios";
 
 const Listdata = [
   {
@@ -61,12 +58,12 @@ function DetailedInformation({ doct }) {
             </div>
             <hr className="w-[90%] ml-5 text-[rgb(212,212,212)]" />
             <div {...getCollapseProps()}>
-                <div
-                  className=" text-[13px] justify-around w-[100%] ml-2 font-light p-[10px]"
-                  style={{ lineHeight: "35px" }}
-                >
-                  {doct.introduct}
-                </div>
+              <div
+                className=" text-[13px] justify-around w-[100%] ml-2 font-light p-[10px]"
+                style={{ lineHeight: "35px" }}
+              >
+                {doct.introduct}
+              </div>
             </div>
           </div>
           <div className="mb-[20px]">

@@ -36,14 +36,18 @@ function CheckinListContent({ email, role }) {
     },
     {
       id: 4,
-      title: "Time",
+      title: "Checkin Time",
     },
     {
       id: 5,
-      title: "Status",
+      title: "Appointment",
     },
     {
       id: 6,
+      title: "Status",
+    },
+    {
+      id: 7,
       title: "View Details",
     },
   ];
@@ -53,8 +57,6 @@ function CheckinListContent({ email, role }) {
   const currentItems = listOrigin.slice(indexOfFirstItem, indexOfLastItem);
 
   useEffect(() => {
-    // console.log(mail);
-    // console.log(email);
     if (email == undefined) {
       setMail(email);
     }
@@ -87,9 +89,7 @@ function CheckinListContent({ email, role }) {
             publicPort + `checkin/listbydoctorid?doctorId=${response.data.id}`
           );
         } else if (r == "USER") {
-          response = await axios.get(
-            publicPort + `patient/profile?email=${m}`
-          );
+          response = await axios.get(publicPort + `patient/profile?email=${m}`);
 
           response1 = await axios.get(
             publicPort +
@@ -102,7 +102,7 @@ function CheckinListContent({ email, role }) {
           // Convert commandFlag values to numbers for comparison (assuming they are strings).
           const commandFlagA = Number(a.commandFlag);
           const commandFlagB = Number(b.commandFlag);
-    
+
           if (commandFlagA !== commandFlagB) {
             // Sort by 'commandFlag' in ascending order.
             return commandFlagA - commandFlagB;
@@ -126,13 +126,6 @@ function CheckinListContent({ email, role }) {
   useEffect(() => {
     setListData(listOrigin.slice(indexOfFirstItem, indexOfLastItem));
   }, [itemsPerPage, currentPage]);
-
-  //   useEffect(() => {
-  //     const sorted = listOrigin.sort(
-  //       (a, b) => new Date(b.registerTime) - new Date(a.registerTime)
-  //     );
-  //     setSortedObjects(sorted);
-  //   }, [listOrigin]);
 
   function handlePageClick(event, pageNumber) {
     event.preventDefault();
@@ -309,10 +302,14 @@ function CheckinListContent({ email, role }) {
                         : ""}
                     </p>
                   </td>
+                  <td className="w-[13%]">
+                    <p className="ml-[20%]">
+                      {listD != undefined && listD?.appointmentId
+                        ? "Yes"
+                        : "No"}
+                    </p>
+                  </td>
 
-                  {/* <td className="w-[12%]">
-                    {listD != undefined ? listD.commandFlag : ""}
-                  </td> */}
                   <td className="w-[12%]">
                     <p
                       className={`w-[70%] h-[30px] rounded-2xl ml-[14%] pt-[3px] text-white ${
@@ -349,14 +346,6 @@ function CheckinListContent({ email, role }) {
         </div>
       </div>
       <div className="" style={{ textAlign: "center" }}>
-        {/* <button className="button text-[30px] w-10 h-10 bg-gradientLeft mr-[30px]">
-          <MdKeyboardArrowLeft className="ml-[2px]" />
-        </button>
-
-        <button className="button text-[30px] w-10 h-10 bg-gradientLeft">
-          <MdKeyboardArrowRight className="ml-[3px]" />
-        </button> */}
-
         <div>
           {pageNumbers.map((pageNumber) => (
             <button

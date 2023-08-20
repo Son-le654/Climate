@@ -11,11 +11,6 @@ import com.example.demo.entity.Checkin;
 
 @Repository
 public interface CheckinRepository extends JpaRepository<Checkin, Integer> {
-//
-//	@Query("select p FROM Checkin p where p.patient.id = :patient_id and p.doctorName = :doctorName and "
-//			+ "p.examDate = :examDate and p.examTime = :examTime")
-//	Checkin findOne(@Param("patient_id") String patient_id, @Param("doctorName") String doctorName,
-//			@Param("examDate") String examDate, @Param("examTime") String examTime);
 
 	@Query("select p from Checkin p where p.commandFlag = '0'")
 	List<Checkin> getAllIncome();

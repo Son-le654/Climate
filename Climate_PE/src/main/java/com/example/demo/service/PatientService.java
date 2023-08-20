@@ -44,6 +44,7 @@ public class PatientService implements UserDetailsService {
 				mapRolesToAuthorities(painted.getRole()));
 
 	}
+
 	public User loadUserByUsernamegoogle(String username) throws UsernameNotFoundException {
 
 		Patient painted = repository.findByEmail(username);
@@ -69,7 +70,6 @@ public class PatientService implements UserDetailsService {
 
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String hashedPassword = passwordEncoder.encode(request.getPassword());
-//		LocalDate date = LocalDate.parse(request.getBirthdate(), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
 
 		Patient p = new Patient(request.getId(), request.getName(), request.getEmail(), hashedPassword,
 				request.getBirthdate(), "1430453.png");
@@ -77,7 +77,7 @@ public class PatientService implements UserDetailsService {
 		repository.save(p);
 		return "Create success";
 	}
-	
+
 	public String registergoogle(PatientData loginRequest) {
 
 		if (checkNameExists(loginRequest.getDisplayName()) != null) {
@@ -101,7 +101,6 @@ public class PatientService implements UserDetailsService {
 
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String hashedPassword = passwordEncoder.encode(request.getPassword());
-//		LocalDate date = LocalDate.parse(request.getBirthdate(), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
 
 		Patient p = new Patient(request.getId(), request.getName(), request.getEmail(), hashedPassword,
 				request.getBirthdate());
@@ -115,10 +114,6 @@ public class PatientService implements UserDetailsService {
 		if (checkIDExists(patientDTO.getId()) == null) {
 			return "Patient not exists";
 		}
-
-//		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//		String hashedPassword = passwordEncoder.encode(request.getPassword());
-////		LocalDate date = LocalDate.parse(request.getBirthdate(), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
 
 		Patient p = checkIDExists(patientDTO.getId());
 
@@ -177,16 +172,6 @@ public class PatientService implements UserDetailsService {
 	public Patient findByEmail(String email) {
 		return checkEmailExists(email);
 	}
-
-//	public String updatePatient(String email) {
-//Painted painted = checkEmailExists(email);
-//		if (painted == null) {
-//			return "Email not exists";
-//		}
-//		painted.set
-//		repository.save(painted);
-//		return "success";
-//	}
 
 	private Patient checkEmailExists(String email) {
 		return repository.findByEmail(email);
