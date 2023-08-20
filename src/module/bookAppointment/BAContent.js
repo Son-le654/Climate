@@ -638,7 +638,7 @@ const BAContent = () => {
           handleClose={() => setShowDoctor(false)}
         ></CreatePortalDoctor>
         <h3 className="text-[32px] font-semibold text-gradient">
-          Edit The Appointment
+          Appointment
         </h3>
         <div className="mt-[10rem]">
           <Header number={1}>Booking person information</Header>
