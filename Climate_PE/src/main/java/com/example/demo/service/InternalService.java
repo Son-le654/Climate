@@ -209,7 +209,9 @@ public class InternalService implements UserDetailsService {
 
 			if (!avartar.equals("Cannot upload file")) {
 				if (!account.isAvatarEmptyOrNull()) {
-					imageService.deleteImage(internalAccount.getAvatar());
+					if (!internalAccount.getAvatar().equals(
+							"paramedic-avatar-clipart-icon-illustration-for-doctor-and-ners-medical-service-vector.jpg"))
+						imageService.deleteImage(internalAccount.getAvatar());
 				}
 				account.setAvatar(avartar);
 			}

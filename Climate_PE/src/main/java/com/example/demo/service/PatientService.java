@@ -128,7 +128,9 @@ public class PatientService implements UserDetailsService {
 
 			if (!avartar.equals("Cannot upload file")) {
 				if (!patientDTO.isAvatarEmptyOrNull()) {
-					imageService.deleteImage(patientDTO.getAvatar());
+					if (!patientDTO.getAvatar().equals("1430453.png")) {
+						imageService.deleteImage(patientDTO.getAvatar());
+					}
 				}
 				p.setAvatar(avartar);
 			}
