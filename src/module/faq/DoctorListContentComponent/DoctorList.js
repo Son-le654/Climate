@@ -138,13 +138,18 @@ export default function DoctorList({
       return null;
     }
   };
-
+  const [avatarUrls, setAvatarUrls] = useState({}); 
   useEffect(() => {
-    // Lấy URL của avatar khi component render
     if (docList?.length > 0) {
-      const avatarName = docList[0].avatar; // Chọn một avatar bất kỳ từ listData
-      getAvatarUrl(avatarName).then((url) => {
-        setAvatarUrl(url);
+      docList.forEach((item) => {
+        const avatarName = item.avatar;
+        getAvatarUrl(avatarName).then((url) => {
+          // Sử dụng cập nhật state để lưu trữ avatarUrl dựa trên data.id
+          setAvatarUrls((prevUrls) => ({
+            ...prevUrls,
+            [item.id]: url,
+          }));
+        });
       });
     }
   }, [docList]);
@@ -155,10 +160,6 @@ export default function DoctorList({
         {specList?.map((data) => (
           <div
             key={data.id}
-            onClick={async () => {
-              const avatarUrl = await getAvatarUrl(data.avatar);
-              setAvatarUrl(avatarUrl);
-            }}
             className=" w-[100%] h-[150px] mb-[20px] rounded-[15px]"
           >
             <div
@@ -166,7 +167,7 @@ export default function DoctorList({
               key={data.id}
             >
               <div className="w-[15%] h-[120px] rounded-[15px] overflow-hidden mr-[30px] mt-2 ">
-                <img className="w-[100%]" src={avatarUrl} alt="avatar" />
+                <img className="w-[100%]"  src={avatarUrls[data.id]}  alt="avatar" />
               </div>
               <div className="w-[85%] pr-[20%]">
                 <h1 className="font-semibold">{data.name}</h1>
