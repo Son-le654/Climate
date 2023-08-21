@@ -35,15 +35,19 @@ const PopupDoctor = ({
       return null;
     }
   };
-
+  const [avatarUrls, setAvatarUrls] = useState({});
   useEffect(() => {
-    // Lấy URL của avatar khi component render
-    if (listData.length > 0) {
-      const avatarName = listData[0].avatar; // Chọn một avatar bất kỳ từ listData
-      getAvatarUrl(avatarName)
-        .then((url) => {
-          setAvatarUrl(url);
+    if (listData?.length > 0) {
+      listData.forEach((items) => {
+        const avatarName = items.avatar;
+        getAvatarUrl(avatarName).then((url) => {
+          // Sử dụng cập nhật state để lưu trữ avatarUrl dựa trên data.id
+          setAvatarUrls((prevUrls) => ({
+            ...prevUrls,
+            [items.id]: url,
+          }));
         });
+      });
     }
   }, [listData]);
   return (
@@ -73,18 +77,13 @@ const PopupDoctor = ({
             listData.map((item) => {
               return doctor === item ? (
                 <div
-                onClick={async () => {
-                  const avatarUrl = await getAvatarUrl(item.avatar);
-                  setAvatarUrl(avatarUrl);
-                  changeDoctorList(item);
-                }}
                 key={item.id}
                 className="shadow-md text-success justify-between flex items-center font-semibold text-[2rem] p-[2.7rem_4.7rem] rounded-[1.6rem] cursor-pointer"
                 style={{ border: "1px solid green", marginBottom: "1rem" }}
               >               
                     <div className="flex items-center gap-[3.2rem]">
                     <div className="w-[5.7rem] h-[5.7rem] overflow-hidden rounded-full">
-                      <img src={avatarUrl} alt="" />
+                      <img src={avatarUrls[item?.id]} alt="" />
                     </div>
                     <span className="font-semibold text-[2rem]">
                       {item.name}
@@ -101,7 +100,7 @@ const PopupDoctor = ({
                 >
                   <div className="flex items-center gap-[3.2rem]">
                     <div className="w-[5.7rem] h-[5.7rem] overflow-hidden rounded-full">
-                      <img src={avatarUrl} alt="" />
+                      <img src={avatarUrls[item?.id]}  alt="" />
                     </div>
                     <span className="font-semibold text-[2rem]">
                       {item.name}
