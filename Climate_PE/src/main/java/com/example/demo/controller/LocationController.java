@@ -31,7 +31,7 @@ public class LocationController {
 
 	@Autowired
 	private LocationRepository repository;
-	@CacheEvict(value = {"location", "locationAdmin"}, key = "#location.id")
+	@CacheEvict(value = "location", allEntries = true)
 	@PostMapping("/save")
 	public String save(@RequestBody Location location) {
 		service.save(location);
@@ -59,7 +59,7 @@ public class LocationController {
 	}
 
 	@GetMapping("/block")
-	@CacheEvict(value = {"location", "locationAdmin"}, key = "#location.id")
+	@CacheEvict(value = "location", allEntries = true)
 	public String blockLocation(@RequestParam(value = "id") String id) {
 		System.out.println(id);
 		Location acc = null;
