@@ -382,7 +382,7 @@ const BAContentGuest = () => {
       return;
     }
 
-    if (phone.pnum == undefined || phone.pnum.length != 10) {
+    if (phone.pnum == "" || phone.pnum.length != 10) {
       alert("Phone number must be 10 numbers");
       return;
     }

@@ -37,6 +37,13 @@ public class CheckinService {
 		Appointment app = null;
 		Checkin ckn = null;
 
+		if (checkinDTO.getIdC() == "") {
+			checkinDTO.setIdC(null);
+		}
+		if (checkinDTO.getIdA() == "") {
+			checkinDTO.setIdA(null);
+		}
+
 		// for user and booking
 		if (checkinDTO.getIdC() != null && checkinDTO.getIdA() != null) {
 			p = patientRepository.findByID(checkinDTO.getIdC());

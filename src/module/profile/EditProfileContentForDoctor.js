@@ -489,6 +489,7 @@ function EditProfileContentForDoctor() {
             <div className=" flex justify-start w-[100%]">
               <div className="h-[70px] w-[95%] border-[1px] rounded-2xl border-[#c5c4c4] flex">
                 <input
+                  disabled={true}
                   placeholder="sonlt.clinicmate@gmail.com"
                   // @ts-ignore
                   value={emailP.emp}
