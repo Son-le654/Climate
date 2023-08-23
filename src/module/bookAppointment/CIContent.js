@@ -257,7 +257,6 @@ const CIContent = () => {
         ...idCard,
         [name]: value,
       };
-      // console.log("set ID");
       setIdCard(newIDs);
     }
     if (name === "idA") {
@@ -393,7 +392,16 @@ const CIContent = () => {
   };
 
   const bookAppointment = async () => {
-
+    console.log(idCard.idC);
+    if (idCard.idC == "") {
+      console.log(true);
+      setIdCard((prevState) => {
+        return {
+          ...prevState,
+          idC: null,
+        };
+      });
+    }
     if (
       fullName.fname === undefined ||
       phone.pnum === undefined ||
@@ -407,13 +415,15 @@ const CIContent = () => {
       return;
     }
 
-    if (phone.pnum == undefined || phone.pnum.length != 10) {
+    if (phone.pnum == "" || phone.pnum.length != 10) {
       alert("Phone number must be 10 numbers");
       return;
     }
-    if (idCard.idC != undefined && idCard.idC.length != 12) {
-      alert("Identity number must be 12 numbers");
-      return;
+    if (idCard.idC != undefined) {
+      if (idCard.idC != "" && idCard.idC.length != 12) {
+        alert("Identity number must be 12 numbers");
+        return;
+      }
     }
 
     registers.name = fullName.fname;

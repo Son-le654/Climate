@@ -179,6 +179,20 @@ function CheckinListContent({ email, role }) {
     const [date, hour] = time.split(" ");
     return hour.substring(0, 5);
   };
+
+  const [appdata, setappdata] = useState([]);
+  useEffect(() => {
+    try {
+      const findAppointment = async () => {
+        const response = await axios.get(publicPort + `appointment/list`);
+        // console.log(response.data);
+        setappdata(response.data);
+      };
+
+      findAppointment();
+    } catch (error) {}
+  }, []);
+
   return (
     <div className="bg-white p-5 rounded-2xl shadow-2xl w-[100%] min-h-[500px] pt-[5rem]">
       <div>
@@ -304,9 +318,11 @@ function CheckinListContent({ email, role }) {
                   </td>
                   <td className="w-[13%]">
                     <p className="ml-[20%]">
-                      {listD != undefined && listD?.appointmentId
-                        ? "Yes"
-                        : "No"}
+                      {listD !== undefined && listD?.appointmentId
+                        ? appdata.map((item) =>
+                            listD?.appointmentId == item.id ? item.examTime : ""
+                          )
+                        : ""}
                     </p>
                   </td>
 

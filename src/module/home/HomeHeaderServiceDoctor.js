@@ -326,7 +326,7 @@ const HomeHeaderServiceDoctor = () => {
               className=" absolute rounded-full w-[24px] h-[24px] top-[6px] left-[4px]"
               src={imageData}
             ></img>
-            <div className="font-bold">{nameuser}</div>
+            <div className="font-bold">{nameuser.split(" ")[0]}</div>
             <div className="absolute top-[3px] left-[83%]">
               <IoMdArrowDropdown style={{ fontSize: "30px" }} />
             </div>
