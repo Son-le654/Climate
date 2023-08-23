@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,18 +31,18 @@ public class LocationController {
 
 	@Autowired
 	private LocationRepository repository;
-
+	@CacheEvict(value = "location", allEntries = true)
 	@PostMapping("/save")
 	public String save(@RequestBody Location location) {
 		service.save(location);
 		return "success";
 	}
-
+	@Cacheable("location")
 	@GetMapping("/list")
 	public List<Location> getAll() {
 		return service.findAll();
 	}
-
+	@Cacheable("locationAdmin")
 	@GetMapping("/listadmin")
 	public List<Location> getAllForAdmin() {
 		return service.findAllForAdmin();
@@ -57,6 +59,7 @@ public class LocationController {
 	}
 
 	@GetMapping("/block")
+	@CacheEvict(value = "location", allEntries = true)
 	public String blockLocation(@RequestParam(value = "id") String id) {
 		System.out.println(id);
 		Location acc = null;
