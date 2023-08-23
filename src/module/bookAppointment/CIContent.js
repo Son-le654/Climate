@@ -419,9 +419,11 @@ const CIContent = () => {
       alert("Phone number must be 10 numbers");
       return;
     }
-    if (idCard.idC != "" && idCard.idC.length != 12) {
-      alert("Identity number must be 12 numbers");
-      return;
+    if (idCard.idC != undefined) {
+      if (idCard.idC != "" && idCard.idC.length != 12) {
+        alert("Identity number must be 12 numbers");
+        return;
+      }
     }
 
     registers.name = fullName.fname;
