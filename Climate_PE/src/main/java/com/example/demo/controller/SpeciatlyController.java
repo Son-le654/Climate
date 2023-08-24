@@ -22,7 +22,7 @@ import com.example.demo.service.SpeciatlyService;
 
 @RestController
 @RequestMapping("/spec")
-@CrossOrigin(origins = { "https://clinicmates.io.vn/","https://clinicmates.io.vn:8081/", "https://localhost:3000/" })
+@CrossOrigin(origins = { "https://clinicmates.io.vn", "https://clinicmates.io.vn:8081", "https://localhost:3000" })
 public class SpeciatlyController {
 
 	@Autowired

@@ -33,7 +33,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/images")
-@CrossOrigin(origins = { "https://clinicmates.io.vn/", "https://localhost:3000/" })
+@CrossOrigin(origins = { "https://clinicmates.io.vn", "https://clinicmates.io.vn:8081", "https://localhost:3000" })
 public class ImageController {
 
 
