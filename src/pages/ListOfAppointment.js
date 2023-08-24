@@ -1,7 +1,9 @@
 import jwtDecode from "jwt-decode";
 import Footer from "module/home/Footer";
 import HomeHeaderService from "module/home/HomeHeaderService";
+import HomeHeaderServiceAdmin from "module/home/HomeHeaderServiceAdmin";
 import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
+import HomeHeaderServiceGuest from "module/home/HomeHeaderServiceGuest";
 import HomeHeaderServiceNurse from "module/home/HomeHeaderServiceNurse";
 import ListOfAppointmentContent from "module/ListofAppointmentContent/ListOfAppointmentContent";
 import React, { useEffect, useState } from "react";
@@ -35,8 +37,12 @@ function ListOfAppointment() {
             <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
           ) : role == "NURSE" ? (
             <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
-          ) : (
+          ) : role == "USER" ? (
             <HomeHeaderService></HomeHeaderService>
+          ) : role == "ADMIN" ? (
+            <HomeHeaderServiceAdmin></HomeHeaderServiceAdmin>
+          ) : (
+            <HomeHeaderServiceGuest></HomeHeaderServiceGuest>
           )}
         </div>
         <div className="w-[100%] h-[100px] flex items-center">

@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import HomeHeaderServiceNurse from "../module/home/HomeHeaderServiceNurse";
+import HomeHeaderService from "module/home/HomeHeaderService";
+import HomeHeaderServiceAdmin from "module/home/HomeHeaderServiceAdmin";
+import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
+import HomeHeaderServiceGuest from "module/home/HomeHeaderServiceGuest";
 
 const CheckinPage = () => {
   const navigate = useNavigate();
@@ -27,7 +31,17 @@ const CheckinPage = () => {
 
   return (
     <div className="bg-white">
-      <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
+      {role == "DOCTOR" ? (
+        <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
+      ) : role == "NURSE" ? (
+        <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
+      ) : role == "USER" ? (
+        <HomeHeaderService></HomeHeaderService>
+      ) : role == "ADMIN" ? (
+        <HomeHeaderServiceAdmin></HomeHeaderServiceAdmin>
+      ) : (
+        <HomeHeaderServiceGuest></HomeHeaderServiceGuest>
+      )}
       <div>
         <Outlet></Outlet>
       </div>

@@ -6,6 +6,8 @@ import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
 import HomeHeaderServiceNurse from "module/home/HomeHeaderServiceNurse";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import HomeHeaderServiceAdmin from "module/home/HomeHeaderServiceAdmin";
+import HomeHeaderServiceGuest from "module/home/HomeHeaderServiceGuest";
 
 function ProfilePageForStaff() {
   const navigate = useNavigate();
@@ -35,12 +37,16 @@ function ProfilePageForStaff() {
     <div className="w-[100%] min-h-[1000px] bg-white flex justify-center">
       <div className="w-[80%] min-h-[1000px] bg-white">
         <div className="bg-white">
-          {role == "USER" ? (
-            <HomeHeaderService></HomeHeaderService>
+          {role == "DOCTOR" ? (
+            <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
           ) : role == "NURSE" ? (
             <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
+          ) : role == "USER" ? (
+            <HomeHeaderService></HomeHeaderService>
+          ) : role == "ADMIN" ? (
+            <HomeHeaderServiceAdmin></HomeHeaderServiceAdmin>
           ) : (
-            <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
+            <HomeHeaderServiceGuest></HomeHeaderServiceGuest>
           )}
         </div>
         <div className="w-[100%] h-[200px] flex items-center">

@@ -9,6 +9,7 @@ import jwtDecode from "jwt-decode";
 import HomeHeaderServiceAdmin from "module/home/HomeHeaderServiceAdmin";
 import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
 import HomeHeaderServiceNurse from "module/home/HomeHeaderServiceNurse";
+import HomeHeaderServiceGuest from "module/home/HomeHeaderServiceGuest";
 
 const ListDoctorPageForAll = () => {
   const navigate = useNavigate();
@@ -33,14 +34,16 @@ const ListDoctorPageForAll = () => {
   return (
     <div className="bg-white w-[100%]">
       <div className="bg-white">
-        {role == "USER" ? (
-          <HomeHeaderService></HomeHeaderService>
+        {role == "DOCTOR" ? (
+          <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
         ) : role == "NURSE" ? (
           <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
+        ) : role == "USER" ? (
+          <HomeHeaderService></HomeHeaderService>
         ) : role == "ADMIN" ? (
           <HomeHeaderServiceAdmin></HomeHeaderServiceAdmin>
         ) : (
-          <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
+          <HomeHeaderServiceGuest></HomeHeaderServiceGuest>
         )}
       </div>
       <div className="pt-[80px] pl-[190px] text-5xl font-bold py-[20px]">

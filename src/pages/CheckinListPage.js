@@ -7,6 +7,7 @@ import SchedulesContent from "../module/schedules/SchedulesContent.js";
 import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
 import CheckinListContent from "module/checkins/CheckinListContent";
 import HomeHeaderService from "module/home/HomeHeaderService";
+import HomeHeaderServiceAdmin from "module/home/HomeHeaderServiceAdmin";
 
 const CheckinListPage = () => {
   const navigate = useNavigate();
@@ -32,12 +33,14 @@ const CheckinListPage = () => {
   return (
     <>
       <div className="bg-white">
-        {role == "DOCTOR" ? (
-          <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
+        {role == "USER" ? (
+          <HomeHeaderService></HomeHeaderService>
         ) : role == "NURSE" ? (
           <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
+        ) : role == "ADMIN" ? (
+          <HomeHeaderServiceAdmin></HomeHeaderServiceAdmin>
         ) : (
-          <HomeHeaderService></HomeHeaderService>
+          <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
         )}
       </div>
       <div className="pt-[95px] pl-[190px] text-7xl font-bold py-[20px] bg-white ">

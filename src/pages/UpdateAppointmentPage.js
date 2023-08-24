@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import HomeHeaderServiceNurse from "../module/home/HomeHeaderServiceNurse";
+import HomeHeaderService from "module/home/HomeHeaderService";
+import HomeHeaderServiceAdmin from "module/home/HomeHeaderServiceAdmin";
+import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
+import HomeHeaderServiceGuest from "module/home/HomeHeaderServiceGuest";
 
 const UpdateAppointmentPage = () => {
   const navigate = useNavigate();
@@ -29,7 +33,17 @@ const UpdateAppointmentPage = () => {
   return (
     <div className="bg-white">
       {/* <BookAppHeader storedName={storedName}></BookAppHeader> */}
-      <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
+      {role == "DOCTOR" ? (
+        <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
+      ) : role == "NURSE" ? (
+        <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
+      ) : role == "USER" ? (
+        <HomeHeaderService></HomeHeaderService>
+      ) : role == "ADMIN" ? (
+        <HomeHeaderServiceAdmin></HomeHeaderServiceAdmin>
+      ) : (
+        <HomeHeaderServiceGuest></HomeHeaderServiceGuest>
+      )}
       <div>
         <Outlet></Outlet>
       </div>

@@ -5,6 +5,7 @@ import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
 import HomeHeaderServiceNurse from "module/home/HomeHeaderServiceNurse";
+import HomeHeaderServiceAdmin from "module/home/HomeHeaderServiceAdmin";
 
 function MedicalHistory() {
   const navigate = useNavigate();
@@ -30,12 +31,14 @@ function MedicalHistory() {
   return (
     <div>
       <div className="bg-white">
-        {role == "DOCTOR" ? (
-          <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
+        {role == "USER" ? (
+          <HomeHeaderService></HomeHeaderService>
         ) : role == "NURSE" ? (
           <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
+        ) : role == "ADMIN" ? (
+          <HomeHeaderServiceAdmin></HomeHeaderServiceAdmin>
         ) : (
-          <HomeHeaderService></HomeHeaderService>
+          <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
         )}
       </div>
       <div style={{ padding: "3% 12%" }} className="bg-white">

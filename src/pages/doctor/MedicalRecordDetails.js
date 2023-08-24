@@ -31,7 +31,7 @@ function MedicalRecordDetails() {
   const location = useLocation();
   useEffect(() => {
     const check = location?.state?.checkin;
-    console.log(check);
+    // console.log(check);
     if (check == undefined) {
       navigate("/medicalhistory");
     } else {

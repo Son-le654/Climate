@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
 import React from "react";
 import HomeHeaderServiceNurse from "module/home/HomeHeaderServiceNurse";
+import HomeHeaderServiceAdmin from "module/home/HomeHeaderServiceAdmin";
+import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
+import HomeHeaderServiceGuest from "module/home/HomeHeaderServiceGuest";
 
 const AppointmentConfirmationPage = () => {
   const navigate = useNavigate();
@@ -44,10 +47,16 @@ const AppointmentConfirmationPage = () => {
   return (
     <div className="bg-white">
       <div className="bg-white">
-        {role == "NURSE" ? (
+        {role == "DOCTOR" ? (
+          <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
+        ) : role == "NURSE" ? (
           <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
-        ) : (
+        ) : role == "USER" ? (
           <HomeHeaderService></HomeHeaderService>
+        ) : role == "ADMIN" ? (
+          <HomeHeaderServiceAdmin></HomeHeaderServiceAdmin>
+        ) : (
+          <HomeHeaderServiceGuest></HomeHeaderServiceGuest>
         )}
       </div>
       <div className="pt-[80px] pl-[190px] text-6xl font-bold py-[20px]">

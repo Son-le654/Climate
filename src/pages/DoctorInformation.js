@@ -3,9 +3,13 @@ import DoctorInformationContent from "../module/doctorinformation/DoctorInformat
 import Footer from "../module/home/Footer";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import {  publicPort } from "../components/url/link";
+import { publicPort } from "../components/url/link";
 import { useLocation, useNavigate } from "react-router";
 import React from "react";
+import HomeHeaderServiceAdmin from "module/home/HomeHeaderServiceAdmin";
+import HomeHeaderServiceDoctor from "module/home/HomeHeaderServiceDoctor";
+import HomeHeaderServiceGuest from "module/home/HomeHeaderServiceGuest";
+import HomeHeaderServiceNurse from "module/home/HomeHeaderServiceNurse";
 
 function DoctorInformation() {
   const navigate = useNavigate();
@@ -21,10 +25,36 @@ function DoctorInformation() {
       setDoctId(docId);
     }
   }, []);
+  const [role, setRole] = useState("");
+
+  useEffect(() => {
+    const storedName = localStorage.getItem("token");
+    if (storedName == null) {
+      navigate("/login-user");
+    } else {
+      try {
+        const decoded = jwtDecode(storedName);
+        const role = decoded.roles[0].authority;
+        setRole(role);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, []);
   return (
     <div className="bg-white">
       <div className="bg-white">
-        <HomeHeaderService></HomeHeaderService>
+        {role == "DOCTOR" ? (
+          <HomeHeaderServiceDoctor></HomeHeaderServiceDoctor>
+        ) : role == "NURSE" ? (
+          <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
+        ) : role == "USER" ? (
+          <HomeHeaderService></HomeHeaderService>
+        ) : role == "ADMIN" ? (
+          <HomeHeaderServiceAdmin></HomeHeaderServiceAdmin>
+        ) : (
+          <HomeHeaderServiceGuest></HomeHeaderServiceGuest>
+        )}
       </div>
       <div className="bg-white">
         <DoctorInformationContent docId={doctId} />
@@ -36,3 +66,6 @@ function DoctorInformation() {
   );
 }
 export default DoctorInformation;
+function jwtDecode(storedName) {
+  throw new Error("Function not implemented.");
+}
