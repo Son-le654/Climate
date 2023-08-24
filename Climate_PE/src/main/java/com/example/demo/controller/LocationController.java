@@ -23,7 +23,7 @@ import com.example.demo.service.LocationService;
 
 @RestController
 @RequestMapping("/location")
-@CrossOrigin(origins = { "http://clinicmates.io.vn/", "http://localhost:3000/" })
+@CrossOrigin(origins = { "https://clinicmates.io.vn", "https://clinicmates.io.vn:8081", "https://localhost:3000" })
 public class LocationController {
 
 	@Autowired
@@ -31,18 +31,15 @@ public class LocationController {
 
 	@Autowired
 	private LocationRepository repository;
-	@CacheEvict(value = "location", allEntries = true)
 	@PostMapping("/save")
 	public String save(@RequestBody Location location) {
 		service.save(location);
 		return "success";
 	}
-	@Cacheable("location")
 	@GetMapping("/list")
 	public List<Location> getAll() {
 		return service.findAll();
 	}
-	@Cacheable("locationAdmin")
 	@GetMapping("/listadmin")
 	public List<Location> getAllForAdmin() {
 		return service.findAllForAdmin();
@@ -59,7 +56,6 @@ public class LocationController {
 	}
 
 	@GetMapping("/block")
-	@CacheEvict(value = "location", allEntries = true)
 	public String blockLocation(@RequestParam(value = "id") String id) {
 		System.out.println(id);
 		Location acc = null;
