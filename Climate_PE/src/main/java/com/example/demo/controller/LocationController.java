@@ -31,18 +31,15 @@ public class LocationController {
 
 	@Autowired
 	private LocationRepository repository;
-	@CacheEvict(value = "location", allEntries = true)
 	@PostMapping("/save")
 	public String save(@RequestBody Location location) {
 		service.save(location);
 		return "success";
 	}
-	@CacheEvict("location")
 	@GetMapping("/list")
 	public List<Location> getAll() {
 		return service.findAll();
 	}
-	@CacheEvict("locationAdmin")
 	@GetMapping("/listadmin")
 	public List<Location> getAllForAdmin() {
 		return service.findAllForAdmin();
@@ -59,7 +56,6 @@ public class LocationController {
 	}
 
 	@GetMapping("/block")
-	@CacheEvict(value = "location", allEntries = true)
 	public String blockLocation(@RequestParam(value = "id") String id) {
 		System.out.println(id);
 		Location acc = null;
