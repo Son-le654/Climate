@@ -37,12 +37,12 @@ public class LocationController {
 		service.save(location);
 		return "success";
 	}
-	@Cacheable("location")
+	@CacheEvict("location")
 	@GetMapping("/list")
 	public List<Location> getAll() {
 		return service.findAll();
 	}
-	@Cacheable("locationAdmin")
+	@CacheEvict("locationAdmin")
 	@GetMapping("/listadmin")
 	public List<Location> getAllForAdmin() {
 		return service.findAllForAdmin();
