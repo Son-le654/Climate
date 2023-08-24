@@ -7,6 +7,7 @@ import HomeHeaderServiceGuest from "module/home/HomeHeaderServiceGuest";
 import HomeHeaderServiceNurse from "module/home/HomeHeaderServiceNurse";
 import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import HomeHeaderServiceAdmin from "module/home/HomeHeaderServiceAdmin";
 
 function NewsPage() {
   const navigate = useNavigate();
@@ -36,6 +37,8 @@ function NewsPage() {
           <HomeHeaderServiceNurse></HomeHeaderServiceNurse>
         ) : role == "USER" ? (
           <HomeHeaderService></HomeHeaderService>
+        ) : role == "ADMIN" ? (
+          <HomeHeaderServiceAdmin></HomeHeaderServiceAdmin>
         ) : (
           <HomeHeaderServiceGuest></HomeHeaderServiceGuest>
         )}
