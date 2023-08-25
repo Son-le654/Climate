@@ -653,6 +653,11 @@ const CIContent = () => {
                       "......"
                     }
                   ></Booking>
+                ) : symtomArr.length == 2 ? (
+                  <Booking
+                    icon={<IconSysptomvl />}
+                    value={symtomArr[0].name + "; " + symtomArr[1].name}
+                  ></Booking>
                 ) : (
                   <Booking
                     icon={<IconSysptomvl />}
