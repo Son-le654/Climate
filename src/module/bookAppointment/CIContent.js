@@ -312,7 +312,7 @@ const CIContent = () => {
   const addSymtomItem = (item) => {
     // console.log(item);
     const newArr = [...symtomArr, item];
-    setSymtomArr(pre => [...pre, item])
+    setSymtomArr((pre) => [...pre, item]);
 
     // setShowSysptom(false);
     // setShowSpec(true)
@@ -321,7 +321,16 @@ const CIContent = () => {
   const nextSpec = () => {
     setShowSysptom(false);
     setShowSpec(true);
+    setDoctor();
+    setSpec();
   };
+
+  useEffect(() => {
+    if (showSpec == true) {
+      setDoctor();
+      setSpec();
+    }
+  }, [showSpec]);
 
   useEffect(() => {
     setNumberOfSym(symtomArr.length);
@@ -337,7 +346,7 @@ const CIContent = () => {
     setShowPlace(false);
   };
   function checkIdExists(idToCheck) {
-    return symtomArr.some(item => item.id === idToCheck);
+    return symtomArr.some((item) => item.id === idToCheck);
   }
 
   const changeSymtomList = (item) => {
@@ -489,7 +498,7 @@ const CIContent = () => {
           handleClose={() => setShowSpec(false)}
         ></CreatePortalSpecialty>
         <CreatePortalDoctor
-          checkinDoctor={check?.doctorId}
+          checkindoc={check?.doctorName}
           place={place}
           doctor={doctor}
           spec={spec}

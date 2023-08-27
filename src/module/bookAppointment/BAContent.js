@@ -138,8 +138,10 @@ const BAContent = () => {
 
   useEffect(() => {
     const eapp = location?.state?.appointment;
+
     if (eapp) {
       setEAppointment(eapp);
+      // console.log(eapp);
 
       setFullName({ fname: eapp.patientName });
       if (eapp.patient != null) {
@@ -368,9 +370,8 @@ const BAContent = () => {
   //////////////////////////////////// symtom
   const addSymtomItem = (item) => {
     const newArr = [...symtomArr, item];
-    setSymtomArr(pre => [...pre, item])
+    setSymtomArr((pre) => [...pre, item]);
     // console.log(newArr);
-   
 
     // setShowSysptom(false);
     // setShowSpec(true)
@@ -404,7 +405,7 @@ const BAContent = () => {
     setShowPlace(false);
   };
   function checkIdExists(idToCheck) {
-    return symtomArr.some(item => item.id === idToCheck);
+    return symtomArr.some((item) => item.id === idToCheck);
   }
 
   const changeSymtomList = (item) => {
@@ -630,7 +631,7 @@ const BAContent = () => {
           handleClose={() => setShowSpec(false)}
         ></CreatePortalSpecialty>
         <CreatePortalDoctor
-          checkinDoctor={EAppointment?.doctorId}
+          checkindoc={EAppointment?.doctorName}
           place={place}
           doctor={doctor}
           spec={spec}
@@ -640,9 +641,7 @@ const BAContent = () => {
           visible={showDoctor}
           handleClose={() => setShowDoctor(false)}
         ></CreatePortalDoctor>
-        <h3 className="text-[32px] font-semibold text-gradient">
-          Appointment
-        </h3>
+        <h3 className="text-[32px] font-semibold text-gradient">Appointment</h3>
         <div className="mt-[10rem]">
           <Header number={1}>Booking person information</Header>
           <div className="mt-[4.4rem]">

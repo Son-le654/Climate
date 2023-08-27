@@ -11,6 +11,9 @@ const PopupSpec = ({
   handleSearchInputChange,
   spec,
 }) => {
+  function checkIdExists(idToCheck) {
+    return listData.some((item) => item.id === idToCheck);
+  }
   return (
     <div className="p-[3.2rem_7.4rem] rounded-[1.6rem] bg-white">
       <div className="flex items-center justify-between w-full">
@@ -36,7 +39,7 @@ const PopupSpec = ({
         <div className="overflow-auto gap-[0.8rem] max-h-[40rem] mt-[2.4rem]">
           {listData?.length > 0 &&
             listData.map((item) => {
-              return (spec === item) == true ? (
+              return (spec == item) == true ? (
                 <div
                   onClick={() => changeSpecList(item)}
                   key={item.id}
