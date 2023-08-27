@@ -434,7 +434,7 @@ function EditProfileContentForDoctor() {
 
     // profileSave.avatar = selectedFile;
 
-    console.log(profileSave);
+    // console.log(profileSave);
     const formData = new FormData();
 
     formData.append("fileData", selectedFile); // Thêm file vào formData
@@ -450,13 +450,20 @@ function EditProfileContentForDoctor() {
         },
       }
     );
-    console.log(response);
+    // console.log(response);
 
-    if (response.data === "Update success") {
+    if (
+      response.data !== "Internal not exists" &&
+      response.data != "Update no success"
+    ) {
+      // console.log(response.data);
+      // console.log("true");
+      localStorage.setItem("token", response.data);
       navigate("/profilepage");
     } else {
       window.alert(response.data);
     }
+
     setIsButtonDisabled(false);
   };
   return (
