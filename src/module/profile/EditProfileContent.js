@@ -208,10 +208,10 @@ function EditProfileContent() {
             publicPort + `patient/profile?email=${mal}`
           );
           console.log("log at edit content");
-          console.log(response.data);
+          // console.log(response.data);
           const profile = response.data;
           if (profile != undefined) {
-            console.log(profile);
+            // console.log(profile);
             // @ts-ignore
             setIdCard({ idC: profile.id });
             // @ts-ignore
@@ -304,7 +304,7 @@ function EditProfileContent() {
     // @ts-ignore
     profileSave.phone = phonee.pnum;
 
-    console.log(profileSave);
+    // console.log(profileSave);
     const formData = new FormData();
 
     formData.append("fileData", selectedFile); // Thêm file vào formData
@@ -321,9 +321,15 @@ function EditProfileContent() {
         },
       }
     );
-    console.log(response);
+    // console.log(response);
 
-    if (response.data === "Update success") {
+    if (
+      response.data !== "Patient not exists" &&
+      response.data != "Update no success"
+    ) {
+      // console.log(response.data);
+      // console.log("true");
+      localStorage.setItem("token", response.data);
       navigate("/profilepage");
     } else {
       window.alert(response.data);
@@ -355,11 +361,12 @@ function EditProfileContent() {
         <div className=" flex justify-start w-[100%]">
           <div className="h-[70px] w-[80%] border-[1px] rounded-2xl border-[#c5c4c4] flex">
             <input
-              disabled={true}
+              // disabled={true}
               placeholder="Email"
               // @ts-ignore
               value={emailP.emp}
               name="emp"
+              onChange={handleChangeName}
               className="w-[80%] h-[100%] ml-[10px] text-[20px] "
             />
           </div>
