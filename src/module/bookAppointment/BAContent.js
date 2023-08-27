@@ -365,12 +365,12 @@ const BAContent = () => {
       addPlaceItem(item);
     }
   };
-
   //////////////////////////////////// symtom
   const addSymtomItem = (item) => {
     const newArr = [...symtomArr, item];
+    setSymtomArr(pre => [...pre, item])
     // console.log(newArr);
-    setSymtomArr(newArr);
+   
 
     // setShowSysptom(false);
     // setShowSpec(true)
@@ -403,9 +403,12 @@ const BAContent = () => {
 
     setShowPlace(false);
   };
+  function checkIdExists(idToCheck) {
+    return symtomArr.some(item => item.id === idToCheck);
+  }
 
   const changeSymtomList = (item) => {
-    if (symtomArr.includes(item)) {
+    if (checkIdExists(item.id)) {
       deleteSymtomItem(item);
     } else {
       addSymtomItem(item);
@@ -417,7 +420,7 @@ const BAContent = () => {
   //////////////////////////////////// spec
   const addSpecItem = (item) => {
     setSpec(item);
-    // console.log(item);
+    console.log(item);
     // console.log(spec);
     setShowSpec(false);
     setShowDoctor(true);

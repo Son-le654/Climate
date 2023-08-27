@@ -312,8 +312,7 @@ const CIContent = () => {
   const addSymtomItem = (item) => {
     // console.log(item);
     const newArr = [...symtomArr, item];
-    // console.log(newArr);
-    setSymtomArr(newArr);
+    setSymtomArr(pre => [...pre, item])
 
     // setShowSysptom(false);
     // setShowSpec(true)
@@ -337,9 +336,12 @@ const CIContent = () => {
 
     setShowPlace(false);
   };
+  function checkIdExists(idToCheck) {
+    return symtomArr.some(item => item.id === idToCheck);
+  }
 
   const changeSymtomList = (item) => {
-    if (symtomArr.includes(item)) {
+    if (checkIdExists(item.id)) {
       deleteSymtomItem(item);
     } else {
       addSymtomItem(item);

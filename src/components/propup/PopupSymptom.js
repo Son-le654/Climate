@@ -14,6 +14,11 @@ const PopupSymptom = ({
   nextSpec,
   symtomArr,
 }) => {
+
+  function checkIdExists(idToCheck) {
+    return symtomArr.some(item => item.id === idToCheck);
+  }
+
   return (
     <div className="p-[3.2rem_7.4rem] rounded-[1.6rem] bg-white">
       <div className="flex items-center justify-between w-full">
@@ -44,14 +49,16 @@ const PopupSymptom = ({
             placeholder="Search symptom"
             type="search"
           />
+         
           <div className="absolute top-2/4 left-[2.4rem] -translate-y-2/4">
             <IconSearch></IconSearch>
           </div>
+         
         </div>
         <div className="overflow-auto gap-[0.8rem] max-h-[40rem] mt-[2.4rem]">
           {listData?.length > 0 &&
             listData.map((item) => {
-              return symtomArr.includes(item) == true ? (
+              return checkIdExists(item.id) === true ? (
                 <div
                   onClick={() => changeSymtomList(item)}
                   key={item.id}
@@ -70,7 +77,8 @@ const PopupSymptom = ({
                   {item.name}
                 </div>
               );
-            })}
+              }
+            )}
         </div>
         {numberOfSym > 0 ? (
           <Button onClick={() => nextSpec()}>Next</Button>
