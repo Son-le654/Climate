@@ -421,7 +421,7 @@ function EditProfileContentForDoctor() {
     // @ts-ignore
     profileSave.gender = gender.gd;
     // @ts-ignore
-    let monthString = month.bM < 10 ? "0" + month.bM : month.bM.toString();
+    let monthString = month.bM < 10 ?  month.bM.toString().padStart(2, '0') : month.bM.toString();
     profileSave.birthdate = year.bY + "/" + monthString + "/" + date.bD;
     // @ts-ignore
     profileSave.phone = phonee.pnum;
