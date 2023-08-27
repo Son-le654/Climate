@@ -70,7 +70,6 @@ public class InternalController {
 
 	@Autowired
 	private InternalService doctorService;
-	
 
 	@PostMapping(value = "/login")
 	public ResponseEntity<?> DoLogin(@RequestBody LoginRequest loginRequest) {
@@ -116,10 +115,11 @@ public class InternalController {
 
 		return result;
 	}
+
 	@PostMapping(value = "/updateprofile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String update(@RequestParam("internal") String internalJson,
+	public String update(@RequestParam("internal") String internalJson,
 			@RequestParam(value = "fileData", required = false) MultipartFile fileData) {
-        // Convert thông tin bệnh nhân từ JSON thành đối tượng PatientDTO
+		// Convert thông tin bệnh nhân từ JSON thành đối tượng PatientDTO
 		CreateAccountDTO account = null;
 		try {
 			ObjectMapper objectMapper = new ObjectMapper();
@@ -129,9 +129,15 @@ public class InternalController {
 			return "Invalid JSON data for internal.";
 		}
 		String result = internalService.updateprofile(account, fileData);
+		if (result.equals("Update success")) {
 
-        return result;
-    }
+			final UserDetails userDetails = internalService.loadUserByUsername(account.getEmail());
+			final String token = jwtTokenUtil.generateToken(userDetails);
+			return token;
+		}
+		return result;
+	}
+
 	@PostMapping(value = "/updateinter", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public String editInter(@RequestParam("internal") String internalJson) {
 		CreateAccountDTO account = null;
@@ -146,7 +152,7 @@ public class InternalController {
 
 		return result;
 	}
-	
+
 	@PutMapping("/update")
 	public String update(@RequestBody InternalAccount account) {
 		System.out.println("enter save: " + account.toString());
@@ -281,6 +287,7 @@ public class InternalController {
 		return checkinDataList;
 
 	}
+
 	@GetMapping("/countByDoctorOfApointment")
 	public List<CheckinDataDtoSpeAndDocTor> countByDoctorOfApointment() {
 		List<Object[]> countCheckinsByDoctor = checkinService.countCheckinsByDoctorAndSpecial();
@@ -290,7 +297,7 @@ public class InternalController {
 		for (Object[] objArray : countCheckinsByDoctor) {
 			CheckinDataDtoSpeAndDocTor checkinData = new CheckinDataDtoSpeAndDocTor();
 			String doctorIdStr = (String) objArray[0];
-			String special =(String) objArray[2];
+			String special = (String) objArray[2];
 			// Parse the doctorId as an Integer
 			Integer doctorId = Integer.parseInt(doctorIdStr);
 			String doctorName = internalService.findByIdUsingName(doctorId);

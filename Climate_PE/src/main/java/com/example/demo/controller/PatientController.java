@@ -149,6 +149,13 @@ public class PatientController {
 		// Tiến hành xử lý thông tin bệnh nhân và fileData
 		String result = service.updateprofile(patientDTO, fileData);
 
+		if (result.equals("Update success")) {
+
+			final UserDetails userDetails = service.loadUserByUsername(patientDTO.getEmail());
+			final String token = jwtTokenUtil.generateToken(userDetails);
+			return ResponseEntity.ok(token);
+		}
+
 		return ResponseEntity.ok(result);
 	}
 
