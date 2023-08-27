@@ -591,7 +591,11 @@ const BAContent = () => {
     }
 
     if (currentDate > value) {
-      alert("book date must be later than today");
+      alert("Book date must be later than today");
+      return;
+    }
+    if( description.ds.length > 255 ){
+    alert("Description length exceeds 255 characters.");
       return;
     }
     console.log(registersUpdate);
