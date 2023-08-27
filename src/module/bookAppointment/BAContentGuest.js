@@ -282,7 +282,7 @@ const BAContentGuest = () => {
   //////////////////////////////////// symtom
   const addSymtomItem = (item) => {
     const newArr = [...symtomArr, item];
-    setSymtomArr(newArr);
+    setSymtomArr(pre => [...pre, item])
   };
 
   const nextSpec = () => {
