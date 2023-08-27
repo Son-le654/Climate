@@ -111,7 +111,6 @@ function AppointmentsContent({ role, mail }) {
               return examDateA - examDateB;
             }
           });
-
           setListOrigin(sortedData);
           setListData(sortedData);
         }

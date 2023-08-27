@@ -12,12 +12,11 @@ const CreatePortalDoctor = ({
   spec,
   doctor,
   place,
-  checkinDoctor,
+  checkindoc,
 }) => {
   const [doctorList, setDoctorList] = useState([]);
   const [listOrigin, setListOrigin] = useState([]);
   const [doctorListSearch, setDoctorListSearch] = useState();
-
   useEffect(() => {
     const doctos = async () => {
       try {
@@ -34,18 +33,21 @@ const CreatePortalDoctor = ({
   }, [place]);
 
   useEffect(() => {
-    if (checkinDoctor != undefined) {
+    // console.log(checkindoc);
+    // console.log(doctor);
+    if (checkindoc != undefined) {
       const places = async () => {
         const response = await axios.get(publicPort + `api/doctors`);
+        // console.log(response.data);
         const findItemByName = (name) => {
-          return response.data.find((item) => item.id == name);
+          return response.data.find((item) => item.name == name);
         };
-        const selectedItem = findItemByName(checkinDoctor);
+        const selectedItem = findItemByName(checkindoc);
         changeDoctorList(selectedItem);
       };
       places();
     }
-  }, [checkinDoctor]);
+  }, [checkindoc]);
 
   useEffect(() => {
     setDoctorList([]);

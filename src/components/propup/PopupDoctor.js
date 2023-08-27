@@ -12,7 +12,6 @@ import {
 import { storage } from "../url/firebase";
 import { v4 } from "uuid";
 
-
 const PopupDoctor = ({
   header,
   describe,
@@ -24,14 +23,20 @@ const PopupDoctor = ({
 }) => {
   const [avatarUrl, setAvatarUrl] = useState(null);
 
+  // console.log(doctor);
+  function checkIdExists(idToCheck) {
+    return doctor?.id === idToCheck;
+  }
+  console.log(doctor);
+
   // Hàm lấy URL của avatar
   const getAvatarUrl = async (imageName) => {
     try {
       const storageRef = ref(storage, `${imageName}`); // No need to concatenate the image name with v4() here
-    const url = await getDownloadURL(storageRef);
-    return url;
+      const url = await getDownloadURL(storageRef);
+      return url;
     } catch (error) {
-      console.error('Error getting avatar URL: ', error);
+      console.error("Error getting avatar URL: ", error);
       return null;
     }
   };
@@ -75,13 +80,13 @@ const PopupDoctor = ({
         <div className="overflow-auto gap-[0.8rem] max-h-[40rem] mt-[2.4rem]">
           {listData.length > 0 &&
             listData.map((item) => {
-              return doctor === item ? (
+              return checkIdExists(item.id) === true? (
                 <div
-                key={item.id}
-                className="shadow-md text-success justify-between flex items-center font-semibold text-[2rem] p-[2.7rem_4.7rem] rounded-[1.6rem] cursor-pointer"
-                style={{ border: "1px solid green", marginBottom: "1rem" }}
-              >               
-                    <div className="flex items-center gap-[3.2rem]">
+                  key={item.id}
+                  className="shadow-md text-success justify-between flex items-center font-semibold text-[2rem] p-[2.7rem_4.7rem] rounded-[1.6rem] cursor-pointer"
+                  style={{ border: "1px solid green", marginBottom: "1rem" }}
+                >
+                  <div className="flex items-center gap-[3.2rem]">
                     <div className="w-[5.7rem] h-[5.7rem] overflow-hidden rounded-full">
                       <img src={avatarUrls[item?.id]} alt="" />
                     </div>
@@ -100,7 +105,7 @@ const PopupDoctor = ({
                 >
                   <div className="flex items-center gap-[3.2rem]">
                     <div className="w-[5.7rem] h-[5.7rem] overflow-hidden rounded-full">
-                      <img src={avatarUrls[item?.id]}  alt="" />
+                      <img src={avatarUrls[item?.id]} alt="" />
                     </div>
                     <span className="font-semibold text-[2rem]">
                       {item.name}
