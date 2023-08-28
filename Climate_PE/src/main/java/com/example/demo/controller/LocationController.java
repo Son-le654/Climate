@@ -32,20 +32,25 @@ public class LocationController {
 	@Autowired
 	private LocationRepository repository;
 	@PostMapping("/save")
+	@CacheEvict(value = {"location","locationAdmin"}, allEntries = true)
 	public String save(@RequestBody Location location) {
 		service.save(location);
 		return "success";
 	}
+	
 	@GetMapping("/list")
+	@Cacheable("location")
 	public List<Location> getAll() {
 		return service.findAll();
 	}
 	@GetMapping("/listadmin")
+	@Cacheable("locationAdmin")
 	public List<Location> getAllForAdmin() {
 		return service.findAllForAdmin();
 	}
 
 	@GetMapping("/{id}")
+	@CacheEvict(value = {"location","locationAdmin"}, allEntries = true)
 	public ResponseEntity<Location> getAppointmentById(@PathVariable(value = "id") Integer id) {
 		Optional<Location> location = service.findById(id);
 		if (location.isPresent()) {
@@ -56,6 +61,7 @@ public class LocationController {
 	}
 
 	@GetMapping("/block")
+	@CacheEvict(value = {"location","locationAdmin"}, allEntries = true)
 	public String blockLocation(@RequestParam(value = "id") String id) {
 		System.out.println(id);
 		Location acc = null;
