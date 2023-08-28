@@ -57,7 +57,7 @@ public class CheckinService {
 			if (p == null || app == null) {
 				return "Patient or Appointment is not available in system";
 			}
-			if (!checkinDTO.getDescription().isEmpty()) {
+			if (checkinDTO.getDescription() != null) {
 				if (checkinDTO.getDescription().length() >= 255) {
 					return "Description length exceeds 255 characters.";
 				}
