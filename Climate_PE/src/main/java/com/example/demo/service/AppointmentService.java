@@ -84,11 +84,11 @@ public class AppointmentService {
 		if (s != null) {
 			return "This doctor is busy at this time.";
 		}
-		if(appointmentDTO.getDescription().length() >= 255 && !appointmentDTO.getDescription().isEmpty())
-		{
-			return "Description length exceeds 255 characters.";
+		if (!appointmentDTO.getDescription().isEmpty()) {
+			if (appointmentDTO.getDescription().length() >= 255) {
+				return "Description length exceeds 255 characters.";
+			}
 		}
-
 		app = new Appointment(appointmentDTO.getDoctorName(), appointmentDTO.getBookDate(),
 				appointmentDTO.getBookTime(), appointmentDTO.getDescription(), appointmentDTO.getSpec(),
 				appointmentDTO.getSymtom(), appointmentDTO.getName(), appointmentDTO.getBirthday(),
