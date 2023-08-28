@@ -82,7 +82,11 @@ public class AppointmentService {
 				appointmentDTO.getBookTime());
 		System.out.println(s);
 		if (s != null) {
-			return "This doctor is busy at this time";
+			return "This doctor is busy at this time.";
+		}
+		if(appointmentDTO.getDescription().length() >= 255)
+		{
+			return "Description length exceeds 255 characters.";
 		}
 
 		app = new Appointment(appointmentDTO.getDoctorName(), appointmentDTO.getBookDate(),
@@ -120,12 +124,14 @@ public class AppointmentService {
 		if (s != null) {
 			return null;
 		}
-
+		if(appointmentDTO.getDescription().length() <= 255)
+		{
 		app = new Appointment(p, appointmentDTO.getDoctorName(), appointmentDTO.getBookDate(),
 				appointmentDTO.getBookTime(), appointmentDTO.getDescription(), appointmentDTO.getSpec(),
 				appointmentDTO.getSymtom(), appointmentDTO.getName(), appointmentDTO.getBirthday(),
 				appointmentDTO.getGender(), appointmentDTO.getPhone(), appointmentDTO.getBookPlace());
 		repository.save(app);
+		}
 		return app;
 
 	}
