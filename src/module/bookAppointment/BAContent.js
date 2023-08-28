@@ -471,6 +471,42 @@ const BAContent = () => {
     // console.log(h);
     setHour(h);
   };
+  const [appointmentQueue, setAppointmentQueue] = useState([]);
+  // ... rest of your component code
+
+  const addToQueue = (appointmentInfo) => {
+    setAppointmentQueue([...appointmentQueue, appointmentInfo]);
+  };
+
+  useEffect(() => {
+    if (appointmentQueue.length >= 2) {
+      // Sort the queue based on some criteria (e.g., booking time)
+      const sortedQueue = [...appointmentQueue].sort((a, b) => {
+        // Compare booking time, you might need to parse it into Date objects first
+        // Return a negative value if a should be before b, positive if b should be before a
+        // Return 0 if they are equal in terms of booking time
+      });
+
+      // Process the first appointment in the sorted queue
+      const nextAppointment = sortedQueue[0];
+      console.log('Booking next appointment:', nextAppointment);
+
+      // Remove the processed appointment from the queue
+      setAppointmentQueue(sortedQueue.slice(1));
+    }
+  }, [appointmentQueue]);
+
+  const clearAppointmentQueue = () => {
+    setAppointmentQueue([]);
+  };
+  const handleAppointment = (appointmentInfo) => {
+    // ... your existing code to add the appointment to the queue
+
+    // Set a timeout to clear the appointment queue after 15 minutes
+    setTimeout(() => {
+      clearAppointmentQueue();
+    }, 15 * 60 * 1000); // 15 minutes in milliseconds
+  };
 
   const bookAppointment = async () => {
     console.log(fullName.fname);
@@ -528,6 +564,26 @@ const BAContent = () => {
 
     const currentDate = new Date();
     // console.log(registers);
+    const appointmentInfo = {
+      bookDate: registers.bookDate,
+      bookTime: registers.bookTime,
+      doctorName: registers.doctorName,
+    };
+
+    // Check if the appointment time is already in the queue
+    const isTimeConflict = appointmentQueue.some(
+      (queuedAppointment) =>
+        queuedAppointment.bookDate === appointmentInfo.bookDate &&
+        queuedAppointment.bookTime === appointmentInfo.bookTime
+    );
+
+    if (isTimeConflict) {
+      alert('This time slot is already booked. Please choose another time.');
+      return;
+    }
+
+    // Add the appointment to the queue
+    addToQueue(appointmentInfo);
 
     const bdatee = new Date(registers.birthday);
     if (bdatee > currentDate) {
@@ -541,6 +597,7 @@ const BAContent = () => {
     }
     // console.log(registers);
     navigate("/appointmentConfirmation", { state: { registers } });
+    clearAppointmentQueue();
   };
   const UpdateAppointment = async () => {
     registersUpdate.idA = idApp.idA;
@@ -601,8 +658,8 @@ const BAContent = () => {
       alert("Book date must be later than today");
       return;
     }
-    if( description.ds.length > 255 ){
-    alert("Description length exceeds 255 characters.");
+    if (description.ds.length > 255) {
+      alert("Description length exceeds 255 characters.");
       return;
     }
     console.log(registersUpdate);
@@ -884,7 +941,7 @@ const BAContent = () => {
               {hoursList.length > 0 &&
                 hoursList.map((item) =>
                   scheOfDoc != undefined &&
-                  scheOfDoc.includes(item.from + " - " + item.to) ? (
+                    scheOfDoc.includes(item.from + " - " + item.to) ? (
                     <div
                       style={{ width: "22rem", color: "red" }}
                       className={`p-[1.4rem_1.6rem] cursor-pointer border rounded-[0.8rem] border-textColor2 
@@ -898,10 +955,9 @@ const BAContent = () => {
                       onClick={() => addHour(item)}
                       style={{ width: "22rem" }}
                       className={`p-[1.4rem_1.6rem] cursor-pointer border rounded-[0.8rem] border-textColor2 
-                        ${
-                          hour.includes(item.from + " - " + item.to)
-                            ? "bg-gradient-to-tr from-gradientLeft to-gradientRight text-white"
-                            : ""
+                        ${hour.includes(item.from + " - " + item.to)
+                          ? "bg-gradient-to-tr from-gradientLeft to-gradientRight text-white"
+                          : ""
                         }`}
                       key={item.id}
                     >
