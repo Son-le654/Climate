@@ -48,6 +48,18 @@ function CheckinConfirmationContent({ checkin }) {
       console.log(error);
     }
   }, []);
+  const [docName, setDocName] = useState();
+  useEffect(() => {
+    const confirm = async () => {
+      // console.log(checkin);
+     
+       const response = await axios.get(publicPort + `api/${checkin?.doctorId}`);
+      
+      // console.log(response);
+     setDocName(response.data.name)
+    };
+    confirm()
+  }, [checkin]);
   // console.log(checkin);
   const confirm = async () => {
     // console.log(checkin);
@@ -145,7 +157,7 @@ function CheckinConfirmationContent({ checkin }) {
                 <div className="pt-6 flex">
                   <span className="w-[35%]">Doctor</span>
                   <span className="w-[65%]">
-                    {checkin != undefined ? checkin.doctorName : ""}
+                    {checkin != undefined ? docName : ""}
                   </span>
                 </div>
                 <div className="pt-3 flex">

@@ -326,6 +326,13 @@ const CIContent = () => {
   };
 
   useEffect(() => {
+    if (showSysptom == true) {
+      setDoctor();
+      setSpec();
+    }
+  }, [showSysptom]);
+
+  useEffect(() => {
     if (showSpec == true) {
       setDoctor();
       setSpec();
@@ -460,7 +467,7 @@ const CIContent = () => {
       alert("Birthdate is not valid");
       return;
     }
-    // console.log(registers);
+    console.log(registers);
     navigate("/checkinConfirmation", { state: { registers } });
   };
 
