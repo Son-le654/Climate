@@ -282,9 +282,16 @@ const BAContentGuest = () => {
   //////////////////////////////////// symtom
   const addSymtomItem = (item) => {
     const newArr = [...symtomArr, item];
-    setSymtomArr(pre => [...pre, item])
+    setSymtomArr((pre) => [...pre, item]);
   };
 
+  useEffect(() => {
+    if (showSysptom == true) {
+      setDoctor();
+      setSpec();
+    }
+  }, [showSysptom]);
+  
   const nextSpec = () => {
     setShowSysptom(false);
     setShowSpec(true);

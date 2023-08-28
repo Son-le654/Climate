@@ -27,7 +27,7 @@ const PopupDoctor = ({
   function checkIdExists(idToCheck) {
     return doctor?.id === idToCheck;
   }
-  console.log(doctor);
+  // console.log(doctor);
 
   // Hàm lấy URL của avatar
   const getAvatarUrl = async (imageName) => {

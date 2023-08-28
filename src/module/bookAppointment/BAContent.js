@@ -348,6 +348,13 @@ const BAContent = () => {
     }
   }, [place]);
 
+  useEffect(() => {
+    if (showSysptom == true) {
+      setDoctor();
+      setSpec();
+    }
+  }, [showSysptom]);
+
   const addPlaceItem = (item) => {
     setPlace(item);
 
