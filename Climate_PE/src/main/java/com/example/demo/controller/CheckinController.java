@@ -72,7 +72,7 @@ public class CheckinController {
 	public List<Checkin> getByDoctorId(@RequestParam("doctorId") String doctorId) {
 		return checkinService.findByDoctorId(doctorId);
 	}
-
+	//assss
 	@GetMapping("/listiancomebydoctorid")
 	public List<Checkin> getIncomeByDoctorId(@RequestParam("doctorId") String doctorId) {
 		return checkinService.findIncomeByDoctorId(doctorId);
